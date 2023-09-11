@@ -1,5 +1,2 @@
-# Frontend Masters Intro to Gatsby with Jason Lengstorf
+# SDG AI WEBSITE
 
-This is the project we'll build together to introduce you to Gatsby!
-
-See the [workshop site](https://frontendmasters.learnwithjason.dev/intro-to-gatsby/) for more details.
