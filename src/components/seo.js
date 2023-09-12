@@ -26,6 +26,11 @@ export const Seo = (props) => {
   return (
     <Helmet>
       <title>{title}</title>
+      <meta charset="utf-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      />
       <meta name="description" constent={description} />
       <link rel="canonical" href={url} />
       {image && <meta name="image" content={image} />}
@@ -40,6 +45,19 @@ export const Seo = (props) => {
       <meta property="twitter:title" content={title} />
       <meta property="twitter:description" content={description} />
       {image && <meta name="twitter:image" content={image} />}
+
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.2.0/aos.css"
+      />
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css"
+      />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i"
+      />
     </Helmet>
   );
 };

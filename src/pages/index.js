@@ -5,7 +5,7 @@ import { Layout } from '../components/layout';
 const IndexPage = () => {
   return (
     <Layout>
-      <h3>Hello from Jackson John</h3>
+      <h3>SDG AI LAB site</h3>
       <Link to="about"> About this site</Link>
     </Layout>
   );
