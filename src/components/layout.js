@@ -28,55 +28,71 @@ export const Layout = ({
     <>
       <Seo title={title} path={path} image={image} description={description} />
       <header className={header}>
-        <Link to="/"> {meta.title} </Link>
-        <nav>
-          <Link to="/"> Home </Link>
-          <Link to="about"> About </Link>
+        <nav
+          className="navbar navbar-light navbar-expand-xl bg-white clean-navbar"
+          style={{ fontFamily: 'Open Sans, sans-serif' }}
+        >
+          <div className="container">
+            <Link
+              to="/"
+              className="navbar-brand logo"
+              style={{ fontFamily: 'Open Sans, sans-serif' }}
+            >
+              <img
+                src="/static/fc3ebe71e992cf8c8766824697f7f454/Webp.net-resizeimage.jpg"
+                style={{ marginRight: '20px' }}
+              />
+              {meta.title}
+            </Link>
+            <button
+              data-bs-toggle="collapse"
+              className="navbar-toggler"
+              data-bs-target="#navcol-1"
+            >
+              <span className="visually-hidden">Toggle navigation</span>
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navcol-1">
+              <ul className="navbar-nav ms-auto">
+                <li className="nav-item">
+                  <Link to="/" className="nav-link active">
+                    Home
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link to="about" class="nav-link">
+                    About Us
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="advisory-board.html">
+                    Advisory board
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="active-projects.html">
+                    projects
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="newsroom.html">
+                    Newsroom
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="contact-us.html">
+                    Contact Us
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </nav>
       </header>
-      <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
-        <div class="container">
-          <a class="navbar-brand logo" href="#">
-            <strong>SDG AI Lab&nbsp;</strong>
-            <small>&nbsp; UNDP IICPSD Initiative</small>
-            <strong>&nbsp;</strong>
-          </a>
-          <button
-            data-toggle="collapse"
-            class="navbar-toggler"
-            data-target="#navcol-1"
-          >
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navcol-1">
-            <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link active" href="index.html">
-                  Home
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="project.html">
-                  project
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="latest-articles.html">
-                  Latest article
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact-us.html">
-                  Contact Us
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
 
-      <main className={content}>{children}</main>
+      <div style={{ backgroundColor: 'aliceblue' }}>
+        <main className={content}>{children}</main>
+      </div>
     </>
   );
 };
