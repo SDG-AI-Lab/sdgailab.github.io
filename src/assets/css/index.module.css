@@ -1,0 +1,23 @@
+.hero {
+  margin: 0 auto;
+  color: white;
+}
+
+.hero h2 {
+  max-width: 450px;
+  color: white;
+  margin: 50px auto;
+}
+
+.hero p {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.container {
+  height: 850px;
+  width: 100vw;
+  background-color: #293579;
+  display: flex;
+  align-items: center;
+}

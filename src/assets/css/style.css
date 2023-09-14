@@ -1,0 +1,23 @@
+/* ---- base ---- */
+
+/* ---- stats.js ---- */
+
+/* ---- particles.js container ---- */
+
+.particles-js-canvas-el {
+  /* z-index: -1; */
+}
+
+#particles-js {
+  /* height: 100%;
+  width: 100%; */
+  /*background-repeat: no-repeat;*/
+  /*background-position: center;*/
+  /*overflow: hidden;*/
+  /* position: relative;
+  background-color: #293579; */
+  /* background-image: url(style.css); */
+  /*background-position: 50% 50%;*/
+  /* z-index: -999; */
+}
+

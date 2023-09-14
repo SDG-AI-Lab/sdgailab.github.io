@@ -4,6 +4,8 @@ import { Seo } from './seo';
 import { Link } from 'gatsby';
 import { header, content } from '../styles/layout.module.css';
 import '../styles/global.css';
+import '../assets/css/smoothproducts.css';
+import '../assets/css/style.css';
 
 export const Layout = ({
   children,
@@ -90,9 +92,7 @@ export const Layout = ({
         </nav>
       </header>
 
-      <div style={{ backgroundColor: 'aliceblue' }}>
-        <main className={content}>{children}</main>
-      </div>
+      <main className={content}>{children}</main>
     </>
   );
 };

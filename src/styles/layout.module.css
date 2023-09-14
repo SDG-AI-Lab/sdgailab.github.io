@@ -1,16 +1,5 @@
-.header {
-  /* background: var(--black);
-  color: var(--white);
-  display: flex;
-  justify-content: space-between; */
+.header nav {
   padding: 20px;
-}
-
-.header a {
-  /* color: inherit;
-  display: inline-block;
-  padding: 0.5rem;
-  text-decoration: none; */
 }
 
 .header a:focus,
@@ -21,5 +10,5 @@
 
 .content {
   margin: 0 auto;
-  max-width: 54ch;
+  /* max-width: 54ch; */
 }
