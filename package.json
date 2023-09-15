@@ -12,7 +12,8 @@
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "build:digitalocean": "npm run build && npm ci --force"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
