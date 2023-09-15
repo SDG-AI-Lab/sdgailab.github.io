@@ -162,7 +162,7 @@ const IndexPage = () => {
       </section>
       <section
         className="clean-block clean-info dark"
-        style={{ padding: '80px' }}
+        style={{ padding: '80px 80px 0' }}
       >
         <div className="container">
           <div className="block-heading">
@@ -228,10 +228,10 @@ const IndexPage = () => {
           </div>
         </div>
       </section>
-      <Link to="about" style={{ display: 'block', marginTop: '500px' }}>
+      {/* <Link to="about" style={{ display: 'block', marginTop: '500px' }}>
         {' '}
         About this site
-      </Link>
+      </Link> */}
     </Layout>
   );
 };

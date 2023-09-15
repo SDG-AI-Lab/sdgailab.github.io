@@ -61,8 +61,8 @@ export const Layout = ({
                     Home
                   </Link>
                 </li>
-                <li class="nav-item">
-                  <Link to="about" class="nav-link">
+                <li className="nav-item">
+                  <Link to="about" className="nav-link">
                     About Us
                   </Link>
                 </li>
@@ -93,6 +93,43 @@ export const Layout = ({
       </header>
 
       <main className={content}>{children}</main>
+
+      <footer
+        className="page-footer dark"
+        style={{ padding: '80px', textAlign: 'center' }}
+      >
+        <div className="footer-copyright">
+          <div className="social-links">
+            <a
+              href="https://twitter.com/sdgailab?ref_src=twsrc%5Etfw"
+              className="twitter-follow-button"
+              data-show-count="false"
+            >
+              Follow @sdgailab
+            </a>
+            <script
+              async
+              src="https://platform.twitter.com/widgets.js"
+              charset="utf-8"
+            ></script>
+            {/* <!-- Place this tag where you want the button to render. --> */}
+            <a
+              className="github-button"
+              href="https://github.com/SDG-AI-Lab"
+              aria-label="Follow @SDG-AI-Lab on GitHub"
+            >
+              Follow @SDG-AI-Lab
+            </a>
+          </div>
+          {/* <!-- Place this tag in your head or just before your close body tag. --> */}
+          <script
+            // async
+            // defer
+            src="https://buttons.github.io/buttons.js"
+          ></script>
+          <p>© 2023 SDG AI Lab</p>
+        </div>
+      </footer>
     </>
   );
 };

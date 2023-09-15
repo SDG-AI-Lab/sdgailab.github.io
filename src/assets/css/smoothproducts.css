@@ -184,6 +184,13 @@ html, body {
   margin: 80px 0;
 }
 
+.social-links {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
 .clean-block.add-on.sponsors a img {
   -webkit-filter: grayscale(0);
   filter: grayscale(0);
