@@ -15,9 +15,13 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@popperjs/core": "^2.6.0",
     "bootstrap": "^5.0.0-beta1",
     "gatsby": "^3.11.1",
+    "gatsby-plugin-fontawesome-css": "^1.2.0",
     "gatsby-plugin-image": "^1.11.0",
     "gatsby-plugin-react-helmet": "^4.11.0",
     "react": "^17.0.2",

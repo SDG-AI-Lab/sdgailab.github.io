@@ -2,6 +2,12 @@ import * as React from 'react';
 import { Link } from 'gatsby';
 import { Layout } from '../components/layout';
 import { hero, container } from '../assets/css/index.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faCoffee,
+  faArrowRight,
+  faCaretRight,
+} from '@fortawesome/free-solid-svg-icons';
 
 const IndexPage = () => {
   return (
@@ -27,7 +33,47 @@ const IndexPage = () => {
           </p>
         </div>
       </div>
-      <Link to="about"> About this site</Link>
+      <section
+        className="clean-block clean-info dark"
+        style={{ padding: '30px' }}
+      >
+        <div className="container">
+          <div className="block-heading">
+            <h2 style={{ textAlign: 'center', color: '#3b99e0' }}>
+              Our Approach
+            </h2>
+            <p>
+              One-stop solution with agile, gig approach to AI research in
+              Sustainable Development
+              <br />
+              <br />
+              <FontAwesomeIcon icon={faCaretRight} size="1x" />
+              &nbsp; Research formulation, solution architecture, andIdentifying
+              the right talents for each specific tasks
+              <br />
+              <FontAwesomeIcon icon={faCaretRight} size="1x" />
+              &nbsp; Recruitment and coordination of highly-skilled volunteers
+              <br />
+              <FontAwesomeIcon icon={faCaretRight} size="1x" />
+              &nbsp; Establishing teams and coordinating the workflow and
+              experimentation
+              <br />
+              <FontAwesomeIcon icon={faCaretRight} size="1x" />
+              &nbsp; Monitor the R&amp;D progress to achieve the high standard
+              quality of work
+              <br />
+              <FontAwesomeIcon icon={faCaretRight} size="1x" />
+              &nbsp; Deliver results in the formats of prototypes, architecture,
+              reports, presentations
+              <br />
+            </p>
+          </div>
+        </div>
+      </section>
+      <Link to="about" style={{ display: 'block', marginTop: '500px' }}>
+        {' '}
+        About this site
+      </Link>
     </Layout>
   );
 };
