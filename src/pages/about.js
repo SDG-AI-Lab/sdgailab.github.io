@@ -1,20 +1,19 @@
 import React from 'react';
-import { Link } from 'gatsby';
 import { Layout } from '../components/layout';
 
 const AboutPage = () => (
-  <Layout title="About this page" description="More Info about this site">
+  <Layout title="About Us - SDG AI Lab">
     <section
       className="clean-block clean-services dark"
       style={{ color: 'var(--bs-dark)' }}
     >
       <div className="container" style={{ color: 'var(--bs-dark)' }}>
-        <div className="block-heading" style={{ color: 'var(--gray-dark);' }}>
+        <div
+          className="block-heading"
+          style={{ color: 'var(--gray-dark)', padding: '50px' }}
+        >
           <h2 style={{ textAlign: 'center' }}>
-            <strong>
-              <br />
-              About Us
-            </strong>
+            <strong>About Us</strong>
           </h2>
           <p
             style={{
@@ -45,7 +44,6 @@ const AboutPage = () => (
             transformation.&nbsp;These&nbsp;capacities&nbsp;will be
             essential&nbsp;in partnering with&nbsp;global tech leaders for
             advanced solutions.&nbsp;
-            <br />
           </p>
         </div>
       </div>
