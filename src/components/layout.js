@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
+import { useLocation } from '@reach/router';
 import { Seo } from './seo';
 import { Link } from 'gatsby';
 import { header, content } from '../styles/layout.module.css';
@@ -24,6 +25,8 @@ export const Layout = ({
     }
   `);
 
+  const { pathname } = useLocation();
+
   const meta = data?.site?.siteMetadata ?? {};
 
   return (
@@ -32,7 +35,10 @@ export const Layout = ({
       <header className={header}>
         <nav
           className="navbar navbar-light navbar-expand-xl bg-white clean-navbar"
-          style={{ fontFamily: 'Open Sans, sans-serif' }}
+          style={{
+            fontFamily: 'Open Sans, sans-serif',
+            textTransform: 'capitalize',
+          }}
         >
           <div className="container">
             <Link
@@ -57,19 +63,32 @@ export const Layout = ({
             <div className="collapse navbar-collapse" id="navcol-1">
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
-                  <Link to="/" className="nav-link active">
+                  <Link
+                    to="/"
+                    className={`nav-link ${pathname === '/' ? 'active' : ''}`}
+                  >
                     Home
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/about" className="nav-link">
+                  <Link
+                    to="/about"
+                    className={`nav-link ${
+                      pathname.includes('/about') ? 'active' : ''
+                    }`}
+                  >
                     About Us
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="advisory-board.html">
+                  <Link
+                    to="/advisory-board"
+                    className={`nav-link ${
+                      pathname.includes('/advisory-board') ? 'active' : ''
+                    }`}
+                  >
                     Advisory board
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="active-projects.html">
