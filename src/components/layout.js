@@ -48,6 +48,7 @@ export const Layout = ({
               target="_blank"
               className="navbar-brand logo"
               style={{ fontFamily: 'Open Sans, sans-serif' }}
+              title="United Nations Development Programme"
             >
               <StaticImage
                 src="../assets/images/logos/undp-whit.svg"
@@ -60,6 +61,7 @@ export const Layout = ({
               target="_blank"
               className="navbar-brand logo"
               style={{ fontFamily: 'Open Sans, sans-serif' }}
+              title="Istanbul International Centre for Private Sector in Development"
             >
               <StaticImage
                 src="../assets/images/logos/icpsd.jpeg"
@@ -71,6 +73,7 @@ export const Layout = ({
               to="/"
               className="navbar-brand logo"
               style={{ fontFamily: 'Open Sans, sans-serif' }}
+              title="Strategic Development Goals Artificial Intelligence Lab"
             >
               <StaticImage
                 src="../assets/images/Webp.net-resizeimage.png"
