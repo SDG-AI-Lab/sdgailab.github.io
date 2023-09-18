@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Link } from 'gatsby';
 import { Layout } from '../components/layout';
-import { hero, container, crosshair } from '../assets/css/index.module.css';
+import { StaticImage } from 'gatsby-plugin-image';
+import { hero, container, logos } from '../assets/css/index.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCaretRight,
@@ -16,10 +17,6 @@ const IndexPage = () => {
     <Layout>
       <div className={hero}>
         <div className={container}>
-          <div>
-            <img src="/static/51e94a73e7b664717bc78ab1a9cba548/Webp.net-resizeimage.png" />
-          </div>
-
           <h2>
             Harnessing the potential of Artificial Intelligence for Sustainable
             Development
@@ -37,7 +34,7 @@ const IndexPage = () => {
       </div>
       <section
         className="clean-block clean-info dark"
-        style={{ padding: '80px' }}
+        style={{ padding: '80px', backgroundColor: '#fff' }}
       >
         <div className="container">
           <div className="block-heading">
@@ -74,7 +71,7 @@ const IndexPage = () => {
       </section>
       <section
         className="clean-block clean-info dark"
-        style={{ padding: '80px', backgroundColor: '#fff' }}
+        style={{ padding: '80px' }}
       >
         <div className="container">
           <div className="block-heading">
@@ -91,7 +88,14 @@ const IndexPage = () => {
               their relationship with UNDP units.
             </p>
           </div>
-          <div className="row justify-content-center">
+          <div
+            className="row"
+            style={{
+              maxWidth: '920px',
+              justifyContent: 'space-between',
+              margin: '20px auto',
+            }}
+          >
             <div
               className="col-md-5 feature-box"
               style={{ display: 'flex', gap: '20px' }}
@@ -162,9 +166,9 @@ const IndexPage = () => {
       </section>
       <section
         className="clean-block clean-info dark"
-        style={{ padding: '80px 80px 0' }}
+        style={{ padding: '80px 80px 0', backgroundColor: '#fff' }}
       >
-        <div className="container">
+        <div className={`container ${logos}`}>
           <div className="block-heading">
             <h2 style={{ textAlign: 'center', color: '#3b99e0' }}>
               Our Supporters and Partners
@@ -172,34 +176,64 @@ const IndexPage = () => {
           </div>
           <div className="clean-block add-on sponsors">
             <a href="https://www.thegef.org/">
-              <img src="/static/ba8efbe428ae1f34ada07cbe331ef725/Picture1.png" />
+              <StaticImage
+                src="../assets/images/logos/Picture1.png"
+                placeholder="dominantColor"
+              />
             </a>
             <a href="https://www.theglobalfund.org/en/">
-              <img src="/static/e7eb5afbbf6a2cc6a284b34af052e20f/Picture2.png" />
+              <StaticImage
+                src="../assets/images/logos/Picture2.png"
+                placeholder="dominantColor"
+              />
             </a>
             <a href="https://www.undp.org/content/undp/en/home/2030-agenda-for-sustainable-development/planet.html">
-              <img src="/static/10cfba2b436fbec880be544ce9f69726/Picture3.png" />
+              <StaticImage
+                src="../assets/images/logos/Picture3.png"
+                placeholder="dominantColor"
+              />
             </a>
             <a href="https://www.greenclimate.fund/">
-              <img src="/static/7bde31100efa7c2d168a198ef769abb9/gcf-removebg-preview.png" />
+              <StaticImage
+                src="../assets/images/logos/gcf-removebg-preview.png"
+                placeholder="dominantColor"
+              />
             </a>
             <a href="https://www.connectingbusiness.org/home">
-              <img src="/static/0b6cbbb20efc9d76cc3e2d02e2d20462/Picture5.png" />
+              <StaticImage
+                src="../assets/images/logos/Picture5.png"
+                placeholder="dominantColor"
+              />
             </a>
             <a href="https://www.businesscalltoaction.org/">
-              <img src="/static/df78c943d89c661310ac82b84d1251d2/Picture6.png" />
+              <StaticImage
+                src="../assets/images/logos/Picture6.png"
+                placeholder="dominantColor"
+              />
             </a>
             <a href="https://www.unocha.org/">
-              <img src="/static/11994c67be73f9c98a1245da8024ef14/Picture7.png" />
+              <StaticImage
+                src="../assets/images/logos/Picture7.png"
+                placeholder="dominantColor"
+              />
             </a>
             <a href="https://www.ppmi.lt/">
-              <img src="/static/a9d7a6cb0ab779f17765ab7503568877/Picture8.png" />
+              <StaticImage
+                src="../assets/images/logos/Picture8.png"
+                placeholder="dominantColor"
+              />
             </a>
             <a href="https://www.unv.org/">
-              <img src="/static/ffae5359a9a6f22f667bf6140f050380/Picture10.png" />
+              <StaticImage
+                src="../assets/images/logos/Picture10.png"
+                placeholder="dominantColor"
+              />
             </a>
             <a href="https://www.iicpsd.undp.org/content/istanbul/en/home.html">
-              <img src="/static/01a167978fdbc24ae721094078e628dc/Picture11.png" />
+              <StaticImage
+                src="../assets/images/logos/Picture11.png"
+                placeholder="dominantColor"
+              />
             </a>
           </div>
           <p style={{ textAlign: 'center' }}>
@@ -208,17 +242,29 @@ const IndexPage = () => {
           </p>
           <div className="clean-block add-on sponsors">
             <a href="https://www.fmprc.gov.cn/mfa_eng/">
-              <img src="/static/f328cb5770745cbccafc48b765ea4f44/Picture12.png" />
+              <StaticImage
+                src="../assets/images/logos/Picture12.png"
+                placeholder="dominantColor"
+              />
             </a>
             <a href="https://www.fmprc.gov.cn/mfa_eng/"></a>
             <a href="https://www.gov.kz/memleket/entities/mfa?lang=en">
-              <img src="/static/7a831d48c4af1fad17744cb3cce19854/Picture13.png" />
+              <StaticImage
+                src="../assets/images/logos/Picture13.png"
+                placeholder="dominantColor"
+              />
             </a>
             <a href="http://www.mofa.go.kr/eng/index.do">
-              <img src="/static/a5002b9120c5921cb80d54e8e4e89822/Picture14.png" />
+              <StaticImage
+                src="../assets/images/logos/Picture14.png"
+                placeholder="dominantColor"
+              />
             </a>
             <a href="http://www.mfa.gov.tr/">
-              <img src="/static/40a744321e986b4c3863fbcbb7157bb4/Picture15.png" />
+              <StaticImage
+                src="../assets/images/logos/Picture15.png"
+                placeholder="dominantColor"
+              />
             </a>
           </div>
           <div className="row align-items-center">
@@ -228,10 +274,6 @@ const IndexPage = () => {
           </div>
         </div>
       </section>
-      {/* <Link to="about" style={{ display: 'block', marginTop: '500px' }}>
-        {' '}
-        About this site
-      </Link> */}
     </Layout>
   );
 };

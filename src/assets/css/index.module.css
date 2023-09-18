@@ -1,11 +1,11 @@
 .hero {
-  color: white;
-  margin: 0 auto;
+  /* color: white; */
+  margin: 50px auto;
 }
 
 .hero h2 {
-  color: white;
-  margin: 50px auto;
+  /* color: white; */
+  /* margin: 50px auto; */
   max-width: 450px;
 }
 
@@ -16,11 +16,16 @@
 
 .container {
   align-items: center;
-  background-color: #293579;
+  /* background-color: #293579; */
+  background-color: var(--gray-dark);
   display: flex;
   flex-direction: column;
-  height: 850px;
-  justify-content: center;
+  height: 250px;
+  /* justify-content: center; */
   text-align: center;
   width: 100vw;
+}
+
+.logos a {
+  max-width: 170px;
 }

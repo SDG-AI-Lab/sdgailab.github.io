@@ -180,8 +180,9 @@ html, body {
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
-  justify-content: center;
-  margin: 80px 0;
+  justify-content: space-between;
+  margin: 80px auto;
+  max-width: 920px;
 }
 
 .social-links {
@@ -195,6 +196,7 @@ html, body {
   -webkit-filter: grayscale(0);
   filter: grayscale(0);
   max-width: 170px;
+  object-fit: contain;
 }
 
 .clean-block .block-heading p {
@@ -207,7 +209,6 @@ html, body {
 img, svg {
   max-width: 100%;
   vertical-align: middle;
-  /*opacity: 0.90;*/
 }
 
 .page-footer.dark {
