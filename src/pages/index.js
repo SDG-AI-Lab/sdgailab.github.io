@@ -88,7 +88,14 @@ const IndexPage = () => {
               their relationship with UNDP units.
             </p>
           </div>
-          <div className="row justify-content-center">
+          <div
+            className="row"
+            style={{
+              maxWidth: '920px',
+              justifyContent: 'space-between',
+              margin: '20px auto',
+            }}
+          >
             <div
               className="col-md-5 feature-box"
               style={{ display: 'flex', gap: '20px' }}
