@@ -101,14 +101,24 @@ export const Layout = ({
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="newsroom.html">
+                  <Link
+                    to="/newsroom"
+                    className={`nav-link ${
+                      pathname.includes('/newsroom') ? 'active' : ''
+                    }`}
+                  >
                     Newsroom
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="contact-us.html">
+                  <Link
+                    to="/contact-us"
+                    className={`nav-link ${
+                      pathname.includes('/contact-us') ? 'active' : ''
+                    }`}
+                  >
                     Contact Us
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
