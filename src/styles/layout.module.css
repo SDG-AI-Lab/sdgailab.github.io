@@ -6,11 +6,16 @@
 
 .header nav {
   padding: 20px;
+  background-color: #1F5A95 !important;
+  color: var(--white);
+}
+
+.header a {
+  color: var(--white);
 }
 
 .header a:focus,
 .header a:hover {
-  background: var(--white);
   color: var(--black);
 }
 

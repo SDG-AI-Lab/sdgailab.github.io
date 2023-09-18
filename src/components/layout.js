@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
+import { StaticImage } from 'gatsby-plugin-image';
 import { useLocation } from '@reach/router';
 import { Seo } from './seo';
 import { Link } from 'gatsby';
@@ -34,23 +35,48 @@ export const Layout = ({
       <Seo title={title} path={path} image={image} description={description} />
       <header className={header}>
         <nav
-          className="navbar navbar-light navbar-expand-xl bg-white clean-navbar"
+          className="navbar navbar-light navbar-expand-xl clean-navbar"
           style={{
             fontFamily: 'Open Sans, sans-serif',
             textTransform: 'capitalize',
+            backgroundColor: '#1F5A95 !important',
           }}
         >
           <div className="container">
+            <Link
+              to="https://www.undp.org"
+              target="_blank"
+              className="navbar-brand logo"
+              style={{ fontFamily: 'Open Sans, sans-serif' }}
+            >
+              <StaticImage
+                src="../assets/images/logos/undp-whit.svg"
+                placeholder="dominantColor"
+                height={60}
+              />
+            </Link>
+            <Link
+              to="https://www.undp.org/policy-centre/istanbul"
+              target="_blank"
+              className="navbar-brand logo"
+              style={{ fontFamily: 'Open Sans, sans-serif' }}
+            >
+              <StaticImage
+                src="../assets/images/logos/icpsd.jpeg"
+                placeholder="dominantColor"
+                height={60}
+              />
+            </Link>
             <Link
               to="/"
               className="navbar-brand logo"
               style={{ fontFamily: 'Open Sans, sans-serif' }}
             >
-              <img
-                src="/static/fc3ebe71e992cf8c8766824697f7f454/Webp.net-resizeimage.jpg"
-                style={{ marginRight: '20px' }}
+              <StaticImage
+                src="../assets/images/Webp.net-resizeimage.png"
+                placeholder="dominantColor"
+                height={60}
               />
-              {meta.title}
             </Link>
             <button
               data-bs-toggle="collapse"
