@@ -241,29 +241,35 @@ const IndexPage = () => {
             volunteers for their support:
           </p>
           <div className="clean-block add-on sponsors">
-            <a href="https://www.fmprc.gov.cn/mfa_eng/">
+            <a href="https://www.fmprc.gov.cn/mfa_eng/" target="__blank">
               <StaticImage
                 src="../assets/images/logos/Picture12.png"
                 placeholder="dominantColor"
+                title="China"
               />
             </a>
-            <a href="https://www.fmprc.gov.cn/mfa_eng/"></a>
-            <a href="https://www.gov.kz/memleket/entities/mfa?lang=en">
+            <a
+              href="https://www.gov.kz/memleket/entities/mfa?lang=en"
+              target="__blank"
+            >
               <StaticImage
                 src="../assets/images/logos/Picture13.png"
                 placeholder="dominantColor"
+                title="Kazakhstan"
               />
             </a>
-            <a href="http://www.mofa.go.kr/eng/index.do">
+            <a href="http://www.mofa.go.kr/eng/index.do" target="__blank">
               <StaticImage
                 src="../assets/images/logos/Picture14.png"
                 placeholder="dominantColor"
+                title="South Korea"
               />
             </a>
-            <a href="http://www.mfa.gov.tr/">
+            <a href="http://www.mfa.gov.tr/" target="__blank">
               <StaticImage
                 src="../assets/images/logos/Picture15.png"
                 placeholder="dominantColor"
+                title="Türkiye"
               />
             </a>
           </div>
