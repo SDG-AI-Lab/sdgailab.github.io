@@ -245,6 +245,7 @@ const IndexPage = () => {
               <StaticImage
                 src="../assets/images/logos/Picture12.png"
                 placeholder="dominantColor"
+                title="China"
               />
             </a>
             <a href="https://www.fmprc.gov.cn/mfa_eng/"></a>
@@ -252,18 +253,21 @@ const IndexPage = () => {
               <StaticImage
                 src="../assets/images/logos/Picture13.png"
                 placeholder="dominantColor"
+                title="Kazakhstan"
               />
             </a>
             <a href="http://www.mofa.go.kr/eng/index.do">
               <StaticImage
                 src="../assets/images/logos/Picture14.png"
                 placeholder="dominantColor"
+                title="South Korea"
               />
             </a>
             <a href="http://www.mfa.gov.tr/">
               <StaticImage
                 src="../assets/images/logos/Picture15.png"
                 placeholder="dominantColor"
+                title="Türkiye"
               />
             </a>
           </div>
