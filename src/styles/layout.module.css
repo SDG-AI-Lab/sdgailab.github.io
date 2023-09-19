@@ -14,12 +14,10 @@
   color: var(--white);
 }
 
-.header a:focus,
-.header a:hover {
-  color: var(--black);
-}
-
 .content {
   margin: 0 auto;
   /* max-width: 54ch; */
+}
+.active {
+  border-bottom: 3px #fff solid;
 }

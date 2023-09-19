@@ -4,7 +4,7 @@ import { StaticImage } from 'gatsby-plugin-image';
 import { useLocation } from '@reach/router';
 import { Seo } from './seo';
 import { Link } from 'gatsby';
-import { header, content } from '../styles/layout.module.css';
+import { header, content, active } from '../styles/layout.module.css';
 import '../styles/global.css';
 import '../assets/css/smoothproducts.css';
 import '../assets/css/style.css';
@@ -94,7 +94,7 @@ export const Layout = ({
                 <li className="nav-item">
                   <Link
                     to="/"
-                    className={`nav-link ${pathname === '/' ? 'active' : ''}`}
+                    className={`nav-link ${pathname === '/' ? active : ''}`}
                   >
                     Home
                   </Link>
@@ -103,7 +103,7 @@ export const Layout = ({
                   <Link
                     to="/about"
                     className={`nav-link ${
-                      pathname.includes('/about') ? 'active' : ''
+                      pathname.includes('/about') ? active : ''
                     }`}
                   >
                     About Us
@@ -113,7 +113,7 @@ export const Layout = ({
                   <Link
                     to="/advisory-board"
                     className={`nav-link ${
-                      pathname.includes('/advisory-board') ? 'active' : ''
+                      pathname.includes('/advisory-board') ? active : ''
                     }`}
                   >
                     Advisory board
@@ -123,7 +123,7 @@ export const Layout = ({
                   <Link
                     to="/projects"
                     className={`nav-link ${
-                      pathname.includes('/projects') ? 'active' : ''
+                      pathname.includes('/projects') ? active : ''
                     }`}
                   >
                     Projects
@@ -133,7 +133,7 @@ export const Layout = ({
                   <Link
                     to="/newsroom"
                     className={`nav-link ${
-                      pathname.includes('/newsroom') ? 'active' : ''
+                      pathname.includes('/newsroom') ? active : ''
                     }`}
                   >
                     Newsroom
@@ -143,7 +143,7 @@ export const Layout = ({
                   <Link
                     to="/contact-us"
                     className={`nav-link ${
-                      pathname.includes('/contact-us') ? 'active' : ''
+                      pathname.includes('/contact-us') ? active : ''
                     }`}
                   >
                     Contact Us

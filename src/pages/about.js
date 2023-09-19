@@ -21,17 +21,22 @@ const AboutPage = () => (
             }}
           >
             The SDG AI Lab is&nbsp;a&nbsp;joint initiative of&nbsp;
-            <a href="https://www.undp.org/content/undp/en/home/2030-agenda-for-sustainable-development/planet.html">
+            <a href="https://www.undpopenplanet.org/" target="__blank">
               UNDP Nature, Climate, and Energy Cluster
             </a>
-            ,<a href="https://sdgfinance.undp.org/">UNDP Finance Sector Hub</a>
-            &nbsp; <br />
-            and
-            <a href="https://www.iicpsd.undp.org/content/istanbul/en/home.html">
-              UNDP IICPSD
+            ,&nbsp;&nbsp;
+            <a href="https://sdgfinance.undp.org/" target="__blank">
+              UNDP Finance Sector Hub
             </a>
-            . It is hosted under UNDP IICPSD and based in Istanbul,
-            Turkey.&nbsp;
+            &nbsp; <br />
+            and &nbsp;
+            <a
+              href="https://www.iicpsd.undp.org/content/istanbul/en/home.html"
+              target="__blank"
+            >
+              UNDP ICPSD
+            </a>
+            . It is hosted under UNDP ICPSD and based in Istanbul, Turkey.&nbsp;
             <br />
             <br />
             The SDG AI Lab provides research and advisory
@@ -65,7 +70,7 @@ const AboutPage = () => (
               <strong>Management</strong>
             </p>
             <h5 className="name">Technical Advisor</h5>
-            <p className="title">UNDP IICPSD</p>
+            <p className="title">UNDP ICPSD</p>
             <p className="description"></p>
             <p className="text-center">
               <br />
