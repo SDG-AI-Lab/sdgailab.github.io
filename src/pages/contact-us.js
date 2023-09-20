@@ -48,8 +48,10 @@ const ContactUsPage = () => (
           </div>
           <div className="row">
             <div className="col-md-6 col-xl-12" id="message">
-              <fieldset></fieldset>
-              <div className="has-feedback form-group mb-3">
+              <div
+                className="has-feedback form-group mb-3"
+                style={{ display: 'flex', gap: '20px' }}
+              >
                 <label className="form-label" for="from_name">
                   Name
                 </label>
@@ -63,7 +65,10 @@ const ContactUsPage = () => (
                   placeholder="Full Name"
                 />
               </div>
-              <div className="has-feedback form-group mb-3">
+              <div
+                className="has-feedback form-group mb-3"
+                style={{ display: 'flex', gap: '20px' }}
+              >
                 <label className="form-label" for="from_email">
                   Email
                 </label>
@@ -76,10 +81,11 @@ const ContactUsPage = () => (
                   placeholder="Email Address"
                 />
               </div>
-              <div className="form-group mb-3">
-                <label className="form-label" for="comments">
-                  Comments
-                </label>
+              <div
+                className="form-group mb-3"
+                style={{ display: 'flex', gap: '60px' }}
+              >
+                <label className="form-label" for="comments"></label>
                 <textarea
                   className="form-control"
                   id="comments"
@@ -89,7 +95,11 @@ const ContactUsPage = () => (
                 ></textarea>
               </div>
               <div className="form-group mb-3">
-                <button className="btn btn-primary d-block w-100" type="submit">
+                <button
+                  className="btn btn-primary d-block w-100"
+                  type="submit"
+                  style={{ width: '40%!important', margin: '0 auto' }}
+                >
                   Send <i className="fa fa-chevron-circle-right"></i>
                   <FontAwesomeIcon icon={faCircleChevronRight} size="1x" />
                 </button>
