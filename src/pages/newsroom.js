@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout } from '../components/layout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { StaticImage } from 'gatsby-plugin-image';
 
 const Newsroom = () => {
   return (
@@ -26,10 +27,10 @@ const Newsroom = () => {
                 target="_blank"
                 href="https://www.iicpsd.undp.org/content/istanbul/en/home/news-centre/2021/SDG-AI-Lab-and-UNV-hosted-joint-annual-demo-day-to-showcase-volunteer-digital-solutions-for-SDGs.html"
               >
-                <img
+                <StaticImage
+                  src="../assets/images/Screen Shot 2020-10-06 at 8.08.28 PM.png"
+                  placeholder="dominantColor"
                   className="img-fluid"
-                  style={{ textDecoration: 'none' }}
-                  src="/static/2f41b56d2b3a7cb1fd294133974913bc/Screen Shot 2020-10-06 at 8.08.28 PM.png"
                 />
                 <h3
                   className="name"
@@ -53,9 +54,10 @@ const Newsroom = () => {
                 target="_blank"
                 style={{ textDecoration: 'none' }}
               >
-                <img
+                <StaticImage
+                  src="../assets/images/Screen Shot 2021-05-28 at 11.06.55 AM.png"
+                  placeholder="dominantColor"
                   className="img-fluid"
-                  src="/static/6060117a49d2800da7261610d890e012/Screen Shot 2021-05-28 at 11.06.55 AM.png"
                 />
                 <h3
                   className="name"
@@ -80,9 +82,10 @@ const Newsroom = () => {
                 target="_blank"
                 style={{ textDecoration: 'none' }}
               >
-                <img
+                <StaticImage
+                  src="../assets/images/Screen Shot 2021-05-28 at 11.05.40 AM.png"
+                  placeholder="dominantColor"
                   className="img-fluid"
-                  src="/static/e5c6bf7167a906c6a52f8ff42645c552/Screen Shot 2021-05-28 at 11.05.40 AM.png"
                 />
                 <h3
                   className="name"
@@ -107,9 +110,10 @@ const Newsroom = () => {
                 target="_blank"
                 style={{ textDecoration: 'none' }}
               >
-                <img
+                <StaticImage
+                  src="../assets/images/Screen Shot 2021-05-28 at 11.06.32 AM.png"
+                  placeholder="dominantColor"
                   className="img-fluid"
-                  src="/static/7221eb972df0b2ced8fcadc2dcf8f129/Screen Shot 2021-05-28 at 11.06.32 AM.png"
                 />
                 <h3
                   className="name"
@@ -132,9 +136,10 @@ const Newsroom = () => {
                 target="_blank"
                 style={{ textDecoration: 'none' }}
               >
-                <img
+                <StaticImage
+                  src="../assets/images/Screen Shot 2020-10-06 at 8.15.43 PM.png"
+                  placeholder="dominantColor"
                   className="img-fluid"
-                  src="/static/74f27a4a9f0f74a75541c16a5ef1aadd/Screen Shot 2020-10-06 at 8.15.43 PM.png"
                 />
                 <h3
                   className="name"
