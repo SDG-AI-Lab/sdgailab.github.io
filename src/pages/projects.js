@@ -45,102 +45,62 @@ const Projects = () => {
               partnerships with the private sector for UNDP units
             </p>
           </div>
-
-          <div className="row">
-            <div className="col-md-6 col-lg-4 offset-xl-2">
-              <div className="card">
-                <div className="card-body">
-                  <h4 className="card-title">
-                    Nature, Energy, Climate Cluster
-                  </h4>
-                  <p className="card-text">
-                    <br />• Large-scale multi-label document classification to
-                    automate categorization of project according to a
-                    comprehensive taxonomy
-                    <br />• Information retrieval, extraction and aggregation
-                    for Vertical Fund Portfolio using natural language
-                    processing tools, graphical databases and algorithmic
-                    approaches.
-                    <br />
-                    <br />
-                    <br />
-                  </p>
-                </div>
-                <div></div>
+        </div>
+      </section>
+      <div
+        className="d"
+        style={{
+          backgroundColor: '#fff',
+          display: 'flex',
+          justifyContent: 'center',
+          padding: '20px',
+        }}
+      >
+        <div className="row container" style={{ backgroundColor: '#fff' }}>
+          <div className="col-md-6 col-lg-4 offset-xl-2">
+            <div className="card">
+              <div className="card-body">
+                <h4 className="card-title">Nature, Energy, Climate Cluster</h4>
+                <p className="card-text">
+                  <br />• Large-scale multi-label document classification to
+                  automate categorization of project according to a
+                  comprehensive taxonomy
+                  <br />• Information retrieval, extraction and aggregation for
+                  Vertical Fund Portfolio using natural language processing
+                  tools, graphical databases and algorithmic approaches.
+                  <br />
+                  <br />
+                  <br />
+                </p>
               </div>
+              <div></div>
             </div>
-            <div className="col-md-6 col-lg-4">
-              <div className="card">
-                <div className="card-body">
-                  <h4 className="card-title">Connecting Business initiative</h4>
-                  <p className="card-text">
-                    Artificial intelligence R&amp;D for private sector disaster
-                    preparedness, response, and recovery
-                    <br />• Technology landscaping and mapping study
-                    <br />• Prototype development based on GIS technology for
-                    disaster preparedness, response, and recovery
-                    <br />• Prototype development based on natural language
-                    processing techniques for information retrieval from private
-                    sector activities and classification
-                    <br />
-                    <br />
-                  </p>
-                </div>
-                <div></div>
+          </div>
+          <br />
+          <br />
+          <br />
+          <div className="col-md-6 col-lg-4">
+            <div className="card">
+              <div className="card-body">
+                <h4 className="card-title">Connecting Business initiative</h4>
+                <p className="card-text">
+                  Artificial intelligence R&amp;D for private sector disaster
+                  preparedness, response, and recovery
+                  <br />• Technology landscaping and mapping study
+                  <br />• Prototype development based on GIS technology for
+                  disaster preparedness, response, and recovery
+                  <br />• Prototype development based on natural language
+                  processing techniques for information retrieval from private
+                  sector activities and classification
+                  <br />
+                  <br />
+                </p>
               </div>
-            </div>
-            <div className="col-md-6 col-lg-4 offset-xl-0">
-              <div className="card">
-                <div className="card-body">
-                  <h4 className="card-title">Business Call to Action</h4>
-                  <p className="card-text">
-                    <br />• Data visualization for BCtA flagship report
-                    <br />• NLP automation for validation process
-                    <br />
-                    &nbsp;
-                    <br />
-                    <br />
-                    <br />
-                  </p>
-                </div>
-                <div></div>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-4 offset-xl-0">
-              <div className="card">
-                <div className="card-body">
-                  <h4 className="card-title">PPMI/OSDG</h4>
-                  <p className="card-text">
-                    <br />• WG1: Ontology buildings for SDGs
-                    <br />• WG2: Training data preparation and annotation
-                    <br />• WG3: Machine learning research for SDG Classifier
-                    <br />
-                    <br />
-                  </p>
-                </div>
-                <div></div>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-4 offset-xl-0">
-              <div className="card">
-                <div className="card-body">
-                  <h4 className="card-title">Internal Work Streams</h4>
-                  <p className="card-text">
-                    <br />• UNDP country programme document portfolio
-                    sense-making
-                    <br />• UNDP jobs and skills demand analysis
-                    <br />• Twitter analysis framework for Covid-19 response
-                    studies &amp; Crisis informatics
-                    <br />
-                    <br />
-                  </p>
-                </div>
-                <div></div>
-              </div>
+              <div></div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </Layout>
   );
 };
