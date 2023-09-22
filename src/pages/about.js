@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import { StaticImage } from 'gatsby-plugin-image';
-import { carouselItem } from '../styles/about.module.css';
+import { carouselItem } from '../assets/css/modules/about.module.css';
 
 const settings = {
   dots: true,

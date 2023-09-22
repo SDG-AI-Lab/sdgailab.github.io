@@ -1,0 +1,17 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header nav {
+  padding: 20px;
+  background-color: var(--white)
+}
+
+.content {
+  margin: 0 auto;
+}
+.active {
+  border-bottom: 3px var(--black) solid;
+}

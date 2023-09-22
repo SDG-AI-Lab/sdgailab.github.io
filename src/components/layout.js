@@ -1,11 +1,16 @@
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 import { useLocation } from '@reach/router';
 import { Seo } from './seo';
 import { Link } from 'gatsby';
-import { header, content, active } from '../styles/layout.module.css';
-import '../styles/global.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-solid-svg-icons';
+import {
+  header,
+  content,
+  active,
+} from '../assets/css/modules/layout.module.css';
+import '../assets/css/global.css';
 import '../assets/css/smoothproducts.css';
 import '../assets/css/style.css';
 
@@ -16,19 +21,7 @@ export const Layout = ({
   image = false,
   path = false,
 }) => {
-  const data = useStaticQuery(graphql`
-    query GetSiteTitle {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `);
-
   const { pathname } = useLocation();
-
-  const meta = data?.site?.siteMetadata ?? {};
 
   return (
     <>
@@ -39,7 +32,6 @@ export const Layout = ({
           style={{
             fontFamily: 'Open Sans, sans-serif',
             textTransform: 'capitalize',
-            backgroundColor: '#1F5A95 !important',
           }}
         >
           <div className="container">
@@ -51,7 +43,7 @@ export const Layout = ({
               title="United Nations Development Programme"
             >
               <StaticImage
-                src="../assets/images/logos/undp-whit.svg"
+                src="../assets/images/logos/UNDP_logo.png"
                 placeholder="dominantColor"
                 height={60}
               />
@@ -64,7 +56,7 @@ export const Layout = ({
               title="Istanbul International Centre for Private Sector in Development"
             >
               <StaticImage
-                src="../assets/images/logos/icpsd.jpeg"
+                src="../assets/images/logos/ICPSD.png"
                 placeholder="dominantColor"
                 height={60}
               />
@@ -76,7 +68,7 @@ export const Layout = ({
               title="Strategic Development Goals Artificial Intelligence Lab"
             >
               <StaticImage
-                src="../assets/images/Webp.net-resizeimage.png"
+                src="../assets/images/logos/sdg_logo.png"
                 placeholder="dominantColor"
                 height={60}
               />
@@ -158,38 +150,40 @@ export const Layout = ({
       <main className={content}>{children}</main>
 
       <footer
-        className="page-footer dark"
-        style={{ padding: '80px', textAlign: 'center' }}
+        className="page-footer"
+        style={{
+          padding: '80px',
+          textAlign: 'center',
+          backgroundColor: 'var(--undp_blue)',
+        }}
       >
         <div className="footer-copyright">
           <div className="social-links">
             <a
               href="https://twitter.com/sdgailab?ref_src=twsrc%5Etfw"
               className="twitter-follow-button"
-              data-show-count="false"
+              target="__blank"
+              style={{ marginTop: '6px' }}
             >
-              Follow @sdgailab
+              <StaticImage
+                src="../assets/images/logos/x.png"
+                placeholder="dominantColor"
+                height={20}
+              />
             </a>
-            <script
-              async
-              src="https://platform.twitter.com/widgets.js"
-              charset="utf-8"
-            ></script>
-            {/* <!-- Place this tag where you want the button to render. --> */}
             <a
               className="github-button"
+              target="__blank"
               href="https://github.com/SDG-AI-Lab"
               aria-label="Follow @SDG-AI-Lab on GitHub"
             >
-              Follow @SDG-AI-Lab
+              <StaticImage
+                src="../assets/images/logos/github.png"
+                placeholder="dominantColor"
+                height={30}
+              />
             </a>
           </div>
-          {/* <!-- Place this tag in your head or just before your close body tag. --> */}
-          <script
-            // async
-            // defer
-            src="https://buttons.github.io/buttons.js"
-          ></script>
           <p>© 2023 SDG AI Lab</p>
         </div>
       </footer>

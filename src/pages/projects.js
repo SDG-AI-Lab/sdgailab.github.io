@@ -1,8 +1,6 @@
 import React from 'react';
 import { Layout } from '../components/layout';
 
-const PROFILES = [];
-
 const Projects = () => {
   const renderProfile = ({ profileName, title, image }) => (
     <div
