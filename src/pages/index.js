@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Link } from 'gatsby';
 import { Layout } from '../components/layout';
 import { StaticImage } from 'gatsby-plugin-image';
-import { hero, container, logos } from '../assets/css/index.module.css';
+import { hero, container, logos } from '../assets/css/modules/index.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCaretRight,
@@ -17,6 +16,10 @@ const IndexPage = () => {
     <Layout>
       <div className={hero}>
         <div className={container}>
+          <StaticImage
+            src="../assets/images/Webp.net-resizeimage.png"
+            placeholder="dominantColor"
+          />
           <h2>
             Harnessing the potential of Artificial Intelligence for Sustainable
             Development

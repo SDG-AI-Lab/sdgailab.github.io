@@ -245,8 +245,8 @@ img, svg {
   text-align: center!important;
 }
 
-.page-footer.dark .footer-copyright p {
-  color: #ccc;
+.page-footer.dark, .footer-copyright p {
+  color: #fff;
   font-size: 0.8rem;
   margin-bottom: 0;
 }
