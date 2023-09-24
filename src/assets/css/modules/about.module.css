@@ -1,4 +1,5 @@
 .carousel-item {
   display: flex !important;
   gap: 20px;
+  justify-content: space-evenly;
 }

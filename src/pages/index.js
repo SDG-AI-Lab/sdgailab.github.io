@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { Layout } from '../components/layout';
 import { StaticImage } from 'gatsby-plugin-image';
-import { hero, container, logos } from '../assets/css/modules/index.module.css';
+import {
+  hero,
+  container,
+  logos,
+  partners,
+} from '../assets/css/modules/index.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCaretRight,
@@ -10,6 +15,19 @@ import {
   faShareNodes,
   faUserGroup,
 } from '@fortawesome/free-solid-svg-icons';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { carouselItem } from '../assets/css/modules/about.module.css';
+
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+};
 
 const IndexPage = () => {
   return (
@@ -177,68 +195,75 @@ const IndexPage = () => {
               Our Supporters and Partners
             </h2>
           </div>
-          <div className="clean-block add-on sponsors">
-            <a href="https://www.thegef.org/">
-              <StaticImage
-                src="../assets/images/logos/Picture1.png"
-                placeholder="dominantColor"
-              />
-            </a>
-            <a href="https://www.theglobalfund.org/en/">
-              <StaticImage
-                src="../assets/images/logos/Picture2.png"
-                placeholder="dominantColor"
-              />
-            </a>
-            <a href="https://www.undp.org/content/undp/en/home/2030-agenda-for-sustainable-development/planet.html">
-              <StaticImage
-                src="../assets/images/logos/Picture3.png"
-                placeholder="dominantColor"
-              />
-            </a>
-            <a href="https://www.greenclimate.fund/">
-              <StaticImage
-                src="../assets/images/logos/gcf-removebg-preview.png"
-                placeholder="dominantColor"
-              />
-            </a>
-            <a href="https://www.connectingbusiness.org/home">
-              <StaticImage
-                src="../assets/images/logos/Picture5.png"
-                placeholder="dominantColor"
-              />
-            </a>
-            <a href="https://www.businesscalltoaction.org/">
-              <StaticImage
-                src="../assets/images/logos/Picture6.png"
-                placeholder="dominantColor"
-              />
-            </a>
-            <a href="https://www.unocha.org/">
-              <StaticImage
-                src="../assets/images/logos/Picture7.png"
-                placeholder="dominantColor"
-              />
-            </a>
-            <a href="https://www.ppmi.lt/">
-              <StaticImage
-                src="../assets/images/logos/Picture8.png"
-                placeholder="dominantColor"
-              />
-            </a>
-            <a href="https://www.unv.org/">
-              <StaticImage
-                src="../assets/images/logos/Picture10.png"
-                placeholder="dominantColor"
-              />
-            </a>
-            <a href="https://www.iicpsd.undp.org/content/istanbul/en/home.html">
-              <StaticImage
-                src="../assets/images/logos/Picture11.png"
-                placeholder="dominantColor"
-              />
-            </a>
-          </div>
+          <Slider {...settings} className={partners}>
+            <div className={carouselItem}>
+              <a href="https://www.thegef.org/">
+                <StaticImage
+                  src="../assets/images/logos/Picture1.png"
+                  placeholder="dominantColor"
+                />
+              </a>
+              <a href="https://www.theglobalfund.org/en/">
+                <StaticImage
+                  src="../assets/images/logos/Picture2.png"
+                  placeholder="dominantColor"
+                />
+              </a>
+              <a href="https://www.undp.org/content/undp/en/home/2030-agenda-for-sustainable-development/planet.html">
+                <StaticImage
+                  src="../assets/images/logos/Picture3.png"
+                  placeholder="dominantColor"
+                />
+              </a>
+              <a href="https://www.greenclimate.fund/">
+                <StaticImage
+                  src="../assets/images/logos/gcf-removebg-preview.png"
+                  placeholder="dominantColor"
+                />
+              </a>
+            </div>
+            <div className={carouselItem}>
+              <a href="https://www.connectingbusiness.org/home">
+                <StaticImage
+                  src="../assets/images/logos/Picture5.png"
+                  placeholder="dominantColor"
+                />
+              </a>
+              <a href="https://www.businesscalltoaction.org/">
+                <StaticImage
+                  src="../assets/images/logos/Picture6.png"
+                  placeholder="dominantColor"
+                />
+              </a>
+              <a href="https://www.unocha.org/">
+                <StaticImage
+                  src="../assets/images/logos/Picture7.png"
+                  placeholder="dominantColor"
+                />
+              </a>
+              <a href="https://www.ppmi.lt/">
+                <StaticImage
+                  src="../assets/images/logos/Picture8.png"
+                  placeholder="dominantColor"
+                />
+              </a>
+            </div>
+            <div className={carouselItem}>
+              <a href="https://www.unv.org/">
+                <StaticImage
+                  src="../assets/images/logos/Picture10.png"
+                  placeholder="dominantColor"
+                  maxWidth="170"
+                />
+              </a>
+              <a href="https://www.iicpsd.undp.org/content/istanbul/en/home.html">
+                <StaticImage
+                  src="../assets/images/logos/Picture11.png"
+                  placeholder="dominantColor"
+                />
+              </a>
+            </div>
+          </Slider>
           <p style={{ textAlign: 'center' }}>
             The lab is grateful to the governments of our fully-funded
             volunteers for their support:
