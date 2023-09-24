@@ -3,8 +3,6 @@ import { StaticImage } from 'gatsby-plugin-image';
 import { useLocation } from '@reach/router';
 import { Seo } from './seo';
 import { Link } from 'gatsby';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub } from '@fortawesome/free-solid-svg-icons';
 import {
   header,
   content,
@@ -179,6 +177,18 @@ export const Layout = ({
             >
               <StaticImage
                 src="../assets/images/logos/github.png"
+                placeholder="dominantColor"
+                height={30}
+              />
+            </a>
+            <a
+              className="github-button"
+              target="__blank"
+              href="https://www.linkedin.com/company/sdgailab/"
+              aria-label="Follow @SDG-AI-Lab on LinkedIn"
+            >
+              <StaticImage
+                src="../assets/images/logos/linkedin.png"
                 placeholder="dominantColor"
                 height={30}
               />

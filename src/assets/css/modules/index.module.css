@@ -2,7 +2,7 @@
   color: white;
   margin: 0 auto;
   background-color: var(--undp_blue);
-  padding: 50px;
+  padding: 50px 0;
 }
 
 .hero h2 {
@@ -26,4 +26,8 @@
 
 .logos a {
   max-width: 170px;
+}
+
+.partners {
+  margin: 60px;
 }
