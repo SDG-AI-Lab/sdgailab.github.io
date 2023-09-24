@@ -93,7 +93,9 @@ export const Layout = ({
                 </li>
                 <li
                   className={`nav-item ${
-                    ['/about', '/advisory-board'].includes(pathname)
+                    ['/about', '/advisory-board', '/volunteers'].includes(
+                      pathname,
+                    )
                       ? active
                       : ''
                   }`}
@@ -124,18 +126,92 @@ export const Layout = ({
                           Advisory board
                         </Link>
                       </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link
+                          to=""
+                          className={`nav-link ${
+                            pathname.includes('/interns') ? active : ''
+                          }`}
+                        >
+                          Interns
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link
+                          to="/volunteers"
+                          className={`nav-link ${
+                            pathname.includes('/volunteers') ? active : ''
+                          }`}
+                        >
+                          Volunteers
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link
+                          to=""
+                          className={`nav-link ${
+                            pathname.includes('/alumi') ? active : ''
+                          }`}
+                        >
+                          Alumni
+                        </Link>
+                      </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                 </li>
-                <li className="nav-item">
-                  <Link
-                    to="/projects"
-                    className={`nav-link ${
-                      pathname.includes('/projects') ? active : ''
-                    }`}
-                  >
-                    Projects
-                  </Link>
+                <li
+                  className={`nav-item ${
+                    pathname.includes('/projects') ? active : ''
+                  }`}
+                >
+                  <Dropdown className={navDropDown}>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                      Our Work
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item>
+                        <Link
+                          to="/projects"
+                          className={`nav-link ${
+                            pathname.includes('/projects') ? active : ''
+                          }`}
+                        >
+                          Projects
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link
+                          to="/products"
+                          className={`nav-link ${
+                            pathname.includes('/products') ? active : ''
+                          }`}
+                        >
+                          Products
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link
+                          to=""
+                          className={`nav-link ${
+                            pathname.includes('/publications') ? active : ''
+                          }`}
+                        >
+                          Publications
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link
+                          to="/trainings"
+                          className={`nav-link ${
+                            pathname.includes('/trainings') ? active : ''
+                          }`}
+                        >
+                          Trainings
+                        </Link>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </li>
                 <li className="nav-item">
                   <Link

@@ -2,17 +2,6 @@ import React from 'react';
 import { Layout } from '../components/layout';
 
 const Projects = () => {
-  const renderProfile = ({ profileName, title, image }) => (
-    <div
-      className="col-md-6 col-lg-4 col-xl-4 item"
-      key={profileName}
-      style={{ zoom: '0.7' }}
-    >
-      <img className="rounded-circle" src={image} />
-      <h3 className="name">{profileName}</h3>
-      <p className="title">{title}</p>
-    </div>
-  );
   return (
     <Layout title="Projects - SDG AI Lab">
       <section
