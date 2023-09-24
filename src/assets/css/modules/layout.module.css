@@ -12,6 +12,13 @@
 .content {
   margin: 0 auto;
 }
+
 .active {
   border-bottom: 3px var(--black) solid;
+}
+
+.navDropDown button, .navDropDown button:hover, .navDropDown button.active {
+  background-color: unset !important;
+  border: none !important;
+  color: var(--bs-nav-link-color) !important;
 }
