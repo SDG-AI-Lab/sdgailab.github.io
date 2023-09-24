@@ -1,12 +1,14 @@
 import React from 'react';
 import { StaticImage } from 'gatsby-plugin-image';
 import { useLocation } from '@reach/router';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { Seo } from './seo';
 import { Link } from 'gatsby';
 import {
   header,
   content,
   active,
+  navDropDown,
 } from '../assets/css/modules/layout.module.css';
 import '../assets/css/global.css';
 import '../assets/css/smoothproducts.css';
@@ -89,25 +91,41 @@ export const Layout = ({
                     Home
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link
-                    to="/about"
-                    className={`nav-link ${
-                      pathname.includes('/about') ? active : ''
-                    }`}
-                  >
-                    About Us
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    to="/advisory-board"
-                    className={`nav-link ${
-                      pathname.includes('/advisory-board') ? active : ''
-                    }`}
-                  >
-                    Advisory board
-                  </Link>
+                <li
+                  className={`nav-item ${
+                    ['/about', '/advisory-board'].includes(pathname)
+                      ? active
+                      : ''
+                  }`}
+                >
+                  <Dropdown className={navDropDown}>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                      About Us
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item>
+                        <Link
+                          to="/about"
+                          className={`nav-link ${
+                            pathname.includes('/about') ? active : ''
+                          }`}
+                        >
+                          Our Team
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link
+                          to="/advisory-board"
+                          className={`nav-link ${
+                            pathname.includes('/advisory-board') ? active : ''
+                          }`}
+                        >
+                          Advisory board
+                        </Link>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </li>
                 <li className="nav-item">
                   <Link
