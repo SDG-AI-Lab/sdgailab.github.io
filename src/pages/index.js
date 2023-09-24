@@ -159,7 +159,7 @@ const IndexPage = () => {
                 Environment for remote team collaboration: <br />- Microsoft
                 Teams Channel for Communication&nbsp;
                 <br />-
-                <a href="https://github.com/SDG-AI-Lab">
+                <a href="https://github.com/SDG-AI-Lab" target="__blank">
                   Github Group Repository
                 </a>
                 for Code Review
@@ -197,25 +197,28 @@ const IndexPage = () => {
           </div>
           <Slider {...settings} className={partners}>
             <div className={carouselItem}>
-              <a href="https://www.thegef.org/">
+              <a href="https://www.thegef.org/" target="__blank">
                 <StaticImage
                   src="../assets/images/logos/Picture1.png"
                   placeholder="dominantColor"
                 />
               </a>
-              <a href="https://www.theglobalfund.org/en/">
+              <a href="https://www.theglobalfund.org/en/" target="__blank">
                 <StaticImage
                   src="../assets/images/logos/Picture2.png"
                   placeholder="dominantColor"
                 />
               </a>
-              <a href="https://www.undp.org/content/undp/en/home/2030-agenda-for-sustainable-development/planet.html">
+              <a
+                href="https://www.undp.org/content/undp/en/home/2030-agenda-for-sustainable-development/planet.html"
+                target="__blank"
+              >
                 <StaticImage
                   src="../assets/images/logos/Picture3.png"
                   placeholder="dominantColor"
                 />
               </a>
-              <a href="https://www.greenclimate.fund/">
+              <a href="https://www.greenclimate.fund/" target="__blank">
                 <StaticImage
                   src="../assets/images/logos/gcf-removebg-preview.png"
                   placeholder="dominantColor"
@@ -223,25 +226,28 @@ const IndexPage = () => {
               </a>
             </div>
             <div className={carouselItem}>
-              <a href="https://www.connectingbusiness.org/home">
+              <a
+                href="https://www.connectingbusiness.org/home"
+                target="__blank"
+              >
                 <StaticImage
                   src="../assets/images/logos/Picture5.png"
                   placeholder="dominantColor"
                 />
               </a>
-              <a href="https://www.businesscalltoaction.org/">
+              <a href="https://www.businesscalltoaction.org/" target="__blank">
                 <StaticImage
                   src="../assets/images/logos/Picture6.png"
                   placeholder="dominantColor"
                 />
               </a>
-              <a href="https://www.unocha.org/">
+              <a href="https://www.unocha.org/" target="__blank">
                 <StaticImage
                   src="../assets/images/logos/Picture7.png"
                   placeholder="dominantColor"
                 />
               </a>
-              <a href="https://www.ppmi.lt/">
+              <a href="https://www.ppmi.lt/" target="__blank">
                 <StaticImage
                   src="../assets/images/logos/Picture8.png"
                   placeholder="dominantColor"
@@ -249,14 +255,17 @@ const IndexPage = () => {
               </a>
             </div>
             <div className={carouselItem}>
-              <a href="https://www.unv.org/">
+              <a href="https://www.unv.org/" target="__blank">
                 <StaticImage
                   src="../assets/images/logos/Picture10.png"
                   placeholder="dominantColor"
                   maxWidth="170"
                 />
               </a>
-              <a href="https://www.iicpsd.undp.org/content/istanbul/en/home.html">
+              <a
+                href="https://www.iicpsd.undp.org/content/istanbul/en/home.html"
+                target="__blank"
+              >
                 <StaticImage
                   src="../assets/images/logos/Picture11.png"
                   placeholder="dominantColor"
