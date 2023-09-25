@@ -1,0 +1,6 @@
+.articles {
+  flex-direction: column;
+  max-width: 920px;
+  margin: 0 auto;
+  gap: 30px
+}

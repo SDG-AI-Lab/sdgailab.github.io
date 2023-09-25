@@ -84,10 +84,116 @@ const IndexPage = () => {
           </div>
         </div>
       </section>
-
       <section
         className="clean-block clean-info dark"
         style={{ padding: '80px 80px 0', backgroundColor: '#fff' }}
+      >
+        <div
+          className="row articles"
+          style={{ gap: '20px', flexWrap: 'nowrap' }}
+        >
+          <div
+            className="col-sm-6 col-md-4 offset-xl-0 item"
+            style={{
+              textAlign: 'center',
+              marginBottom: '60px',
+              boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+              height: '390px',
+            }}
+          >
+            <a
+              style={{ textDecoration: 'none' }}
+              target="_blank"
+              href="https://www.iicpsd.undp.org/content/istanbul/en/home/news-centre/2021/SDG-AI-Lab-and-UNV-hosted-joint-annual-demo-day-to-showcase-volunteer-digital-solutions-for-SDGs.html"
+            >
+              <StaticImage
+                src="../assets/images/Screen Shot 2020-10-06 at 8.08.28 PM.png"
+                placeholder="dominantColor"
+                className="img-fluid"
+                height={300}
+              />
+              <h3
+                className="name"
+                style={{ textAlign: 'left', fontSize: '16px' }}
+              >
+                <br />
+                <strong>
+                  SDG AI Lab and UN Volunteers hosted joint Annual Demo Day
+                  event to showcase volunteer digital solutions for Sustainable
+                  Development and SDGs
+                </strong>
+              </h3>
+            </a>
+          </div>
+          <div
+            className="col-sm-6 col-md-4 offset-xl-0 item"
+            style={{
+              textAlign: 'center',
+              boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+              height: '390px',
+            }}
+          >
+            <a
+              href="https://www.iicpsd.undp.org/content/istanbul/en/home/news-centre/2021/PPMI-SDG-AI-Lab-Partnership0.html"
+              target="_blank"
+              style={{ textDecoration: 'none' }}
+            >
+              <StaticImage
+                src="../assets/images/Screen Shot 2021-05-28 at 11.06.55 AM.png"
+                placeholder="dominantColor"
+                className="img-fluid"
+                height={300}
+              />
+              <h3
+                className="name"
+                style={{ textAlign: 'left', fontSize: '16px' }}
+              >
+                <br />
+                <strong>
+                  ICPSD partners with PPMI to unleash the potential of frontier
+                  technologies for SDGs acceleration
+                </strong>
+                <br />
+              </h3>
+            </a>
+          </div>
+          <div
+            className="col-sm-6 col-md-4 offset-xl-0 item"
+            style={{
+              textAlign: 'center',
+              boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+              height: '390px',
+            }}
+          >
+            <a
+              href="https://www.iicpsd.undp.org/content/istanbul/en/home/news-centre/2021/sdg-ai-lab-established-the-advisory-board-and-held-the-first-onl.html"
+              target="_blank"
+              style={{ textDecoration: 'none' }}
+            >
+              <StaticImage
+                src="../assets/images/Screen Shot 2021-05-28 at 11.05.40 AM.png"
+                placeholder="dominantColor"
+                className="img-fluid"
+                height={300}
+              />
+              <h3
+                className="name"
+                style={{ textAlign: 'left', fontSize: '16px' }}
+              >
+                <br />
+                <strong>
+                  SDG AI Lab established the Advisory Board and held the first
+                  online meeting
+                </strong>
+              </h3>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="clean-block clean-info dark"
+        style={{ padding: '80px 80px 0' }}
       >
         <div className={`container ${logos}`}>
           <div className="block-heading">
