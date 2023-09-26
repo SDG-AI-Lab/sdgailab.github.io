@@ -188,6 +188,16 @@ export const Layout = ({
                       </Dropdown.Item>
                       <Dropdown.Item>
                         <Link
+                          to="/trainings"
+                          className={`nav-link ${
+                            pathname.includes('/trainings') ? active : ''
+                          }`}
+                        >
+                          Trainings
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link
                           to=""
                           className={`nav-link ${
                             pathname.includes('/products') ? active : ''
@@ -204,16 +214,6 @@ export const Layout = ({
                           }`}
                         >
                           Publications
-                        </Link>
-                      </Dropdown.Item>
-                      <Dropdown.Item>
-                        <Link
-                          to="/trainings"
-                          className={`nav-link ${
-                            pathname.includes('/trainings') ? active : ''
-                          }`}
-                        >
-                          Trainings
                         </Link>
                       </Dropdown.Item>
                     </Dropdown.Menu>

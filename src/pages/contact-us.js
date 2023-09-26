@@ -96,9 +96,14 @@ const ContactUsPage = () => (
               </div>
               <div className="form-group mb-3">
                 <button
-                  className="btn btn-primary d-block w-100"
+                  className="btn btn-primary d-block"
                   type="submit"
-                  style={{ width: '40%!important', margin: '0 auto' }}
+                  style={{
+                    width: '40%!important',
+                    margin: '0 auto',
+                    backgroundColor: 'var(--undp_blue)',
+                    border: 'none',
+                  }}
                 >
                   Send <i className="fa fa-chevron-circle-right"></i>
                   <FontAwesomeIcon icon={faCircleChevronRight} size="1x" />

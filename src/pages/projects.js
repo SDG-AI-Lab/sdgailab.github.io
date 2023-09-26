@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import { StaticImage } from 'gatsby-plugin-image';
 import { Layout } from '../components/layout';
 
 const Projects = () => {
@@ -57,109 +58,99 @@ const Projects = () => {
           }}
         >
           <Tab eventKey="active" title="Active Projects">
-            <div className="row container" style={{ backgroundColor: '#fff' }}>
-              <div className="col-md-6 col-lg-4 offset-xl-2">
-                <div
-                  className="card"
-                  style={{ height: '400px', overflow: 'auto' }}
+            <div
+              style={{
+                maxWidth: '920px',
+                margin: '0 auto',
+                width: '100%',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '20px',
+                  marginBottom: '30px',
+                }}
+              >
+                <h5
+                  style={{
+                    color: '#3b99e0',
+                    marginBottom: '20px',
+                    textAlign: 'center',
+                    maxWidth: '400px',
+                  }}
                 >
-                  <div className="card-body">
-                    <h4 className="card-title">
-                      Nature, Energy, Climate Cluster
-                    </h4>
-                    <p className="card-text">
-                      <br />• Large-scale multi-label document classification to
-                      automate categorization of project according to a
-                      comprehensive taxonomy
-                      <br />• Information retrieval, extraction and aggregation
-                      for Vertical Fund Portfolio using natural language
-                      processing tools, graphical databases and algorithmic
-                      approaches.
-                    </p>
-                  </div>
-                  <div></div>
+                  <strong style={{ lineHeight: '50px' }}>
+                    Frontier Technology Radar for Disaster Risk Reduction
+                    (FTR4DRR)
+                  </strong>
+                </h5>
+                <div
+                  style={{
+                    boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                    flexBasis: '70%',
+                  }}
+                >
+                  <StaticImage
+                    src="../assets/images/our_work/projects/ftr4drr1.png"
+                    placeholder="blur"
+                    className="img-fluid"
+                  />
                 </div>
               </div>
-              <br />
-              <br />
-              <br />
-              <div className="col-md-6 col-lg-4">
+
+              <p
+                style={{
+                  maxWidth: '80%',
+                  margin: '30px auto',
+                  textAlign: 'justify',
+                }}
+              >
+                FTR4DRR is an online tool which allows for the systematic
+                tracking and understanding of frontier technologies as they are
+                developed. The tool encourages knowledge and experience-sharing
+                among development stakeholders on the use of frontier
+                technologies in disaster and conflict contexts.
+                <br /> <br />
+                FTR4DRR aims to highlight the potential of technological
+                solutions in disaster contexts to those working in the fields of
+                risk reduction, response and recovery. It supports development
+                stakeholders to navigate the variety of existing and emerging
+                technologies and their possible use cases.
+              </p>
+
+              <div
+                style={{ display: 'flex', gap: '20px', alignItems: 'center' }}
+              >
                 <div
-                  className="card"
-                  style={{ height: '400px', overflow: 'auto' }}
+                  style={{
+                    boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                    flexBasis: '70%',
+                  }}
                 >
-                  <div className="card-body">
-                    <h4 className="card-title">
-                      Connecting Business initiative
-                    </h4>
-                    <p className="card-text">
-                      Artificial intelligence R&amp;D for private sector
-                      disaster preparedness, response, and recovery
-                      <br />• Technology landscaping and mapping study
-                      <br />• Prototype development based on GIS technology for
-                      disaster preparedness, response, and recovery
-                      <br />• Prototype development based on natural language
-                      processing techniques for information retrieval from
-                      private sector activities and classification
-                      <br />
-                      <br />
-                    </p>
-                  </div>
-                  <div></div>
+                  <StaticImage
+                    src="../assets/images/our_work/projects/ftr4drr2.png"
+                    placeholder="blur"
+                    className="img-fluid"
+                  />
                 </div>
-              </div>
-            </div>
-          </Tab>
-          <Tab eventKey="future" title="Future Projects">
-            <div className="row container" style={{ backgroundColor: '#fff' }}>
-              <div className="col-md-6 col-lg-4 offset-xl-2">
-                <div
-                  className="card"
-                  style={{ height: '400px', overflow: 'auto' }}
-                >
-                  <div className="card-body">
-                    <h4 className="card-title">Future Project 1</h4>
-                    <p className="card-text">
-                      <br />• Large-scale multi-label document classification to
-                      automate categorization of project according to a
-                      comprehensive taxonomy
-                      <br />• Information retrieval, extraction and aggregation
-                      for Vertical Fund Portfolio using natural language
-                      processing tools, graphical databases and algorithmic
-                      approaches.
-                    </p>
-                  </div>
-                  <div></div>
-                </div>
-              </div>
-              <br />
-              <br />
-              <br />
-              <div className="col-md-6 col-lg-4">
-                <div
-                  className="card"
-                  style={{ height: '400px', overflow: 'auto' }}
-                >
-                  <div className="card-body">
-                    <h4 className="card-title">Future Project 2</h4>
-                    <p className="card-text">
-                      Artificial intelligence R&amp;D for private sector
-                      disaster preparedness, response, and recovery
-                      <br />• Technology landscaping and mapping study
-                      <br />• Prototype development based on GIS technology for
-                      disaster preparedness, response, and recovery
-                      <br />• Prototype development based on natural language
-                      processing techniques for information retrieval from
-                      private sector activities and classification
-                      <br />
-                      <br />
-                    </p>
-                  </div>
-                  <div></div>
+                <div>
+                  <strong> Main features</strong>
+                  <ul>
+                    <li>
+                      Monitoring and tracking of digital solutions in disaster
+                      context
+                    </li>
+                    <li>Digital solutions exploration</li>
+                    <li>Unique dataset</li>
+                    <li>Interactive visualization</li>
+                  </ul>
                 </div>
               </div>
             </div>
           </Tab>
+          <Tab eventKey="future" title="Future Projects" disabled></Tab>
           <Tab eventKey="past" title="Past Projects" disabled>
             Tab content for Past
           </Tab>
