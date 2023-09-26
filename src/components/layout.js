@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StaticImage } from 'gatsby-plugin-image';
 import { useLocation } from '@reach/router';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -22,6 +22,8 @@ export const Layout = ({
   path = false,
 }) => {
   const { pathname } = useLocation();
+  const [showAbout, setShowAbout] = useState(false);
+  const [showWork, setShowWork] = useState(false);
 
   return (
     <>
@@ -99,8 +101,10 @@ export const Layout = ({
                       ? active
                       : ''
                   }`}
+                  onMouseEnter={() => setShowAbout(true)}
+                  onMouseLeave={() => setShowAbout(false)}
                 >
-                  <Dropdown className={navDropDown}>
+                  <Dropdown className={navDropDown} show={showAbout}>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                       About Us
                     </Dropdown.Toggle>
@@ -161,10 +165,12 @@ export const Layout = ({
                 </li>
                 <li
                   className={`nav-item ${
-                    pathname.includes('/projects') ? active : ''
+                    ['/trainings', '/projects'].includes(pathname) ? active : ''
                   }`}
+                  onMouseEnter={() => setShowWork(true)}
+                  onMouseLeave={() => setShowWork(false)}
                 >
-                  <Dropdown className={navDropDown}>
+                  <Dropdown className={navDropDown} show={showWork}>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                       Our Work
                     </Dropdown.Toggle>
@@ -202,7 +208,7 @@ export const Layout = ({
                       </Dropdown.Item>
                       <Dropdown.Item>
                         <Link
-                          to=""
+                          to="/trainings"
                           className={`nav-link ${
                             pathname.includes('/trainings') ? active : ''
                           }`}
