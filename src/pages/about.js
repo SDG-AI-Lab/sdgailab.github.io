@@ -29,6 +29,7 @@ const AboutPage = () => {
       setModalShow(true);
     }
   }, [currentProfile]);
+
   return (
     <Layout title="About Us - SDG AI Lab">
       <section
@@ -67,237 +68,20 @@ const AboutPage = () => {
 
       <div className="team-clean" style={{ backgroundColor: '#fff' }}>
         <div className={`container ${team}`}>
-          <div
-            className={`item ${teamItem}`}
-            onClick={() =>
-              handleModal(
-                PROFILES['beltus'],
-                <StaticImage
-                  src="../assets/images/fellows/beltus.png"
-                  placeholder="blur"
-                  width={200}
-                />,
-              )
-            }
-          >
-            <StaticImage
-              src="../assets/images/fellows/beltus.png"
-              placeholder="dominantColor"
-              className="rounded-circle"
-              width={150}
-            />
-            <h3 className="name">Beltus Nkwawir</h3>
-            <p className="title">Data Science Fellow, NLP</p>
-          </div>
-
-          <div
-            className={`item ${teamItem}`}
-            onClick={() =>
-              handleModal(
-                PROFILES['ivana'],
-                <StaticImage
-                  src="../assets/images/fellows/ivana.jpeg"
-                  placeholder="blur"
-                  width={200}
-                />,
-              )
-            }
-          >
-            <StaticImage
-              src="../assets/images/fellows/ivana.jpeg"
-              placeholder="dominantColor"
-              className="rounded-circle"
-              width={150}
-            />
-            <h3 className="name">Ivana Petrakovic</h3>
-            <p className="title">Data Science Fellow, GIS</p>
-          </div>
-
-          <div
-            className={`item ${teamItem}`}
-            onClick={() =>
-              handleModal(
-                PROFILES['ozge'],
-                <StaticImage
-                  src="../assets/images/fellows/ozge.jpeg"
-                  placeholder="blur"
-                  width={200}
-                />,
-              )
-            }
-          >
-            <StaticImage
-              src="../assets/images/fellows/ozge.jpeg"
-              placeholder="dominantColor"
-              className="rounded-circle"
-              width={150}
-            />
-            <h3 className="name">Özge Ozkaya</h3>
-            <p className="title">Data Science Fellow, NLP</p>
-          </div>
-
-          <div
-            className={`item ${teamItem}`}
-            onClick={() =>
-              handleModal(
-                PROFILES['mert'],
-                <StaticImage
-                  src="../assets/images/fellows/mert.png"
-                  placeholder="blur"
-                  width={200}
-                />,
-              )
-            }
-          >
-            <StaticImage
-              src="../assets/images/fellows/mert.png"
-              placeholder="dominantColor"
-              className="rounded-circle"
-              width={150}
-            />
-            <h3 className="name">Mert Atay</h3>
-            <p className="title">Data Science Fellow, NLP</p>
-          </div>
-
-          <div
-            className={`item ${teamItem}`}
-            onClick={() =>
-              handleModal(
-                PROFILES['jackson'],
-                <StaticImage
-                  src="../assets/images/fellows/jackson.jpeg"
-                  placeholder="blur"
-                  width={200}
-                />,
-              )
-            }
-          >
-            <StaticImage
-              src="../assets/images/fellows/jackson.jpeg"
-              placeholder="dominantColor"
-              className="rounded-circle"
-              width={150}
-            />
-            <h3 className="name">Jackson Onyango</h3>
-            <p className="title">Data Science Fellow, Full-Stack Developer</p>
-          </div>
-
-          <div
-            className={`item ${teamItem}`}
-            onClick={() =>
-              handleModal(
-                PROFILES['yucel'],
-                <StaticImage
-                  src="../assets/images/fellows/yucel.png"
-                  placeholder="blur"
-                  width={200}
-                />,
-              )
-            }
-          >
-            <StaticImage
-              src="../assets/images/fellows/yucel.png"
-              placeholder="dominantColor"
-              className="rounded-circle"
-              width={150}
-            />
-            <h3 className="name">Yucel Torun</h3>
-            <p className="title">Data Science Fellow, GIS</p>
-          </div>
-
-          <div
-            className={`item ${teamItem}`}
-            onClick={() =>
-              handleModal(
-                PROFILES['izel'],
-                <StaticImage
-                  src="../assets/images/fellows/Izel.jpeg"
-                  placeholder="blur"
-                  width={200}
-                />,
-              )
-            }
-          >
-            <StaticImage
-              src="../assets/images/fellows/Izel.jpeg"
-              placeholder="dominantColor"
-              className="rounded-circle"
-              width={150}
-            />
-            <h3 className="name">Izel Karaoglu</h3>
-            <p className="title">Data Science Fellow, Community Management</p>
-          </div>
-
-          <div
-            className={`item ${teamItem}`}
-            onClick={() =>
-              handleModal(
-                PROFILES['martin'],
-                <StaticImage
-                  src="../assets/images/team/MS.png"
-                  placeholder="blur"
-                  width={200}
-                />,
-              )
-            }
-          >
-            <StaticImage
-              src="../assets/images/team/MS.png"
-              placeholder="dominantColor"
-              className="rounded-circle"
-              width={150}
-            />
-            <h3 className="name">Martin Szigeti</h3>
-            <p className="title">
-              Data Science Research Analyst - GIS & Remote Sensing
-            </p>
-          </div>
-
-          <div
-            className={`item ${teamItem}`}
-            onClick={() =>
-              handleModal(
-                PROFILES['dina'],
-                <StaticImage
-                  src="../assets/images/team/DA.png"
-                  placeholder="blur"
-                  width={200}
-                />,
-              )
-            }
-          >
-            <StaticImage
-              src="../assets/images/team/DA.png"
-              placeholder="dominantColor"
-              className="rounded-circle"
-              width={150}
-            />
-            <h3 className="name">Dina Akylbekova</h3>
-            <p className="title">ICPSD Partnerships and Outreach Analyst</p>
-          </div>
-
-          <div
-            className={`item ${teamItem}`}
-            onClick={() =>
-              handleModal(
-                PROFILES['gokhan'],
-                <StaticImage
-                  src="../assets/images/team/GD.png"
-                  placeholder="blur"
-                  width={200}
-                />,
-              )
-            }
-          >
-            <StaticImage
-              src="../assets/images/team/GD.png"
-              placeholder="dominantColor"
-              className="rounded-circle"
-              width={150}
-            />
-            <h3 className="name">Gokhan Dikmener</h3>
-            <p className="title">ICPSD Technical Specialist</p>
-          </div>
+          {PROFILES.map((profile) => {
+            const { key, modalImage, profileImage, fullName, title } = profile;
+            return (
+              <div
+                className={`item ${teamItem}`}
+                onClick={() => handleModal(profile, modalImage)}
+                key={key}
+              >
+                {profileImage}
+                <h3 className="name">{fullName}</h3>
+                <p className="title">{title || 'SDG AI Lab'}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -318,8 +102,8 @@ const AboutPage = () => {
           <div className={profileBioHead}>
             {currentImage}
             <div className={name}>
-              <p>{currentProfile.name}</p>
-              <span>({currentProfile.title})</span>
+              <p>{currentProfile.fullName}</p>
+              <span>({currentProfile.title || 'SDG AI Lab'})</span>
               <a
                 className="github-button"
                 target="__blank"

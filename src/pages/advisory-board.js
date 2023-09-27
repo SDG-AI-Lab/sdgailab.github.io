@@ -52,17 +52,6 @@ const PROFILES = [
 ];
 
 const AdvisoryBoard = () => {
-  const renderProfile = ({ profileName, title, image }) => (
-    <div
-      className="col-md-6 col-lg-4 col-xl-4 item"
-      key={profileName}
-      style={{ zoom: '0.7' }}
-    >
-      <StaticImage src={image} placeholder="dominantColor" />
-      <h3 className="name">{profileName}</h3>
-      <p className="title">{title}</p>
-    </div>
-  );
   return (
     <Layout title="Advisory Board - SDG AI Lab">
       <section

@@ -1,21 +1,28 @@
 import React from 'react';
+import { StaticImage } from 'gatsby-plugin-image';
 
-export const PROFILES = {
-  gokhan: {
-    name: 'Gokhan Dikmener',
-    title: 'ICPSD Technical Specialist',
-    linkedin: '',
-    bio: (
-      <>
-        <p></p>
-      </>
-    ),
-  },
-  beltus: {
-    name: 'Beltus Nkwawir',
-    title: 'SDG AI Lab Data Science Fellow, NLP',
+export const PROFILES = [
+  {
+    key: 'beltus',
+    fullName: 'Beltus Nkwawir',
+    title: 'Data Science Fellow, NLP',
     linkedin:
       'https://www.linkedin.com/in/ACoAAB6yRBkB7MAvS6qKXaHwUgcNlzO4LQ80jSM?lipi=urn%3Ali%3Apage%3Acompanies_company_posts_index%3B7d0dc9ef-23ac-4b3f-ac82-dc30330543f3',
+    modalImage: (
+      <StaticImage
+        src="../assets/images/team/beltus.jpeg"
+        placeholder="blur"
+        width={200}
+      />
+    ),
+    profileImage: (
+      <StaticImage
+        src="../assets/images/team/beltus.jpeg"
+        placeholder="dominantColor"
+        className="rounded-circle"
+        width={150}
+      />
+    ),
     bio: (
       <>
         <p>
@@ -33,20 +40,65 @@ export const PROFILES = {
           however, made me hopeful for the use of digital technologies in
           crises.
         </p>
-        The SDG AI Lab shares the same passion and beliefs that I have held in
-        my heart for many years – to harness the potential of Artificial
-        Intelligence, Machine Learning, and Natural Language Processing to
-        promote peace and strengthen actions towards climate control, human
-        rights, education, the eradication of poverty and diseases."
+
+        <p>
+          The SDG AI Lab shares the same passion and beliefs that I have held in
+          my heart for many years – to harness the potential of Artificial
+          Intelligence, Machine Learning, and Natural Language Processing to
+          promote peace and strengthen actions towards climate control, human
+          rights, education, the eradication of poverty and diseases."
+        </p>
+      </>
+    ),
+  },
+  {
+    name: 'eda',
+    fullName: 'Eda Nur Saruhan',
+    title: 'Dat Science Fellow',
+    linkedin: 'https://www.linkedin.com/in/eda-nur-saruhan-a378b0147/',
+    modalImage: (
+      <StaticImage
+        src="../assets/images/team/eda.png"
+        placeholder="blur"
+        width={200}
+      />
+    ),
+    profileImage: (
+      <StaticImage
+        src="../assets/images/team/eda.png"
+        placeholder="dominantColor"
+        className="rounded-circle"
+        width={150}
+        height={150}
+      />
+    ),
+    bio: (
+      <>
         <p></p>
       </>
     ),
   },
-  mert: {
-    name: 'Mert Atay',
-    title: 'SDG AI Lab Data Science Fellow, NLP ',
+  {
+    key: 'mert',
+    fullName: 'Mert Atay',
+    title: 'Data Science Fellow, NLP ',
     linkedin:
       'https://www.linkedin.com/in/ACoAADKp07oBR5J7ZanF-3yXEVkPk1kiyQ6GXuc?lipi=urn%3Ali%3Apage%3Acompanies_company_posts_index%3B7d0dc9ef-23ac-4b3f-ac82-dc30330543f3',
+    modalImage: (
+      <StaticImage
+        src="../assets/images/team/mert.jpeg"
+        placeholder="blur"
+        width={200}
+      />
+    ),
+    profileImage: (
+      <StaticImage
+        src="../assets/images/team/mert.jpeg"
+        placeholder="dominantColor"
+        className="rounded-circle"
+        width={150}
+      />
+    ),
     bio: (
       <>
         <p>
@@ -71,11 +123,27 @@ export const PROFILES = {
       </>
     ),
   },
-  ozge: {
-    name: 'Özge Ozkaya',
-    title: 'SDG AI Lab Data Science Fellow, NLP ',
+  {
+    key: 'ozge',
+    fullName: 'Özge Ozkaya',
+    title: 'Data Science Fellow, NLP ',
     linkedin:
       'https://www.linkedin.com/in/ACoAACQUfmQBDBQj65etCey7zmDB-cKaDgHizVw?lipi=urn%3Ali%3Apage%3Acompanies_company_posts_index%3B7d0dc9ef-23ac-4b3f-ac82-dc30330543f3',
+    modalImage: (
+      <StaticImage
+        src="../assets/images/team/ozge.jpeg"
+        placeholder="blur"
+        width={200}
+      />
+    ),
+    profileImage: (
+      <StaticImage
+        src="../assets/images/fellows/ozge.jpeg"
+        placeholder="dominantColor"
+        className="rounded-circle"
+        width={150}
+      />
+    ),
     bio: (
       <>
         <p>
@@ -102,10 +170,26 @@ export const PROFILES = {
       </>
     ),
   },
-  jackson: {
-    name: 'Jackson Onyango',
-    title: 'SDG AI Lab Data Science Fellow, Full-Stack Developer',
+  {
+    key: 'jackson',
+    fullName: 'Jackson Onyango',
+    title: 'Data Science Fellow, Full-Stack Developer',
     linkedin: '',
+    modalImage: (
+      <StaticImage
+        src="../assets/images/team/jackson.jpg"
+        placeholder="blur"
+        width={200}
+      />
+    ),
+    profileImage: (
+      <StaticImage
+        src="../assets/images/fellows/jackson.jpeg"
+        placeholder="dominantColor"
+        className="rounded-circle"
+        width={150}
+      />
+    ),
     bio: (
       <>
         <p>
@@ -129,11 +213,27 @@ export const PROFILES = {
       </>
     ),
   },
-  ivana: {
-    name: 'Ivana Petrakovic',
-    title: 'SDG AI Lab Data Science Fellow, GIS ',
+  {
+    key: 'ivana',
+    fullName: 'Ivana Petrakovic',
+    title: 'Data Science Fellow, GIS ',
     linkedin:
       'https://www.linkedin.com/in/ACoAAC8KkhwBsFSWfpHM3eby8NLBsd3u_K2i_ao?lipi=urn%3Ali%3Apage%3Acompanies_company_posts_index%3B7d0dc9ef-23ac-4b3f-ac82-dc30330543f3',
+    modalImage: (
+      <StaticImage
+        src="../assets/images/fellows/ivana.jpeg"
+        placeholder="blur"
+        width={200}
+      />
+    ),
+    profileImage: (
+      <StaticImage
+        src="../assets/images/fellows/ivana.jpeg"
+        placeholder="dominantColor"
+        className="rounded-circle"
+        width={150}
+      />
+    ),
     bio: (
       <>
         <p>
@@ -154,10 +254,26 @@ export const PROFILES = {
       </>
     ),
   },
-  yucel: {
-    name: 'Yucel Torun',
-    title: 'SDG AI Lab Data Science Fellow, GIS',
+  {
+    key: 'yucel',
+    fullName: 'Yucel Torun',
+    title: 'Data Science Fellow, GIS',
     linkedin: '',
+    modalImage: (
+      <StaticImage
+        src="../assets/images/fellows/yucel.png"
+        placeholder="blur"
+        width={200}
+      />
+    ),
+    profileImage: (
+      <StaticImage
+        src="../assets/images/fellows/yucel.png"
+        placeholder="dominantColor"
+        className="rounded-circle"
+        width={150}
+      />
+    ),
     bio: (
       <>
         <p>
@@ -178,35 +294,205 @@ export const PROFILES = {
       </>
     ),
   },
-  dina: {
-    name: 'Dina Akylbekova',
-    title: 'ICPSD Partnerships and Outreach Analyst',
+  {
+    name: 'rim',
+    fullName: 'Rim Essa ',
+    title: '',
     linkedin: '',
+    modalImage: (
+      <StaticImage
+        src="../assets/images/team/rim.jpg"
+        placeholder="blur"
+        width={200}
+      />
+    ),
+    profileImage: (
+      <StaticImage
+        src="../assets/images/team/rim.jpg"
+        placeholder="dominantColor"
+        className="rounded-circle"
+        width={150}
+        height={150}
+      />
+    ),
     bio: (
       <>
         <p></p>
       </>
     ),
   },
-  martin: {
-    name: 'Martin Szigeti',
-    title: 'Data Science Research Analyst - GIS & Remote Sensing',
-    linkedin: '',
-    bio: (
-      <>
-        <p></p>
-      </>
-    ),
-  },
-  izel: {
-    name: 'Izel Karaoglu',
+
+  {
+    name: 'izel',
+    fullName: 'Izel Karaoglu',
     title: 'Data Science Fellow, Community Management',
     linkedin:
       'https://www.linkedin.com/in/ACoAABb_U_oBqre-dsxYKcvY9Qlkn443uJpMAN4?lipi=urn%3Ali%3Apage%3Acompanies_company_posts_index%3B7d0dc9ef-23ac-4b3f-ac82-dc30330543f3',
+    modalImage: (
+      <StaticImage
+        src="../assets/images/team/izel.png"
+        placeholder="blur"
+        width={200}
+      />
+    ),
+    profileImage: (
+      <StaticImage
+        src="../assets/images/team/izel.png"
+        placeholder="dominantColor"
+        className="rounded-circle"
+        width={150}
+        height={150}
+      />
+    ),
+    bio: (
+      <>
+        <p>
+          As a Program Coordinator and Community Manager with a diverse
+          background that encompasses Artificial Intelligence, Marketing,
+          Project Management and Education, I have a proven track record of
+          success leading multiple teams, coordinating Google Developers ML
+          Bootcamp, managing strategic partnerships with global tech firms, and
+          collaborating with a large community of AI and ML engineers, and
+          organizing AI programs. I am proficient with a wide range of
+          professional tools and fluent in multiple languages, including Turkish
+          and English.
+        </p>
+        <p>
+          My ultimate goal is to help using the power of AI and technology to
+          build an equal world for everyone.
+        </p>
+      </>
+    ),
+  },
+
+  {
+    name: 'irem',
+    fullName: 'Irem Zirhlioglu',
+    title: '',
+    linkedin: 'https://www.linkedin.com/in/iremz/',
+    modalImage: (
+      <StaticImage
+        src="../assets/images/team/irem.jpeg"
+        placeholder="blur"
+        width={200}
+      />
+    ),
+    profileImage: (
+      <StaticImage
+        src="../assets/images/team/irem.jpeg"
+        placeholder="dominantColor"
+        className="rounded-circle"
+        width={150}
+        height={150}
+      />
+    ),
+    bio: (
+      <>
+        <p>
+          I am İrem, a chemical engineer and graduate of Bogazici University
+          with both my bachelor's and mater's degrees. Over past five years,
+          I've been interested in data analysis and machine learning, aiming to
+          integrate the power of ML into my existing proficiencies.
+        </p>
+        <p>
+          My master's thesis focused on how machine learning can be applied to
+          material science. I've also contributed to an article published on
+          Elsevier and it compares the classical ML and deep learning using data
+          about ionic liquids.
+        </p>
+      </>
+    ),
+  },
+  {
+    key: 'martin',
+    fullName: 'Martin Szigeti',
+    title: 'Data Science Research Analyst - GIS & Remote Sensing',
+    linkedin: 'https://www.linkedin.com/in/martin-szigeti-73b3a8198/',
+    modalImage: (
+      <StaticImage
+        src="../assets/images/team/martin.jpg"
+        placeholder="blur"
+        width={200}
+      />
+    ),
+    profileImage: (
+      <StaticImage
+        src="../assets/images/team/martin.jpg"
+        placeholder="dominantColor"
+        className="rounded-circle"
+        width={150}
+        height={150}
+      />
+    ),
     bio: (
       <>
         <p></p>
       </>
     ),
   },
-};
+
+  {
+    key: 'dina',
+    fullName: 'Dina Akylbekova',
+    title: 'ICPSD Partnerships and Outreach Analyst',
+    linkedin: 'https://www.linkedin.com/in/dina-akylbekova/',
+    modalImage: (
+      <StaticImage
+        src="../assets/images/team/dina.jpg"
+        placeholder="blur"
+        width={200}
+      />
+    ),
+    profileImage: (
+      <StaticImage
+        src="../assets/images/team/dina.jpg"
+        placeholder="dominantColor"
+        className="rounded-circle"
+        width={150}
+      />
+    ),
+    bio: (
+      <>
+        <p>
+          Dina Akylbekova is the Outreach and Partnerships Support Officer at
+          the UNDP’s Istanbul International Center for Private Sector in
+          Development (IICPSD). Dina joined IICPSD to support the advancement of
+          Digital Transformation solutions through volunteerism in development
+          organizations, SMEs, CSOs worldwide, and particularly in Global South.
+        </p>
+        <p>
+          Dina graduated with a Bachelor Degree in Development Studies from Lund
+          University and is completing her Joint Master’s degree in Public
+          Policy at Erasmus University Rotterdam and University of York. Dina
+          speaks Russian, Kazakh, Japanese and now mastering Turkish.{' '}
+        </p>
+      </>
+    ),
+  },
+  {
+    key: 'gokhan',
+    fullName: 'Gokhan Dikmener',
+    title: 'ICPSD Technical Specialist',
+    linkedin: '',
+    modalImage: (
+      <StaticImage
+        src="../assets/images/team/gokhan.png"
+        placeholder="blur"
+        width={200}
+      />
+    ),
+    profileImage: (
+      <StaticImage
+        src="../assets/images/team/gokhan.png"
+        placeholder="dominantColor"
+        className="rounded-circle"
+        width={150}
+      />
+    ),
+    bio: (
+      <>
+        <p></p>
+      </>
+    ),
+  },
+];
