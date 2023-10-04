@@ -14,7 +14,16 @@
 }
 
 .active {
-  border-bottom: 3px var(--black) solid;
+  font-weight: 900;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.active button {
+  font-weight: 900;
+}
+
+.active-item {
+  font-weight: 900;
 }
 
 .navDropDown button, .navDropDown button:hover, .navDropDown button.active {

@@ -8,6 +8,7 @@ import {
   header,
   content,
   active,
+  activeItem,
   navDropDown,
 } from '../assets/css/modules/layout.module.css';
 import '../assets/css/global.css';
@@ -24,6 +25,8 @@ export const Layout = ({
   const { pathname } = useLocation();
   const [showAbout, setShowAbout] = useState(false);
   const [showWork, setShowWork] = useState(false);
+
+  console.log({ pathname });
 
   return (
     <>
@@ -114,7 +117,7 @@ export const Layout = ({
                         <Link
                           to="/about"
                           className={`nav-link ${
-                            pathname.includes('/about') ? active : ''
+                            pathname.includes('/about') ? activeItem : ''
                           }`}
                         >
                           Our Team
@@ -124,7 +127,9 @@ export const Layout = ({
                         <Link
                           to="/advisory-board"
                           className={`nav-link ${
-                            pathname.includes('/advisory-board') ? active : ''
+                            pathname.includes('/advisory-board')
+                              ? activeItem
+                              : ''
                           }`}
                         >
                           Advisory board
@@ -134,30 +139,11 @@ export const Layout = ({
                         <Link
                           to=""
                           className={`nav-link ${
-                            pathname.includes('/interns') ? active : ''
+                            pathname.includes('/volunteers') ? activeItem : ''
                           }`}
+                          disabled
                         >
-                          Interns
-                        </Link>
-                      </Dropdown.Item>
-                      <Dropdown.Item>
-                        <Link
-                          to="/volunteers"
-                          className={`nav-link ${
-                            pathname.includes('/volunteers') ? active : ''
-                          }`}
-                        >
-                          Volunteers
-                        </Link>
-                      </Dropdown.Item>
-                      <Dropdown.Item>
-                        <Link
-                          to=""
-                          className={`nav-link ${
-                            pathname.includes('/alumi') ? active : ''
-                          }`}
-                        >
-                          Alumni
+                          Interns & Volunteers
                         </Link>
                       </Dropdown.Item>
                     </Dropdown.Menu>
@@ -180,7 +166,7 @@ export const Layout = ({
                         <Link
                           to="/projects"
                           className={`nav-link ${
-                            pathname.includes('/projects') ? active : ''
+                            pathname.includes('/projects') ? activeItem : ''
                           }`}
                         >
                           Projects
@@ -190,7 +176,7 @@ export const Layout = ({
                         <Link
                           to="/trainings"
                           className={`nav-link ${
-                            pathname.includes('/trainings') ? active : ''
+                            pathname.includes('/trainings') ? activeItem : ''
                           }`}
                         >
                           Trainings
@@ -200,7 +186,7 @@ export const Layout = ({
                         <Link
                           to=""
                           className={`nav-link ${
-                            pathname.includes('/products') ? active : ''
+                            pathname.includes('/products') ? activeItem : ''
                           }`}
                         >
                           Products
@@ -210,7 +196,7 @@ export const Layout = ({
                         <Link
                           to=""
                           className={`nav-link ${
-                            pathname.includes('/publications') ? active : ''
+                            pathname.includes('/publications') ? activeItem : ''
                           }`}
                         >
                           Publications
@@ -300,3 +286,4 @@ export const Layout = ({
     </>
   );
 };
+

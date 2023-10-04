@@ -1,0 +1,11 @@
+.badges span {
+  background-color: #FFEB00 !important;
+  font-weight: 300;
+  color: var(--undp_blue);
+}
+
+.badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
