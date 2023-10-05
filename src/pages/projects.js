@@ -3,7 +3,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { Layout } from '../components/layout';
 import { activeProjects } from '../helpers/projectData';
-import { badges, image, tabs } from '../assets/css/modules/project.module.css';
+import { badges, image } from '../assets/css/modules/project.module.css';
 import Badge from 'react-bootstrap/Badge';
 import { Link } from 'gatsby';
 import Card from 'react-bootstrap/Card';
@@ -66,7 +66,7 @@ const Projects = () => {
             title="Active Projects"
             style={{
               maxWidth: '920px',
-              margin: '10px auto',
+              margin: '30px auto',
               flexWrap: 'wrap',
               display: 'flex',
               gap: '20px',
@@ -78,8 +78,6 @@ const Projects = () => {
                 title,
                 slug,
                 projectImages,
-                projectDescription,
-                projectFeatures,
                 projectSummary,
                 projectTechnologies,
               }) => (
@@ -114,71 +112,7 @@ const Projects = () => {
             )}
           </Tab>
           <Tab eventKey="future" title="Future Projects"></Tab>
-          <Tab eventKey="past" title="Past Projects" disabled>
-            {/* <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '20px',
-                marginBottom: '30px',
-              }}
-            >
-              <h5
-                style={{
-                  color: '#3b99e0',
-                  marginBottom: '20px',
-                  textAlign: 'center',
-                  maxWidth: '400px',
-                }}
-              >
-                <strong style={{ lineHeight: '50px' }}>{title}</strong>
-              </h5>
-              <div
-                style={{
-                  boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                  flexBasis: '70%',
-                }}
-              >
-                {projectImages[1]}
-              </div>
-            </div>
-
-            <p
-              style={{
-                maxWidth: '80%',
-                margin: '30px auto',
-                textAlign: 'justify',
-              }}
-            >
-              {projectDescription}
-            </p>
-
-            <div
-              style={{
-                display: 'flex',
-                gap: '20px',
-                alignItems: 'center',
-              }}
-            >
-              <div
-                style={{
-                  boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                  flexBasis: '70%',
-                }}
-              >
-                {projectImages[1]}
-              </div>
-              <div>
-                <strong> Main features</strong>
-                <ul>
-                  {projectFeatures.map((feature, idx) => (
-                    <li key={idx}>{feature}</li>
-                  ))}
-                </ul>
-              </div>
-              <hr style={{ margin: '90px 0', border: '4px solid' }} />
-            </div> */}
-          </Tab>
+          <Tab eventKey="past" title="Past Projects" disabled></Tab>
         </Tabs>
       </div>
     </Layout>

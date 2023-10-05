@@ -15,9 +15,3 @@
   height: 250px;
   display: flex;
 }
-
-.tabs button {
-  border-top: none !important;
-  border-left: none !important;
-  border-right: none !important;
-}

@@ -26,8 +26,6 @@ export const Layout = ({
   const [showAbout, setShowAbout] = useState(false);
   const [showWork, setShowWork] = useState(false);
 
-  console.log({ pathname });
-
   return (
     <>
       <Seo title={title} path={path} image={image} description={description} />
@@ -151,7 +149,11 @@ export const Layout = ({
                 </li>
                 <li
                   className={`nav-item ${
-                    ['/trainings', '/projects'].includes(pathname) ? active : ''
+                    ['/trainings', '/projects', '/project-details'].includes(
+                      pathname,
+                    )
+                      ? active
+                      : ''
                   }`}
                   onMouseEnter={() => setShowWork(true)}
                   onMouseLeave={() => setShowWork(false)}
@@ -166,7 +168,9 @@ export const Layout = ({
                         <Link
                           to="/projects"
                           className={`nav-link ${
-                            pathname.includes('/projects') ? activeItem : ''
+                            ['/projects', '/project-details'].includes(pathname)
+                              ? activeItem
+                              : ''
                           }`}
                         >
                           Projects

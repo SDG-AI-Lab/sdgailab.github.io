@@ -359,52 +359,6 @@ export const PROFILES = {
       ),
     },
   ],
-  webdev: [
-    {
-      key: 'jackson',
-      fullName: 'Jackson Onyango',
-      title: 'Data Science Fellow, Full-Stack Developer',
-      team: ['fullstack', 'fellows'],
-      linkedin: '',
-      modalImage: (
-        <StaticImage
-          src="../assets/images/team/jackson.jpg"
-          placeholder="blur"
-          width={200}
-        />
-      ),
-      profileImage: (
-        <StaticImage
-          src="../assets/images/fellows/jackson.jpeg"
-          placeholder="dominantColor"
-          className="rounded-circle"
-          width={150}
-        />
-      ),
-      bio: (
-        <>
-          <p>
-            Before joining the Data Science Fellowship Programme, Jackson was an
-            online UN volunteer and a member of the SDG AI Lab volunteer
-            community, where data scientists from all over the world connect and
-            exchange views. The SDG AI Lab community is a part of the SDG AI Lab
-            Volunteer Data Scientists Initiative, which engages over 100 online
-            data science volunteers from 45 countries to develop digital
-            solutions for sustainable development.
-          </p>
-          <p>
-            “As a volunteer, I helped fix bugs and made frontend improvements to
-            the FTR4DRR website. I had regular check-ins with my supervisor who
-            was great at helping me understand the product and what my task was.
-            With my contribution to the FTR4DRR project, the team was able to
-            launch the site and begin the process of making the toll available
-            online, in order for areas facing disasters to know how to respond
-            and prevent damages.”
-          </p>
-        </>
-      ),
-    },
-  ],
   training: [
     {
       name: 'izel',
@@ -489,6 +443,53 @@ export const PROFILES = {
       ),
     },
   ],
+  webdev: [
+    {
+      key: 'jackson',
+      fullName: 'Jackson Onyango',
+      title: 'Data Science Fellow, Full-Stack Developer',
+      team: ['fullstack', 'fellows'],
+      linkedin: '',
+      modalImage: (
+        <StaticImage
+          src="../assets/images/team/jackson.jpg"
+          placeholder="blur"
+          width={200}
+        />
+      ),
+      profileImage: (
+        <StaticImage
+          src="../assets/images/fellows/jackson.jpeg"
+          placeholder="dominantColor"
+          className="rounded-circle"
+          width={150}
+        />
+      ),
+      bio: (
+        <>
+          <p>
+            Before joining the Data Science Fellowship Programme, Jackson was an
+            online UN volunteer and a member of the SDG AI Lab volunteer
+            community, where data scientists from all over the world connect and
+            exchange views. The SDG AI Lab community is a part of the SDG AI Lab
+            Volunteer Data Scientists Initiative, which engages over 100 online
+            data science volunteers from 45 countries to develop digital
+            solutions for sustainable development.
+          </p>
+          <p>
+            “As a volunteer, I helped fix bugs and made frontend improvements to
+            the FTR4DRR website. I had regular check-ins with my supervisor who
+            was great at helping me understand the product and what my task was.
+            With my contribution to the FTR4DRR project, the team was able to
+            launch the site and begin the process of making the toll available
+            online, in order for areas facing disasters to know how to respond
+            and prevent damages.”
+          </p>
+        </>
+      ),
+    },
+  ],
+
   // interns: [
   //   {
   //     name: '',

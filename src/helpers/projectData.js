@@ -57,6 +57,32 @@ export const activeProjects = [
       'ChakraUI',
       'Sass',
     ],
+    team: [
+      {
+        key: 'jackson',
+        fullName: 'Jackson Onyango',
+        profileImage: (
+          <StaticImage
+            src="../assets/images/fellows/jackson.jpeg"
+            placeholder="dominantColor"
+            className="rounded-circle"
+            width={80}
+          />
+        ),
+      },
+      {
+        key: 'ozge',
+        fullName: 'Özge Ozkaya',
+        profileImage: (
+          <StaticImage
+            src="../assets/images/fellows/ozge.jpeg"
+            placeholder="dominantColor"
+            className="rounded-circle"
+            width={80}
+          />
+        ),
+      },
+    ],
   },
   {
     title: 'Digital Social Vulnerability Index (DSVI) Tajikistan',
@@ -73,13 +99,7 @@ export const activeProjects = [
         className="img-fluid"
       />,
     ],
-    projectTechnologies: [
-      'TypeScript',
-      'React.js',
-      'D3.js',
-      'ChakraUI',
-      'Sass',
-    ],
+    projectTechnologies: ['GIS', 'React.js', 'D3.js', 'Leaflet'],
     projectDescription: (
       <>
         The DSVI is an innovative tool that helps UN organizations, governments,
@@ -109,6 +129,45 @@ export const activeProjects = [
       'Social Vulnerability (SV) scores:',
       'High resolution maps',
     ],
+    team: [
+      {
+        key: 'martin',
+        fullName: 'Martin Szigeti',
+        profileImage: (
+          <StaticImage
+            src="../assets/images/team/martin.png"
+            placeholder="dominantColor"
+            className="rounded-circle"
+            width={80}
+            height={80}
+          />
+        ),
+      },
+      {
+        key: 'yucel',
+        fullName: 'Yucel Torun',
+        profileImage: (
+          <StaticImage
+            src="../assets/images/fellows/yucel.png"
+            placeholder="dominantColor"
+            className="rounded-circle"
+            width={80}
+          />
+        ),
+      },
+      {
+        key: 'ivana',
+        fullName: 'Ivana Petrakovic',
+        profileImage: (
+          <StaticImage
+            src="../assets/images/fellows/ivana.jpeg"
+            placeholder="dominantColor"
+            className="rounded-circle"
+            width={80}
+          />
+        ),
+      },
+    ],
   },
   {
     title: 'SupTech For Fair Digital Finance (Morrocco)',
@@ -125,13 +184,7 @@ export const activeProjects = [
         className="img-fluid"
       />,
     ],
-    projectTechnologies: [
-      'TypeScript',
-      'React.js',
-      'D3.js',
-      'ChakraUI',
-      'Sass',
-    ],
+    projectTechnologies: ['Python', 'Django', 'Docker', 'ML'],
     projectDescription: (
       <>
         SupTech stands for supervisory technology. This is a web app built for
@@ -155,6 +208,32 @@ export const activeProjects = [
       'Sentiment analysis, classification and trend analysis of posts',
       'Visualization of  extracted knowledge data',
     ],
+    team: [
+      {
+        key: 'ozge',
+        fullName: 'Özge Ozkaya',
+        profileImage: (
+          <StaticImage
+            src="../assets/images/fellows/ozge.jpeg"
+            placeholder="dominantColor"
+            className="rounded-circle"
+            width={80}
+          />
+        ),
+      },
+      {
+        key: 'jackson',
+        fullName: 'Jackson Onyango',
+        profileImage: (
+          <StaticImage
+            src="../assets/images/fellows/jackson.jpeg"
+            placeholder="dominantColor"
+            className="rounded-circle"
+            width={80}
+          />
+        ),
+      },
+    ],
   },
   {
     title: 'UNDP Social Listening Tool (UNSL)',
@@ -171,13 +250,7 @@ export const activeProjects = [
         className="img-fluid"
       />,
     ],
-    projectTechnologies: [
-      'TypeScript',
-      'React.js',
-      'D3.js',
-      'ChakraUI',
-      'Sass',
-    ],
+    projectTechnologies: ['Python', 'Django', 'Docker', 'ML'],
     projectDescription: (
       <>
         UNSL is an online social listening tool which tracks and analvzes online
@@ -202,6 +275,32 @@ export const activeProjects = [
     projectFeatures: [
       'Create specialized reports focusing on specitic topics, people, dates and SDGs',
       'Conduct content analysis, trend analysis, and social network analysis with comprehensive data visualizations.',
+    ],
+    team: [
+      {
+        key: 'mert',
+        fullName: 'Mert Atay',
+        profileImage: (
+          <StaticImage
+            src="../assets/images/team/mert.jpeg"
+            placeholder="dominantColor"
+            className="rounded-circle"
+            width={80}
+          />
+        ),
+      },
+      {
+        key: 'jackson',
+        fullName: 'Jackson Onyango',
+        profileImage: (
+          <StaticImage
+            src="../assets/images/fellows/jackson.jpeg"
+            placeholder="dominantColor"
+            className="rounded-circle"
+            width={80}
+          />
+        ),
+      },
     ],
   },
 ];
