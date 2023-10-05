@@ -3,8 +3,10 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { Layout } from '../components/layout';
 import { activeProjects } from '../helpers/projectData';
-import { badges } from '../assets/css/modules/project.module.css';
+import { badges, image, tabs } from '../assets/css/modules/project.module.css';
 import Badge from 'react-bootstrap/Badge';
+import { Link } from 'gatsby';
+import Card from 'react-bootstrap/Card';
 
 const Projects = () => {
   const [key, setKey] = useState('active');
@@ -52,7 +54,7 @@ const Projects = () => {
           id="controlled-tab-example"
           activeKey={key}
           onSelect={(k) => setKey(k)}
-          className="mb-3"
+          className="project-tabs"
           style={{
             maxWidth: '920px',
             margin: '0 auto',
@@ -64,64 +66,54 @@ const Projects = () => {
             title="Active Projects"
             style={{
               maxWidth: '920px',
-              margin: '0 auto',
-              width: '40%',
+              margin: '10px auto',
+              flexWrap: 'wrap',
               display: 'flex',
+              gap: '20px',
+              justifyContent: 'center',
             }}
           >
             {activeProjects.map(
               ({
                 title,
+                slug,
                 projectImages,
                 projectDescription,
                 projectFeatures,
                 projectSummary,
                 projectTechnologies,
               }) => (
-                <div key={title}>
-                  <div
-                    style={{
-                      display: 'flex',
-                      boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                      flexDirection: 'column',
-                      // width: '50%',
-                      height: '520px',
-                    }}
-                  >
-                    <div>{projectImages[0]}</div>
-                    <div
-                      style={{
-                        padding: '10px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                      }}
-                    >
-                      <div className={badges}>
-                        {projectTechnologies.map((tech, idx) => (
-                          <Badge pill key={idx}>
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                      <span
-                        style={{
-                          color: '#3b99e0',
-                          margin: '10px 0',
-                        }}
-                      >
-                        <strong style={{}}>{title}</strong>
-                      </span>
-
-                      <span style={{ textAlign: 'justify' }}>
-                        {projectSummary}
-                      </span>
+                <Link
+                  to={`/project-details?slug=${slug}`}
+                  key={slug}
+                  style={{
+                    display: 'flex',
+                    flex: 'auto',
+                    justifyContent: 'center',
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Card style={{ width: '25rem' }}>
+                    <div className={image}>{projectImages[0]}</div>
+                    <div className={badges}>
+                      {projectTechnologies.map((tech, idx) => (
+                        <Badge pill key={idx}>
+                          {tech}
+                        </Badge>
+                      ))}
                     </div>
-                  </div>
-                </div>
+                    <Card.Body>
+                      <Card.Title style={{ color: 'var(--undp_blue' }}>
+                        {title}
+                      </Card.Title>
+                      <Card.Text>{projectSummary}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Link>
               ),
             )}
           </Tab>
-          <Tab eventKey="future" title="Future Projects" disabled></Tab>
+          <Tab eventKey="future" title="Future Projects"></Tab>
           <Tab eventKey="past" title="Past Projects" disabled>
             {/* <div
               style={{

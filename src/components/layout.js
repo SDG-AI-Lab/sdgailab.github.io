@@ -182,7 +182,7 @@ export const Layout = ({
                           Trainings
                         </Link>
                       </Dropdown.Item>
-                      <Dropdown.Item>
+                      {/* <Dropdown.Item>
                         <Link
                           to=""
                           className={`nav-link ${
@@ -201,7 +201,7 @@ export const Layout = ({
                         >
                           Publications
                         </Link>
-                      </Dropdown.Item>
+                      </Dropdown.Item> */}
                     </Dropdown.Menu>
                   </Dropdown>
                 </li>

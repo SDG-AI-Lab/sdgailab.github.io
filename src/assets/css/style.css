@@ -3,3 +3,18 @@
   border: none !important;
   color: black !important;
 }
+
+.project-tabs button {
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+.project-tabs .nav-link.active {
+  border-bottom: 2px solid !important;
+  color: var(--undp_blue);
+}
+
+.project-tabs .nav-link {
+  color: black;
+}

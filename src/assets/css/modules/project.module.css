@@ -1,11 +1,23 @@
 .badges span {
-  background-color: #FFEB00 !important;
+  background-color: #FBC412 !important;
   font-weight: 300;
-  color: var(--undp_blue);
+  color: black;
 }
 
 .badges {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  padding: 20px 20px 0;
+}
+
+.image {
+  height: 250px;
+  display: flex;
+}
+
+.tabs button {
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
 }
