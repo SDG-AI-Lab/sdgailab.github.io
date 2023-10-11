@@ -8,7 +8,10 @@ import {
   partners,
 } from '../assets/css/modules/index.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBookOpenReader,
+  faLaptopCode,
+} from '@fortawesome/free-solid-svg-icons';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -54,33 +57,73 @@ const IndexPage = () => {
         <div className="container">
           <div className="block-heading">
             <h2 style={{ textAlign: 'center', color: '#3b99e0' }}>
-              Our Approach
+              Areas of Work
             </h2>
-            <p>
-              One-stop solution with agile, gig approach to AI research in
-              Sustainable Development
-              <br />
-              <br />
-              <FontAwesomeIcon icon={faCaretRight} size="1x" />
-              &nbsp; Research formulation, solution architecture, andIdentifying
-              the right talents for each specific tasks
-              <br />
-              <FontAwesomeIcon icon={faCaretRight} size="1x" />
-              &nbsp; Recruitment and coordination of highly-skilled volunteers
-              <br />
-              <FontAwesomeIcon icon={faCaretRight} size="1x" />
-              &nbsp; Establishing teams and coordinating the workflow and
-              experimentation
-              <br />
-              <FontAwesomeIcon icon={faCaretRight} size="1x" />
-              &nbsp; Monitor the R&amp;D progress to achieve the high standard
-              quality of work
-              <br />
-              <FontAwesomeIcon icon={faCaretRight} size="1x" />
-              &nbsp; Deliver results in the formats of prototypes, architecture,
-              reports, presentations
-              <br />
-            </p>
+            <div
+              className="row"
+              style={{
+                maxWidth: '920px',
+                justifyContent: 'space-between',
+                margin: '20px auto',
+              }}
+            >
+              <div
+                className="col-md-5 feature-box"
+                style={{ display: 'flex', gap: '20px' }}
+              >
+                <FontAwesomeIcon
+                  icon={faLaptopCode}
+                  size="2x"
+                  style={{ color: '#3b99e0' }}
+                />
+                <div>
+                  <h5 style={{ padding: '0' }}>Development</h5>
+                  <p style={{ padding: '0' }}>
+                    Frontier technologies driven solutions for SDGs such as with
+                    AI, ML and GIS
+                  </p>
+                </div>
+              </div>
+              <div
+                className="col-md-5 feature-box"
+                style={{ display: 'flex', gap: '20px' }}
+              >
+                <FontAwesomeIcon
+                  icon={faBookOpenReader}
+                  size="2x"
+                  style={{ color: '#3b99e0' }}
+                />
+                <div>
+                  <h5 style={{ padding: '0' }}>Research </h5>
+                  <p style={{ padding: '0' }}>
+                    Promising frontier digital technologies such as Artificial
+                    Intelligence, Machine Learning and GIS applications for
+                    development challenges and clients
+                  </p>
+                </div>
+              </div>
+              <div
+                className="col-md-5 feature-box"
+                style={{ display: 'flex', gap: '20px' }}
+              >
+                <FontAwesomeIcon
+                  icon={faBookOpenReader}
+                  size="2x"
+                  style={{ color: '#3b99e0' }}
+                />
+                <div>
+                  <h5 style={{ padding: '0' }}>Advisory </h5>
+                  <p style={{ padding: '0' }}>
+                    Support UNDP units on research, development and
+                    implementation of digital development solutions with
+                    in-house team​.
+                    <br /> <br />
+                    Facilitate partnerships with the private sector for UNDP
+                    units
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
