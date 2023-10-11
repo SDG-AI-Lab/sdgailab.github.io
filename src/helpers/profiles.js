@@ -12,7 +12,7 @@ export const PROFILES = {
       modalImage: (
         <StaticImage
           src="../assets/images/team/gokhan.png"
-          placeholder="blur"
+          placeholder="dominantColor"
           width={200}
         />
       ),
@@ -76,8 +76,8 @@ export const PROFILES = {
     {
       key: 'ozge',
       fullName: 'Özge Ozkaya',
-      title: 'Data Science Fellow, NLP ',
-      team: ['nlp', 'fellows'],
+      title: 'NLP Consultant',
+      team: ['nlp', 'consultant'],
       linkedin:
         'https://www.linkedin.com/in/ACoAACQUfmQBDBQj65etCey7zmDB-cKaDgHizVw?lipi=urn%3Ali%3Apage%3Acompanies_company_posts_index%3B7d0dc9ef-23ac-4b3f-ac82-dc30330543f3',
       modalImage: (
@@ -124,8 +124,8 @@ export const PROFILES = {
     {
       key: 'mert',
       fullName: 'Mert Atay',
-      title: 'Data Science Fellow, NLP',
-      team: ['nlp', 'fellows'],
+      title: 'NLP Consultant',
+      team: ['nlp', 'consultant'],
       linkedin:
         'https://www.linkedin.com/in/ACoAADKp07oBR5J7ZanF-3yXEVkPk1kiyQ6GXuc?lipi=urn%3Ali%3Apage%3Acompanies_company_posts_index%3B7d0dc9ef-23ac-4b3f-ac82-dc30330543f3',
       modalImage: (
@@ -187,6 +187,7 @@ export const PROFILES = {
           placeholder="dominantColor"
           className="rounded-circle"
           width={150}
+          height={150}
         />
       ),
       bio: (
@@ -214,34 +215,6 @@ export const PROFILES = {
             promote peace and strengthen actions towards climate control, human
             rights, education, the eradication of poverty and diseases."
           </p>
-        </>
-      ),
-    },
-    {
-      name: 'eda',
-      fullName: 'Eda Nur Saruhan',
-      title: 'Dat Science Fellow, NLP',
-      team: ['nlp'],
-      linkedin: 'https://www.linkedin.com/in/eda-nur-saruhan-a378b0147/',
-      modalImage: (
-        <StaticImage
-          src="../assets/images/team/eda.png"
-          placeholder="blur"
-          width={200}
-        />
-      ),
-      profileImage: (
-        <StaticImage
-          src="../assets/images/team/eda.png"
-          placeholder="dominantColor"
-          className="rounded-circle"
-          width={150}
-          height={150}
-        />
-      ),
-      bio: (
-        <>
-          <p></p>
         </>
       ),
     },
@@ -406,8 +379,8 @@ export const PROFILES = {
     {
       name: 'irem',
       fullName: 'Irem Zirhlioglu',
-      title: '',
-      team: ['trainining'],
+      title: 'Data Science Fellow',
+      team: ['training', 'fellows'],
       linkedin: 'https://www.linkedin.com/in/iremz/',
       modalImage: (
         <StaticImage
@@ -428,17 +401,47 @@ export const PROFILES = {
       bio: (
         <>
           <p>
-            I am İrem, a chemical engineer and graduate of Bogazici University
-            with both my bachelor's and mater's degrees. Over past five years,
-            I've been interested in data analysis and machine learning, aiming
-            to integrate the power of ML into my existing proficiencies.
+            Irem Zirhlioglu İrem Zırhlıoğlu is a data science fellow in SDG AI
+            Lab. Before UNDP, İrem was a member of a team in a non-profit
+            organization, inzva since 2019. She worked as a program specialist
+            for 3 years and a technical leader for a year, teaching deep
+            learning courses and designing AI programs for university students.
           </p>
           <p>
-            My master's thesis focused on how machine learning can be applied to
-            material science. I've also contributed to an article published on
-            Elsevier and it compares the classical ML and deep learning using
-            data about ionic liquids.
+            With a master’s degree in chemical engineering from Boğaziçi
+            University, İrem’s aim has been to integrate AI applications into
+            chemical engineering. She is a two-star certificated scuba-diver and
+            a passionate tango enthusiast. She loves to explore new places and
+            her ultimate goal is to travel the world.
           </p>
+        </>
+      ),
+    },
+    {
+      name: 'eda',
+      fullName: 'Eda Nur Saruhan',
+      title: '',
+      team: ['training'],
+      linkedin: 'https://www.linkedin.com/in/eda-nur-saruhan-a378b0147/',
+      modalImage: (
+        <StaticImage
+          src="../assets/images/team/eda.png"
+          placeholder="blur"
+          width={200}
+        />
+      ),
+      profileImage: (
+        <StaticImage
+          src="../assets/images/team/eda.png"
+          placeholder="dominantColor"
+          className="rounded-circle"
+          width={150}
+          height={150}
+        />
+      ),
+      bio: (
+        <>
+          <p></p>
         </>
       ),
     },
@@ -485,6 +488,36 @@ export const PROFILES = {
             online, in order for areas facing disasters to know how to respond
             and prevent damages.”
           </p>
+        </>
+      ),
+    },
+  ],
+  interns: [
+    {
+      name: '',
+      fullName: 'Rim Essa ',
+      team: ['interns'],
+      title: '',
+      linkedin: '',
+      modalImage: (
+        <StaticImage
+          src="../assets/images/team/rim.jpg"
+          placeholder="blur"
+          width={200}
+        />
+      ),
+      profileImage: (
+        <StaticImage
+          src="../assets/images/team/rim.jpg"
+          placeholder="dominantColor"
+          className="rounded-circle"
+          width={150}
+          height={150}
+        />
+      ),
+      bio: (
+        <>
+          <p></p>
         </>
       ),
     },

@@ -13,7 +13,6 @@ import {
   profileBio,
   profileBioHead,
   name,
-  teamButtons,
 } from '../assets/css/modules/about.module.css';
 
 const TEAM_LABELS = {
@@ -22,6 +21,7 @@ const TEAM_LABELS = {
   gis: 'GIS Team',
   webdev: 'Web Development Team',
   training: 'Training Team',
+  interns: 'Interns',
 };
 
 const AboutPage = () => {
@@ -55,7 +55,9 @@ const AboutPage = () => {
               key={key}
             >
               {profileImage}
-              <h3 className="name">{fullName}</h3>
+              <h3 className="name" style={{ marginTop: '10px' }}>
+                {fullName}
+              </h3>
               <p className="title">{title || 'SDG AI Lab'}</p>
             </div>
           )
@@ -103,12 +105,17 @@ const AboutPage = () => {
               style={{
                 color:
                   "var(--bs-gray-dark);font-family: 'Open Sans', sans-serif",
+                textAlign: 'justify',
               }}
             >
               The SDG AI Lab team consists of full time and part time personnel
               as well as fellows, interns and volunteers.
             </p>
-            <p>
+            <p
+              style={{
+                textAlign: 'justify',
+              }}
+            >
               The Lab leverages onsite and online UN Volunteering mechanism to
               derive the know-how and experience from global tech leaders and
               advanced research centres. It mobilizes volunteer data scientists
@@ -131,11 +138,15 @@ const AboutPage = () => {
             gap: '10px',
             justifyContent: 'center',
           }}
-          className={teamButtons}
+          className={'teamButtons'}
         >
           {renderButton('Team')}
           {renderButton('Fellows')}
-          {renderButton('On Site')}
+          {renderButton('NLP')}
+          {renderButton('Consultant')}
+          {renderButton('GIS')}
+          {renderButton('Training')}
+          {renderButton('Interns')}
         </div>
         <div
           style={{
@@ -178,14 +189,26 @@ const AboutPage = () => {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">PROFILE</Modal.Title>
+          <Modal.Title
+            id="contained-modal-title-vcenter"
+            style={{
+              textAlign: 'center',
+              display: 'flex',
+              justifyContent: 'center',
+              width: '100%',
+              flexDirection: 'column',
+            }}
+          >
+            <p style={{ marginBottom: '0' }}>{currentProfile.fullName}</p>
+            <span style={{ fontSize: '14px' }}>
+              ({currentProfile.title || 'SDG AI Lab'})
+            </span>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body className={profileBio}>
           <div className={profileBioHead}>
             {currentImage}
             <div className={name}>
-              <p>{currentProfile.fullName}</p>
-              <span>({currentProfile.title || 'SDG AI Lab'})</span>
               <a
                 className="github-button"
                 target="__blank"
@@ -203,7 +226,11 @@ const AboutPage = () => {
             </div>
           </div>
 
-          <p>{currentProfile.bio}</p>
+          <p
+            style={{ position: 'relative', top: '-30px', textAlign: 'justify' }}
+          >
+            {currentProfile.bio}
+          </p>
         </Modal.Body>
       </Modal>
     </Layout>

@@ -54,7 +54,9 @@ const ProjectDetails = () => {
             </div>
           </div>
           <h5 style={{ color: 'var(--undp_blue)' }}>Overview</h5>
-          <p>{activeProject.projectDescription}</p>
+          <p style={{ textAlign: 'justify' }}>
+            {activeProject.projectDescription}
+          </p>
 
           <div
             style={{

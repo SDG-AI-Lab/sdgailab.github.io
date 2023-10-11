@@ -141,7 +141,18 @@ export const Layout = ({
                           }`}
                           disabled
                         >
-                          Interns & Volunteers
+                          Volunteers
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link
+                          to=""
+                          className={`nav-link ${
+                            pathname.includes('/alumni') ? activeItem : ''
+                          }`}
+                          disabled
+                        >
+                          Alumni
                         </Link>
                       </Dropdown.Item>
                     </Dropdown.Menu>

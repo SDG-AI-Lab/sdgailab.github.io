@@ -63,7 +63,7 @@ const Projects = () => {
         >
           <Tab
             eventKey="active"
-            title="Active Projects"
+            title="Projects List"
             style={{
               maxWidth: '920px',
               margin: '30px auto',
@@ -104,15 +104,15 @@ const Projects = () => {
                       <Card.Title style={{ color: 'var(--undp_blue' }}>
                         {title}
                       </Card.Title>
-                      <Card.Text>{projectSummary}</Card.Text>
+                      <Card.Text style={{ textAlign: 'justify' }}>
+                        {projectSummary}
+                      </Card.Text>
                     </Card.Body>
                   </Card>
                 </Link>
               ),
             )}
           </Tab>
-          <Tab eventKey="future" title="Future Projects"></Tab>
-          <Tab eventKey="past" title="Past Projects" disabled></Tab>
         </Tabs>
       </div>
     </Layout>
