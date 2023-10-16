@@ -25,7 +25,7 @@ const Projects = () => {
               <strong>Projects</strong>
             </h2>
             <p>
-              <strong>· Development</strong>on Artificial Intelligence and
+              <strong>· Development</strong> of Artificial Intelligence and
               Machine Learning driven solutions for SDGs
               <br />
               <br />
@@ -104,7 +104,13 @@ const Projects = () => {
                       <Card.Title style={{ color: 'var(--undp_blue' }}>
                         {title}
                       </Card.Title>
-                      <Card.Text style={{ textAlign: 'justify' }}>
+                      <Card.Text
+                        style={{
+                          textAlign: 'justify',
+                          fontSize: '14px',
+                          lineHeight: '1.5',
+                        }}
+                      >
                         {projectSummary}
                       </Card.Text>
                     </Card.Body>

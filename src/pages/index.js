@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBookOpenReader,
   faLaptopCode,
+  faPhoneVolume,
 } from '@fortawesome/free-solid-svg-icons';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -107,7 +108,7 @@ const IndexPage = () => {
                 style={{ display: 'flex', gap: '20px' }}
               >
                 <FontAwesomeIcon
-                  icon={faBookOpenReader}
+                  icon={faPhoneVolume}
                   size="2x"
                   style={{ color: '#3b99e0' }}
                 />
@@ -147,6 +148,7 @@ const IndexPage = () => {
             <a
               style={{ textDecoration: 'none' }}
               target="_blank"
+              rel="noreferrer"
               href="https://www.iicpsd.undp.org/content/istanbul/en/home/news-centre/2021/SDG-AI-Lab-and-UNV-hosted-joint-annual-demo-day-to-showcase-volunteer-digital-solutions-for-SDGs.html"
             >
               <StaticImage
@@ -179,6 +181,7 @@ const IndexPage = () => {
             <a
               href="https://www.iicpsd.undp.org/content/istanbul/en/home/news-centre/2021/PPMI-SDG-AI-Lab-Partnership0.html"
               target="_blank"
+              rel="noreferrer"
               style={{ textDecoration: 'none' }}
             >
               <StaticImage
@@ -211,6 +214,7 @@ const IndexPage = () => {
             <a
               href="https://www.iicpsd.undp.org/content/istanbul/en/home/news-centre/2021/sdg-ai-lab-established-the-advisory-board-and-held-the-first-onl.html"
               target="_blank"
+              rel="noreferrer"
               style={{ textDecoration: 'none' }}
             >
               <StaticImage
@@ -246,13 +250,21 @@ const IndexPage = () => {
           </div>
           <Slider {...settings} className={partners}>
             <div className={carouselItem}>
-              <a href="https://www.thegef.org/" target="__blank">
+              <a
+                href="https://www.thegef.org/"
+                target="__blank"
+                rel="noreferrer"
+              >
                 <StaticImage
                   src="../assets/images/logos/Picture1.png"
                   placeholder="dominantColor"
                 />
               </a>
-              <a href="https://www.theglobalfund.org/en/" target="__blank">
+              <a
+                href="https://www.theglobalfund.org/en/"
+                target="__blank"
+                rel="noreferrer"
+              >
                 <StaticImage
                   src="../assets/images/logos/Picture2.png"
                   placeholder="dominantColor"
@@ -261,13 +273,18 @@ const IndexPage = () => {
               <a
                 href="https://www.undp.org/content/undp/en/home/2030-agenda-for-sustainable-development/planet.html"
                 target="__blank"
+                rel="noreferrer"
               >
                 <StaticImage
                   src="../assets/images/logos/Picture3.png"
                   placeholder="dominantColor"
                 />
               </a>
-              <a href="https://www.greenclimate.fund/" target="__blank">
+              <a
+                href="https://www.greenclimate.fund/"
+                target="__blank"
+                rel="noreferrer"
+              >
                 <StaticImage
                   src="../assets/images/logos/gcf-removebg-preview.png"
                   placeholder="dominantColor"
@@ -278,25 +295,34 @@ const IndexPage = () => {
               <a
                 href="https://www.connectingbusiness.org/home"
                 target="__blank"
+                rel="noreferrer"
               >
                 <StaticImage
                   src="../assets/images/logos/Picture5.png"
                   placeholder="dominantColor"
                 />
               </a>
-              <a href="https://www.businesscalltoaction.org/" target="__blank">
+              <a
+                href="https://www.businesscalltoaction.org/"
+                target="__blank"
+                rel="noreferrer"
+              >
                 <StaticImage
                   src="../assets/images/logos/Picture6.png"
                   placeholder="dominantColor"
                 />
               </a>
-              <a href="https://www.unocha.org/" target="__blank">
+              <a
+                href="https://www.unocha.org/"
+                target="__blank"
+                rel="noreferrer"
+              >
                 <StaticImage
                   src="../assets/images/logos/Picture7.png"
                   placeholder="dominantColor"
                 />
               </a>
-              <a href="https://www.ppmi.lt/" target="__blank">
+              <a href="https://www.ppmi.lt/" target="__blank" rel="noreferrer">
                 <StaticImage
                   src="../assets/images/logos/Picture8.png"
                   placeholder="dominantColor"
@@ -304,7 +330,7 @@ const IndexPage = () => {
               </a>
             </div>
             <div className={carouselItem}>
-              <a href="https://www.unv.org/" target="__blank">
+              <a href="https://www.unv.org/" target="__blank" rel="noreferrer">
                 <StaticImage
                   src="../assets/images/logos/Picture10.png"
                   placeholder="dominantColor"
@@ -314,6 +340,7 @@ const IndexPage = () => {
               <a
                 href="https://www.iicpsd.undp.org/content/istanbul/en/home.html"
                 target="__blank"
+                rel="noreferrer"
               >
                 <StaticImage
                   src="../assets/images/logos/Picture11.png"

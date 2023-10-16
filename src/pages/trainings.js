@@ -62,7 +62,7 @@ const Trainings = () => {
             <Dropdown.Menu>
               {Object.keys(trainings).map((t, idx) => (
                 <Dropdown.Item key={idx} onClick={() => setTraining(t)}>
-                  {trainings[t].title}
+                  {`▸ ${trainings[t].title}`}
                 </Dropdown.Item>
               ))}
             </Dropdown.Menu>
@@ -107,7 +107,7 @@ const Trainings = () => {
               )}
             </div>
           </div>
-          <p>{description}</p>
+          <p style={{ textAlign: 'justify' }}>{description}</p>
           {offering && (
             <div style={{ display: 'flex', gap: '20px', marginTop: '50px' }}>
               <div style={{ flexBasis: '40%' }}>
@@ -119,7 +119,7 @@ const Trainings = () => {
                   />
                 )}
               </div>
-              <div style={{ flexBasis: '60%' }}>
+              <div style={{ flexBasis: '60%', textAlign: 'justify' }}>
                 <strong>What the training offers</strong>
                 {offering}
               </div>

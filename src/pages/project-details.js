@@ -19,7 +19,7 @@ const ProjectDetails = () => {
 
   useEffect(() => {
     getProject();
-  }, []);
+  });
 
   const getProject = () => {
     const project = activeProjects.find((p) => p.slug === slug);
@@ -74,14 +74,16 @@ const ProjectDetails = () => {
             >
               {activeProject.projectImages[1]}
             </div>
-            <div>
-              <strong> Main features</strong>
-              <ul>
-                {activeProject.projectFeatures.map((feature, idx) => (
-                  <li key={idx}>{feature}</li>
-                ))}
-              </ul>
-            </div>
+            {activeProject.projectFeatures.length > 0 && (
+              <div>
+                <strong> Main features</strong>
+                <ul>
+                  {activeProject.projectFeatures.map((feature, idx) => (
+                    <li key={idx}>{feature}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
 
           <h5 style={{ color: 'var(--undp_blue)' }}>Development Team</h5>
