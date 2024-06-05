@@ -19,6 +19,15 @@
     <link rel="stylesheet" href="assets/css/Team-Clean-1.css">
     <link rel="stylesheet" href="assets/css/Team-Clean.css">
     <link rel="stylesheet" href="assets/css/Team-Grid.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="icons/browserconfig.xml">
+    <meta name="theme-color" content="#000000">
 </head>
 
 <body>
@@ -122,13 +131,8 @@
                         </div>
                     </div>
                 </div>
-                <form id="contactForm" action="MAILTO:yoonseong.jung@undp.org" method="post" enctype="text/plain"><input class="form-control" type="hidden" id="Name"><input class="form-control" type="hidden" id="Email"><input class="form-control" type="hidden">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div id="successfail"></div>
-                        </div>
-                    </div>
-                    <div class="row">
+                <form id="contactForm" action="MAILTO:sdgailab@undp.org" method="post" enctype="text/plain"><input class="form-control" type="hidden" id="Name"><input class="form-control" type="hidden" id="Email"><input class="form-control" type="hidden">
+                    <div class="row mb-0">
                         <div class="col-md-6 col-xl-12" id="message">
                             <fieldset></fieldset>
                             <div class="has-feedback form-group mb-3"><label class="form-label" for="from_name">Name</label><input class="form-control" type="text" id="from_name" tabindex="-1" name="from_name" required="" placeholder="Full Name"></div>
@@ -223,30 +227,26 @@
                             </div>
                             <div class="modal-body">
                                 <form id="contactForm" action="javascript:void();" method="get"><input class="form-control" type="hidden" name="Introduction" value="This email was sent from www.mywebsite.com"><input class="form-control" type="hidden" name="subject" value="My Contact Form"><input class="form-control" type="hidden" name="to" value="email@mywebsite.com">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div id="modal-successfail"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
+                                    <div class="row mb-0">
                                         <div class="col-md-6" id="modal-message">
                                             <fieldset>
                                                 <legend><i class="fa fa-envelope"></i> Contact Us</legend>
                                             </fieldset>
                                             <div class="has-feedback form-group mb-3"><label class="form-label" for="modal_from_name">Name</label><input class="form-control" type="text" id="modal_from_name" tabindex="-1" name="from_name" required="" placeholder="Full Name"></div>
                                             <div class="has-feedback form-group mb-3"><label class="form-label" for="modal_from_email">Email</label><input class="form-control" type="email" id="modal_from_email" name="from_email" required="" placeholder="Email Address"></div>
-                                            <div class="row">
+                                            <div class="row mb-0">
                                                 <div class="col-sm-6">
                                                     <div class="has-feedback form-group mb-3"><label class="form-label" for="modal_from_phone">Phone</label><input class="form-control" type="text" id="modal_from_phone" name="from_phone" placeholder="Primary Phone"></div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group mb-3"><label class="form-label" for="modal_calltime">Best Time to Call</label><select class="form-select" id="modal_calltime" name="Call Time">
-                                                            <optgroup label="This is a group">
-                                                                <option value="12" selected="">This is item 1</option>
-                                                                <option value="13">This is item 2</option>
-                                                                <option value="14">This is item 3</option>
-                                                            </optgroup>
-                                                        </select></div>
+                                                        <optgroup label="This is a group">
+                                                            <option value="12" selected="">This is item 1</option>
+                                                            <option value="13">This is item 2</option>
+                                                            <option value="14">This is item 3</option>
+                                                        </optgroup>
+                                                    </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group mb-3"><label class="form-label" for="modal_comments">Comments</label><textarea class="form-control" id="modal_comments" name="Comments" placeholder="Enter comments here" rows="5"></textarea></div>
@@ -310,5 +310,4 @@
     <script src="assets/js/particles.min.js"></script>
     <script src="assets/js/stats.js"></script>
 </body>
-
 </html>
