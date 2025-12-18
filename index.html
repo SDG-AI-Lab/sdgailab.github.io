@@ -119,7 +119,7 @@
         <div class="footer-copyright"><div><a href="https://twitter.com/sdgailab?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @sdgailab</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- Place this tag where you want the button to render. -->
 <a class="github-button" href="https://github.com/SDG-AI-Lab" aria-label="Follow @SDG-AI-Lab on GitHub">Follow @SDG-AI-Lab</a></div><!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
-            <p>© 2021 SDG AI Lab</p>
+            <p id="copyright-year">© 2021 SDG AI Lab</p>
         </div>
     </footer>
     <script src="assets/js/jquery.min.js"></script>
@@ -132,6 +132,16 @@
     <script src="assets/js/particles.js"></script>
     <script src="assets/js/particles.min.js"></script>
     <script src="assets/js/stats.js"></script>
+    <script>
+        // Update copyright year dynamically
+        document.addEventListener('DOMContentLoaded', function() {
+            const copyrightElement = document.getElementById('copyright-year');
+            if (copyrightElement) {
+                const currentYear = new Date().getFullYear();
+                copyrightElement.textContent = `© ${currentYear} SDG AI Lab`;
+            }
+        });
+    </script>
 </body>
 
 </html>
