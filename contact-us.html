@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -31,10 +31,10 @@
 <body>
     <nav class="navbar navbar-light navbar-expand-xl bg-white clean-navbar">
         <div class="container"><a class="navbar-brand logo" href="index.html"><img
-                    src="assets/img/Webp.net-resizeimage.jpg"><strong>&nbsp; &nbsp;SDG AI
+                    src="assets/img/Webp.net-resizeimage.jpg" alt="SDG AI Lab Logo"><strong>&nbsp; &nbsp;SDG AI
                     Lab&nbsp;&nbsp;</strong></a><button data-bs-toggle="collapse" class="navbar-toggler"
-                data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span
-                    class="navbar-toggler-icon"></span></button>
+                data-bs-target="#navcol-1" aria-label="Toggle navigation menu" aria-expanded="false"><span
+                    class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
@@ -64,7 +64,6 @@
                         id="Email"><input class="form-control" type="hidden">
                     <div class="row mb-0">
                         <div class="col-md-6 col-xl-12" id="message">
-                            <fieldset></fieldset>
                             <div class="has-feedback form-group mb-3"><label class="form-label"
                                     for="from_name">Name</label><input class="form-control" type="text" id="from_name"
                                     tabindex="-1" name="from_name" required="" placeholder="Full Name"></div>
@@ -74,8 +73,9 @@
                             <div class="form-group mb-3"><label class="form-label"
                                     for="comments">Comments</label><textarea class="form-control" id="comments"
                                     name="Comments" placeholder="Enter comments here" rows="8"></textarea></div>
-                            <div class="form-group mb-3"><button class="btn btn-primary d-block w-100"
-                                    type="submit">Send <i class="fa fa-chevron-circle-right"></i></button></div>
+                            <div class="form-group mb-3"><button class="btn btn-primary d-block w-100" type="submit"
+                                    aria-label="Send contact form">Send <i
+                                        class="fa fa-chevron-circle-right"></i></button></div>
                             <hr>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
     <script src="assets/js/stats.js"></script>
     <script>
         // Update copyright year dynamically
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const copyrightElement = document.getElementById('copyright-year');
             if (copyrightElement) {
                 const currentYear = new Date().getFullYear();
