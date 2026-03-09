@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import ProjectList from '../../islands/ProjectList';
+---
+
+<BaseLayout title="Projects - SDG AI Lab">
+  <section class="section-padding">
+    <div class="container-narrow">
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Projects</h1>
+      <p class="text-lg text-gray-600 mb-8">
+        Explore our portfolio of AI and machine learning projects advancing the Sustainable Development Goals.
+      </p>
+      <ProjectList client:load />
+    </div>
+  </section>
+</BaseLayout>

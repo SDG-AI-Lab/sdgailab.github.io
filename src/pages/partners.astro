@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import PartnerLogos from '../islands/PartnerLogos';
+---
+
+<BaseLayout title="Partners - SDG AI Lab">
+  <section class="section-padding">
+    <div class="container-narrow">
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Our Partners</h1>
+      <p class="text-lg text-gray-600 mb-8">
+        We collaborate with leading international organizations, government agencies, and technology companies
+        to advance the Sustainable Development Goals through AI and machine learning.
+      </p>
+      <PartnerLogos client:load />
+    </div>
+  </section>
+</BaseLayout>

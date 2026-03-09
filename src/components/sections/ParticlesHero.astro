@@ -1,0 +1,22 @@
+---
+---
+
+<section id="particles-hero" class="relative h-[60vh] min-h-[400px] bg-primary overflow-hidden">
+  <div id="particles-js" class="absolute inset-0"></div>
+  <div class="relative z-10 flex items-center justify-center h-full text-center px-4">
+    <div>
+      <slot />
+    </div>
+  </div>
+</section>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    import('particles.js').then(() => {
+      // @ts-ignore - particles.js global
+      window.particlesJS.load('particles-js', '/particles-config.json');
+    });
+  }
+</script>

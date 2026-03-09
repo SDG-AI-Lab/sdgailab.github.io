@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import PeopleGrid from '../islands/PeopleGrid';
+---
+
+<BaseLayout title="Team - SDG AI Lab">
+  <section class="section-padding">
+    <div class="container-narrow">
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Our Team</h1>
+      <p class="text-lg text-gray-600 mb-8">
+        Meet the people driving AI innovation for sustainable development.
+      </p>
+      <PeopleGrid client:load groupType="team" />
+    </div>
+  </section>
+</BaseLayout>

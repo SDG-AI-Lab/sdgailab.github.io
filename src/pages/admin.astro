@@ -1,0 +1,19 @@
+---
+import '../styles/global.css';
+import AdminApp from '../islands/admin/AdminApp';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Admin — SDG AI Lab</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  </head>
+  <body>
+    <div id="admin-root">
+      <AdminApp client:only="react" />
+    </div>
+  </body>
+</html>

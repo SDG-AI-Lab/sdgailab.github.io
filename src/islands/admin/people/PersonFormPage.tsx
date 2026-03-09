@@ -1,0 +1,214 @@
+import { useEffect, useState } from 'react';
+import { ContentForm } from '../shared/ContentForm';
+import { StatusSelect } from '../shared/StatusSelect';
+import { ImageUpload } from '../shared/ImageUpload';
+import { FormFeedback } from '../shared/FormFeedback';
+import { getPerson, createPerson, updatePerson } from '../../../lib/admin-queries';
+import { useToast } from '../layout/Toast';
+import type { PublishStatus, PeopleGroup } from '../../../lib/types';
+
+interface PersonFormPageProps {
+  id?: string | null;
+}
+
+const defaultValues = {
+  name: '',
+  role_title: '',
+  photo_url: null as string | null,
+  group_type: 'team' as PeopleGroup,
+  biography: '',
+  display_order: 0,
+  status: 'draft' as PublishStatus,
+};
+
+const GROUP_OPTIONS: { value: PeopleGroup; label: string }[] = [
+  { value: 'team', label: 'Team' },
+  { value: 'advisory_board', label: 'Advisory Board' },
+];
+
+export default function PersonFormPage({ id }: PersonFormPageProps) {
+  const { showToast } = useToast();
+  const [values, setValues] = useState(defaultValues);
+  const [initialValues, setInitialValues] = useState(defaultValues);
+  const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(!!id);
+  const [feedback, setFeedback] = useState<{ message: string; type: 'success' | 'error' } | null>(
+    null
+  );
+
+  const isDirty =
+    JSON.stringify({ ...values, photo_url: values.photo_url || null }) !==
+    JSON.stringify({ ...initialValues, photo_url: initialValues.photo_url || null });
+
+  useEffect(() => {
+    if (!id) return;
+    let cancelled = false;
+    setFetching(true);
+    getPerson(id).then(({ data, error }) => {
+      setFetching(false);
+      if (cancelled) return;
+      if (error) {
+        setFeedback({ message: error, type: 'error' });
+        return;
+      }
+      if (data) {
+        const v = {
+          name: data.name,
+          role_title: data.role_title,
+          photo_url: data.photo_url,
+          group_type: data.group_type as PeopleGroup,
+          biography: data.biography ?? '',
+          display_order: data.display_order,
+          status: data.status as PublishStatus,
+        };
+        setValues(v);
+        setInitialValues(v);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [id]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFeedback(null);
+    if (!values.name.trim()) {
+      setFeedback({ message: 'Name is required', type: 'error' });
+      return;
+    }
+    if (!values.role_title.trim()) {
+      setFeedback({ message: 'Role title is required', type: 'error' });
+      return;
+    }
+    setLoading(true);
+    const input = {
+      name: values.name,
+      role_title: values.role_title,
+      photo_url: values.photo_url,
+      group_type: values.group_type,
+      biography: values.biography || null,
+      display_order: values.display_order,
+      status: values.status,
+    };
+    if (!id) {
+      const { data, error } = await createPerson(input);
+      setLoading(false);
+      if (error) {
+        setFeedback({ message: error, type: 'error' });
+        return;
+      }
+      showToast('Person created', 'success');
+      window.location.hash = '#/people';
+    } else {
+      const { error } = await updatePerson(id, input);
+      setLoading(false);
+      if (error) {
+        setFeedback({ message: error, type: 'error' });
+        return;
+      }
+      showToast('Person updated', 'success');
+      setInitialValues(values);
+    }
+  };
+
+  if (fetching) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div
+          className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"
+          aria-label="Loading"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h1 className="text-2xl font-semibold text-gray-800 mb-6">
+        {id ? 'Edit Person' : 'New Person'}
+      </h1>
+      <ContentForm
+        onSubmit={handleSubmit}
+        isEdit={!!id}
+        loading={loading}
+        backHref="#/people"
+        isDirty={isDirty}
+      >
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+            <input
+              type="text"
+              required
+              value={values.name}
+              onChange={(e) => setValues((v) => ({ ...v, name: e.target.value }))}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Role Title *</label>
+            <input
+              type="text"
+              required
+              value={values.role_title}
+              onChange={(e) => setValues((v) => ({ ...v, role_title: e.target.value }))}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Group Type</label>
+            <select
+              value={values.group_type}
+              onChange={(e) =>
+                setValues((v) => ({ ...v, group_type: e.target.value as PeopleGroup }))
+              }
+              className="border rounded px-3 py-2 text-sm border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary w-full"
+            >
+              {GROUP_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <ImageUpload
+            value={values.photo_url}
+            folder="people"
+            onChange={(url) => setValues((v) => ({ ...v, photo_url: url }))}
+            label="Photo"
+          />
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Biography</label>
+            <textarea
+              value={values.biography}
+              onChange={(e) => setValues((v) => ({ ...v, biography: e.target.value }))}
+              rows={4}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Display Order</label>
+            <input
+              type="number"
+              value={values.display_order}
+              onChange={(e) =>
+                setValues((v) => ({ ...v, display_order: Number(e.target.value) || 0 }))
+              }
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+            />
+          </div>
+          <StatusSelect
+            value={values.status}
+            onChange={(v) => setValues((prev) => ({ ...prev, status: v as PublishStatus }))}
+            label="Status"
+          />
+          <FormFeedback
+            message={feedback?.message ?? null}
+            type={feedback?.type ?? 'error'}
+          />
+        </div>
+      </ContentForm>
+    </div>
+  );
+}
