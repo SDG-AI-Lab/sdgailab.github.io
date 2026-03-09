@@ -1,0 +1,123 @@
+---
+const pathname = Astro.url.pathname;
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/news', label: 'News' },
+  { href: '/team', label: 'Team' },
+  { href: '/partners', label: 'Partners' },
+  { href: '/volunteer', label: 'Volunteer' },
+  { href: '/contact', label: 'Contact' },
+];
+
+function isActive(href: string): boolean {
+  if (href === '/') return pathname === '/' || pathname === '';
+  return pathname.startsWith(href);
+}
+---
+
+<header class="sticky top-0 z-50 bg-white shadow">
+  <nav aria-label="Main navigation" class="container-narrow flex items-center justify-between py-3">
+    <a href="/" class="flex items-center gap-2 text-xl font-bold text-primary">
+      SDG AI Lab
+    </a>
+
+    {/* Desktop navigation */}
+    <ul class="hidden lg:flex items-center gap-1">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class:list={[
+              'block rounded px-3 py-2 text-sm font-medium transition-colors',
+              isActive(link.href)
+                ? 'bg-primary-50 text-primary'
+                : 'text-gray-700 hover:bg-gray-100 hover:text-primary',
+            ]}
+            aria-current={isActive(link.href) ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    {/* Mobile hamburger button */}
+    <button
+      type="button"
+      id="mobile-menu-toggle"
+      class="inline-flex items-center justify-center rounded p-2 text-gray-700 hover:bg-gray-100 hover:text-primary lg:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Toggle navigation menu"
+    >
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+        <path class="menu-icon" stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        <path class="close-icon hidden" stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </nav>
+
+  {/* Mobile menu */}
+  <div id="mobile-menu" class="hidden border-t border-gray-200 bg-white lg:hidden">
+    <ul class="container-narrow space-y-1 py-3">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class:list={[
+              'block rounded px-3 py-2 text-sm font-medium transition-colors',
+              isActive(link.href)
+                ? 'bg-primary-50 text-primary'
+                : 'text-gray-700 hover:bg-gray-100 hover:text-primary',
+            ]}
+            aria-current={isActive(link.href) ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  if (toggle && menu) {
+    const menuIcon = toggle.querySelector('.menu-icon');
+    const closeIcon = toggle.querySelector('.close-icon');
+
+    function closeMenu() {
+      toggle.setAttribute('aria-expanded', 'false');
+      menu.classList.add('hidden');
+      menuIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+      toggle.focus();
+    }
+
+    function openMenu() {
+      toggle.setAttribute('aria-expanded', 'true');
+      menu.classList.remove('hidden');
+      menuIcon?.classList.add('hidden');
+      closeIcon?.classList.remove('hidden');
+      const firstLink = menu.querySelector('a');
+      firstLink?.focus();
+    }
+
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      if (isOpen) closeMenu();
+      else openMenu();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        closeMenu();
+      }
+    });
+  }
+</script>

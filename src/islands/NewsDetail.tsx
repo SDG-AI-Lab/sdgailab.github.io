@@ -1,0 +1,105 @@
+import { useEffect, useState } from 'react';
+import { marked } from 'marked';
+import { getNewsArticleBySlug } from '../lib/queries';
+import type { NewsArticle } from '../lib/types';
+
+export default function NewsDetail() {
+  const [article, setArticle] = useState<NewsArticle | null>(null);
+  const [html, setHtml] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('slug');
+
+    if (!slug) {
+      setError('No article specified.');
+      setLoading(false);
+      return;
+    }
+
+    getNewsArticleBySlug(slug).then(({ data, error: err }) => {
+      if (err) {
+        setError(err);
+      } else if (!data) {
+        setError('Article not found.');
+      } else {
+        setArticle(data);
+        const rendered = marked.parse(data.body);
+        if (typeof rendered === 'string') {
+          setHtml(rendered);
+        } else {
+          rendered.then(setHtml);
+        }
+      }
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center py-12" role="status" aria-label="Loading">
+        <h1 className="sr-only">Loading article</h1>
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary-200 border-t-primary" />
+        <span className="sr-only">Loading article...</span>
+      </div>
+    );
+  }
+
+  if (error || !article) {
+    return (
+      <div className="text-center py-12" role="alert">
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">Article Not Found</h1>
+        <p className="text-xl text-gray-500 mb-4">{error || 'The requested article could not be found.'}</p>
+        <a href="/news" className="text-primary hover:underline font-medium">
+          &larr; Back to News
+        </a>
+      </div>
+    );
+  }
+
+  return (
+    <article>
+      <a href="/news" className="inline-flex items-center text-primary hover:underline font-medium mb-6">
+        &larr; Back to News
+      </a>
+
+      {article.featured_image_url && (
+        <div className="aspect-video overflow-hidden rounded-lg bg-gray-100 mb-8 max-h-96">
+          <img
+            src={article.featured_image_url}
+            alt=""
+            className="h-full w-full object-cover"
+          />
+        </div>
+      )}
+
+      <header className="mb-8">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          {article.title}
+        </h1>
+        <div className="flex items-center gap-2 text-sm text-gray-500">
+          <time dateTime={article.publish_date}>
+            {new Date(article.publish_date).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </time>
+          {article.author_name && (
+            <>
+              <span aria-hidden="true">&middot;</span>
+              <span>By {article.author_name}</span>
+            </>
+          )}
+        </div>
+      </header>
+
+      <div
+        className="prose-content"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    </article>
+  );
+}

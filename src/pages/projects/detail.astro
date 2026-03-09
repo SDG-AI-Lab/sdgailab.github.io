@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import ProjectDetail from '../../islands/ProjectDetail';
+---
+
+<BaseLayout title="Project Details - SDG AI Lab">
+  <section class="section-padding">
+    <div class="container-narrow">
+      <ProjectDetail client:load />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import PageContent from '../islands/PageContent';
+---
+
+<BaseLayout title="Volunteer - SDG AI Lab">
+  <section class="section-padding">
+    <div class="container-narrow">
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-8">Volunteering with Us</h1>
+      <PageContent client:load pageSlug="volunteer" sectionSlug="main" />
+    </div>
+  </section>
+</BaseLayout>
