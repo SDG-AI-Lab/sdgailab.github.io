@@ -11,9 +11,11 @@ export default function LoginPage() {
     setLoading(true);
     setSubmitted(false);
     try {
+      const basePath = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') || '';
+      const redirectUrl = `${window.location.origin}${basePath}/admin`;
       await supabaseAuth.auth.signInWithOtp({
         email,
-        options: { emailRedirectTo: window.location.origin + '/admin' },
+        options: { emailRedirectTo: redirectUrl },
       });
     } finally {
       setLoading(false);
