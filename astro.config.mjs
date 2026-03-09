@@ -5,5 +5,6 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   output: 'static',
   site: 'https://sdgailab.org',
+  base: process.env.GITHUB_PAGES_BASE || '/',
   integrations: [react(), tailwind()],
 });
