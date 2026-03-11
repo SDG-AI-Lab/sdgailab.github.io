@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getPublishedProjects } from '../lib/queries';
 import type { ProjectListItem } from '../lib/types';
+import { withBase } from '../lib/url';
 import StatusBadge from './components/StatusBadge';
 
 export default function ProjectList() {
@@ -46,7 +47,7 @@ export default function ProjectList() {
       {projects.map((project) => (
         <a
           key={project.id}
-          href={`/projects/detail/?slug=${project.slug}`}
+          href={withBase(`/projects/detail/?slug=${project.slug}`)}
           className="group block rounded-lg bg-white shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow"
         >
           {project.image_url && (

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { marked } from 'marked';
 import { getProjectBySlug } from '../lib/queries';
 import type { Project } from '../lib/types';
+import { withBase } from '../lib/url';
 import StatusBadge from './components/StatusBadge';
 
 export default function ProjectDetail() {
@@ -53,7 +54,7 @@ export default function ProjectDetail() {
       <div className="text-center py-12" role="alert">
         <h1 className="text-2xl font-bold text-gray-900 mb-4">Project Not Found</h1>
         <p className="text-xl text-gray-500 mb-4">{error || 'The requested project could not be found.'}</p>
-        <a href="/projects" className="text-primary hover:underline font-medium">
+        <a href={withBase('/projects')} className="text-primary hover:underline font-medium">
           &larr; Back to Projects
         </a>
       </div>
@@ -62,7 +63,7 @@ export default function ProjectDetail() {
 
   return (
     <article>
-      <a href="/projects" className="inline-flex items-center text-primary hover:underline font-medium mb-6">
+      <a href={withBase('/projects')} className="inline-flex items-center text-primary hover:underline font-medium mb-6">
         &larr; Back to Projects
       </a>
 

@@ -1,14 +1,105 @@
-# sdgailab.github.io
-Official Website of SDG AI Lab
+# SDG AI Lab
 
-&nbsp;
-&nbsp;
-v.0.1.0 on June 1, 2021
-- Advisory Board section creation
-- Movement speed of Particle.js on the home page
-- Adjustments on the Newsroom articles and About Us section
-- Font style
-- Information based on latest updates
+Official website — harnessing AI for sustainable development. A UNDP initiative.
 
-v.0.1.1 on June 6, 2021
-- Minor adjusments on file structure, typos, missing links
+## Overview
+
+This is a dynamic content site that displays statistics, projects, news, team members, partners, and page content — all managed in Supabase. Non-technical editors use the admin panel at `/admin` to update content with immediate effect (no redeploy required). The site is built as a static Astro output with client-side hydration for dynamic sections.
+
+## Tech Stack
+
+- **Frontend**: Astro 5, React 19, Tailwind CSS
+- **CMS/Backend**: Supabase (PostgreSQL + Auth + Storage)
+- **Hosting**: GitHub Pages (custom domain: [sdgailab.org](https://sdgailab.org))
+
+## Prerequisites
+
+- Node.js 20+
+- npm
+- Supabase account (free tier)
+- See [.env.example](.env.example) for required environment variables
+
+## Quick Start
+
+1. Clone and install:
+   ```bash
+   git clone https://github.com/SDG-AI-Lab/sdgailab.github.io.git
+   cd sdgailab.github.io
+   npm install
+   ```
+
+2. Copy `.env.example` to `.env` and add your Supabase credentials:
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Set up Supabase:
+   - Create a project at [app.supabase.com](https://app.supabase.com/)
+   - Run migrations in the SQL Editor: `supabase/migrations/001_initial_schema.sql`, then `supabase/migrations/002_storage_policies.sql`
+   - Create a **Storage** bucket named `public-assets` with Public access
+   - (Optional) Run `supabase/seed.sql` for sample data
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:4321](http://localhost:4321)
+
+For detailed setup (editor accounts, auth redirect URLs, etc.), see:
+- [specs/001-dynamic-cms-revamp/quickstart.md](specs/001-dynamic-cms-revamp/quickstart.md)
+- [specs/002-admin-ui/quickstart.md](specs/002-admin-ui/quickstart.md)
+
+## Admin Panel
+
+Editors manage content at `/admin`:
+
+- **Authentication**: Magic-link login (no passwords)
+- **Content**: Statistics, projects, news, people, partners, page content
+- **Features**: Markdown editing, image uploads, publish/archive/delete workflow
+
+Configure Supabase Auth redirect URLs to include `http://localhost:4321/admin` (dev) and `https://sdgailab.org/admin` (production).
+
+## Scripts
+
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Dev server (port 4321) |
+| `npm run build` | Production build to `dist/` |
+| `npm run preview` | Preview production build locally |
+| `npm run format` | Prettier formatting |
+| `npm run check` | TypeScript + Astro diagnostics |
+
+## Project Structure
+
+```
+src/
+├── pages/          # Astro pages (including /admin)
+├── components/     # Astro + shared components
+├── islands/        # React islands (public + admin)
+├── lib/            # Supabase clients, queries, storage
+└── styles/         # Tailwind global styles
+
+public/             # Static assets, CNAME
+supabase/           # Migrations, seed
+specs/              # Feature specs (001-dynamic-cms-revamp, 002-admin-ui)
+```
+
+## Deployment
+
+Deployment is automated via GitHub Actions when pushing to the `new-version` branch:
+
+1. Set repository secrets: `PUBLIC_SUPABASE_URL` and `PUBLIC_SUPABASE_ANON_KEY`
+2. Push to `new-version` — the workflow builds and deploys to GitHub Pages
+
+- **Staging**: [https://sdg-ai-lab.github.io/sdgailab.github.io/](https://sdg-ai-lab.github.io/sdgailab.github.io/) (base path configured)
+- **Production**: [https://sdgailab.org](https://sdgailab.org) (when custom domain is active)
+
+## Documentation
+
+- **Editor Guide**: [docs/editor-guide.md](docs/editor-guide.md) — user guide for non-technical content editors
+- **Specs**: [specs/](specs/) — feature specifications and quickstart guides
+- **SDD**: [docs/sdd/](docs/sdd/) — spec-driven development methodology
+
+## License
+
+MIT License — Copyright (c) 2020 SDG-AI-Lab. See [LICENSE](LICENSE).

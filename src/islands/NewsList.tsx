@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getPublishedNews } from '../lib/queries';
 import type { NewsListItem } from '../lib/types';
+import { withBase } from '../lib/url';
 
 export default function NewsList() {
   const [articles, setArticles] = useState<NewsListItem[]>([]);
@@ -45,7 +46,7 @@ export default function NewsList() {
       {articles.map((article) => (
         <a
           key={article.id}
-          href={`/news/detail/?slug=${article.slug}`}
+          href={withBase(`/news/detail/?slug=${article.slug}`)}
           className="group block rounded-lg bg-white shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow"
         >
           {article.featured_image_url && (

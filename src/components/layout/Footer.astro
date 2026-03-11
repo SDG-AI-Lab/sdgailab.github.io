@@ -1,15 +1,17 @@
 ---
+import { withBase } from '../../lib/url';
+
 const currentYear = new Date().getFullYear();
 
 const quickLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/news', label: 'News' },
-  { href: '/team', label: 'Team' },
-  { href: '/partners', label: 'Partners' },
-  { href: '/volunteer', label: 'Volunteer' },
-  { href: '/contact', label: 'Contact' },
+  { href: withBase('/'), label: 'Home' },
+  { href: withBase('/about'), label: 'About' },
+  { href: withBase('/projects'), label: 'Projects' },
+  { href: withBase('/news'), label: 'News' },
+  { href: withBase('/team'), label: 'Team' },
+  { href: withBase('/partners'), label: 'Partners' },
+  { href: withBase('/volunteer'), label: 'Volunteer' },
+  { href: withBase('/contact'), label: 'Contact' },
 ];
 ---
 
@@ -18,7 +20,7 @@ const quickLinks = [
     <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
       {/* Branding */}
       <div>
-        <a href="/" class="text-xl font-bold text-white">SDG AI Lab</a>
+        <a href={withBase('/')} class="text-xl font-bold text-white">SDG AI Lab</a>
         <p class="mt-3 text-sm leading-relaxed text-gray-300">
           Harnessing Artificial Intelligence for Sustainable Development. A UNDP initiative exploring how frontier technologies can accelerate progress on the Sustainable Development Goals.
         </p>

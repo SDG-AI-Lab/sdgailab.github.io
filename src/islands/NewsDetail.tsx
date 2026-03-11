@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { marked } from 'marked';
 import { getNewsArticleBySlug } from '../lib/queries';
 import type { NewsArticle } from '../lib/types';
+import { withBase } from '../lib/url';
 
 export default function NewsDetail() {
   const [article, setArticle] = useState<NewsArticle | null>(null);
@@ -52,7 +53,7 @@ export default function NewsDetail() {
       <div className="text-center py-12" role="alert">
         <h1 className="text-2xl font-bold text-gray-900 mb-4">Article Not Found</h1>
         <p className="text-xl text-gray-500 mb-4">{error || 'The requested article could not be found.'}</p>
-        <a href="/news" className="text-primary hover:underline font-medium">
+        <a href={withBase('/news')} className="text-primary hover:underline font-medium">
           &larr; Back to News
         </a>
       </div>
@@ -61,7 +62,7 @@ export default function NewsDetail() {
 
   return (
     <article>
-      <a href="/news" className="inline-flex items-center text-primary hover:underline font-medium mb-6">
+      <a href={withBase('/news')} className="inline-flex items-center text-primary hover:underline font-medium mb-6">
         &larr; Back to News
       </a>
 

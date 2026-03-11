@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getFeaturedProjects } from '../lib/queries';
 import type { FeaturedProjectCard } from '../lib/types';
+import { withBase } from '../lib/url';
 import StatusBadge from './components/StatusBadge';
 
 export default function FeaturedProjects() {
@@ -46,7 +47,7 @@ export default function FeaturedProjects() {
       {projects.map((project) => (
         <a
           key={project.id}
-          href={`/projects/detail/?slug=${project.slug}`}
+          href={withBase(`/projects/detail/?slug=${project.slug}`)}
           className="group block rounded-lg bg-white shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow"
         >
           {project.image_url && (
