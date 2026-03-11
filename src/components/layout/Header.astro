@@ -1,26 +1,32 @@
 ---
+import { withBase } from '../../lib/url';
+
 const pathname = Astro.url.pathname;
+const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') || '';
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/news', label: 'News' },
-  { href: '/team', label: 'Team' },
-  { href: '/partners', label: 'Partners' },
-  { href: '/volunteer', label: 'Volunteer' },
-  { href: '/contact', label: 'Contact' },
+  { href: withBase('/'), label: 'Home' },
+  { href: withBase('/about'), label: 'About' },
+  { href: withBase('/projects'), label: 'Projects' },
+  { href: withBase('/news'), label: 'News' },
+  { href: withBase('/team'), label: 'Team' },
+  { href: withBase('/partners'), label: 'Partners' },
+  { href: withBase('/volunteer'), label: 'Volunteer' },
+  { href: withBase('/contact'), label: 'Contact' },
 ];
 
 function isActive(href: string): boolean {
-  if (href === '/') return pathname === '/' || pathname === '';
-  return pathname.startsWith(href);
+  const rootHref = base + '/' || '/';
+  if (href === rootHref || (base && href === base)) {
+    return pathname === rootHref || pathname === base || pathname === '/';
+  }
+  return pathname === href || pathname.startsWith(href + '/');
 }
 ---
 
 <header class="sticky top-0 z-50 bg-white shadow">
   <nav aria-label="Main navigation" class="container-narrow flex items-center justify-between py-3">
-    <a href="/" class="flex items-center gap-2 text-xl font-bold text-primary">
+    <a href={withBase('/')} class="flex items-center gap-2 text-xl font-bold text-primary">
       SDG AI Lab
     </a>
 
