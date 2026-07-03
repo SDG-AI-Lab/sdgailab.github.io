@@ -34,7 +34,8 @@
   }
 
   body {
-    @apply font-sans text-gray-800 antialiased;
+    @apply font-sans text-slate-800 antialiased;
+    background: #fff;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -48,7 +49,11 @@
   }
 
   .section-padding {
-    @apply py-12 sm:py-16 lg:py-20;
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .section-label {
+    @apply text-sm font-bold uppercase tracking-[0.18em] text-primary;
   }
 
   .prose-content {

@@ -4,6 +4,7 @@ import { getProjectBySlug } from '../lib/queries';
 import type { Project } from '../lib/types';
 import { withBase } from '../lib/url';
 import StatusBadge from './components/StatusBadge';
+import { getSampleProject } from '../data/sampleContent';
 
 export default function ProjectDetail() {
   const [project, setProject] = useState<Project | null>(null);
@@ -25,7 +26,16 @@ export default function ProjectDetail() {
       if (err) {
         setError(err);
       } else if (!data) {
-        setError('Project not found.');
+        const sample = getSampleProject(slug);
+        if (!sample) {
+          setError('Project not found.');
+          setLoading(false);
+          return;
+        }
+        setProject(sample);
+        const rendered = marked.parse(sample.description);
+        if (typeof rendered === 'string') setHtml(rendered);
+        else rendered.then(setHtml);
       } else {
         setProject(data);
         const rendered = marked.parse(data.description);
@@ -79,16 +89,17 @@ export default function ProjectDetail() {
 
       <div className="flex items-center gap-3 mb-4 flex-wrap">
         <StatusBadge status={project.project_status} />
-        {project.is_deployed && (
-          <span className="inline-block rounded-full bg-emerald-100 px-3 py-1 text-sm font-medium text-emerald-800">
-            Deployed
-          </span>
-        )}
+        <span className="inline-block rounded-full bg-slate-100 px-3 py-1 text-sm font-medium capitalize text-slate-700">
+          {project.deployment_status ?? (project.is_deployed ? 'live' : 'prototype')}
+        </span>
+        {project.is_sample && <span className="text-xs font-bold uppercase tracking-wider text-amber-700">Sample content</span>}
       </div>
 
       <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
         {project.title}
       </h1>
+
+      {project.summary && <p className="mb-10 max-w-3xl text-xl leading-8 text-slate-600">{project.summary}</p>}
 
       <div
         className="prose-content"

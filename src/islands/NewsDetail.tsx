@@ -3,6 +3,7 @@ import { marked } from 'marked';
 import { getNewsArticleBySlug } from '../lib/queries';
 import type { NewsArticle } from '../lib/types';
 import { withBase } from '../lib/url';
+import { getSampleNewsArticle } from '../data/sampleContent';
 
 export default function NewsDetail() {
   const [article, setArticle] = useState<NewsArticle | null>(null);
@@ -24,7 +25,16 @@ export default function NewsDetail() {
       if (err) {
         setError(err);
       } else if (!data) {
-        setError('Article not found.');
+        const sample = getSampleNewsArticle(slug);
+        if (!sample) {
+          setError('Article not found.');
+          setLoading(false);
+          return;
+        }
+        setArticle(sample);
+        const rendered = marked.parse(sample.body);
+        if (typeof rendered === 'string') setHtml(rendered);
+        else rendered.then(setHtml);
       } else {
         setArticle(data);
         const rendered = marked.parse(data.body);
