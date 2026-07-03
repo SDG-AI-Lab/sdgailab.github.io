@@ -2,47 +2,23 @@ import { useEffect, useState } from 'react';
 import { getPublishedNews } from '../lib/queries';
 import type { NewsListItem } from '../lib/types';
 import { withBase } from '../lib/url';
+import { sampleNews } from '../data/sampleContent';
 
 export default function NewsList() {
-  const [articles, setArticles] = useState<NewsListItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [articles, setArticles] = useState<NewsListItem[]>(sampleNews);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     getPublishedNews().then(({ data, error: err }) => {
       if (err) setError(err);
-      else setArticles(data);
-      setLoading(false);
+      setArticles(data.length > 0 ? data : sampleNews);
     });
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center py-12" role="status" aria-label="Loading">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary-200 border-t-primary" />
-        <span className="sr-only">Loading news...</span>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-center py-8 text-gray-500">
-        <p>Unable to load news at this time.</p>
-      </div>
-    );
-  }
-
-  if (articles.length === 0) {
-    return (
-      <div className="text-center py-8 text-gray-500 italic">
-        <p>No news articles yet.</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div>
+      {error && <p className="mb-5 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">Live newsroom data is temporarily unavailable. The cards below demonstrate the planned publication format.</p>}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {articles.map((article) => (
         <a
           key={article.id}
@@ -84,6 +60,7 @@ export default function NewsList() {
           </div>
         </a>
       ))}
+      </div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { isSupabaseConfigured, supabase } from './supabase';
 import type {
   StatisticCard,
   FeaturedProjectCard,
@@ -16,6 +16,7 @@ export async function getPublishedStatistics(): Promise<{
   data: StatisticCard[];
   error: string | null;
 }> {
+  if (!isSupabaseConfigured) return { data: [], error: null };
   const { data, error } = await supabase
     .from('statistics')
     .select('id, label, value, icon_name, display_order')
@@ -30,6 +31,7 @@ export async function getFeaturedProjects(): Promise<{
   data: FeaturedProjectCard[];
   error: string | null;
 }> {
+  if (!isSupabaseConfigured) return { data: [], error: null };
   const { data, error } = await supabase
     .from('projects')
     .select('id, title, slug, project_status, is_deployed, image_url, display_order')
@@ -45,6 +47,7 @@ export async function getPublishedProjects(): Promise<{
   data: ProjectListItem[];
   error: string | null;
 }> {
+  if (!isSupabaseConfigured) return { data: [], error: null };
   const { data, error } = await supabase
     .from('projects')
     .select('id, title, slug, project_status, is_deployed, image_url, display_order')
@@ -59,6 +62,7 @@ export async function getProjectBySlug(slug: string): Promise<{
   data: Project | null;
   error: string | null;
 }> {
+  if (!isSupabaseConfigured) return { data: null, error: null };
   const { data, error } = await supabase
     .from('projects')
     .select('*')
@@ -74,6 +78,7 @@ export async function getPublishedNews(): Promise<{
   data: NewsListItem[];
   error: string | null;
 }> {
+  if (!isSupabaseConfigured) return { data: [], error: null };
   const { data, error } = await supabase
     .from('news_articles')
     .select('id, title, slug, summary, featured_image_url, author_name, publish_date')
@@ -88,6 +93,7 @@ export async function getNewsArticleBySlug(slug: string): Promise<{
   data: NewsArticle | null;
   error: string | null;
 }> {
+  if (!isSupabaseConfigured) return { data: null, error: null };
   const { data, error } = await supabase
     .from('news_articles')
     .select('*')
@@ -103,6 +109,7 @@ export async function getPublishedPeople(groupType: PeopleGroup): Promise<{
   data: PersonCard[];
   error: string | null;
 }> {
+  if (!isSupabaseConfigured) return { data: [], error: null };
   const { data, error } = await supabase
     .from('people')
     .select('id, name, role_title, photo_url, biography, display_order')
@@ -118,6 +125,7 @@ export async function getPublishedPartners(): Promise<{
   data: PartnerLogo[];
   error: string | null;
 }> {
+  if (!isSupabaseConfigured) return { data: [], error: null };
   const { data, error } = await supabase
     .from('partners')
     .select('id, name, logo_url, website_url, display_order')
@@ -135,6 +143,7 @@ export async function getPageContent(
   data: PageContent | null;
   error: string | null;
 }> {
+  if (!isSupabaseConfigured) return { data: null, error: null };
   const { data, error } = await supabase
     .from('page_content')
     .select('*')
