@@ -33,7 +33,7 @@ This guide is for non-technical staff who manage the SDG AI Lab website content.
 
 The admin uses **passwordless login** (no passwords to remember):
 
-1. Enter your work email address.
+1. Enter your approved editor email address.
 2. Click **Send Magic Link**.
 3. Check your email inbox for a message from Supabase. The subject may mention "Magic Link" or "Sign in".
 4. Click the link in the email. Your browser will open the admin dashboard.
@@ -43,7 +43,12 @@ The admin uses **passwordless login** (no passwords to remember):
 
 - Check your spam or junk folder.
 - Wait a minute and try again.
-- Ask your administrator to confirm your email is added as an editor.
+- Ask your administrator to confirm your email has been invited in Supabase Auth and added to the CMS editor allowlist.
+
+**If you see "Editor access required":**
+
+- You successfully signed in, but your account is not approved for CMS access.
+- Contact your site administrator and ask them to add your email to the `admin_users` allowlist.
 
 ---
 

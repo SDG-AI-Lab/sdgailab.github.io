@@ -1,4 +1,4 @@
-import { isSupabaseConfigured, supabase } from './supabase';
+import { getSupabase, isSupabaseConfigured } from './supabase';
 import type {
   StatisticCard,
   FeaturedProjectCard,
@@ -17,7 +17,7 @@ export async function getPublishedStatistics(): Promise<{
   error: string | null;
 }> {
   if (!isSupabaseConfigured) return { data: [], error: null };
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from('statistics')
     .select('id, label, value, icon_name, display_order')
     .eq('status', 'published')
@@ -32,7 +32,7 @@ export async function getFeaturedProjects(): Promise<{
   error: string | null;
 }> {
   if (!isSupabaseConfigured) return { data: [], error: null };
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from('projects')
     .select('id, title, slug, project_status, is_deployed, image_url, display_order')
     .eq('status', 'published')
@@ -48,7 +48,7 @@ export async function getPublishedProjects(): Promise<{
   error: string | null;
 }> {
   if (!isSupabaseConfigured) return { data: [], error: null };
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from('projects')
     .select('id, title, slug, project_status, is_deployed, image_url, display_order')
     .eq('status', 'published')
@@ -63,7 +63,7 @@ export async function getProjectBySlug(slug: string): Promise<{
   error: string | null;
 }> {
   if (!isSupabaseConfigured) return { data: null, error: null };
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from('projects')
     .select('*')
     .eq('slug', slug)
@@ -79,7 +79,7 @@ export async function getPublishedNews(): Promise<{
   error: string | null;
 }> {
   if (!isSupabaseConfigured) return { data: [], error: null };
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from('news_articles')
     .select('id, title, slug, summary, featured_image_url, author_name, publish_date')
     .eq('status', 'published')
@@ -94,7 +94,7 @@ export async function getNewsArticleBySlug(slug: string): Promise<{
   error: string | null;
 }> {
   if (!isSupabaseConfigured) return { data: null, error: null };
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from('news_articles')
     .select('*')
     .eq('slug', slug)
@@ -110,7 +110,7 @@ export async function getPublishedPeople(groupType: PeopleGroup): Promise<{
   error: string | null;
 }> {
   if (!isSupabaseConfigured) return { data: [], error: null };
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from('people')
     .select('id, name, role_title, photo_url, biography, display_order')
     .eq('status', 'published')
@@ -126,7 +126,7 @@ export async function getPublishedPartners(): Promise<{
   error: string | null;
 }> {
   if (!isSupabaseConfigured) return { data: [], error: null };
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from('partners')
     .select('id, name, logo_url, website_url, display_order')
     .eq('status', 'published')
@@ -144,7 +144,7 @@ export async function getPageContent(
   error: string | null;
 }> {
   if (!isSupabaseConfigured) return { data: null, error: null };
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from('page_content')
     .select('*')
     .eq('page_slug', pageSlug)

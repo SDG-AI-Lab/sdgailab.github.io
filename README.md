@@ -37,6 +37,7 @@ This is a dynamic content site that displays statistics, projects, news, team me
    - Create a project at [app.supabase.com](https://app.supabase.com/)
    - Run migrations in the SQL Editor: `supabase/migrations/001_initial_schema.sql`, then `supabase/migrations/002_storage_policies.sql`
    - Create a **Storage** bucket named `public-assets` with Public access
+   - Add approved CMS editors to Supabase Auth and the `admin_users` allowlist table
    - (Optional) Run `supabase/seed.sql` for sample data
 
 4. Start the development server:
@@ -53,11 +54,27 @@ For detailed setup (editor accounts, auth redirect URLs, etc.), see:
 
 Editors manage content at `/admin`:
 
-- **Authentication**: Magic-link login (no passwords)
+- **Authentication**: Magic-link login for approved editor accounts only
 - **Content**: Statistics, projects, news, people, partners, page content
 - **Features**: Markdown editing, image uploads, publish/archive/delete workflow
 
 Configure Supabase Auth redirect URLs to include `http://localhost:4321/admin` (dev) and `https://sdgailab.org/admin` (production).
+
+### Adding CMS editors
+
+Before an editor can access `/admin`:
+
+1. Create or invite the user in Supabase Auth.
+2. Add the same email address to the CMS allowlist:
+
+   ```sql
+   insert into admin_users (email, role)
+   values ('editor@example.com', 'editor');
+   ```
+
+Use role `admin` for site administrators and `editor` for regular content editors. Set `active = false` to revoke access without deleting the audit record.
+
+If you already ran the earlier migrations before editor allowlisting was added, run `supabase/migrations/003_secure_editor_access.sql` in the Supabase SQL Editor.
 
 ## Scripts
 
@@ -93,6 +110,25 @@ Deployment is automated via GitHub Actions when pushing to the `new-version` bra
 
 - **Staging**: [https://sdg-ai-lab.github.io/sdgailab.github.io/](https://sdg-ai-lab.github.io/sdgailab.github.io/) (base path configured)
 - **Production**: [https://sdgailab.org](https://sdgailab.org) (when custom domain is active)
+
+## Uptime monitoring
+
+The free uptime strategy uses `.github/workflows/uptime-healthcheck.yml`.
+
+- Runs every 6 hours and can also be triggered manually from GitHub Actions
+- Checks the public website URL, currently the staging site at `https://sdg-ai-lab.github.io/sdgailab.github.io/`
+- Checks the Supabase REST API with the public anon key
+- Fails the workflow if either check is unavailable
+- Opens or comments on a GitHub issue labeled `uptime` and `automated-healthcheck` when a failure occurs
+
+Required repository secrets:
+
+- `PUBLIC_SUPABASE_URL`
+- `PUBLIC_SUPABASE_ANON_KEY`
+
+Optional repository variable:
+
+- `HEALTHCHECK_SITE_URL` — defaults to the staging site: `https://sdg-ai-lab.github.io/sdgailab.github.io/`
 
 ## Documentation
 
