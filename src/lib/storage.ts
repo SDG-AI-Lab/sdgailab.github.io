@@ -1,4 +1,4 @@
-import { supabaseAuth } from './supabase-auth';
+import { getSupabaseAuth } from './supabase-auth';
 
 const ALLOWED_MIME_TYPES = [
   'image/jpeg',
@@ -30,12 +30,12 @@ export async function uploadImage(
   const sanitized = sanitizeFilename(file.name);
   const path = `${folder}/${Date.now()}-${sanitized || 'image'}`;
 
-  const { error } = await supabaseAuth.storage.from('public-assets').upload(path, file);
+  const { error } = await getSupabaseAuth().storage.from('public-assets').upload(path, file);
   if (error) {
     return { url: null, error: error.message };
   }
 
-  const { data } = supabaseAuth.storage.from('public-assets').getPublicUrl(path);
+  const { data } = getSupabaseAuth().storage.from('public-assets').getPublicUrl(path);
   return { url: data.publicUrl, error: null };
 }
 
@@ -52,7 +52,7 @@ export async function deleteImage(
     return { error: 'Invalid storage URL: empty path' };
   }
 
-  const { error } = await supabaseAuth.storage.from('public-assets').remove([path]);
+  const { error } = await getSupabaseAuth().storage.from('public-assets').remove([path]);
   return error ? { error: error.message } : { error: null };
 }
 

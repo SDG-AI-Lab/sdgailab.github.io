@@ -1,4 +1,5 @@
 import MDEditor, { commands } from '@uiw/react-md-editor';
+import '@uiw/react-md-editor/markdown-editor.css';
 import { marked } from 'marked';
 
 interface MarkdownFieldProps {

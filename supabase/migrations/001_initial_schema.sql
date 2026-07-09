@@ -4,6 +4,41 @@
 -- =============================================================================
 -- Trigger function for updated_at
 -- =============================================================================
+CREATE TABLE admin_users (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  email text NOT NULL UNIQUE,
+  role text NOT NULL DEFAULT 'editor' CHECK (role IN ('admin','editor')),
+  active boolean NOT NULL DEFAULT true,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX idx_admin_users_email_active ON admin_users (lower(email), active);
+
+ALTER TABLE admin_users ENABLE ROW LEVEL SECURITY;
+
+CREATE OR REPLACE FUNCTION is_admin_user()
+RETURNS boolean
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT EXISTS (
+    SELECT 1
+    FROM admin_users
+    WHERE lower(email) = lower(coalesce(auth.jwt() ->> 'email', ''))
+      AND active = true
+  );
+$$;
+
+CREATE POLICY "editor_read_own_admin_user"
+  ON admin_users FOR SELECT TO authenticated
+  USING (
+    active = true
+    AND lower(email) = lower(coalesce(auth.jwt() ->> 'email', ''))
+  );
+
 CREATE OR REPLACE FUNCTION update_updated_at()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -11,6 +46,11 @@ BEGIN
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
+CREATE TRIGGER set_updated_at
+  BEFORE UPDATE ON admin_users
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at();
 
 -- =============================================================================
 -- Table: statistics
@@ -37,7 +77,7 @@ CREATE POLICY "anon_read_published"
 
 CREATE POLICY "editor_full_access"
   ON statistics FOR ALL TO authenticated
-  USING (true) WITH CHECK (true);
+  USING (is_admin_user()) WITH CHECK (is_admin_user());
 
 CREATE TRIGGER set_updated_at
   BEFORE UPDATE ON statistics
@@ -74,7 +114,7 @@ CREATE POLICY "anon_read_published"
 
 CREATE POLICY "editor_full_access"
   ON projects FOR ALL TO authenticated
-  USING (true) WITH CHECK (true);
+  USING (is_admin_user()) WITH CHECK (is_admin_user());
 
 CREATE TRIGGER set_updated_at
   BEFORE UPDATE ON projects
@@ -110,7 +150,7 @@ CREATE POLICY "anon_read_published"
 
 CREATE POLICY "editor_full_access"
   ON news_articles FOR ALL TO authenticated
-  USING (true) WITH CHECK (true);
+  USING (is_admin_user()) WITH CHECK (is_admin_user());
 
 CREATE TRIGGER set_updated_at
   BEFORE UPDATE ON news_articles
@@ -144,7 +184,7 @@ CREATE POLICY "anon_read_published"
 
 CREATE POLICY "editor_full_access"
   ON people FOR ALL TO authenticated
-  USING (true) WITH CHECK (true);
+  USING (is_admin_user()) WITH CHECK (is_admin_user());
 
 CREATE TRIGGER set_updated_at
   BEFORE UPDATE ON people
@@ -176,7 +216,7 @@ CREATE POLICY "anon_read_published"
 
 CREATE POLICY "editor_full_access"
   ON partners FOR ALL TO authenticated
-  USING (true) WITH CHECK (true);
+  USING (is_admin_user()) WITH CHECK (is_admin_user());
 
 CREATE TRIGGER set_updated_at
   BEFORE UPDATE ON partners
@@ -208,7 +248,7 @@ CREATE POLICY "anon_read_published"
 
 CREATE POLICY "editor_full_access"
   ON page_content FOR ALL TO authenticated
-  USING (true) WITH CHECK (true);
+  USING (is_admin_user()) WITH CHECK (is_admin_user());
 
 CREATE TRIGGER set_updated_at
   BEFORE UPDATE ON page_content

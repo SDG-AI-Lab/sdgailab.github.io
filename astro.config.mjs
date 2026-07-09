@@ -7,4 +7,16 @@ export default defineConfig({
   site: 'https://sdgailab.org',
   base: process.env.GITHUB_PAGES_BASE || '/',
   integrations: [react(), tailwind()],
+  vite: {
+    optimizeDeps: {
+      include: [
+        '@uiw/react-md-editor',
+        '@uiw/react-markdown-preview',
+        'marked',
+      ],
+    },
+    ssr: {
+      noExternal: ['@uiw/react-md-editor', '@uiw/react-markdown-preview'],
+    },
+  },
 });

@@ -1,4 +1,4 @@
-import { supabaseAuth } from "./supabase-auth";
+import { getSupabaseAuth } from "./supabase-auth";
 import type {
   PublishStatus,
   ProjectStatus,
@@ -104,7 +104,7 @@ async function listAll<T>(
   orderBy: string,
   ascending: boolean
 ): Promise<AdminListResult<T>> {
-  const { data, error } = await supabaseAuth
+  const { data, error } = await getSupabaseAuth()
     .from(table)
     .select("*")
     .order(orderBy, { ascending });
@@ -113,7 +113,7 @@ async function listAll<T>(
 }
 
 async function getById<T>(table: string, id: string): Promise<AdminResult<T>> {
-  const { data, error } = await supabaseAuth.from(table).select("*").eq("id", id).maybeSingle();
+  const { data, error } = await getSupabaseAuth().from(table).select("*").eq("id", id).maybeSingle();
   if (error) return { data: null, error: error.message };
   return { data: data as T | null, error: null };
 }
@@ -123,7 +123,7 @@ async function createRecord<T, I>(
   data: I extends { status?: PublishStatus; published_at?: string | null } ? I : never
 ): Promise<AdminResult<T>> {
   const prepared = applyPublishedAt(data as { status?: PublishStatus; published_at?: string | null });
-  const { data: inserted, error } = await supabaseAuth
+  const { data: inserted, error } = await getSupabaseAuth()
     .from(table)
     .insert(prepared)
     .select()
@@ -138,7 +138,7 @@ async function updateRecord<T, I>(
   data: I extends { status?: PublishStatus; published_at?: string | null } ? I : never
 ): Promise<AdminResult<T>> {
   const prepared = applyPublishedAt(data as { status?: PublishStatus; published_at?: string | null });
-  const { data: updated, error } = await supabaseAuth
+  const { data: updated, error } = await getSupabaseAuth()
     .from(table)
     .update(prepared)
     .eq("id", id)
@@ -149,7 +149,7 @@ async function updateRecord<T, I>(
 }
 
 async function archiveRecord(table: string, id: string): Promise<AdminResult<{ id: string }>> {
-  const { error } = await supabaseAuth.from(table).update({ status: "archived" }).eq("id", id);
+  const { error } = await getSupabaseAuth().from(table).update({ status: "archived" }).eq("id", id);
   if (error) return { data: null, error: error.message };
   return { data: { id }, error: null };
 }
@@ -158,7 +158,7 @@ async function permanentlyDeleteRecord(
   table: string,
   id: string
 ): Promise<AdminResult<{ id: string }>> {
-  const { error } = await supabaseAuth.from(table).delete().eq("id", id);
+  const { error } = await getSupabaseAuth().from(table).delete().eq("id", id);
   if (error) return { data: null, error: error.message };
   return { data: { id }, error: null };
 }
@@ -361,7 +361,7 @@ export async function getDashboardCounts(): Promise<{
   ] as const;
   const result: Record<string, ContentCounts> = {};
   for (const table of tables) {
-    const { data, error } = await supabaseAuth.from(table).select("status");
+    const { data, error } = await getSupabaseAuth().from(table).select("status");
     if (error) {
       return {
         data: {} as Record<

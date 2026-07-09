@@ -1,5 +1,6 @@
 ---
 import { withBase } from '../../lib/url';
+import logo from '../../../assets/img/whitelogo.png';
 
 const pathname = Astro.url.pathname;
 const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') || '';
@@ -24,34 +25,55 @@ function isActive(href: string): boolean {
 }
 ---
 
-<header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
-  <nav aria-label="Main navigation" class="container-narrow flex items-center justify-between py-3">
+<header
+  class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur"
+>
+  <nav
+    aria-label="Main navigation"
+    class="container-narrow flex items-center justify-between py-3"
+  >
     <a href={withBase('/')} class="flex items-center gap-3 text-primary">
-      <span class="grid h-10 w-10 place-items-center border-2 border-primary text-xs font-bold leading-none tracking-widest" aria-hidden="true">AI</span>
+      <!-- <span class="grid h-12 w-auto place-items-center" aria-hidden="true"> -->
+      <img
+        src={logo.src}
+        width={logo.width}
+        height={logo.height}
+        alt="SDG AI Lab"
+        class="h-12 w-auto"
+        decoding="async"
+      />
+      <!-- </span> -->
       <span>
-        <span class="block text-base font-bold leading-tight text-slate-950">SDG AI Lab</span>
-        <span class="block text-[10px] font-semibold uppercase tracking-wider text-slate-500">A UNDP initiative</span>
+        <span class="block text-base font-bold leading-tight text-slate-950"
+          >SDG AI Lab</span
+        >
+        <span
+          class="block text-[10px] font-semibold uppercase tracking-wider text-slate-500"
+          >A UNDP initiative</span
+        >
       </span>
     </a>
 
     {/* Desktop navigation */}
     <ul class="hidden lg:flex items-center gap-1">
-      {navLinks.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            class:list={[
-              'block rounded px-3 py-2 text-sm font-medium transition-colors',
-              isActive(link.href)
-                ? 'bg-primary-50 text-primary'
-                : 'text-gray-700 hover:bg-gray-100 hover:text-primary',
-            ]}
-            aria-current={isActive(link.href) ? 'page' : undefined}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
+      {
+        navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class:list={[
+                'block rounded px-3 py-2 text-sm font-medium transition-colors',
+                isActive(link.href)
+                  ? 'bg-primary-50 text-primary'
+                  : 'text-gray-700 hover:bg-gray-100 hover:text-primary',
+              ]}
+              aria-current={isActive(link.href) ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
     </ul>
 
     {/* Mobile hamburger button */}
@@ -63,32 +85,52 @@ function isActive(href: string): boolean {
       aria-controls="mobile-menu"
       aria-label="Toggle navigation menu"
     >
-      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-        <path class="menu-icon" stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        <path class="close-icon hidden" stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      <svg
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          class="menu-icon"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+        <path
+          class="close-icon hidden"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"></path>
       </svg>
     </button>
   </nav>
 
   {/* Mobile menu */}
-  <div id="mobile-menu" class="hidden border-t border-gray-200 bg-white lg:hidden">
+  <div
+    id="mobile-menu"
+    class="hidden border-t border-gray-200 bg-white lg:hidden"
+  >
     <ul class="container-narrow space-y-1 py-3">
-      {navLinks.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            class:list={[
-              'block rounded px-3 py-2 text-sm font-medium transition-colors',
-              isActive(link.href)
-                ? 'bg-primary-50 text-primary'
-                : 'text-gray-700 hover:bg-gray-100 hover:text-primary',
-            ]}
-            aria-current={isActive(link.href) ? 'page' : undefined}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
+      {
+        navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class:list={[
+                'block rounded px-3 py-2 text-sm font-medium transition-colors',
+                isActive(link.href)
+                  ? 'bg-primary-50 text-primary'
+                  : 'text-gray-700 hover:bg-gray-100 hover:text-primary',
+              ]}
+              aria-current={isActive(link.href) ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </div>
 </header>
@@ -125,7 +167,10 @@ function isActive(href: string): boolean {
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+      if (
+        e.key === 'Escape' &&
+        toggle.getAttribute('aria-expanded') === 'true'
+      ) {
         closeMenu();
       }
     });

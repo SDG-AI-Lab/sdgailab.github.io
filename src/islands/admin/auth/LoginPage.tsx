@@ -1,25 +1,36 @@
 import { useState } from 'react';
-import { supabaseAuth } from '../../../lib/supabase-auth';
+import { getSupabaseAuth } from '../../../lib/supabase-auth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setSubmitted(false);
+    setError(null);
     try {
       const basePath = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') || '';
       const redirectUrl = `${window.location.origin}${basePath}/admin`;
-      await supabaseAuth.auth.signInWithOtp({
+      const { error: signInError } = await getSupabaseAuth().auth.signInWithOtp({
         email,
-        options: { emailRedirectTo: redirectUrl },
+        options: {
+          emailRedirectTo: redirectUrl,
+          shouldCreateUser: false,
+        },
       });
+      if (signInError) {
+        setError(
+          'This email is not set up for editor access yet. Please contact the SDG AI Lab site administrator.'
+        );
+        return;
+      }
+      setSubmitted(true);
     } finally {
       setLoading(false);
-      setSubmitted(true);
     }
   }
 
@@ -80,6 +91,11 @@ export default function LoginPage() {
         {submitted && (
           <p className="mt-4 text-center text-sm text-gray-600">
             Check your email for the magic link.
+          </p>
+        )}
+        {error && (
+          <p className="mt-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+            {error}
           </p>
         )}
       </div>

@@ -1,5 +1,7 @@
 import {
   createContext,
+  lazy,
+  Suspense,
   useContext,
   useEffect,
   useRef,
@@ -8,19 +10,20 @@ import {
 import { AuthProvider, useAuth } from './auth/AuthProvider';
 import LoginPage from './auth/LoginPage';
 import AdminLayout from './layout/AdminLayout';
-import DashboardPage from './dashboard/DashboardPage';
-import StatisticsListPage from './statistics/StatisticsListPage';
-import StatisticFormPage from './statistics/StatisticFormPage';
-import ProjectsListPage from './projects/ProjectsListPage';
-import ProjectFormPage from './projects/ProjectFormPage';
-import NewsListPage from './news/NewsListPage';
-import NewsFormPage from './news/NewsFormPage';
-import PeopleListPage from './people/PeopleListPage';
-import PersonFormPage from './people/PersonFormPage';
-import PartnersListPage from './partners/PartnersListPage';
-import PartnerFormPage from './partners/PartnerFormPage';
-import PageContentListPage from './page-content/PageContentListPage';
-import PageContentFormPage from './page-content/PageContentFormPage';
+
+const DashboardPage = lazy(() => import('./dashboard/DashboardPage'));
+const StatisticsListPage = lazy(() => import('./statistics/StatisticsListPage'));
+const StatisticFormPage = lazy(() => import('./statistics/StatisticFormPage'));
+const ProjectsListPage = lazy(() => import('./projects/ProjectsListPage'));
+const ProjectFormPage = lazy(() => import('./projects/ProjectFormPage'));
+const NewsListPage = lazy(() => import('./news/NewsListPage'));
+const NewsFormPage = lazy(() => import('./news/NewsFormPage'));
+const PeopleListPage = lazy(() => import('./people/PeopleListPage'));
+const PersonFormPage = lazy(() => import('./people/PersonFormPage'));
+const PartnersListPage = lazy(() => import('./partners/PartnersListPage'));
+const PartnerFormPage = lazy(() => import('./partners/PartnerFormPage'));
+const PageContentListPage = lazy(() => import('./page-content/PageContentListPage'));
+const PageContentFormPage = lazy(() => import('./page-content/PageContentFormPage'));
 
 interface NavigationGuardContextType {
   isDirty: boolean;
@@ -86,6 +89,45 @@ function useHashRoute() {
   return route;
 }
 
+function RouteFallback() {
+  return (
+    <div className="flex justify-center py-12" role="status" aria-label="Loading">
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+    </div>
+  );
+}
+
+function UnauthorizedPage() {
+  const { user, authorizationError, signOut } = useAuth();
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+      <div className="w-full max-w-lg rounded-xl border border-gray-200 bg-white p-8 text-center shadow-lg">
+        <h1 className="text-2xl font-bold text-primary">Editor access required</h1>
+        <p className="mt-3 text-sm text-gray-600">
+          You are signed in as <span className="font-medium">{user?.email}</span>, but this account
+          is not on the approved SDG AI Lab editor list.
+        </p>
+        {authorizationError && (
+          <p className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-left text-sm text-amber-800">
+            {authorizationError}
+          </p>
+        )}
+        <p className="mt-4 text-sm text-gray-500">
+          Please contact the site administrator if you need CMS access.
+        </p>
+        <button
+          type="button"
+          onClick={() => void signOut()}
+          className="mt-6 rounded-lg bg-primary px-4 py-2 font-medium text-white transition-colors hover:bg-primary-dark"
+        >
+          Sign out
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function matchRoute(path: string, id: string | null): React.ReactNode {
   const normalized = path === '' ? '/' : path;
   switch (normalized) {
@@ -140,7 +182,7 @@ function matchRoute(path: string, id: string | null): React.ReactNode {
 }
 
 function AdminAppInner() {
-  const { session, loading } = useAuth();
+  const { session, isEditor, loading } = useAuth();
   const { path, id } = useHashRoute();
   const hash = typeof window !== 'undefined' ? window.location.hash : '';
 
@@ -167,9 +209,13 @@ function AdminAppInner() {
     return <LoginPage />;
   }
 
+  if (!isEditor) {
+    return <UnauthorizedPage />;
+  }
+
   return (
     <AdminLayout currentPath={path}>
-      {matchRoute(path, id)}
+      <Suspense fallback={<RouteFallback />}>{matchRoute(path, id)}</Suspense>
     </AdminLayout>
   );
 }
