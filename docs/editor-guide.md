@@ -6,14 +6,26 @@ This guide is for non-technical staff who manage the SDG AI Lab website content.
 
 ## Table of Contents
 
-1. [Accessing the Admin Panel](#accessing-the-admin-panel)
-2. [Logging In](#logging-in)
-3. [Dashboard Overview](#dashboard-overview)
-4. [Where Content Appears on the Website](#where-content-appears-on-the-website)
-5. [Managing Content](#managing-content)
-6. [Status: Draft, Published, Archived](#status-draft-published-archived)
-7. [Uploading Images](#uploading-images)
-8. [Tips and Reminders](#tips-and-reminders)
+- [SDG AI Lab — Content Editor Guide](#sdg-ai-lab--content-editor-guide)
+  - [Table of Contents](#table-of-contents)
+  - [Accessing the Admin Panel](#accessing-the-admin-panel)
+  - [Logging In](#logging-in)
+  - [Dashboard Overview](#dashboard-overview)
+  - [Where Content Appears on the Website](#where-content-appears-on-the-website)
+  - [Managing Content](#managing-content)
+    - [Adding a New Item](#adding-a-new-item)
+    - [Editing an Existing Item](#editing-an-existing-item)
+    - [Hiding Content Without Deleting (Archive)](#hiding-content-without-deleting-archive)
+    - [Permanently Deleting Content](#permanently-deleting-content)
+  - [Status: Draft, Published, Archived](#status-draft-published-archived)
+  - [Uploading Images](#uploading-images)
+  - [Tips and Reminders](#tips-and-reminders)
+    - [Unsaved Changes](#unsaved-changes)
+    - [Session Expired](#session-expired)
+    - [Ordering Content](#ordering-content)
+    - [Slug (URL)](#slug-url)
+    - [Markdown](#markdown)
+    - [Contact for Help](#contact-for-help)
 
 ---
 
@@ -182,4 +194,4 @@ Project descriptions, news articles, and some page content use **Markdown** — 
 
 ---
 
-*Last updated: 2026*
+*Last updated: July 2026*
