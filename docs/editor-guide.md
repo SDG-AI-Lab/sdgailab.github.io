@@ -34,8 +34,8 @@ This guide is for non-technical staff who manage the SDG AI Lab website content.
 1. Open your web browser and go to the SDG AI Lab website.
 2. In the address bar, add `/admin` at the end of the URL.
 
-   - **Production**: `https://sdgailab.org/admin`
-   - **Staging**: `https://sdg-ai-lab.github.io/sdgailab.github.io/admin`
+   - **Current staging**: `https://sdg-ai-lab.github.io/sdgailab.github.io/admin`
+   - **Future production**: `https://sdgailab.org/admin`
 
 3. You will see a login screen. You must have an editor account — contact your site administrator if you need access.
 

@@ -10,7 +10,7 @@ This is a dynamic content site that displays statistics, projects, news, team me
 
 - **Frontend**: Astro 5, React 19, Tailwind CSS
 - **CMS/Backend**: Supabase (PostgreSQL + Auth + Storage)
-- **Hosting**: GitHub Pages (custom domain: [sdgailab.org](https://sdgailab.org))
+- **Hosting**: GitHub Pages staging at [sdg-ai-lab.github.io/sdgailab.github.io](https://sdg-ai-lab.github.io/sdgailab.github.io/) with planned custom-domain production at [sdgailab.org](https://sdgailab.org)
 
 ## Prerequisites
 
@@ -58,7 +58,11 @@ Editors manage content at `/admin`:
 - **Content**: Statistics, projects, news, people, partners, page content
 - **Features**: Markdown editing, image uploads, publish/archive/delete workflow
 
-Configure Supabase Auth redirect URLs to include `http://localhost:4321/admin` (dev) and `https://sdgailab.org/admin` (production).
+Configure Supabase Auth redirect URLs to include:
+
+- `http://localhost:4321/admin` (local development)
+- `https://sdg-ai-lab.github.io/sdgailab.github.io/admin` (current staging)
+- `https://sdgailab.org/admin` (future production or cutover validation)
 
 ### Adding CMS editors
 
@@ -108,8 +112,8 @@ Deployment is automated via GitHub Actions when pushing to the `new-version` bra
 1. Set repository secrets: `PUBLIC_SUPABASE_URL` and `PUBLIC_SUPABASE_ANON_KEY`
 2. Push to `new-version` — the workflow builds and deploys to GitHub Pages
 
-- **Staging**: [https://sdg-ai-lab.github.io/sdgailab.github.io/](https://sdg-ai-lab.github.io/sdgailab.github.io/) (base path configured)
-- **Production**: [https://sdgailab.org](https://sdgailab.org) (when custom domain is active)
+- **Current staging**: [https://sdg-ai-lab.github.io/sdgailab.github.io/](https://sdg-ai-lab.github.io/sdgailab.github.io/) (base path configured and currently active)
+- **Future production**: [https://sdgailab.org](https://sdgailab.org) (documented cutover target when custom domain goes live)
 
 ## Uptime monitoring
 

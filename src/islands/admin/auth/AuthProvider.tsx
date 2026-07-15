@@ -1,5 +1,10 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import type { Session, User } from '@supabase/supabase-js';
+import {
+  clearAuthorizedAdminCache,
+  getAuthorizedAdmin,
+  normalizeAdminEmail,
+} from '../../../lib/admin-security';
 import { getSupabaseAuth } from '../../../lib/supabase-auth';
 
 interface AuthContextType {
@@ -25,6 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signOut = useCallback(async () => {
     await getSupabaseAuth().auth.signOut();
+    clearAuthorizedAdminCache();
     setSession(null);
     setUser(null);
     setAdminUser(null);
@@ -38,28 +44,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setAuthorizationError(null);
 
     if (!s) {
+      clearAuthorizedAdminCache();
       setLoading(false);
       return;
     }
 
-    const { data, error } = await getSupabaseAuth()
-      .from('admin_users')
-      .select('email, role')
-      .maybeSingle();
-
-    if (error) {
-      setAuthorizationError(error.message);
+    const normalizedEmail = normalizeAdminEmail(s.user.email ?? '');
+    if (!normalizedEmail) {
+      clearAuthorizedAdminCache();
+      setAuthorizationError('This account does not have a valid email address.');
       setLoading(false);
       return;
     }
 
-    if (!data) {
-      setAuthorizationError('This account is not approved for editor access.');
+    try {
+      const actor = await getAuthorizedAdmin(true);
+      if (actor.email !== normalizedEmail) {
+        clearAuthorizedAdminCache();
+        setAuthorizationError('This account is not approved for editor access.');
+        setLoading(false);
+        return;
+      }
+      setAdminUser(actor);
+    } catch (error) {
+      setAuthorizationError(error instanceof Error ? error.message : 'Unable to verify editor access.');
       setLoading(false);
       return;
     }
-
-    setAdminUser(data as { email: string; role: 'admin' | 'editor' });
     setLoading(false);
   }, []);
 

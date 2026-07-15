@@ -14,7 +14,8 @@ const navItems = [
 ] as const;
 
 export default function Sidebar({ currentPath, isOpen = false }: SidebarProps) {
-  const normalizedPath = currentPath || '#/';
+  const normalizedPath = currentPath || '/';
+  const hashHref = normalizedPath === '/' ? '#/' : `#${normalizedPath}`;
 
   return (
     <nav
@@ -28,9 +29,7 @@ export default function Sidebar({ currentPath, isOpen = false }: SidebarProps) {
     >
       <ul className="flex flex-col gap-0.5 p-4">
         {navItems.map(({ label, href }) => {
-          const isActive =
-            normalizedPath === href ||
-            (href === '#/' && (normalizedPath === '#' || normalizedPath === ''));
+          const isActive = hashHref === href;
           return (
             <li key={href}>
               <a

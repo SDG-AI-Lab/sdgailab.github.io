@@ -113,6 +113,30 @@ export const samplePartners: PartnerLogo[] = [
   { id: 'sample-cbi', name: 'Connecting Business initiative', logo_url: null, website_url: 'https://www.connectingbusiness.org/', display_order: 4 },
 ];
 
+const samplePageContentBodies: Record<string, Record<string, string>> = {
+  about: {
+    'about-sdgailab': `The SDG AI Lab is a UNDP initiative that advances responsible artificial intelligence for sustainable development. We work with partners to turn applied research into open tools, practical guidance and collaborative experiments that support the Sustainable Development Goals.`,
+    'our-approach':
+      'The SDG AI Lab provides a one-stop solution approach for AI/ML advisory and research support. We utilize an agile, gig-based approach to leverage global talent for sustainable development goals.',
+  },
+  volunteer: {
+    main: `## Volunteer Data Scientist Initiative
+
+The UNV-ICPSD Digital Transformation Partnership brings together volunteer data scientists from around the world to contribute to sustainable development through AI and machine learning. Volunteers work on real-world projects that support UNDP's mission.
+
+### How It Works
+
+- **Apply**: Submit your application through the UN Volunteers platform
+- **Match**: Get matched to projects based on your skills
+- **Contribute**: Work remotely on meaningful data science projects
+- **Impact**: Help advance the Sustainable Development Goals`,
+  },
+};
+
+export function getSamplePageContent(pageSlug: string, sectionSlug: string): string | null {
+  return samplePageContentBodies[pageSlug]?.[sectionSlug] ?? null;
+}
+
 export function getSampleProject(slug: string): SampleProject | null {
   return sampleProjects.find((project) => project.slug === slug) ?? null;
 }

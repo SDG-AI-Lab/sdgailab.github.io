@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { marked } from 'marked';
+import { renderMarkdown } from '../lib/markdown';
 import { getProjectBySlug } from '../lib/queries';
 import type { Project } from '../lib/types';
 import { withBase } from '../lib/url';
@@ -22,7 +22,7 @@ export default function ProjectDetail() {
       return;
     }
 
-    getProjectBySlug(slug).then(({ data, error: err }) => {
+    getProjectBySlug(slug).then(async ({ data, error: err }) => {
       if (err) {
         setError(err);
       } else if (!data) {
@@ -33,17 +33,10 @@ export default function ProjectDetail() {
           return;
         }
         setProject(sample);
-        const rendered = marked.parse(sample.description);
-        if (typeof rendered === 'string') setHtml(rendered);
-        else rendered.then(setHtml);
+        setHtml(await renderMarkdown(sample.description));
       } else {
         setProject(data);
-        const rendered = marked.parse(data.description);
-        if (typeof rendered === 'string') {
-          setHtml(rendered);
-        } else {
-          rendered.then(setHtml);
-        }
+        setHtml(await renderMarkdown(data.description));
       }
       setLoading(false);
     });

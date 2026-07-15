@@ -1,0 +1,144 @@
+snapshots:
+  - date: "2026-07-14T10:07"
+    overall_score_pct: 49.0
+    overall_rating: "Low"
+    verdict: "NOT PRODUCTION READY"
+    total_checks: 85
+    pass: 43
+    partial: 16
+    fail: 26
+    na: 11
+    blockers: 1
+    critical_issues: 1
+    high_issues: 8
+    medium_issues: 5
+    low_issues: 1
+
+    layers:
+      "frontend":
+        type: "astro-react-typescript"
+        score_pct: 49.0
+        rating: "Low"
+
+    quality_attributes:
+      "frontend-security":
+        domain_name: "Security"
+        layer: "frontend"
+        score_pct: 59.1
+        rating: "Adequate"
+        pass: 6
+        partial: 1
+        fail: 4
+        na: 2
+      "frontend-reliability":
+        domain_name: "Reliability"
+        layer: "frontend"
+        score_pct: 28.6
+        rating: "Critical"
+        pass: 1
+        partial: 2
+        fail: 4
+        na: 1
+      "frontend-performance-efficiency":
+        domain_name: "Performance Efficiency"
+        layer: "frontend"
+        score_pct: 57.1
+        rating: "Adequate"
+        pass: 3
+        partial: 2
+        fail: 2
+        na: 1
+      "frontend-maintainability":
+        domain_name: "Maintainability"
+        layer: "frontend"
+        score_pct: 65.4
+        rating: "Adequate"
+        pass: 8
+        partial: 1
+        fail: 4
+        na: 1
+      "frontend-observability":
+        domain_name: "Observability"
+        layer: "frontend"
+        score_pct: 21.4
+        rating: "Critical"
+        pass: 1
+        partial: 1
+        fail: 5
+        na: 1
+      "frontend-flexibility":
+        domain_name: "Flexibility"
+        layer: "frontend"
+        score_pct: 50.0
+        rating: "Adequate"
+        pass: 3
+        partial: 2
+        fail: 3
+        na: 1
+      "frontend-interaction-capability":
+        domain_name: "Interaction Capability"
+        layer: "frontend"
+        score_pct: 70.8
+        rating: "Solid"
+        pass: 7
+        partial: 3
+        fail: 2
+        na: 1
+      "frontend-compatibility":
+        domain_name: "Compatibility"
+        layer: "frontend"
+        score_pct: 57.1
+        rating: "Adequate"
+        pass: 3
+        partial: 2
+        fail: 2
+        na: 1
+      "frontend-data-quality":
+        domain_name: "Data Quality"
+        layer: "frontend"
+        score_pct: 68.8
+        rating: "Adequate"
+        pass: 5
+        partial: 1
+        fail: 2
+        na: 1
+      "project-documentation":
+        domain_name: "Documentation"
+        layer: "project-wide"
+        score_pct: 59.1
+        rating: "Adequate"
+        pass: 6
+        partial: 1
+        fail: 4
+        na: 1
+  - date: "2026-07-15T00:00"
+    overall_score_pct: 49.0
+    overall_rating: "Low"
+    verdict: "NOT PRODUCTION READY"
+    total_checks: 85
+    pass: 45
+    partial: 18
+    fail: 24
+    na: 11
+    blockers: 0
+    critical_issues: 0
+    high_issues: 7
+    medium_issues: 6
+    low_issues: 1
+
+    layers:
+      "frontend":
+        type: "astro-react-typescript"
+        score_pct: 49.0
+        rating: "Low"
+
+    quality_attributes:
+      "frontend-security":
+        domain_name: "Security"
+        layer: "frontend"
+        score_pct: 86.4
+        rating: "Exemplary"
+        pass: 8
+        partial: 3
+        fail: 0
+        na: 2

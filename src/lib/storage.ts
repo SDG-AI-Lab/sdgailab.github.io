@@ -1,3 +1,4 @@
+import { runProtectedAdminAction } from './admin-security';
 import { getSupabaseAuth } from './supabase-auth';
 
 const ALLOWED_MIME_TYPES = [
@@ -9,6 +10,19 @@ const ALLOWED_MIME_TYPES = [
 ] as const;
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+function protectedStorageAction<T>(key: string, action: () => Promise<T>): Promise<T> {
+  return runProtectedAdminAction(
+    {
+      key,
+      limit: 10,
+      windowMs: 10 * 60 * 1000,
+      cooldownMs: 2_000,
+      message: 'Too many file operations were submitted too quickly.',
+    },
+    action
+  );
+}
 
 function sanitizeFilename(name: string): string {
   return name
@@ -30,9 +44,15 @@ export async function uploadImage(
   const sanitized = sanitizeFilename(file.name);
   const path = `${folder}/${Date.now()}-${sanitized || 'image'}`;
 
-  const { error } = await getSupabaseAuth().storage.from('public-assets').upload(path, file);
-  if (error) {
-    return { url: null, error: error.message };
+  try {
+    const { error } = await protectedStorageAction(`upload-image:${folder}`, () =>
+      getSupabaseAuth().storage.from('public-assets').upload(path, file)
+    );
+    if (error) {
+      return { url: null, error: error.message };
+    }
+  } catch (error) {
+    return { url: null, error: error instanceof Error ? error.message : 'Unable to upload image.' };
   }
 
   const { data } = getSupabaseAuth().storage.from('public-assets').getPublicUrl(path);
@@ -52,8 +72,14 @@ export async function deleteImage(
     return { error: 'Invalid storage URL: empty path' };
   }
 
-  const { error } = await getSupabaseAuth().storage.from('public-assets').remove([path]);
-  return error ? { error: error.message } : { error: null };
+  try {
+    const { error } = await protectedStorageAction(`delete-image:${path}`, () =>
+      getSupabaseAuth().storage.from('public-assets').remove([path])
+    );
+    return error ? { error: error.message } : { error: null };
+  } catch (error) {
+    return { error: error instanceof Error ? error.message : 'Unable to delete image.' };
+  }
 }
 
 export async function replaceImage(

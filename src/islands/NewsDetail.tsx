@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { marked } from 'marked';
+import { renderMarkdown } from '../lib/markdown';
 import { getNewsArticleBySlug } from '../lib/queries';
 import type { NewsArticle } from '../lib/types';
 import { withBase } from '../lib/url';
@@ -21,7 +21,7 @@ export default function NewsDetail() {
       return;
     }
 
-    getNewsArticleBySlug(slug).then(({ data, error: err }) => {
+    getNewsArticleBySlug(slug).then(async ({ data, error: err }) => {
       if (err) {
         setError(err);
       } else if (!data) {
@@ -32,17 +32,10 @@ export default function NewsDetail() {
           return;
         }
         setArticle(sample);
-        const rendered = marked.parse(sample.body);
-        if (typeof rendered === 'string') setHtml(rendered);
-        else rendered.then(setHtml);
+        setHtml(await renderMarkdown(sample.body));
       } else {
         setArticle(data);
-        const rendered = marked.parse(data.body);
-        if (typeof rendered === 'string') {
-          setHtml(rendered);
-        } else {
-          rendered.then(setHtml);
-        }
+        setHtml(await renderMarkdown(data.body));
       }
       setLoading(false);
     });

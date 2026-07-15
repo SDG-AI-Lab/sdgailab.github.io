@@ -140,28 +140,30 @@ function isActive(href: string): boolean {
   const menu = document.getElementById('mobile-menu');
 
   if (toggle && menu) {
-    const menuIcon = toggle.querySelector('.menu-icon');
-    const closeIcon = toggle.querySelector('.close-icon');
+    const toggleButton = toggle;
+    const menuPanel = menu;
+    const menuIcon = toggleButton.querySelector('.menu-icon');
+    const closeIcon = toggleButton.querySelector('.close-icon');
 
     function closeMenu() {
-      toggle.setAttribute('aria-expanded', 'false');
-      menu.classList.add('hidden');
+      toggleButton.setAttribute('aria-expanded', 'false');
+      menuPanel.classList.add('hidden');
       menuIcon?.classList.remove('hidden');
       closeIcon?.classList.add('hidden');
-      toggle.focus();
+      toggleButton.focus();
     }
 
     function openMenu() {
-      toggle.setAttribute('aria-expanded', 'true');
-      menu.classList.remove('hidden');
+      toggleButton.setAttribute('aria-expanded', 'true');
+      menuPanel.classList.remove('hidden');
       menuIcon?.classList.add('hidden');
       closeIcon?.classList.remove('hidden');
-      const firstLink = menu.querySelector('a');
+      const firstLink = menuPanel.querySelector('a');
       firstLink?.focus();
     }
 
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggleButton.addEventListener('click', () => {
+      const isOpen = toggleButton.getAttribute('aria-expanded') === 'true';
       if (isOpen) closeMenu();
       else openMenu();
     });
@@ -169,7 +171,7 @@ function isActive(href: string): boolean {
     document.addEventListener('keydown', (e) => {
       if (
         e.key === 'Escape' &&
-        toggle.getAttribute('aria-expanded') === 'true'
+        toggleButton.getAttribute('aria-expanded') === 'true'
       ) {
         closeMenu();
       }

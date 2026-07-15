@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { consumeRateLimit, normalizeAdminEmail } from '../../../lib/admin-security';
 import { getSupabaseAuth } from '../../../lib/supabase-auth';
 
 export default function LoginPage() {
@@ -9,6 +10,20 @@ export default function LoginPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    const normalizedEmail = normalizeAdminEmail(email);
+    const rateLimit = consumeRateLimit({
+      key: `admin-login:${normalizedEmail || 'anonymous'}`,
+      limit: 3,
+      windowMs: 15 * 60 * 1000,
+      cooldownMs: 60 * 1000,
+      message: 'Too many sign-in requests for this email address.',
+    });
+
+    if (!rateLimit.allowed) {
+      setError(rateLimit.error);
+      return;
+    }
+
     setLoading(true);
     setSubmitted(false);
     setError(null);
@@ -16,7 +31,7 @@ export default function LoginPage() {
       const basePath = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') || '';
       const redirectUrl = `${window.location.origin}${basePath}/admin`;
       const { error: signInError } = await getSupabaseAuth().auth.signInWithOtp({
-        email,
+        email: normalizedEmail,
         options: {
           emailRedirectTo: redirectUrl,
           shouldCreateUser: false,
