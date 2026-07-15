@@ -10,7 +10,7 @@ const { signInWithOtpMock, getSessionMock, onAuthStateChangeMock } = vi.hoisted(
   onAuthStateChangeMock: vi.fn(),
 }));
 
-vi.mock('../../../lib/supabase-auth', () => ({
+vi.mock('../../lib/supabase-auth', () => ({
   getSupabaseAuth: () => ({
     auth: {
       getSession: getSessionMock,
@@ -21,16 +21,11 @@ vi.mock('../../../lib/supabase-auth', () => ({
   }),
 }));
 
-vi.mock('../../../lib/admin-security', async () => {
-  const actual = await vi.importActual<typeof import('../../../lib/admin-security')>(
-    '../../../lib/admin-security'
-  );
-  return {
-    ...actual,
-    getAuthorizedAdmin: vi.fn(),
-    clearAuthorizedAdminCache: vi.fn(),
-  };
-});
+vi.mock('../../lib/admin-security', () => ({
+  getAuthorizedAdmin: vi.fn(),
+  clearAuthorizedAdminCache: vi.fn(),
+  normalizeAdminEmail: (email: string) => email.trim().toLowerCase(),
+}));
 
 import AdminApp from './AdminApp';
 import AdminLayout from './layout/AdminLayout';
