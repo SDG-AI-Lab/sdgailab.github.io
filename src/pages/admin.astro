@@ -2,6 +2,21 @@
 import { withBase } from '../lib/url';
 import '../styles/global.css';
 import AdminApp from '../islands/admin/AdminApp';
+
+const adminContentSecurityPolicy = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "form-action 'self'",
+  "img-src 'self' data: https:",
+  "font-src 'self' data:",
+  "script-src 'self'",
+  "style-src 'self' 'unsafe-inline'",
+  "connect-src 'self' https://*.supabase.co",
+  "frame-src 'none'",
+  "manifest-src 'self'",
+  'upgrade-insecure-requests',
+].join('; ');
 ---
 
 <html lang="en">
@@ -9,7 +24,9 @@ import AdminApp from '../islands/admin/AdminApp';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Admin — SDG AI Lab</title>
+    <meta http-equiv="Content-Security-Policy" content={adminContentSecurityPolicy} />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>Admin - SDG AI Lab</title>
     <link rel="icon" type="image/x-icon" href={withBase('/favicon.ico')} />
   </head>
   <body>

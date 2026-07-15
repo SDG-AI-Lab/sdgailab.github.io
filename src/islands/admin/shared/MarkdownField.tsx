@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react';
 import MDEditor, { commands } from '@uiw/react-md-editor';
 import '@uiw/react-md-editor/markdown-editor.css';
-import { marked } from 'marked';
+import { renderMarkdown } from '../../../lib/markdown';
 
 interface MarkdownFieldProps {
   value: string;
@@ -23,6 +24,16 @@ const simplifiedCommands = [
   commands.codePreview,
 ];
 
+function SafeMarkdownPreview({ source }: { source: string }) {
+  const [html, setHtml] = useState('');
+
+  useEffect(() => {
+    renderMarkdown(source).then(setHtml);
+  }, [source]);
+
+  return <div className="wmde-markdown" dangerouslySetInnerHTML={{ __html: html }} />;
+}
+
 export function MarkdownField({
   value,
   onChange,
@@ -42,12 +53,7 @@ export function MarkdownField({
         preview="live"
         commands={simplifiedCommands}
         components={{
-          preview: (source) => (
-            <div
-              className="wmde-markdown"
-              dangerouslySetInnerHTML={{ __html: marked.parse(source) as string }}
-            />
-          ),
+          preview: (source) => <SafeMarkdownPreview source={source} />,
         }}
       />
     </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { marked } from 'marked';
+import { renderMarkdown } from '../lib/markdown';
 import { getPageContent } from '../lib/queries';
 
 interface PageContentProps {
@@ -13,16 +13,11 @@ export default function PageContent({ pageSlug, sectionSlug }: PageContentProps)
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    getPageContent(pageSlug, sectionSlug).then(({ data, error: err }) => {
+    getPageContent(pageSlug, sectionSlug).then(async ({ data, error: err }) => {
       if (err) {
         setError(err);
       } else if (data) {
-        const rendered = marked.parse(data.body);
-        if (typeof rendered === 'string') {
-          setHtml(rendered);
-        } else {
-          rendered.then(setHtml);
-        }
+        setHtml(await renderMarkdown(data.body));
       }
       setLoading(false);
     });
