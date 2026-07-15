@@ -1,10 +1,28 @@
 import { useEffect, useState } from 'react';
+import { getSamplePageContent } from '../data/sampleContent';
 import { renderMarkdown } from '../lib/markdown';
 import { getPageContent } from '../lib/queries';
+
+const LOAD_TIMEOUT_MS = 12_000;
 
 interface PageContentProps {
   pageSlug: string;
   sectionSlug: string;
+}
+
+async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timer = window.setTimeout(() => reject(new Error('Request timed out')), ms);
+    promise
+      .then((value) => {
+        window.clearTimeout(timer);
+        resolve(value);
+      })
+      .catch((error: unknown) => {
+        window.clearTimeout(timer);
+        reject(error);
+      });
+  });
 }
 
 export default function PageContent({ pageSlug, sectionSlug }: PageContentProps) {
@@ -13,14 +31,43 @@ export default function PageContent({ pageSlug, sectionSlug }: PageContentProps)
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    getPageContent(pageSlug, sectionSlug).then(async ({ data, error: err }) => {
-      if (err) {
-        setError(err);
-      } else if (data) {
-        setHtml(await renderMarkdown(data.body));
+    let cancelled = false;
+
+    async function loadContent() {
+      try {
+        const { data, error: err } = await withTimeout(
+          getPageContent(pageSlug, sectionSlug),
+          LOAD_TIMEOUT_MS
+        );
+
+        if (cancelled) return;
+
+        const body = data?.body ?? getSamplePageContent(pageSlug, sectionSlug);
+        if (body) {
+          setHtml(await renderMarkdown(body));
+        } else if (err) {
+          setError(err);
+        }
+      } catch {
+        if (cancelled) return;
+        const sample = getSamplePageContent(pageSlug, sectionSlug);
+        if (sample) {
+          setHtml(await renderMarkdown(sample));
+        } else {
+          setError('Unable to load content at this time.');
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
-      setLoading(false);
-    });
+    }
+
+    void loadContent();
+
+    return () => {
+      cancelled = true;
+    };
   }, [pageSlug, sectionSlug]);
 
   if (loading) {

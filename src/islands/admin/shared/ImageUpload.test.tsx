@@ -21,6 +21,7 @@ vi.mock('../../../lib/storage', () => ({
 }));
 
 import { ImageUpload } from './ImageUpload';
+import { expectAccessible } from '../../../test/axe';
 
 async function flushEffects() {
   await act(async () => {
@@ -173,5 +174,13 @@ describe('ImageUpload', () => {
       (button) => button.textContent?.includes('Try again')
     ) as HTMLButtonElement;
     expect(retryButton).toBeTruthy();
+  });
+
+  it('has no detectable accessibility violations', async () => {
+    await act(async () => {
+      root.render(<ImageUpload value={null} folder="projects" onChange={onChange} />);
+    });
+
+    await expectAccessible(container);
   });
 });

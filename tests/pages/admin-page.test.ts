@@ -7,7 +7,7 @@ describe('admin page source', () => {
 
   it('includes a CSP meta tag for the admin shell', () => {
     expect(source).toContain('Content-Security-Policy');
-    expect(source).toContain("script-src 'self'");
+    expect(source).toContain("script-src 'self' 'unsafe-inline'");
     expect(source).toContain("connect-src 'self' https://*.supabase.co");
   });
 

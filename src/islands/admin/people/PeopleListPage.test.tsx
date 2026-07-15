@@ -41,6 +41,7 @@ vi.mock('../shared/ConfirmDialog', () => ({
 }));
 
 import PeopleListPage from './PeopleListPage';
+import { expectAccessible } from '../../../test/axe';
 
 async function flushEffects() {
   await act(async () => {
@@ -132,5 +133,14 @@ describe('PeopleListPage', () => {
 
     expect(deletePersonMock).toHaveBeenCalledWith('person-1');
     expect(showToastMock).toHaveBeenCalledWith('Person deleted permanently', 'success');
+  });
+
+  it('has no detectable accessibility violations', async () => {
+    await act(async () => {
+      root.render(<PeopleListPage />);
+    });
+    await flushEffects();
+
+    await expectAccessible(container);
   });
 });

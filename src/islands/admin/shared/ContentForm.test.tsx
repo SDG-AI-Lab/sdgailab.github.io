@@ -15,6 +15,7 @@ vi.mock('../AdminApp', () => ({
 }));
 
 import { ContentForm } from './ContentForm';
+import { expectAccessible } from '../../../test/axe';
 
 describe('ContentForm', () => {
   let container: HTMLDivElement;
@@ -68,5 +69,18 @@ describe('ContentForm', () => {
     expect(cancelLink?.textContent).toBe('Cancel');
     expect(submitButton.disabled).toBe(true);
     expect(submitButton.textContent).toContain('Update');
+  });
+
+  it('has no detectable accessibility violations', async () => {
+    await act(async () => {
+      root.render(
+        <ContentForm onSubmit={() => {}} isEdit={false} loading={false} backHref="#/back" isDirty={false}>
+          <label htmlFor="title">Title</label>
+          <input id="title" name="title" />
+        </ContentForm>
+      );
+    });
+
+    await expectAccessible(container);
   });
 });

@@ -6,6 +6,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import NewsDetail from './NewsDetail';
 import ProjectDetail from './ProjectDetail';
+import { expectAccessible } from '../test/axe';
 
 const { getNewsArticleBySlugMock, getProjectBySlugMock, renderMarkdownMock } = vi.hoisted(() => ({
   getNewsArticleBySlugMock: vi.fn(),
@@ -142,5 +143,53 @@ describe('detail islands', () => {
     await render(<NewsDetail />, '?slug=private-news');
 
     expect(container.textContent).toContain('RLS denied');
+  });
+
+  it('has no detectable accessibility violations on project detail', async () => {
+    getProjectBySlugMock.mockResolvedValue({
+      data: {
+        id: 'project-1',
+        title: 'Accessible Project',
+        slug: 'accessible-project',
+        description: 'Body',
+        project_status: 'active',
+        is_deployed: false,
+        is_featured: false,
+        image_url: null,
+        display_order: 1,
+        status: 'published',
+        published_at: '2026-07-15T00:00:00Z',
+        created_at: '2026-07-15T00:00:00Z',
+        updated_at: '2026-07-15T00:00:00Z',
+        summary: 'Summary',
+      },
+      error: null,
+    });
+
+    await render(<ProjectDetail />, '?slug=accessible-project');
+    await expectAccessible(container);
+  });
+
+  it('has no detectable accessibility violations on news detail', async () => {
+    getNewsArticleBySlugMock.mockResolvedValue({
+      data: {
+        id: 'news-1',
+        title: 'Accessible Article',
+        slug: 'accessible-article',
+        body: 'Body',
+        summary: 'Summary',
+        featured_image_url: null,
+        author_name: 'Editor',
+        publish_date: '2026-07-15',
+        status: 'published',
+        published_at: '2026-07-15T00:00:00Z',
+        created_at: '2026-07-15T00:00:00Z',
+        updated_at: '2026-07-15T00:00:00Z',
+      },
+      error: null,
+    });
+
+    await render(<NewsDetail />, '?slug=accessible-article');
+    await expectAccessible(container);
   });
 });

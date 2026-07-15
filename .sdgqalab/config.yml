@@ -49,6 +49,9 @@ layers:
       - "src/**/*.spec.tsx"
       - "src/**/*.test.astro"
       - "src/**/*.spec.astro"
+      - "tests/**/*.test.ts"
+      - "tests/**/*.test.tsx"
+      - "tests/**/*.integration.test.ts"
     ignore:
       - "**/*.d.ts"
       - "**/*.config.*"

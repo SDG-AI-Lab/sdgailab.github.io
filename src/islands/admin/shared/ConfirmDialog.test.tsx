@@ -1,10 +1,13 @@
 // @vitest-environment jsdom
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { toHaveNoViolations } from 'jest-axe';
 import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 
 import { ConfirmDialog } from './ConfirmDialog';
+
+expect.extend(toHaveNoViolations);
 
 describe('ConfirmDialog', () => {
   let container: HTMLDivElement;
@@ -87,5 +90,24 @@ describe('ConfirmDialog', () => {
 
     expect(confirmButton.disabled).toBe(true);
     expect(confirmButton.textContent).toContain('Delete now');
+  });
+
+  it('has no detectable accessibility violations when open', async () => {
+    const { axe } = await import('jest-axe');
+
+    await act(async () => {
+      root.render(
+        <ConfirmDialog
+          isOpen={true}
+          title="Delete item"
+          message="Confirm delete"
+          onConfirm={() => {}}
+          onCancel={() => {}}
+        />
+      );
+    });
+
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

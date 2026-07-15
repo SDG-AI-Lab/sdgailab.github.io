@@ -164,3 +164,102 @@ snapshots:
         security_gaps: 0
         accessibility_gaps: 12
         test_count: 107
+  - date: "2026-07-15T15:22"
+    layers:
+      frontend:
+        total_source_files: 67
+        unit_file_coverage_pct: 25.4
+        integration_file_coverage_pct: 37.3
+        line_coverage_pct: 81.77
+        e2e_gaps: 6
+        security_gaps: 1
+        accessibility_gaps: 12
+        test_count: 121
+  - date: "2026-07-15T16:12"
+    layers:
+      frontend:
+        total_source_files: 67
+        unit_file_coverage_pct: 31.3
+        integration_file_coverage_pct: 44.8
+        line_coverage_pct: 87.37
+        e2e_gaps: 6
+        security_gaps: 0
+        accessibility_gaps: 10
+        test_count: 155
+  - date: "2026-07-15T16:35"
+    layers:
+      frontend:
+        total_source_files: 67
+        unit_file_coverage_pct: 40.3
+        integration_file_coverage_pct: 68.7
+        line_coverage_pct: 87.37
+        e2e_gaps: 0
+        security_gaps: 0
+        accessibility_gaps: 0
+        test_count: 179
+  - date: "2026-07-15T16:38"
+    layers:
+      frontend:
+        total_source_files: 67
+        unit_file_coverage_pct: 40.3
+        integration_file_coverage_pct: 68.7
+        line_coverage_pct: 87.37
+        e2e_gaps: 0
+        security_gaps: 0
+        accessibility_gaps: 0
+        test_count: 179
+  - date: "2026-07-15T16:48"
+    layers:
+      frontend:
+        total_source_files: 67
+        unit_file_coverage_pct: 61.2
+        integration_file_coverage_pct: 97.0
+        line_coverage_pct: 88.11
+        e2e_gaps: 0
+        security_gaps: 0
+        accessibility_gaps: 0
+        test_count: 208
+  - date: "2026-07-15T16:55"
+    layers:
+      frontend:
+        total_source_files: 67
+        unit_file_coverage_pct: 98.5
+        integration_file_coverage_pct: 100.0
+        line_coverage_pct: 88.22
+        e2e_gaps: 0
+        security_gaps: 0
+        accessibility_gaps: 0
+        test_count: 239
+  - date: "2026-07-15T17:00"
+    layers:
+      frontend:
+        total_source_files: 67
+        unit_file_coverage_pct: 98.5
+        integration_file_coverage_pct: 89.6
+        line_coverage_pct: 88.22
+        e2e_gaps: 0
+        security_gaps: 0
+        accessibility_gaps: 0
+        test_count: 239
+  - date: "2026-07-15T17:05"
+    layers:
+      frontend:
+        total_source_files: 67
+        unit_file_coverage_pct: 100.0
+        integration_file_coverage_pct: 100.0
+        line_coverage_pct: 88.22
+        e2e_gaps: 0
+        security_gaps: 0
+        accessibility_gaps: 0
+        test_count: 254
+  - date: "2026-07-15T17-26"
+    layers:
+      frontend:
+        total_source_files: 67
+        unit_file_coverage_pct: 100.0
+        integration_file_coverage_pct: 100.0
+        line_coverage_pct: 88.22
+        e2e_gaps: 0
+        security_gaps: 0
+        accessibility_gaps: 0
+        test_count: 254

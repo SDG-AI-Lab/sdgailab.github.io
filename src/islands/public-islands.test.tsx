@@ -246,6 +246,13 @@ describe('public islands', () => {
 
     remount();
     getPageContentMock.mockResolvedValueOnce({ data: null, error: null });
+    await render(<PageContent pageSlug="about" sectionSlug="our-approach" />);
+    expect(renderMarkdownMock).toHaveBeenCalledWith(
+      expect.stringContaining('one-stop solution approach')
+    );
+
+    remount();
+    getPageContentMock.mockResolvedValueOnce({ data: null, error: null });
     await render(<PageContent pageSlug="about" sectionSlug="missing" />);
     expect(container.textContent).toContain('No content available yet.');
 

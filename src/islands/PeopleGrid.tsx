@@ -2,8 +2,25 @@ import { useEffect, useState } from 'react';
 import { getPublishedPeople } from '../lib/queries';
 import type { PersonCard, PeopleGroup } from '../lib/types';
 
+const LOAD_TIMEOUT_MS = 12_000;
+
 interface PeopleGridProps {
   groupType: PeopleGroup;
+}
+
+async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timer = window.setTimeout(() => reject(new Error('Request timed out')), ms);
+    promise
+      .then((value) => {
+        window.clearTimeout(timer);
+        resolve(value);
+      })
+      .catch((error: unknown) => {
+        window.clearTimeout(timer);
+        reject(error);
+      });
+  });
 }
 
 export default function PeopleGrid({ groupType }: PeopleGridProps) {
@@ -12,11 +29,38 @@ export default function PeopleGrid({ groupType }: PeopleGridProps) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    getPublishedPeople(groupType).then(({ data, error: err }) => {
-      if (err) setError(err);
-      else setPeople(data);
-      setLoading(false);
-    });
+    let cancelled = false;
+
+    async function loadPeople() {
+      try {
+        const { data, error: err } = await withTimeout(
+          getPublishedPeople(groupType),
+          LOAD_TIMEOUT_MS
+        );
+
+        if (cancelled) return;
+
+        if (err) {
+          setError(err);
+        } else {
+          setPeople(data);
+        }
+      } catch {
+        if (!cancelled) {
+          setError('Unable to load team information at this time.');
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    void loadPeople();
+
+    return () => {
+      cancelled = true;
+    };
   }, [groupType]);
 
   if (loading) {

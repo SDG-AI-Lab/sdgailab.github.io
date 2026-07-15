@@ -1,8 +1,11 @@
 // @vitest-environment jsdom
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { toHaveNoViolations } from 'jest-axe';
 import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
+
+expect.extend(toHaveNoViolations);
 
 const {
   consumeRateLimitMock,
@@ -147,5 +150,16 @@ describe('LoginPage', () => {
     expect(container.textContent).toContain(
       'This email is not set up for editor access yet. Please contact the SDG AI Lab site administrator.'
     );
+  });
+
+  it('has no detectable accessibility violations', async () => {
+    const { axe } = await import('jest-axe');
+
+    await act(async () => {
+      root.render(<LoginPage />);
+    });
+
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

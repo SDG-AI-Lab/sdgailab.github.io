@@ -5,6 +5,7 @@ import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 
 import { ToastProvider, useToast } from './Toast';
+import { expectAccessible } from '../../../test/axe';
 
 function Harness() {
   const { showToast } = useToast();
@@ -93,5 +94,26 @@ describe('ToastProvider', () => {
     });
 
     expect(container.textContent).not.toContain('Something went wrong');
+  });
+
+  it('has no detectable accessibility violations', async () => {
+    vi.useRealTimers();
+    await act(async () => {
+      root.render(
+        <ToastProvider>
+          <Harness />
+        </ToastProvider>
+      );
+    });
+
+    const successButton = Array.from(container.querySelectorAll('button')).find((button) =>
+      button.textContent?.includes('Show success')
+    ) as HTMLButtonElement;
+
+    await act(async () => {
+      successButton.click();
+    });
+
+    await expectAccessible(container);
   });
 });
