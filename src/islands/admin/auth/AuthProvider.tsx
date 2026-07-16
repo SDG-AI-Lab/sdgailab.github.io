@@ -80,6 +80,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     const { data: { subscription } } = getSupabaseAuth().auth.onAuthStateChange((event, s) => {
+      if (event === 'INITIAL_SESSION') {
+        void applySession(s);
+        return;
+      }
       if (event === 'SIGNED_IN' && s) {
         setLoading(true);
         void applySession(s);

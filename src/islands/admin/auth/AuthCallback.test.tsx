@@ -9,8 +9,19 @@ const authState = vi.hoisted(() => ({
   loading: true,
 }));
 
+const { completeAuthCallbackMock, hasAuthCallbackParamsMock } = vi.hoisted(() => ({
+  completeAuthCallbackMock: vi.fn(),
+  hasAuthCallbackParamsMock: vi.fn(),
+}));
+
 vi.mock('./AuthProvider', () => ({
   useAuth: () => authState,
+}));
+
+vi.mock('../../../lib/auth-callback', () => ({
+  hasAuthCallbackParams: hasAuthCallbackParamsMock,
+  completeAuthCallback: completeAuthCallbackMock,
+  clearAuthCallbackQueryParams: vi.fn(),
 }));
 
 import AuthCallback from './AuthCallback';
@@ -21,9 +32,10 @@ describe('AuthCallback', () => {
 
   beforeEach(() => {
     globalThis.IS_REACT_ACT_ENVIRONMENT = true;
-    vi.useFakeTimers();
     authState.session = null;
     authState.loading = true;
+    hasAuthCallbackParamsMock.mockReturnValue(true);
+    completeAuthCallbackMock.mockResolvedValue({ error: null });
     window.location.hash = '';
     container = document.createElement('div');
     document.body.appendChild(container);
@@ -35,7 +47,6 @@ describe('AuthCallback', () => {
       root.unmount();
     });
     container.remove();
-    vi.useRealTimers();
   });
 
   async function renderCallback() {
@@ -44,11 +55,12 @@ describe('AuthCallback', () => {
     });
     await act(async () => {
       await Promise.resolve();
+      await Promise.resolve();
     });
   }
 
-  it('shows an error when the callback hash has no auth tokens', async () => {
-    window.location.hash = '#/login';
+  it('shows an error when the callback has no auth params', async () => {
+    hasAuthCallbackParamsMock.mockReturnValue(false);
     await renderCallback();
 
     expect(container.textContent).toContain('Invalid or expired link');
@@ -56,15 +68,14 @@ describe('AuthCallback', () => {
   });
 
   it('shows a loading state while auth tokens are being processed', async () => {
-    window.location.hash = '#access_token=test-token&type=magiclink';
     await renderCallback();
 
     expect(container.textContent).toContain('Signing you in...');
     expect(container.querySelector('.animate-spin')).not.toBeNull();
+    expect(completeAuthCallbackMock).toHaveBeenCalled();
   });
 
   it('redirects to the dashboard when a session becomes available', async () => {
-    window.location.hash = '#access_token=test-token&refresh_token=refresh';
     await renderCallback();
 
     authState.session = { user: { email: 'editor@example.org' } };
@@ -78,21 +89,13 @@ describe('AuthCallback', () => {
     expect(window.location.hash).toBe('#/');
   });
 
-  it('redirects after a timeout when loading completes without a session', async () => {
-    window.location.hash = '#access_token=test-token';
+  it('shows an error when callback exchange fails', async () => {
+    completeAuthCallbackMock.mockResolvedValue({
+      error: new Error('Invalid grant'),
+    });
+
     await renderCallback();
 
-    authState.loading = false;
-
-    await act(async () => {
-      root.render(<AuthCallback />);
-      await Promise.resolve();
-    });
-
-    await act(async () => {
-      vi.advanceTimersByTime(1500);
-    });
-
-    expect(window.location.hash).toBe('#/');
+    expect(container.textContent).toContain('Invalid or expired link');
   });
 });

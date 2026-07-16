@@ -33,6 +33,10 @@ vi.mock('./auth/LoginPage', () => ({
   default: () => <div data-testid="login-page">Login</div>,
 }));
 
+vi.mock('./auth/AuthCallback', () => ({
+  default: () => <div data-testid="auth-callback">Signing you in...</div>,
+}));
+
 vi.mock('./layout/AdminLayout', () => ({
   default: ({
     children,
@@ -82,6 +86,7 @@ describe('AdminApp', () => {
     authState.isEditor = false;
     authState.loading = false;
     authState.authorizationError = null;
+    window.history.replaceState({}, '', '/');
     window.location.hash = '#/';
     container = document.createElement('div');
     document.body.appendChild(container);
@@ -153,15 +158,13 @@ describe('AdminApp', () => {
     expect(container.querySelector('[data-testid="projects-list-page"]')).not.toBeNull();
   });
 
-  it('shows a signing-in message when auth tokens are present in the hash', async () => {
-    authState.session = { user: { email: 'editor@example.org' } };
-    authState.isEditor = true;
-    window.location.hash = '#access_token=test-token';
+  it('renders the auth callback when magic-link params are present', async () => {
+    window.history.replaceState({}, '', '/admin?code=test-code');
 
     await renderApp();
 
-    expect(container.textContent).toContain('Signing you in...');
-    expect(container.querySelector('[data-testid="admin-layout"]')).toBeNull();
+    expect(container.querySelector('[data-testid="auth-callback"]')).not.toBeNull();
+    expect(container.querySelector('[data-testid="login-page"]')).toBeNull();
   });
 
   it('signs out from the unauthorized page', async () => {

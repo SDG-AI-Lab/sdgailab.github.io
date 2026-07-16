@@ -4,10 +4,12 @@ import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-const { signInWithOtpMock, getSessionMock, onAuthStateChangeMock } = vi.hoisted(() => ({
+const { signInWithOtpMock, getSessionMock, onAuthStateChangeMock, setSessionMock, exchangeCodeForSessionMock } = vi.hoisted(() => ({
   signInWithOtpMock: vi.fn(),
   getSessionMock: vi.fn(),
   onAuthStateChangeMock: vi.fn(),
+  setSessionMock: vi.fn().mockResolvedValue({ error: null }),
+  exchangeCodeForSessionMock: vi.fn().mockResolvedValue({ error: null }),
 }));
 
 vi.mock('../../lib/supabase-auth', () => ({
@@ -17,6 +19,8 @@ vi.mock('../../lib/supabase-auth', () => ({
       onAuthStateChange: onAuthStateChangeMock,
       signInWithOtp: signInWithOtpMock,
       signOut: vi.fn(),
+      setSession: setSessionMock,
+      exchangeCodeForSession: exchangeCodeForSessionMock,
     },
   }),
 }));
@@ -92,7 +96,7 @@ describe('admin shell (unit)', () => {
   });
 
   it('AuthCallback renders the signing-in state for token hashes', async () => {
-    window.location.hash = '#access_token=test-token&type=magiclink';
+    window.location.hash = '#access_token=test-token&refresh_token=refresh&type=magiclink';
     await render(
       <AuthProvider>
         <AuthCallback />

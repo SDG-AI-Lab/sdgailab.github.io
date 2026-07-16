@@ -15,6 +15,8 @@ const {
   getSessionMock,
   onAuthStateChangeMock,
   subscriptionUnsubscribeMock,
+  setSessionMock,
+  exchangeCodeForSessionMock,
 } = vi.hoisted(() => ({
   getAuthorizedAdminMock: vi.fn(),
   clearAuthorizedAdminCacheMock: vi.fn(),
@@ -23,6 +25,8 @@ const {
   getSessionMock: vi.fn(),
   onAuthStateChangeMock: vi.fn(),
   subscriptionUnsubscribeMock: vi.fn(),
+  setSessionMock: vi.fn().mockResolvedValue({ error: null }),
+  exchangeCodeForSessionMock: vi.fn().mockResolvedValue({ error: null }),
 }));
 
 let authStateChangeCallback: AuthCallback | null = null;
@@ -39,6 +43,8 @@ vi.mock('../../../lib/supabase-auth', () => ({
       signOut: signOutMock,
       getSession: getSessionMock,
       onAuthStateChange: onAuthStateChangeMock,
+      setSession: setSessionMock,
+      exchangeCodeForSession: exchangeCodeForSessionMock,
     },
   }),
 }));
@@ -64,8 +70,8 @@ describe('AuthCallback (integration)', () => {
       return { data: { subscription: { unsubscribe: subscriptionUnsubscribeMock } } };
     });
     getAuthorizedAdminMock.mockResolvedValue({
-      data: { email: 'editor@example.org', role: 'editor' },
-      error: null,
+      email: 'editor@example.org',
+      role: 'editor',
     });
 
     window.location.hash = '#access_token=test-token&refresh_token=refresh&type=magiclink';
@@ -96,6 +102,10 @@ describe('AuthCallback (integration)', () => {
   it('redirects to the dashboard when AuthProvider establishes a session', async () => {
     await renderCallback();
     expect(container.textContent).toContain('Signing you in...');
+    expect(setSessionMock).toHaveBeenCalledWith({
+      access_token: 'test-token',
+      refresh_token: 'refresh',
+    });
 
     await act(async () => {
       authStateChangeCallback?.('SIGNED_IN', {

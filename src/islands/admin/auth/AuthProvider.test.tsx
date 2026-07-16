@@ -210,6 +210,37 @@ describe('AuthProvider', () => {
     expect(node?.getAttribute('data-error')).toBe('');
   });
 
+  it('applies sessions delivered via INITIAL_SESSION', async () => {
+    getSessionMock.mockResolvedValue({
+      data: { session: null },
+      error: null,
+    });
+    getAuthorizedAdminMock.mockResolvedValue({
+      email: 'editor@example.org',
+      role: 'editor',
+    });
+
+    await act(async () => {
+      root.render(
+        <AuthProvider>
+          <Harness />
+        </AuthProvider>
+      );
+    });
+    await flushEffects();
+
+    await act(async () => {
+      authStateChangeCallback?.('INITIAL_SESSION', {
+        user: { email: 'editor@example.org' },
+      });
+    });
+    await flushEffects();
+
+    const node = container.querySelector('[data-testid="auth-state"]');
+    expect(node?.getAttribute('data-is-editor')).toBe('true');
+    expect(node?.getAttribute('data-user-email')).toBe('editor@example.org');
+  });
+
   it('responds to auth state changes and tears down the subscription', async () => {
     await act(async () => {
       root.render(

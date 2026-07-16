@@ -126,9 +126,9 @@ describe('LoginPage', () => {
     expect(container.textContent).toContain('Too many sign-in requests for this email address.');
   });
 
-  it('shows the non-allowlisted guidance when Supabase rejects the OTP request', async () => {
+  it('shows rate-limit guidance when Supabase throttles email sending', async () => {
     signInWithOtpMock.mockResolvedValue({
-      error: { message: 'User not allowed' },
+      error: { code: 'over_email_send_rate_limit', message: 'email rate limit exceeded' },
     });
 
     await act(async () => {
@@ -147,9 +147,32 @@ describe('LoginPage', () => {
     });
     await flushEffects();
 
-    expect(container.textContent).toContain(
-      'This email is not set up for editor access yet. Please contact the SDG AI Lab site administrator.'
-    );
+    expect(container.textContent).toContain('hourly email limit');
+  });
+
+  it('explains when Supabase Auth has no account for the email', async () => {
+    signInWithOtpMock.mockResolvedValue({
+      error: { code: 'signup_disabled', message: 'Signups not allowed for otp' },
+    });
+
+    await act(async () => {
+      root.render(<LoginPage />);
+    });
+
+    const input = container.querySelector('input[type="email"]') as HTMLInputElement;
+    const form = container.querySelector('form') as HTMLFormElement;
+
+    await act(async () => {
+      setInputValue(input, 'editor@example.org');
+    });
+
+    await act(async () => {
+      form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+    });
+    await flushEffects();
+
+    expect(container.textContent).toContain('Supabase Auth account');
+    expect(container.textContent).not.toContain('not set up for editor access');
   });
 
   it('has no detectable accessibility violations', async () => {

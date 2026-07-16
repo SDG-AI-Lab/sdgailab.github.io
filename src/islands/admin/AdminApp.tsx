@@ -7,6 +7,8 @@ import {
   useRef,
   useState,
 } from 'react';
+import { hasAuthCallbackParams } from '../../lib/auth-callback';
+import AuthCallback from './auth/AuthCallback';
 import { AuthProvider, useAuth } from './auth/AuthProvider';
 import LoginPage from './auth/LoginPage';
 import AdminLayout from './layout/AdminLayout';
@@ -184,7 +186,11 @@ function matchRoute(path: string, id: string | null): React.ReactNode {
 function AdminAppInner() {
   const { session, isEditor, loading } = useAuth();
   const { path, id } = useHashRoute();
-  const hash = typeof window !== 'undefined' ? window.location.hash : '';
+  const authCallback = typeof window !== 'undefined' && hasAuthCallbackParams();
+
+  if (authCallback) {
+    return <AuthCallback />;
+  }
 
   if (loading) {
     return (
@@ -193,14 +199,6 @@ function AdminAppInner() {
           className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"
           aria-label="Loading"
         />
-      </div>
-    );
-  }
-
-  if (hash.includes('access_token')) {
-    return (
-      <div className="flex min-h-screen items-center justify-center text-gray-600">
-        Signing you in...
       </div>
     );
   }
