@@ -1,28 +1,43 @@
 import { useEffect, useState } from 'react';
+import {
+  clearAuthCallbackQueryParams,
+  completeAuthCallback,
+  hasAuthCallbackParams,
+} from '../../../lib/auth-callback';
 import { useAuth } from './AuthProvider';
-
-function hasAuthTokens(): boolean {
-  const hash = window.location.hash;
-  if (!hash) return false;
-  const params = new URLSearchParams(hash.substring(1));
-  return (
-    params.has('access_token') ||
-    params.has('refresh_token') ||
-    params.get('type') === 'magiclink' ||
-    params.get('type') === 'recovery'
-  );
-}
 
 export default function AuthCallback() {
   const { session, loading } = useAuth();
   const [error, setError] = useState(false);
+  const [processing, setProcessing] = useState(true);
 
   useEffect(() => {
-    const tokensPresent = hasAuthTokens();
-    if (!tokensPresent) {
-      setError(true);
-      return;
+    let cancelled = false;
+
+    async function handleCallback() {
+      if (!hasAuthCallbackParams()) {
+        if (!cancelled) {
+          setError(true);
+          setProcessing(false);
+        }
+        return;
+      }
+
+      const { error: exchangeError } = await completeAuthCallback();
+      if (!cancelled) {
+        if (exchangeError) {
+          setError(true);
+        }
+        clearAuthCallbackQueryParams();
+        setProcessing(false);
+      }
     }
+
+    void handleCallback();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -30,17 +45,6 @@ export default function AuthCallback() {
       window.location.hash = '#/';
     }
   }, [session, error]);
-
-  useEffect(() => {
-    if (error) return;
-    const tokensPresent = hasAuthTokens();
-    if (tokensPresent && !loading) {
-      const t = setTimeout(() => {
-        window.location.hash = '#/';
-      }, 1500);
-      return () => clearTimeout(t);
-    }
-  }, [loading, error]);
 
   if (error) {
     return (
@@ -58,10 +62,14 @@ export default function AuthCallback() {
     );
   }
 
-  return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-gray-50 px-4">
-      <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary-200 border-t-primary" />
-      <p className="text-gray-600">Signing you in...</p>
-    </div>
-  );
+  if (processing || loading || !session) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-gray-50 px-4">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary-200 border-t-primary" />
+        <p className="text-gray-600">Signing you in...</p>
+      </div>
+    );
+  }
+
+  return null;
 }

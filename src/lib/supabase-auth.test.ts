@@ -41,6 +41,7 @@ describe('getSupabaseAuth', () => {
       auth: {
         autoRefreshToken: true,
         persistSession: true,
+        detectSessionInUrl: true,
       },
     });
     expect(first).toBe(second);
