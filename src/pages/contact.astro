@@ -10,6 +10,19 @@ import BaseLayout from '../components/layout/BaseLayout.astro';
         Have a question or want to collaborate? Get in touch with the SDG AI Lab team.
       </p>
 
+      <div class="mb-8 grid gap-4 sm:grid-cols-3">
+        {[
+          ['Request support', 'Bring a development challenge, data question or prototype idea.'],
+          ['Partner with us', 'Explore institutional, technical or research collaboration.'],
+          ['Contribute expertise', 'Connect as a volunteer, advisor or technical contributor.'],
+        ].map(([title, body]) => (
+          <article class="rounded-xl border border-slate-200 bg-slate-50 p-5">
+            <h2 class="text-base font-bold text-slate-950">{title}</h2>
+            <p class="mt-2 text-sm leading-6 text-slate-600">{body}</p>
+          </article>
+        ))}
+      </div>
+
       <div class="rounded-lg bg-white shadow-md border border-gray-100 p-8">
         <div class="space-y-6">
           <div>

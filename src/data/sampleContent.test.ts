@@ -19,12 +19,13 @@ describe('sampleContent', () => {
 
   it('marks demonstration projects as sample content', () => {
     expect(sampleProjects.every((project) => project.is_sample)).toBe(true);
-    expect(sampleFeaturedProjects).toEqual(sampleProjects);
+    expect(sampleFeaturedProjects.length).toBeGreaterThan(0);
+    expect(sampleFeaturedProjects.every((project) => project.is_sample && project.is_featured)).toBe(true);
   });
 
   it('resolves sample projects and news articles by slug', () => {
-    const project = getSampleProject('open-sdg-classification');
-    expect(project?.title).toContain('Open SDG Classification');
+    const project = getSampleProject('ai-for-tourism-platform');
+    expect(project?.title).toContain('AI for Tourism Platform');
     expect(project?.summary.length).toBeGreaterThan(0);
 
     const article = getSampleNewsArticle('responsible-development-practice');

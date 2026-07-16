@@ -41,11 +41,18 @@ export interface StatisticInput {
 export interface ProjectInput {
   title: string;
   slug: string;
+  summary?: string | null;
   description: string;
   project_status: ProjectStatus;
+  deployment_status?: 'live' | 'prototype' | 'internal' | null;
   is_deployed: boolean;
   is_featured: boolean;
   image_url?: string | null;
+  impact_area?: string | null;
+  timeline?: string | null;
+  best_fit?: string[];
+  core_capabilities?: string[];
+  sdgs?: number[];
   display_order: number;
   status: PublishStatus;
   published_at?: string | null;
@@ -96,6 +103,7 @@ type Validator<I> = (input: I) => I;
 
 const VALID_STATUSES: PublishStatus[] = ['draft', 'published', 'archived'];
 const VALID_PROJECT_STATUSES: ProjectStatus[] = ['active', 'completed', 'under_development', 'on_hold'];
+const VALID_DEPLOYMENT_STATUSES = ['live', 'prototype', 'internal'] as const;
 const VALID_PEOPLE_GROUPS: PeopleGroup[] = ['team', 'advisory_board'];
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const SECTION_PATTERN = /^[a-z0-9]+(?:-[a-z0-9_]+)*$/;
@@ -175,6 +183,44 @@ function assertProjectStatus(value: unknown): ProjectStatus {
   return value as ProjectStatus;
 }
 
+function assertDeploymentStatus(value: unknown): 'live' | 'prototype' | 'internal' | null {
+  if (value == null || value === '') return null;
+  if (
+    typeof value !== 'string' ||
+    !VALID_DEPLOYMENT_STATUSES.includes(value as (typeof VALID_DEPLOYMENT_STATUSES)[number])
+  ) {
+    throw new Error('Deployment status is invalid.');
+  }
+  return value as 'live' | 'prototype' | 'internal';
+}
+
+function normalizeStringArray(value: unknown, field: string): string[] {
+  if (value == null) return [];
+  if (!Array.isArray(value)) {
+    throw new Error(`${field} must be a list.`);
+  }
+  return value
+    .map((item) => {
+      if (typeof item !== 'string') throw new Error(`${field} must contain only text values.`);
+      return item.trim();
+    })
+    .filter(Boolean);
+}
+
+function normalizeSdgArray(value: unknown): number[] {
+  if (value == null) return [];
+  if (!Array.isArray(value)) {
+    throw new Error('SDGs must be a list.');
+  }
+  return value.map((item) => {
+    const numberValue = typeof item === 'number' ? item : Number(item);
+    if (!Number.isInteger(numberValue) || numberValue < 1 || numberValue > 17) {
+      throw new Error('SDGs must be whole numbers between 1 and 17.');
+    }
+    return numberValue;
+  });
+}
+
 function assertPeopleGroup(value: unknown): PeopleGroup {
   if (typeof value !== 'string' || !VALID_PEOPLE_GROUPS.includes(value as PeopleGroup)) {
     throw new Error('Group type is invalid.');
@@ -252,11 +298,18 @@ function validateProjectInput(input: ProjectInput): ProjectInput {
   return {
     title: assertNonEmptyString(input.title, 'Title'),
     slug: assertSlug(input.slug, 'Slug'),
+    summary: normalizeOptionalString(input.summary, 'Summary'),
     description: assertNonEmptyString(input.description, 'Description'),
     project_status: assertProjectStatus(input.project_status),
+    deployment_status: assertDeploymentStatus(input.deployment_status),
     is_deployed: assertBoolean(input.is_deployed, 'Is deployed'),
     is_featured: assertBoolean(input.is_featured, 'Is featured'),
     image_url: assertOptionalHttpUrl(input.image_url, 'Image URL'),
+    impact_area: normalizeOptionalString(input.impact_area, 'Impact area'),
+    timeline: normalizeOptionalString(input.timeline, 'Timeline'),
+    best_fit: normalizeStringArray(input.best_fit, 'Best fit'),
+    core_capabilities: normalizeStringArray(input.core_capabilities, 'Core capabilities'),
+    sdgs: normalizeSdgArray(input.sdgs),
     display_order: assertNonNegativeInteger(input.display_order, 'Display order'),
     status: assertStatus(input.status),
     published_at: assertOptionalIsoDateTime(input.published_at, 'Published at'),

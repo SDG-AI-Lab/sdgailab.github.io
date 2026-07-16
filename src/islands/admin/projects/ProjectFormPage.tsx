@@ -9,6 +9,8 @@ import { getProject, createProject, updateProject } from '../../../lib/admin-que
 import { useToast } from '../layout/Toast';
 import type { PublishStatus, ProjectStatus } from '../../../lib/types';
 
+type DeploymentStatus = 'live' | 'prototype' | 'internal';
+
 interface ProjectFormPageProps {
   id?: string | null;
 }
@@ -16,11 +18,18 @@ interface ProjectFormPageProps {
 const defaultValues = {
   title: '',
   slug: '',
+  summary: '',
   description: '',
   project_status: 'active' as ProjectStatus,
+  deployment_status: 'prototype' as DeploymentStatus,
   is_deployed: false,
   is_featured: false,
   image_url: null as string | null,
+  impact_area: '',
+  timeline: '',
+  best_fit: [] as string[],
+  core_capabilities: [] as string[],
+  sdgs: [] as number[],
   display_order: 0,
   status: 'draft' as PublishStatus,
 };
@@ -31,6 +40,26 @@ const PROJECT_STATUS_OPTIONS: { value: ProjectStatus; label: string }[] = [
   { value: 'under_development', label: 'Under Development' },
   { value: 'on_hold', label: 'On Hold' },
 ];
+
+const DEPLOYMENT_STATUS_OPTIONS: { value: DeploymentStatus; label: string }[] = [
+  { value: 'prototype', label: 'Prototype' },
+  { value: 'internal', label: 'Internal' },
+  { value: 'live', label: 'Live' },
+];
+
+function parseLines(value: string) {
+  return value
+    .split('\n')
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function parseSdgs(value: string) {
+  return value
+    .split(',')
+    .map((item) => Number(item.trim()))
+    .filter((item) => Number.isInteger(item));
+}
 
 export default function ProjectFormPage({ id }: ProjectFormPageProps) {
   const { showToast } = useToast();
@@ -61,11 +90,18 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
         const v = {
           title: data.title,
           slug: data.slug,
+          summary: data.summary ?? '',
           description: data.description,
           project_status: data.project_status as ProjectStatus,
+          deployment_status: (data.deployment_status ?? 'prototype') as DeploymentStatus,
           is_deployed: data.is_deployed,
           is_featured: data.is_featured,
           image_url: data.image_url,
+          impact_area: data.impact_area ?? '',
+          timeline: data.timeline ?? '',
+          best_fit: data.best_fit ?? [],
+          core_capabilities: data.core_capabilities ?? [],
+          sdgs: data.sdgs ?? [],
           display_order: data.display_order,
           status: data.status as PublishStatus,
         };
@@ -89,11 +125,18 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
     const input = {
       title: values.title,
       slug: values.slug,
+      summary: values.summary,
       description: values.description,
       project_status: values.project_status,
+      deployment_status: values.deployment_status,
       is_deployed: values.is_deployed,
       is_featured: values.is_featured,
       image_url: values.image_url,
+      impact_area: values.impact_area,
+      timeline: values.timeline,
+      best_fit: values.best_fit,
+      core_capabilities: values.core_capabilities,
+      sdgs: values.sdgs,
       display_order: values.display_order,
       status: values.status,
     };
@@ -157,6 +200,16 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
             sourceValue={values.title}
             onChange={(slug) => setValues((v) => ({ ...v, slug }))}
           />
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Summary</label>
+            <textarea
+              value={values.summary}
+              onChange={(e) => setValues((v) => ({ ...v, summary: e.target.value }))}
+              rows={3}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              placeholder="Short project summary used on cards and detail page intros."
+            />
+          </div>
           <MarkdownField
             value={values.description}
             onChange={(val) => setValues((v) => ({ ...v, description: val }))}
@@ -177,6 +230,80 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
                 </option>
               ))}
             </select>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Deployment Label</label>
+              <select
+                value={values.deployment_status}
+                onChange={(e) =>
+                  setValues((v) => ({ ...v, deployment_status: e.target.value as DeploymentStatus }))
+                }
+                className="border rounded px-3 py-2 text-sm border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary w-full"
+              >
+                {DEPLOYMENT_STATUS_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Impact Area</label>
+              <input
+                type="text"
+                value={values.impact_area}
+                onChange={(e) => setValues((v) => ({ ...v, impact_area: e.target.value }))}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                placeholder="Natural Language Processing"
+              />
+            </div>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Timeline</label>
+              <input
+                type="text"
+                value={values.timeline}
+                onChange={(e) => setValues((v) => ({ ...v, timeline: e.target.value }))}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                placeholder="3-12 months"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">SDGs</label>
+              <input
+                type="text"
+                value={values.sdgs.join(', ')}
+                onChange={(e) => setValues((v) => ({ ...v, sdgs: parseSdgs(e.target.value) }))}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                placeholder="4, 9, 17"
+              />
+            </div>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Best Fit</label>
+              <textarea
+                value={values.best_fit.join('\n')}
+                onChange={(e) => setValues((v) => ({ ...v, best_fit: parseLines(e.target.value) }))}
+                rows={4}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                placeholder="One audience or partner type per line"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Core Capabilities</label>
+              <textarea
+                value={values.core_capabilities.join('\n')}
+                onChange={(e) =>
+                  setValues((v) => ({ ...v, core_capabilities: parseLines(e.target.value) }))
+                }
+                rows={4}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                placeholder="One capability per line"
+              />
+            </div>
           </div>
           <div className="flex items-center gap-2">
             <input

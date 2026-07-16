@@ -61,7 +61,9 @@ test.describe('Editor journeys', () => {
     await page.goto('/admin#/projects/new');
     await waitForProjectForm(page);
     await page.locator('input[type="text"]').first().fill('E2E Published Project');
-    await page.locator('textarea').first().fill('A project created during Playwright coverage.');
+    await page
+      .locator('.w-md-editor textarea')
+      .fill('A project created during Playwright coverage.');
     await page.getByLabel('Status').selectOption('published');
     page.once('dialog', (dialog) => dialog.accept());
     await page.getByRole('button', { name: 'Create' }).click();
