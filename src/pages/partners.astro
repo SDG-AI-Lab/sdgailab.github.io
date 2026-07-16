@@ -11,6 +11,21 @@ import PartnerLogos from '../islands/PartnerLogos';
         We collaborate with leading international organizations, government agencies, and technology companies
         to advance the Sustainable Development Goals through AI and machine learning.
       </p>
+
+      <div class="mb-10 grid gap-4 md:grid-cols-4">
+        {[
+          ['Institutional partners', 'Strategic partners supporting long-term development outcomes.'],
+          ['Technical partners', 'Teams contributing data, engineering, AI and product expertise.'],
+          ['Research collaborators', 'Academic and policy partners supporting evidence and learning.'],
+          ['Implementation partners', 'Country, regional and thematic teams applying solutions in practice.'],
+        ].map(([title, body]) => (
+          <article class="rounded-xl border border-slate-200 bg-slate-50 p-5">
+            <h2 class="text-base font-bold text-slate-950">{title}</h2>
+            <p class="mt-2 text-sm leading-6 text-slate-600">{body}</p>
+          </article>
+        ))}
+      </div>
+
       <PartnerLogos client:load />
     </div>
   </section>

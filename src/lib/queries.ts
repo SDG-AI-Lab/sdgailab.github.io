@@ -34,7 +34,7 @@ export async function getFeaturedProjects(): Promise<{
   if (!isSupabaseConfigured) return { data: [], error: null };
   const { data, error } = await getSupabase()
     .from('projects')
-    .select('id, title, slug, project_status, is_deployed, image_url, display_order')
+    .select('id, title, slug, project_status, is_deployed, image_url, display_order, summary, deployment_status, impact_area, timeline, best_fit, core_capabilities, sdgs')
     .eq('status', 'published')
     .eq('is_featured', true)
     .order('display_order', { ascending: true });
@@ -50,7 +50,7 @@ export async function getPublishedProjects(): Promise<{
   if (!isSupabaseConfigured) return { data: [], error: null };
   const { data, error } = await getSupabase()
     .from('projects')
-    .select('id, title, slug, project_status, is_deployed, image_url, display_order')
+    .select('id, title, slug, project_status, is_deployed, image_url, display_order, summary, deployment_status, impact_area, timeline, best_fit, core_capabilities, sdgs')
     .eq('status', 'published')
     .order('display_order', { ascending: true });
 

@@ -4,6 +4,17 @@ import type { FeaturedProjectCard } from '../lib/types';
 import ProjectCard from './components/ProjectCard';
 import { sampleFeaturedProjects } from '../data/sampleContent';
 
+function mergeWithDemoDayFeaturedProjects(projects: FeaturedProjectCard[]) {
+  if (projects.length === 0) return sampleFeaturedProjects;
+
+  const liveSlugs = new Set(projects.map((project) => project.slug));
+  const demoProjectsNotYetInCms = sampleFeaturedProjects.filter(
+    (project) => !liveSlugs.has(project.slug)
+  );
+
+  return [...projects, ...demoProjectsNotYetInCms];
+}
+
 export default function FeaturedProjects() {
   const [projects, setProjects] = useState<FeaturedProjectCard[]>(sampleFeaturedProjects);
   const [error, setError] = useState<string | null>(null);
@@ -11,7 +22,7 @@ export default function FeaturedProjects() {
   useEffect(() => {
     getFeaturedProjects().then(({ data, error: err }) => {
       if (err) setError(err);
-      setProjects(data.length > 0 ? data : sampleFeaturedProjects);
+      setProjects(mergeWithDemoDayFeaturedProjects(data));
     });
   }, []);
 

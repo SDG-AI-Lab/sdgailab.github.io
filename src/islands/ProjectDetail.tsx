@@ -64,6 +64,10 @@ export default function ProjectDetail() {
     );
   }
 
+  const hasBestFit = Boolean(project.best_fit?.length);
+  const hasCoreCapabilities = Boolean(project.core_capabilities?.length);
+  const hasPortfolioMeta = Boolean(project.timeline || hasBestFit || hasCoreCapabilities);
+
   return (
     <article>
       <a href={withBase('/projects')} className="inline-flex items-center text-primary hover:underline font-medium mb-6">
@@ -85,6 +89,11 @@ export default function ProjectDetail() {
         <span className="inline-block rounded-full bg-slate-100 px-3 py-1 text-sm font-medium capitalize text-slate-700">
           {project.deployment_status ?? (project.is_deployed ? 'live' : 'prototype')}
         </span>
+        {project.impact_area && (
+          <span className="inline-block rounded-full bg-primary-50 px-3 py-1 text-sm font-medium text-primary">
+            {project.impact_area}
+          </span>
+        )}
         {project.is_sample && <span className="text-xs font-bold uppercase tracking-wider text-amber-700">Sample content</span>}
       </div>
 
@@ -94,10 +103,52 @@ export default function ProjectDetail() {
 
       {project.summary && <p className="mb-10 max-w-3xl text-xl leading-8 text-slate-600">{project.summary}</p>}
 
-      <div
-        className="prose-content"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
+        <div
+          className="prose-content"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+
+        <aside className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+          {hasPortfolioMeta && (
+            <div className="mb-6 space-y-4 border-b border-slate-200 pb-6">
+              {project.timeline && (
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">Typical timeline</h2>
+                  <p className="mt-1 text-sm font-semibold text-slate-800">{project.timeline}</p>
+                </div>
+              )}
+              {hasBestFit ? (
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">Best fit for</h2>
+                  <ul className="mt-2 space-y-1 text-sm text-slate-700">
+                    {project.best_fit!.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                </div>
+              ) : null}
+              {hasCoreCapabilities ? (
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">Core capabilities</h2>
+                  <ul className="mt-2 space-y-1 text-sm text-slate-700">
+                    {project.core_capabilities!.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+          )}
+          <h2 className="text-base font-bold text-slate-950">Project profile checklist</h2>
+          <p className="mt-2 text-sm leading-6 text-slate-600">
+            Complete project pages should make the work easy to assess and reuse.
+          </p>
+          <ul className="mt-4 space-y-3 text-sm text-slate-700">
+            <li><strong>Challenge:</strong> development problem and users</li>
+            <li><strong>Solution:</strong> method, prototype or advisory support</li>
+            <li><strong>Impact:</strong> results, evidence or expected value</li>
+            <li><strong>Safeguards:</strong> data, risk and human oversight</li>
+            <li><strong>Resources:</strong> links to outputs, code or reports</li>
+          </ul>
+        </aside>
+      </div>
     </article>
   );
 }

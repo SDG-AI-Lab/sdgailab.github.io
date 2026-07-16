@@ -9,6 +9,8 @@ const sdgColors: Record<number, string> = {
 export default function ProjectCard({ project }: { project: ProjectListItem }) {
   const deployment = project.deployment_status ?? (project.is_deployed ? 'live' : 'prototype');
   const deploymentLabel = deployment === 'live' ? 'Live' : deployment === 'internal' ? 'Internal' : 'Prototype';
+  const hasBestFit = Boolean(project.best_fit?.length);
+  const hasPortfolioMeta = Boolean(project.timeline || hasBestFit);
 
   return (
     <a
@@ -36,10 +38,17 @@ export default function ProjectCard({ project }: { project: ProjectListItem }) {
         <div className="mb-4 flex flex-wrap items-center gap-2">
           <StatusBadge status={project.project_status} />
           <span className="inline-block rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">{deploymentLabel}</span>
+          {project.impact_area && <span className="inline-block rounded-full bg-primary-50 px-3 py-1 text-xs font-semibold text-primary">{project.impact_area}</span>}
           {project.is_sample && <span className="text-xs font-semibold uppercase tracking-wider text-amber-700">Sample content</span>}
         </div>
         <h3 className="text-xl font-semibold text-slate-950 transition-colors group-hover:text-primary">{project.title}</h3>
         {project.summary && <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{project.summary}</p>}
+        {hasPortfolioMeta && (
+          <div className="mt-4 space-y-2 border-t border-slate-100 pt-4 text-xs leading-5 text-slate-500">
+            {project.timeline && <p><strong className="text-slate-700">Timeline:</strong> {project.timeline}</p>}
+            {hasBestFit ? <p><strong className="text-slate-700">Best fit:</strong> {project.best_fit!.slice(0, 2).join(', ')}</p> : null}
+          </div>
+        )}
         <span className="mt-5 text-sm font-semibold text-primary">View project <span aria-hidden="true">→</span></span>
       </div>
     </a>

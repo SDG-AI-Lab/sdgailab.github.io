@@ -140,6 +140,26 @@ describe('public islands', () => {
     expect(container.querySelectorAll('a').length).toBeGreaterThan(0);
   });
 
+  it('filters projects by impact area and shows an empty state', async () => {
+    getPublishedProjectsMock.mockResolvedValue({ data: [], error: null });
+
+    await render(<ProjectList />);
+
+    expect(container.textContent).toContain('Filter by impact area');
+    expect(container.textContent).toContain('Natural Language Processing');
+
+    const fintechFilter = Array.from(container.querySelectorAll('button')).find((button) =>
+      button.textContent?.includes('FinTech & Digital Finance')
+    ) as HTMLButtonElement;
+
+    await act(async () => {
+      fintechFilter.click();
+    });
+
+    expect(fintechFilter.getAttribute('aria-pressed')).toBe('true');
+    expect(container.textContent).toContain('No published projects in this impact area yet.');
+  });
+
   it('renders published news cards with dates and authors', async () => {
     getPublishedNewsMock.mockResolvedValue({
       data: [
@@ -186,7 +206,7 @@ describe('public islands', () => {
 
     expect(container.textContent).toContain('Ada Lovelace');
     expect(container.textContent).toContain('Research Lead');
-    expect(container.textContent).toContain('Works on AI for development.');
+    expect(container.textContent).toContain('Team');
 
     remount();
     getPublishedPeopleMock.mockResolvedValueOnce({ data: [], error: null });

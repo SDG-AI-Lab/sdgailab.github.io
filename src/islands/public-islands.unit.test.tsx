@@ -64,12 +64,12 @@ describe('public islands (unit)', () => {
 
   it('StatsCards renders sample statistics by default', async () => {
     await render(<StatsCards />);
-    expect(container.textContent).toContain('Project areas');
+    expect(container.textContent).toContain('Impact areas');
   });
 
   it('FeaturedProjects renders sample project cards', async () => {
     await render(<FeaturedProjects />);
-    expect(container.textContent).toContain('Open SDG Classification');
+    expect(container.textContent).toContain('AI for Tourism Platform');
   });
 
   it('ProjectList renders sample project links', async () => {
