@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 test.describe('CMS-driven static pages', () => {
   test('about page hydrates page content sections', async ({ page }) => {
     await page.goto('/about/');
-    await expect(page.getByText(/SDG AI Lab is a UNDP initiative/i).first()).toBeVisible({
+    await expect(page.getByText(/established in 2019/i).first()).toBeVisible({
       timeout: 15_000,
     });
     await expect(page.getByText(/one-stop solution approach/i)).toBeVisible({
