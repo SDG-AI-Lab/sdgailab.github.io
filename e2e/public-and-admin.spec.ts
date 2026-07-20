@@ -8,7 +8,7 @@ test.describe('Public site', () => {
     await expect(
       page.getByRole('heading', { name: /Artificial Intelligence for/i })
     ).toBeVisible();
-    await expect(page.getByRole('link', { name: /Explore our projects/i })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Explore solutions and projects/i })).toBeVisible();
   });
 
   test('projects page is reachable from the homepage', async ({ page }) => {
