@@ -2,25 +2,15 @@ import { useEffect, useState } from 'react';
 import { getPublishedProjects } from '../lib/queries';
 import type { ProjectListItem } from '../lib/types';
 import ProjectCard from './components/ProjectCard';
-import { impactAreas, samplePortfolioProjects } from '../data/sampleContent';
+import { impactAreas } from '../data/sampleContent';
 
 const ALL_AREAS = 'all';
 
-function mergeWithDemoDayProjects(projects: ProjectListItem[]) {
-  if (projects.length === 0) return samplePortfolioProjects;
-
-  const liveSlugs = new Set(projects.map((project) => project.slug));
-  const demoProjectsNotYetInCms = samplePortfolioProjects.filter(
-    (project) => !liveSlugs.has(project.slug)
-  );
-
-  return [...projects, ...demoProjectsNotYetInCms];
-}
-
 export default function ProjectList() {
-  const [projects, setProjects] = useState<ProjectListItem[]>(samplePortfolioProjects);
+  const [projects, setProjects] = useState<ProjectListItem[]>([]);
   const [activeArea, setActiveArea] = useState<string>(ALL_AREAS);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
   const filteredProjects =
     activeArea === ALL_AREAS
       ? projects
@@ -32,13 +22,18 @@ export default function ProjectList() {
   useEffect(() => {
     getPublishedProjects().then(({ data, error: err }) => {
       if (err) setError(err);
-      setProjects(mergeWithDemoDayProjects(data));
+      setProjects(data);
+      setLoading(false);
     });
   }, []);
 
+  if (loading) {
+    return <div className="h-48 rounded-2xl border border-slate-200 bg-slate-50" role="status" aria-label="Loading projects" />;
+  }
+
   return (
     <div>
-      {error && <p className="mb-5 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">Live project data is temporarily unavailable. The profiles below demonstrate the intended portfolio structure.</p>}
+      {error && <p className="mb-5 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">Published project data is temporarily unavailable.</p>}
 
       <div className="mb-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
         <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">

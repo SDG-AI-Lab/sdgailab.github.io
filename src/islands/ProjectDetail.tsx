@@ -67,6 +67,7 @@ export default function ProjectDetail() {
   const hasBestFit = Boolean(project.best_fit?.length);
   const hasCoreCapabilities = Boolean(project.core_capabilities?.length);
   const hasPortfolioMeta = Boolean(project.timeline || hasBestFit || hasCoreCapabilities);
+  const deploymentLabel = project.deployment_status ?? (project.is_deployed ? 'live' : 'prototype');
 
   return (
     <article>
@@ -74,34 +75,62 @@ export default function ProjectDetail() {
         &larr; Back to Projects
       </a>
 
-      {project.image_url && (
-        <div className="aspect-video overflow-hidden rounded-lg bg-gray-100 mb-8 max-h-96">
-          <img
-            src={project.image_url}
-            alt=""
-            className="h-full w-full object-cover"
-          />
+      <div className="mb-10 grid gap-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm lg:grid-cols-[minmax(0,1fr)_22rem] lg:p-8">
+        <div>
+          <div className="flex items-center gap-3 mb-4 flex-wrap">
+            <StatusBadge status={project.project_status} />
+            <span className="inline-block rounded-full bg-slate-100 px-3 py-1 text-sm font-medium capitalize text-slate-700">
+              {deploymentLabel}
+            </span>
+            {project.impact_area && (
+              <span className="inline-block rounded-full bg-primary-50 px-3 py-1 text-sm font-medium text-primary">
+                {project.impact_area}
+              </span>
+            )}
+          </div>
+
+          <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">Project case study</p>
+          <h1 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">
+            {project.title}
+          </h1>
+
+          {project.summary && <p className="mt-5 max-w-3xl text-xl leading-8 text-slate-600">{project.summary}</p>}
+
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <a href={withBase('/contact')} data-analytics-event="cta_click" data-analytics-category="project_detail" data-analytics-label={`Request related support: ${project.title}`} className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-bold text-white shadow transition hover:bg-primary-dark">
+              Request related support
+            </a>
+            <a href={withBase('/projects')} data-analytics-event="cta_click" data-analytics-category="project_detail" data-analytics-label={`Explore full portfolio from: ${project.title}`} className="inline-flex min-h-11 items-center justify-center rounded-md border border-slate-300 px-5 py-2.5 text-sm font-bold text-slate-700 transition hover:border-primary hover:text-primary">
+              Explore full portfolio
+            </a>
+          </div>
         </div>
-      )}
 
-      <div className="flex items-center gap-3 mb-4 flex-wrap">
-        <StatusBadge status={project.project_status} />
-        <span className="inline-block rounded-full bg-slate-100 px-3 py-1 text-sm font-medium capitalize text-slate-700">
-          {project.deployment_status ?? (project.is_deployed ? 'live' : 'prototype')}
-        </span>
-        {project.impact_area && (
-          <span className="inline-block rounded-full bg-primary-50 px-3 py-1 text-sm font-medium text-primary">
-            {project.impact_area}
-          </span>
-        )}
-        {project.is_sample && <span className="text-xs font-bold uppercase tracking-wider text-amber-700">Sample content</span>}
+        <div className="overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+          {project.image_url ? (
+            <img
+              src={project.image_url}
+              alt=""
+              className="aspect-video h-full w-full object-cover lg:aspect-auto"
+            />
+          ) : (
+            <div className="flex h-full min-h-64 flex-col justify-between p-6">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Visual evidence</p>
+                <h2 className="mt-3 text-xl font-bold text-slate-950">Screenshots, maps or diagrams can be added here</h2>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  Project pages are structured to support product visuals once approved material is available.
+                </p>
+              </div>
+              <div className="mt-6 grid grid-cols-3 gap-2" aria-hidden="true">
+                <span className="h-16 rounded-lg bg-[#26BDE2]/20"></span>
+                <span className="h-16 rounded-lg bg-[#4C9F38]/20"></span>
+                <span className="h-16 rounded-lg bg-[#FD6925]/20"></span>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-
-      <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-        {project.title}
-      </h1>
-
-      {project.summary && <p className="mb-10 max-w-3xl text-xl leading-8 text-slate-600">{project.summary}</p>}
 
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
         <div
@@ -136,17 +165,20 @@ export default function ProjectDetail() {
               ) : null}
             </div>
           )}
-          <h2 className="text-base font-bold text-slate-950">Project profile checklist</h2>
+          <h2 className="text-base font-bold text-slate-950">How to assess this work</h2>
           <p className="mt-2 text-sm leading-6 text-slate-600">
-            Complete project pages should make the work easy to assess and reuse.
+            Each project profile is organized around the information partners need before reuse, adaptation or follow-up.
           </p>
           <ul className="mt-4 space-y-3 text-sm text-slate-700">
-            <li><strong>Challenge:</strong> development problem and users</li>
-            <li><strong>Solution:</strong> method, prototype or advisory support</li>
-            <li><strong>Impact:</strong> results, evidence or expected value</li>
-            <li><strong>Safeguards:</strong> data, risk and human oversight</li>
-            <li><strong>Resources:</strong> links to outputs, code or reports</li>
+            <li><strong>Problem:</strong> what development need the work responds to</li>
+            <li><strong>Approach:</strong> method, prototype, product or advisory support</li>
+            <li><strong>Status:</strong> maturity, implementation stage and next step</li>
+            <li><strong>Evidence:</strong> results, limitations and lessons where available</li>
+            <li><strong>Reuse:</strong> resources, documentation or support pathways</li>
           </ul>
+          <a href={withBase('/contact')} data-analytics-event="cta_click" data-analytics-category="project_detail" data-analytics-label={`Ask about this work: ${project.title}`} className="mt-6 inline-flex min-h-11 w-full items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-bold text-white transition hover:bg-primary-dark">
+            Ask about this work
+          </a>
         </aside>
       </div>
     </article>

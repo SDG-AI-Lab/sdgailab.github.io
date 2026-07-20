@@ -8,16 +8,41 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  noindex?: boolean;
 }
 
 const {
   title,
   description = 'SDG AI Lab is a UNDP initiative advancing responsible artificial intelligence for sustainable development through applied research, open tools and partnerships.',
   image = '/og-image.png',
+  noindex = false,
 } = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 const socialImage = new URL(withBase(image), Astro.site ?? Astro.url.origin);
 const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '';
+const siteOrigin = Astro.site ?? Astro.url.origin;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'SDG AI Lab',
+  alternateName: 'UNDP SDG AI Lab',
+  url: new URL(withBase('/'), siteOrigin).toString(),
+  logo: new URL(withBase('/android-chrome-256x256.png'), siteOrigin).toString(),
+  parentOrganization: {
+    '@type': 'Organization',
+    name: 'United Nations Development Programme',
+    url: 'https://www.undp.org/',
+  },
+  sameAs: [
+    'https://github.com/SDG-AI-Lab',
+    'https://twitter.com/sdgailab',
+  ],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'sdgailab@undp.org',
+    contactType: 'technical support and partnerships',
+  },
+};
 const contentSecurityPolicy = [
   "default-src 'self'",
   "base-uri 'self'",
@@ -41,6 +66,7 @@ const contentSecurityPolicy = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta http-equiv="Content-Security-Policy" content={contentSecurityPolicy} />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="canonical" href={canonicalUrl} />
@@ -59,6 +85,7 @@ const contentSecurityPolicy = [
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
     <link rel="icon" href={withBase('/favicon.ico')} sizes="any" />
     <link rel="icon" type="image/png" sizes="16x16" href={withBase('/favicon-16x16.png')} />

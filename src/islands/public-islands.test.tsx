@@ -131,13 +131,13 @@ describe('public islands', () => {
     );
   });
 
-  it('renders project list warning and sample content when live data errors', async () => {
+  it('renders project list warning and empty state when live data errors', async () => {
     getPublishedProjectsMock.mockResolvedValue({ data: [], error: 'RLS denied' });
 
     await render(<ProjectList />);
 
-    expect(container.textContent).toContain('Live project data is temporarily unavailable');
-    expect(container.querySelectorAll('a').length).toBeGreaterThan(0);
+    expect(container.textContent).toContain('Published project data is temporarily unavailable');
+    expect(container.textContent).toContain('No published projects in this impact area yet.');
   });
 
   it('filters projects by impact area and shows an empty state', async () => {

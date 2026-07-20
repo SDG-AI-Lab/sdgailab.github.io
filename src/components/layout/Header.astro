@@ -77,6 +77,16 @@ function isActive(href: string): boolean {
       }
     </ul>
 
+    <a
+      href={withBase('/contact')}
+      data-analytics-event="cta_click"
+      data-analytics-category="navigation"
+      data-analytics-label="Header request support"
+      class="hidden min-h-11 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-primary-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 lg:inline-flex"
+    >
+      Request support
+    </a>
+
     {/* Mobile hamburger button */}
     <button
       type="button"
@@ -132,6 +142,17 @@ function isActive(href: string): boolean {
           </li>
         ))
       }
+      <li class="px-3 pt-2">
+        <a
+          href={withBase('/contact')}
+          data-analytics-event="cta_click"
+          data-analytics-category="navigation"
+          data-analytics-label="Mobile request support"
+          class="inline-flex min-h-11 w-full items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-primary-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        >
+          Request support
+        </a>
+      </li>
     </ul>
   </div>
 </header>

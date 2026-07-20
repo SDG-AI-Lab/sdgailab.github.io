@@ -72,7 +72,6 @@ describe('ProjectCard', () => {
     });
 
     expect(container.textContent).toContain('Prototype');
-    expect(container.textContent).toContain('Sample content');
     expect(container.textContent).toContain('9');
     expect(container.textContent).toContain('17');
   });
