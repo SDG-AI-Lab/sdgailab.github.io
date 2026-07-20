@@ -6,12 +6,13 @@ import SDGWheel from '../components/ui/SDGWheel.astro';
 import StatsCards from '../islands/StatsCards';
 import FeaturedProjects from '../islands/FeaturedProjects';
 import PartnerLogos from '../islands/PartnerLogos';
-import { impactAreas, labServiceLines, sampleNews } from '../data/sampleContent';
+import NewsList from '../islands/NewsList';
+import { impactAreas, labServiceLines } from '../data/sampleContent';
 ---
 
 <BaseLayout
   title="SDG AI Lab | Artificial Intelligence for Sustainable Development"
-  description="A UNDP initiative applying responsible AI, data science and open innovation to real-world sustainable development challenges."
+  description="A UNDP initiative helping development teams frame problems, prototype responsible AI and data solutions, and share reusable learning."
 >
   <ParticlesHero>
     <div class="grid items-center gap-12 lg:grid-cols-[1.25fr_.75fr] lg:gap-16">
@@ -24,22 +25,25 @@ import { impactAreas, labServiceLines, sampleNews } from '../data/sampleContent'
           We bring together development expertise, responsible AI and global partnerships to turn complex challenges into practical, reusable solutions.
         </p>
         <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-          <a href={withBase('/projects')} class="inline-flex min-h-12 items-center justify-center rounded-md bg-white px-6 py-3 text-sm font-bold text-primary shadow-lg transition hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary">
-            Explore our projects <span class="ml-2" aria-hidden="true">→</span>
+          <a href={withBase('/contact')} data-analytics-event="cta_click" data-analytics-category="homepage" data-analytics-label="Hero request technical support" class="inline-flex min-h-12 items-center justify-center rounded-md bg-white px-6 py-3 text-sm font-bold text-primary shadow-lg transition hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary">
+            Request technical support <span class="ml-2" aria-hidden="true">&rarr;</span>
           </a>
-          <a href={withBase('/contact')} class="inline-flex min-h-12 items-center justify-center rounded-md border border-white/50 bg-white/5 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
-            Partner with us
+          <a href={withBase('/projects')} data-analytics-event="cta_click" data-analytics-category="homepage" data-analytics-label="Hero explore solutions and projects" class="inline-flex min-h-12 items-center justify-center rounded-md border border-white/50 bg-white/5 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+            Explore solutions and projects
           </a>
         </div>
+        <p class="mt-5 max-w-2xl text-sm leading-6 text-blue-100">
+          Support areas include AI prototyping, GIS and remote sensing, NLP and knowledge tools, digital public finance, resilience, research and advisory work.
+        </p>
       </div>
 
-      <div class="relative mx-auto w-full max-w-sm" aria-label="Sustainable Development Goals visual">
+      <div class="relative mx-auto w-full max-w-sm" aria-label="SDG AI Lab work cycle visual">
         <div class="rounded-2xl border border-white/20 bg-primary-900/60 p-7 shadow-2xl backdrop-blur-sm sm:p-9">
           <SDGWheel class="mx-auto h-56 w-56 sm:h-64 sm:w-64" />
           <div class="mt-7 grid grid-cols-3 gap-3 border-t border-white/15 pt-6 text-center">
-            <div><strong class="block text-2xl text-white">17</strong><span class="text-xs text-blue-200">Global goals</span></div>
-            <div><strong class="block text-2xl text-white">1</strong><span class="text-xs text-blue-200">Shared future</span></div>
-            <div><strong class="block text-2xl text-white">AI</strong><span class="text-xs text-blue-200">With purpose</span></div>
+            <div><strong class="block text-2xl text-white">6</strong><span class="text-xs text-blue-200">Impact areas</span></div>
+            <div><strong class="block text-2xl text-white">5</strong><span class="text-xs text-blue-200">Service lines</span></div>
+            <div><strong class="block text-2xl text-white">AI</strong><span class="text-xs text-blue-200">Responsibly applied</span></div>
           </div>
         </div>
       </div>
@@ -48,9 +52,9 @@ import { impactAreas, labServiceLines, sampleNews } from '../data/sampleContent'
 
   <section class="border-b border-slate-200 bg-white py-7" aria-label="Focus areas">
     <div class="container-narrow grid gap-4 text-sm font-semibold text-slate-700 sm:grid-cols-3 sm:gap-0">
-      <p class="flex items-center gap-3 sm:border-r sm:border-slate-200 sm:pr-6"><span class="h-2.5 w-2.5 rounded-full bg-[#26BDE2]"></span>Applied research for public value</p>
-      <p class="flex items-center gap-3 sm:px-6"><span class="h-2.5 w-2.5 rounded-full bg-[#4C9F38]"></span>Responsible, human-centred AI</p>
-      <p class="flex items-center gap-3 sm:border-l sm:border-slate-200 sm:pl-6"><span class="h-2.5 w-2.5 rounded-full bg-[#FD6925]"></span>Open knowledge and collaboration</p>
+      <p class="flex items-center gap-3 sm:border-r sm:border-slate-200 sm:pr-6"><span class="h-2.5 w-2.5 rounded-full bg-[#26BDE2]"></span>Problem framing and data readiness</p>
+      <p class="flex items-center gap-3 sm:px-6"><span class="h-2.5 w-2.5 rounded-full bg-[#4C9F38]"></span>Responsible prototypes and tools</p>
+      <p class="flex items-center gap-3 sm:border-l sm:border-slate-200 sm:pl-6"><span class="h-2.5 w-2.5 rounded-full bg-[#FD6925]"></span>Evidence, learning and reuse</p>
     </div>
   </section>
 
@@ -94,10 +98,10 @@ import { impactAreas, labServiceLines, sampleNews } from '../data/sampleContent'
       </div>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-        <a href={withBase('/contact')} class="inline-flex min-h-12 items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-bold text-white shadow transition hover:bg-primary-dark">
+        <a href={withBase('/contact')} data-analytics-event="cta_click" data-analytics-category="homepage" data-analytics-label="Service request support" class="inline-flex min-h-12 items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-bold text-white shadow transition hover:bg-primary-dark">
           Request support
         </a>
-        <a href={withBase('/resources')} class="inline-flex min-h-12 items-center justify-center rounded-md border border-slate-300 px-6 py-3 text-sm font-bold text-slate-700 transition hover:border-primary hover:text-primary">
+        <a href={withBase('/resources')} data-analytics-event="cta_click" data-analytics-category="homepage" data-analytics-label="Service explore resources" class="inline-flex min-h-12 items-center justify-center rounded-md border border-slate-300 px-6 py-3 text-sm font-bold text-slate-700 transition hover:border-primary hover:text-primary">
           Explore resources
         </a>
       </div>
@@ -138,7 +142,6 @@ import { impactAreas, labServiceLines, sampleNews } from '../data/sampleContent'
       <div class="mb-9 max-w-2xl">
         <p class="section-label">Our ecosystem</p>
         <h2 id="stats-heading" class="mt-3 text-3xl font-bold text-slate-950 sm:text-4xl">Building capacity through collaboration</h2>
-        <p class="mt-4 text-sm leading-6 text-slate-600">Indicative figures are shown when live CMS data is unavailable and should be verified before launch.</p>
       </div>
       <StatsCards client:load />
       <div class="mt-8 grid gap-5 rounded-xl border border-slate-200 bg-white p-6 shadow-sm md:grid-cols-3">
@@ -228,16 +231,7 @@ import { impactAreas, labServiceLines, sampleNews } from '../data/sampleContent'
         <div><p class="section-label">News & publications</p><h2 id="insights-heading" class="mt-3 text-3xl font-bold text-slate-950 sm:text-4xl">Latest thinking from the lab</h2></div>
         <a href={withBase('/news')} class="hidden text-sm font-bold text-primary hover:underline sm:block">Visit newsroom →</a>
       </div>
-      <div class="grid gap-6 md:grid-cols-2">
-        {sampleNews.map((item, index) => (
-          <article class="rounded-xl border border-slate-200 bg-white p-7 shadow-sm sm:p-8">
-            <div class="flex items-center gap-3 text-xs font-bold uppercase tracking-wider text-slate-500"><span class:list={['h-2.5 w-2.5 rounded-full', index === 0 ? 'bg-[#26BDE2]' : 'bg-[#4C9F38]']}></span>{index === 0 ? 'Research note' : 'Publication'}</div>
-            <h3 class="mt-5 text-xl font-bold text-slate-950">{item.title}</h3>
-            <p class="mt-3 text-sm leading-6 text-slate-600">{item.summary}</p>
-            <p class="mt-6 text-xs font-semibold text-amber-700">Sample content</p>
-          </article>
-        ))}
-      </div>
+      <NewsList client:load />
     </div>
   </section>
 
@@ -251,7 +245,7 @@ import { impactAreas, labServiceLines, sampleNews } from '../data/sampleContent'
         <p class="mt-4 leading-7 text-slate-600">
           Benchmark sites make publications, tools and methods easy to find. This space gives SDG AI Lab a clear home for guidance, toolkits, open-source outputs and research notes.
         </p>
-        <a href={withBase('/resources')} class="mt-6 inline-flex min-h-12 items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-bold text-white shadow transition hover:bg-primary-dark">
+        <a href={withBase('/resources')} data-analytics-event="cta_click" data-analytics-category="homepage" data-analytics-label="Knowledge products view resources" class="mt-6 inline-flex min-h-12 items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-bold text-white shadow transition hover:bg-primary-dark">
           View resources
         </a>
       </div>
@@ -281,7 +275,7 @@ import { impactAreas, labServiceLines, sampleNews } from '../data/sampleContent'
   <section class="bg-[#0A97D9] py-14 text-white sm:py-16">
     <div class="container-narrow flex flex-col items-start justify-between gap-7 sm:flex-row sm:items-center">
       <div><p class="text-sm font-bold uppercase tracking-[0.18em] text-blue-100">Work with us</p><h2 class="mt-2 text-3xl font-bold">Have a development challenge to explore?</h2></div>
-      <a href={withBase('/contact')} class="inline-flex min-h-12 shrink-0 items-center justify-center rounded-md bg-white px-6 py-3 text-sm font-bold text-primary shadow transition hover:bg-blue-50">Start a conversation →</a>
+      <a href={withBase('/contact')} data-analytics-event="cta_click" data-analytics-category="homepage" data-analytics-label="Bottom start conversation" class="inline-flex min-h-12 shrink-0 items-center justify-center rounded-md bg-white px-6 py-3 text-sm font-bold text-primary shadow transition hover:bg-blue-50">Start a conversation →</a>
     </div>
   </section>
 </BaseLayout>

@@ -67,19 +67,19 @@ describe('public islands (unit)', () => {
     expect(container.textContent).toContain('Impact areas');
   });
 
-  it('FeaturedProjects renders sample project cards', async () => {
+  it('FeaturedProjects renders an approval empty state when no featured projects exist', async () => {
     await render(<FeaturedProjects />);
-    expect(container.textContent).toContain('AI for Tourism Platform');
+    expect(container.textContent).toContain('Featured projects will appear here once approved.');
   });
 
-  it('ProjectList renders sample project links', async () => {
+  it('ProjectList renders an empty state when no projects exist', async () => {
     await render(<ProjectList />);
-    expect(container.querySelectorAll('a').length).toBeGreaterThan(0);
+    expect(container.textContent).toContain('No published projects in this impact area yet.');
   });
 
-  it('NewsList renders sample news items', async () => {
+  it('NewsList renders an approval empty state when no news exists', async () => {
     await render(<NewsList />);
-    expect(container.textContent).toContain('responsible development practice');
+    expect(container.textContent).toContain('News and publications will appear here once approved.');
   });
 
   it('PeopleGrid renders the team empty state', async () => {

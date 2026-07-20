@@ -1,7 +1,6 @@
 ---
 import { withBase } from '../lib/url';
 import BaseLayout from '../components/layout/BaseLayout.astro';
-import { sampleNews } from '../data/sampleContent';
 ---
 
 <BaseLayout
@@ -13,7 +12,7 @@ import { sampleNews } from '../data/sampleContent';
       <p class="section-label">Knowledge hub</p>
       <h1 class="mt-3 text-3xl font-bold text-slate-950 sm:text-4xl">Resources</h1>
       <p class="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
-        A dedicated space for research notes, toolkits, responsible-AI guidance and reusable technical outputs. This gives project work a place to become useful beyond a single prototype.
+        A dedicated space for approved publications, toolkits, responsible-AI guidance and reusable technical outputs from the Lab's work.
       </p>
 
       <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -35,22 +34,22 @@ import { sampleNews } from '../data/sampleContent';
   <section class="section-padding bg-slate-50" aria-labelledby="resource-readiness-heading">
     <div class="container-narrow grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
       <div>
-        <p class="section-label">Before publication</p>
+        <p class="section-label">Resource standards</p>
         <h2 id="resource-readiness-heading" class="mt-3 text-3xl font-bold text-slate-950 sm:text-4xl">
-          Resource readiness checklist
+          What each resource will include
         </h2>
         <p class="mt-4 leading-7 text-slate-600">
-          Benchmark sites make resources easy to trust. Before a resource is published, it should be clear who it is for, how it was produced and what limitations apply.
+          Resources should be easy to evaluate before download. Each published item will include enough context for users to understand its audience, source, status and relationship to Lab work.
         </p>
       </div>
       <div class="grid gap-4 sm:grid-cols-2">
         {[
-          'Audience and use case are clear',
-          'Methods and data sources are documented',
-          'Responsible-use limitations are stated',
-          'Owner/contact is identified',
-          'Publication approval is confirmed',
-          'Related project or output is linked',
+          'Plain-language summary',
+          'Authors, date and version status',
+          'Related project, solution or service',
+          'Format, language and accessibility notes',
+          'Responsible-use limitations where relevant',
+          'Clear contact or next step',
         ].map((item) => (
           <div class="flex gap-3 rounded-lg border border-slate-200 bg-white p-4">
             <span class="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-primary"></span>
@@ -62,23 +61,19 @@ import { sampleNews } from '../data/sampleContent';
   </section>
 
   <section class="section-padding bg-white" aria-labelledby="sample-resources-heading">
-    <div class="container-narrow">
-      <div class="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-        <div>
-          <p class="section-label">Starting point</p>
-          <h2 id="sample-resources-heading" class="mt-3 text-3xl font-bold text-slate-950 sm:text-4xl">Latest resource examples</h2>
-        </div>
-        <a href={withBase('/news')} class="text-sm font-bold text-primary hover:underline">View newsroom</a>
-      </div>
-
-      <div class="grid gap-6 md:grid-cols-2">
-        {sampleNews.map((item) => (
-          <article class="rounded-xl border border-slate-200 bg-white p-7 shadow-sm">
-            <p class="text-xs font-bold uppercase tracking-wider text-amber-700">Sample content</p>
-            <h3 class="mt-3 text-xl font-bold text-slate-950">{item.title}</h3>
-            <p class="mt-3 text-sm leading-6 text-slate-600">{item.summary}</p>
-          </article>
-        ))}
+    <div class="container-narrow rounded-2xl border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
+      <p class="section-label">In preparation</p>
+      <h2 id="sample-resources-heading" class="mt-3 text-3xl font-bold text-slate-950 sm:text-4xl">Approved resources will be added here as they are reviewed</h2>
+      <p class="mt-4 max-w-3xl leading-7 text-slate-600">
+        The Lab is preparing this section as a curated knowledge hub. Until resources are approved for publication, visitors are directed to the newsroom and project pages for available updates.
+      </p>
+      <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+        <a href={withBase('/news')} data-analytics-event="cta_click" data-analytics-category="resources" data-analytics-label="Resources visit newsroom" class="inline-flex min-h-12 items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-bold text-white shadow transition hover:bg-primary-dark">
+          Visit newsroom
+        </a>
+        <a href={withBase('/projects')} data-analytics-event="cta_click" data-analytics-category="resources" data-analytics-label="Resources explore projects" class="inline-flex min-h-12 items-center justify-center rounded-md border border-slate-300 px-6 py-3 text-sm font-bold text-slate-700 transition hover:border-primary hover:text-primary">
+          Explore projects
+        </a>
       </div>
     </div>
   </section>

@@ -23,7 +23,7 @@ describe('Astro UI components', () => {
   it('SDGWheel renders with an accessible image label', () => {
     const source = readSource('src/components/ui/SDGWheel.astro');
     expect(source).toContain('aria-label');
-    expect(source).toContain('Sustainable Development Goals');
+    expect(source).toContain('SDG AI Lab applies AI and data for development impact');
   });
 
   it('StatusBadge maps known status labels', () => {

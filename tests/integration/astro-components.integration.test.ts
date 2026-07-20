@@ -77,7 +77,7 @@ describe('SDGWheel.astro integration', () => {
     expect(indexPage).toContain("import SDGWheel from '../components/ui/SDGWheel.astro'");
     expect(indexPage).toContain('<SDGWheel');
     expect(wheel).toContain('aria-label');
-    expect(wheel).toContain('Sustainable Development Goals');
+    expect(wheel).toContain('SDG AI Lab applies AI and data for development impact');
   });
 });
 

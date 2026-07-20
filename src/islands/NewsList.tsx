@@ -2,22 +2,35 @@ import { useEffect, useState } from 'react';
 import { getPublishedNews } from '../lib/queries';
 import type { NewsListItem } from '../lib/types';
 import { withBase } from '../lib/url';
-import { sampleNews } from '../data/sampleContent';
 
 export default function NewsList() {
-  const [articles, setArticles] = useState<NewsListItem[]>(sampleNews);
+  const [articles, setArticles] = useState<NewsListItem[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getPublishedNews().then(({ data, error: err }) => {
       if (err) setError(err);
-      setArticles(data.length > 0 ? data : sampleNews);
+      setArticles(data);
+      setLoading(false);
     });
   }, []);
 
+  if (loading) {
+    return <div className="h-36 rounded-xl border border-slate-200 bg-slate-50" role="status" aria-label="Loading news" />;
+  }
+
   return (
     <div>
-      {error && <p className="mb-5 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">Live newsroom data is temporarily unavailable. The cards below demonstrate the planned publication format.</p>}
+      {error && <p className="mb-5 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">Published newsroom data is temporarily unavailable.</p>}
+      {articles.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
+          <h3 className="text-lg font-bold text-slate-950">News and publications will appear here once approved.</h3>
+          <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-slate-600">
+            This section is reserved for reviewed updates, publications and learning notes.
+          </p>
+        </div>
+      ) : (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {articles.map((article) => (
         <a
@@ -61,6 +74,7 @@ export default function NewsList() {
         </a>
       ))}
       </div>
+      )}
     </div>
   );
 }

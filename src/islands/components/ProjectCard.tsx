@@ -39,7 +39,6 @@ export default function ProjectCard({ project }: { project: ProjectListItem }) {
           <StatusBadge status={project.project_status} />
           <span className="inline-block rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">{deploymentLabel}</span>
           {project.impact_area && <span className="inline-block rounded-full bg-primary-50 px-3 py-1 text-xs font-semibold text-primary">{project.impact_area}</span>}
-          {project.is_sample && <span className="text-xs font-semibold uppercase tracking-wider text-amber-700">Sample content</span>}
         </div>
         <h3 className="text-xl font-semibold text-slate-950 transition-colors group-hover:text-primary">{project.title}</h3>
         {project.summary && <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{project.summary}</p>}

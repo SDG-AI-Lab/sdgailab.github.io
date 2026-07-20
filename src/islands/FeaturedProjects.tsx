@@ -2,36 +2,39 @@ import { useEffect, useState } from 'react';
 import { getFeaturedProjects } from '../lib/queries';
 import type { FeaturedProjectCard } from '../lib/types';
 import ProjectCard from './components/ProjectCard';
-import { sampleFeaturedProjects } from '../data/sampleContent';
-
-function mergeWithDemoDayFeaturedProjects(projects: FeaturedProjectCard[]) {
-  if (projects.length === 0) return sampleFeaturedProjects;
-
-  const liveSlugs = new Set(projects.map((project) => project.slug));
-  const demoProjectsNotYetInCms = sampleFeaturedProjects.filter(
-    (project) => !liveSlugs.has(project.slug)
-  );
-
-  return [...projects, ...demoProjectsNotYetInCms];
-}
 
 export default function FeaturedProjects() {
-  const [projects, setProjects] = useState<FeaturedProjectCard[]>(sampleFeaturedProjects);
+  const [projects, setProjects] = useState<FeaturedProjectCard[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getFeaturedProjects().then(({ data, error: err }) => {
       if (err) setError(err);
-      setProjects(mergeWithDemoDayFeaturedProjects(data));
+      setProjects(data);
+      setLoading(false);
     });
   }, []);
 
+  if (loading) {
+    return <div className="h-40 rounded-xl border border-slate-200 bg-slate-50" role="status" aria-label="Loading featured projects" />;
+  }
+
   return (
     <div>
-      {error && <p className="sr-only">Live project data is unavailable; showing sample content.</p>}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project) => <ProjectCard key={project.id} project={project} />)}
-      </div>
+      {error && <p className="mb-5 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">Featured projects are temporarily unavailable.</p>}
+      {projects.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
+          <h3 className="text-lg font-bold text-slate-950">Featured projects will appear here once approved.</h3>
+          <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-slate-600">
+            Published projects can be marked as featured in the CMS after editorial review.
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project) => <ProjectCard key={project.id} project={project} />)}
+        </div>
+      )}
     </div>
   );
 }

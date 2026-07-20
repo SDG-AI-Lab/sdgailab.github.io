@@ -4,26 +4,40 @@ import BaseLayout from '../components/layout/BaseLayout.astro';
 
 <BaseLayout title="Contact - SDG AI Lab">
   <section class="section-padding">
-    <div class="container-narrow max-w-2xl">
-      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Contact Us</h1>
-      <p class="text-lg text-gray-600 mb-8">
-        Have a question or want to collaborate? Get in touch with the SDG AI Lab team.
-      </p>
+    <div class="container-narrow">
+      <div class="max-w-3xl">
+        <p class="section-label">Work with us</p>
+        <h1 class="mt-3 text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Request support or start a collaboration</h1>
+        <p class="text-lg leading-8 text-gray-600 mb-8">
+          Use this page to reach the SDG AI Lab for technical support, partnerships, programme collaboration, media enquiries or general questions. The more context you provide, the easier it is to route your request to the right team.
+        </p>
+      </div>
 
-      <div class="mb-8 grid gap-4 sm:grid-cols-3">
+      <div class="mb-10 grid gap-4 md:grid-cols-3">
         {[
-          ['Request support', 'Bring a development challenge, data question or prototype idea.'],
-          ['Partner with us', 'Explore institutional, technical or research collaboration.'],
-          ['Contribute expertise', 'Connect as a volunteer, advisor or technical contributor.'],
-        ].map(([title, body]) => (
-          <article class="rounded-xl border border-slate-200 bg-slate-50 p-5">
-            <h2 class="text-base font-bold text-slate-950">{title}</h2>
-            <p class="mt-2 text-sm leading-6 text-slate-600">{body}</p>
+          ['Request technical support', 'For UNDP teams, governments or partners exploring an AI, GIS, data or digital product need.', 'Share the challenge, country or team context, available data, timeline and expected users.'],
+          ['Propose a partnership', 'For institutions interested in research, implementation, funding, knowledge sharing or technical collaboration.', 'Share the partner role, proposed scope, expected contribution and decision timeline.'],
+          ['Contribute expertise', 'For volunteers, advisors, researchers or technical contributors who want to support Lab work.', 'Share your area of expertise, availability, relevant links and preferred type of contribution.'],
+        ].map(([title, body, next]) => (
+          <article class="rounded-xl border border-slate-200 bg-slate-50 p-6">
+            <h2 class="text-lg font-bold text-slate-950">{title}</h2>
+            <p class="mt-3 text-sm leading-6 text-slate-600">{body}</p>
+            <p class="mt-4 text-xs font-bold uppercase tracking-wider text-primary">What to include</p>
+            <p class="mt-2 text-sm leading-6 text-slate-700">{next}</p>
           </article>
         ))}
       </div>
 
-      <div class="rounded-lg bg-white shadow-md border border-gray-100 p-8">
+      <div class="mb-10 rounded-xl border border-blue-100 bg-blue-50 p-6">
+        <h2 class="text-lg font-bold text-slate-950">What happens next</h2>
+        <ol class="mt-4 grid gap-4 text-sm leading-6 text-slate-700 md:grid-cols-3">
+          <li><strong>1. Triage:</strong> the request is reviewed and routed to the appropriate Lab contact.</li>
+          <li><strong>2. Clarification:</strong> the team may ask for context, data availability, objectives or timelines.</li>
+          <li><strong>3. Follow-up:</strong> suitable requests move into a scoping, advisory, partnership or programme discussion.</li>
+        </ol>
+      </div>
+
+      <div class="max-w-3xl rounded-lg bg-white shadow-md border border-gray-100 p-8">
         <div class="space-y-6">
           <div>
             <h2 class="text-lg font-semibold text-gray-900 mb-2">Email</h2>
