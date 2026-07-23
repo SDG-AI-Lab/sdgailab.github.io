@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { renderMarkdown } from '../lib/markdown';
+import { logAppError } from '../lib/observability';
 import { getProjectBySlug } from '../lib/queries';
 import type { Project } from '../lib/types';
 import { withBase } from '../lib/url';
 import StatusBadge from './components/StatusBadge';
+import ObservabilityBoundary from './components/ObservabilityBoundary';
 import { getSampleProject } from '../data/sampleContent';
 
-export default function ProjectDetail() {
+function ProjectDetailContent() {
   const [project, setProject] = useState<Project | null>(null);
   const [html, setHtml] = useState('');
   const [loading, setLoading] = useState(true);
@@ -24,6 +26,7 @@ export default function ProjectDetail() {
 
     getProjectBySlug(slug).then(async ({ data, error: err }) => {
       if (err) {
+        logAppError('public.project.load', new Error(err), { slug });
         setError(err);
       } else if (!data) {
         const sample = getSampleProject(slug);
@@ -182,5 +185,13 @@ export default function ProjectDetail() {
         </aside>
       </div>
     </article>
+  );
+}
+
+export default function ProjectDetail() {
+  return (
+    <ObservabilityBoundary surface="public" name="ProjectDetail">
+      <ProjectDetailContent />
+    </ObservabilityBoundary>
   );
 }

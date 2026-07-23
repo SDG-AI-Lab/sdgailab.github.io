@@ -48,6 +48,7 @@ vi.mock('@uiw/react-md-editor', () => {
 });
 
 import { MarkdownField } from './MarkdownField';
+import { expectAccessible } from '../../../test/axe';
 
 async function flushEffects() {
   await act(async () => {
@@ -128,5 +129,14 @@ describe('MarkdownField', () => {
     expect(renderMarkdownMock).toHaveBeenNthCalledWith(1, 'first value');
     expect(renderMarkdownMock).toHaveBeenNthCalledWith(2, 'second value');
     expect(container.querySelector('.wmde-markdown')?.innerHTML).toContain('<p>second</p>');
+  });
+
+  it('has no detectable accessibility violations', async () => {
+    await act(async () => {
+      root.render(<MarkdownField value="**hello**" onChange={() => {}} label="Body" />);
+    });
+    await flushEffects();
+
+    await expectAccessible(container);
   });
 });

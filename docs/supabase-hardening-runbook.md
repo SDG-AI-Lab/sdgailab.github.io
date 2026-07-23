@@ -58,6 +58,12 @@ Update these to match your project before executing.
 
 ---
 
+## Quick start (C1)
+
+For staging sign-off without production cutover, follow [supabase-c1-staging-signoff.md](./supabase-c1-staging-signoff.md) and run `supabase/verify_c1_hardening.sql` after migrations `001`–`005`.
+
+---
+
 ## Step 1: Snapshot Current State
 
 ### Dashboard

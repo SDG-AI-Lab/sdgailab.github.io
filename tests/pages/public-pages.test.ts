@@ -67,4 +67,20 @@ describe('Public Astro pages', () => {
     expect(source).toContain('ProjectDetail');
     expect(source).toContain('client:load');
   });
+
+  it('launch-readiness page is a noindex internal review tracker', () => {
+    const source = readSource('src/pages/launch-readiness.astro');
+    expect(source).toContain('BaseLayout');
+    expect(source).toContain('noindex={true}');
+    expect(source).toContain('aria-labelledby="criteria-heading"');
+    expect(source).toContain('withBase');
+  });
+
+  it('resources page exposes the knowledge hub and CTA links', () => {
+    const source = readSource('src/pages/resources.astro');
+    expect(source).toContain('BaseLayout');
+    expect(source).toContain('Knowledge hub');
+    expect(source).toContain("withBase('/news')");
+    expect(source).toContain("withBase('/projects')");
+  });
 });

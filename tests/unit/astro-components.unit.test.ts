@@ -36,3 +36,62 @@ describe('Header.astro (unit)', () => {
     expect(source).toContain("label: 'Contact'");
   });
 });
+
+describe('Footer.astro (unit)', () => {
+  const source = readSource('src/components/layout/Footer.astro');
+
+  it('declares quick links and connect sections', () => {
+    expect(source).toContain('<footer');
+    expect(source).toContain('Quick Links');
+    expect(source).toContain("label: 'Resources'");
+    expect(source).toContain('mailto:sdgailab@undp.org');
+  });
+
+  it('renders the current-year copyright notice', () => {
+    expect(source).toContain('currentYear');
+    expect(source).toContain('All rights reserved');
+  });
+});
+
+describe('ParticlesHero.astro (unit)', () => {
+  const source = readSource('src/components/sections/ParticlesHero.astro');
+
+  it('loads particles only when reduced motion is not preferred', () => {
+    expect(source).toContain('prefers-reduced-motion');
+    expect(source).toContain('particlesJS.load');
+    expect(source).toContain('particlesConfigPath');
+  });
+
+  it('exposes a hero content slot', () => {
+    expect(source).toContain('<slot />');
+    expect(source).toContain('id="particles-hero"');
+  });
+});
+
+describe('EmptyState.astro (unit)', () => {
+  const source = readSource('src/components/ui/EmptyState.astro');
+
+  it('marks decorative icons as hidden from assistive tech', () => {
+    expect(source).toContain('aria-hidden="true"');
+    expect(source).toContain('{message}');
+  });
+});
+
+describe('LoadingSpinner.astro (unit)', () => {
+  const source = readSource('src/components/ui/LoadingSpinner.astro');
+
+  it('exposes loading status semantics', () => {
+    expect(source).toContain('role="status"');
+    expect(source).toContain('aria-label="Loading"');
+    expect(source).toContain('sr-only');
+  });
+});
+
+describe('SDGWheel.astro (unit)', () => {
+  const source = readSource('src/components/ui/SDGWheel.astro');
+
+  it('describes the SDG wheel for screen readers', () => {
+    expect(source).toContain('aria-label');
+    expect(source).toContain('SDG AI Lab applies AI and data for development impact');
+  });
+});

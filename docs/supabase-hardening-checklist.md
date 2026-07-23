@@ -2,6 +2,8 @@
 
 This checklist covers the remaining backend and platform controls for the SDG AI Lab website after the frontend remediation pass.
 
+**Phase C1 (staging, no prod cutover):** use [supabase-c1-staging-signoff.md](./supabase-c1-staging-signoff.md) as the operator workflow. Run `supabase/verify_c1_hardening.sql` in the SQL Editor and fix any `FAIL` rows before sign-off. Backup procedures: [supabase-backup-restore.md](./supabase-backup-restore.md).
+
 It is grounded in the current repo setup:
 
 - Supabase Auth, Postgres, and Storage back the CMS
@@ -14,6 +16,9 @@ Relevant repo files:
 - `supabase/migrations/001_initial_schema.sql`
 - `supabase/migrations/002_storage_policies.sql`
 - `supabase/migrations/003_secure_editor_access.sql`
+- `supabase/migrations/004_project_portfolio_metadata.sql`
+- `supabase/migrations/005_admin_users_management_model.sql`
+- `supabase/verify_c1_hardening.sql`
 - `src/islands/admin/auth/AuthProvider.tsx`
 - `src/islands/admin/auth/LoginPage.tsx`
 - `src/lib/admin-queries.ts`
@@ -47,7 +52,7 @@ Relevant repo files:
 - [ ] Restrict `SELECT` so editors can read only their own active record
 - [ ] Ensure non-admin editors cannot `INSERT`, `UPDATE`, or `DELETE` rows in `admin_users`
 - [ ] Decide whether only service-role operations or only `admin` users may manage the allowlist
-- [ ] Add an explicit migration for allowlist-management policy if this is not already enforced operationally
+- [x] Add an explicit migration for allowlist-management policy if this is not already enforced operationally (`005_admin_users_management_model.sql` — no client write policies; operators use service role)
 - [ ] Keep an audit trail for allowlist changes outside the app if database-level auditing is unavailable
 
 ## 5. Storage Bucket Hardening
@@ -74,7 +79,7 @@ Relevant repo files:
 - [ ] Confirm provider-side anti-abuse settings are enabled for email auth flows
 - [ ] Add edge or backend rate limiting for CMS write-heavy endpoints if usage grows
 - [ ] Treat the current repo throttles as guardrails, not the primary enforcement layer
-- [ ] Document expected editor behavior when rate limits are triggered
+- [x] Document expected editor behavior when rate limits are triggered (`docs/editor-guide.md` — login rate limits)
 
 ## 8. Secrets and Key Management
 

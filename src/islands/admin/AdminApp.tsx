@@ -1,3 +1,4 @@
+import ObservabilityBoundary from '../components/ObservabilityBoundary';
 import {
   createContext,
   lazy,
@@ -222,10 +223,12 @@ export default function AdminApp() {
   const [isDirty, setIsDirty] = useState(false);
 
   return (
-    <AuthProvider>
-      <NavigationGuardContext.Provider value={{ isDirty, setIsDirty }}>
-        <AdminAppInner />
-      </NavigationGuardContext.Provider>
-    </AuthProvider>
+    <ObservabilityBoundary surface="admin" name="AdminApp">
+      <AuthProvider>
+        <NavigationGuardContext.Provider value={{ isDirty, setIsDirty }}>
+          <AdminAppInner />
+        </NavigationGuardContext.Provider>
+      </AuthProvider>
+    </ObservabilityBoundary>
   );
 }

@@ -5,6 +5,7 @@ import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 
 import { StatusBadge, StatusSelect } from './StatusSelect';
+import { expectAccessible } from '../../../test/axe';
 
 function setSelectValue(select: HTMLSelectElement, value: string) {
   const setter = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value')?.set;
@@ -65,5 +66,13 @@ describe('StatusSelect', () => {
 
     const badge = container.querySelector('span');
     expect(badge?.className).toContain('bg-gray-100');
+  });
+
+  it('has no detectable accessibility violations', async () => {
+    await act(async () => {
+      root.render(<StatusSelect value="draft" onChange={() => {}} label="Publishing Status" />);
+    });
+
+    await expectAccessible(container);
   });
 });

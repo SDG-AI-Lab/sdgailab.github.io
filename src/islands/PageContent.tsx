@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getSamplePageContent } from '../data/sampleContent';
 import { renderMarkdown } from '../lib/markdown';
+import { logAppError } from '../lib/observability';
 import { getPageContent } from '../lib/queries';
+import ObservabilityBoundary from './components/ObservabilityBoundary';
 
 const LOAD_TIMEOUT_MS = 12_000;
 
@@ -26,6 +28,14 @@ async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 }
 
 export default function PageContent({ pageSlug, sectionSlug }: PageContentProps) {
+  return (
+    <ObservabilityBoundary surface="public" name="PageContent">
+      <PageContentInner pageSlug={pageSlug} sectionSlug={sectionSlug} />
+    </ObservabilityBoundary>
+  );
+}
+
+function PageContentInner({ pageSlug, sectionSlug }: PageContentProps) {
   const [html, setHtml] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -46,10 +56,12 @@ export default function PageContent({ pageSlug, sectionSlug }: PageContentProps)
         if (body) {
           setHtml(await renderMarkdown(body));
         } else if (err) {
+          logAppError('public.page_content.load', new Error(err), { pageSlug, sectionSlug });
           setError(err);
         }
-      } catch {
+      } catch (error) {
         if (cancelled) return;
+        logAppError('public.page_content.load', error, { pageSlug, sectionSlug });
         const sample = getSamplePageContent(pageSlug, sectionSlug);
         if (sample) {
           setHtml(await renderMarkdown(sample));

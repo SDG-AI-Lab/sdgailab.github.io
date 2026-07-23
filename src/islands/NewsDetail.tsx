@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { renderMarkdown } from '../lib/markdown';
+import { logAppError } from '../lib/observability';
 import { getNewsArticleBySlug } from '../lib/queries';
 import type { NewsArticle } from '../lib/types';
 import { withBase } from '../lib/url';
+import ObservabilityBoundary from './components/ObservabilityBoundary';
 import { getSampleNewsArticle } from '../data/sampleContent';
 
-export default function NewsDetail() {
+function NewsDetailContent() {
   const [article, setArticle] = useState<NewsArticle | null>(null);
   const [html, setHtml] = useState('');
   const [loading, setLoading] = useState(true);
@@ -23,6 +25,7 @@ export default function NewsDetail() {
 
     getNewsArticleBySlug(slug).then(async ({ data, error: err }) => {
       if (err) {
+        logAppError('public.news.load', new Error(err), { slug });
         setError(err);
       } else if (!data) {
         const sample = getSampleNewsArticle(slug);
@@ -105,5 +108,13 @@ export default function NewsDetail() {
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </article>
+  );
+}
+
+export default function NewsDetail() {
+  return (
+    <ObservabilityBoundary surface="public" name="NewsDetail">
+      <NewsDetailContent />
+    </ObservabilityBoundary>
   );
 }

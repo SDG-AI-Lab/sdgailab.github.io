@@ -12,9 +12,13 @@ getSupabaseAuthMock.mockImplementation(() => ({
   from: fromMock,
 }));
 
-vi.mock('./admin-security', () => ({
-  runProtectedAdminAction: runProtectedAdminActionMock,
-}));
+vi.mock('./admin-security', async () => {
+  const actual = await vi.importActual<typeof import('./admin-security')>('./admin-security');
+  return {
+    ...actual,
+    runProtectedAdminAction: runProtectedAdminActionMock,
+  };
+});
 
 vi.mock('./supabase-auth', () => ({
   getSupabaseAuth: getSupabaseAuthMock,
@@ -25,6 +29,7 @@ import {
   createNewsArticle,
   createPageContent,
   createPartner,
+  createPerson,
   createProject,
   deletePartner,
   getDashboardCounts,
@@ -233,5 +238,74 @@ describe('admin-queries', () => {
 
     expect(result.error).toBe('permission denied for table statistics');
     expect(result.data).toEqual({});
+  });
+
+  it('rejects invalid project statuses before hitting Supabase', async () => {
+    const result = await createProject({
+      title: 'Demo Project',
+      slug: 'demo-project',
+      description: 'Description',
+      project_status: 'invalid' as 'active',
+      is_deployed: false,
+      is_featured: false,
+      image_url: 'https://example.com/image.png',
+      display_order: 1,
+      status: 'draft',
+      published_at: null,
+    });
+
+    expect(result.data).toBeNull();
+    expect(result.error).toBe('Project status is invalid.');
+    expect(fromMock).not.toHaveBeenCalled();
+  });
+
+  it('rejects invalid SDG values before hitting Supabase', async () => {
+    const result = await createProject({
+      title: 'Demo Project',
+      slug: 'demo-project',
+      description: 'Description',
+      project_status: 'active',
+      is_deployed: false,
+      is_featured: false,
+      image_url: 'https://example.com/image.png',
+      sdgs: [99],
+      display_order: 1,
+      status: 'draft',
+      published_at: null,
+    });
+
+    expect(result.data).toBeNull();
+    expect(result.error).toBe('SDGs must be whole numbers between 1 and 17.');
+    expect(fromMock).not.toHaveBeenCalled();
+  });
+
+  it('rejects invalid section slugs for page content', async () => {
+    const result = await createPageContent({
+      page_slug: 'about',
+      section_slug: 'Bad Section',
+      body: 'Hello world',
+      status: 'draft',
+      published_at: null,
+    });
+
+    expect(result.data).toBeNull();
+    expect(result.error).toContain('Section slug must use lowercase letters, numbers, hyphens, or underscores.');
+    expect(fromMock).not.toHaveBeenCalled();
+  });
+
+  it('rejects invalid people group types before hitting Supabase', async () => {
+    const result = await createPerson({
+      name: 'Ada Lovelace',
+      role_title: 'Advisor',
+      group_type: 'invalid' as 'team',
+      photo_url: 'https://example.com/ada.png',
+      display_order: 1,
+      status: 'draft',
+      published_at: null,
+    });
+
+    expect(result.data).toBeNull();
+    expect(result.error).toBe('Group type is invalid.');
+    expect(fromMock).not.toHaveBeenCalled();
   });
 });

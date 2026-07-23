@@ -9,6 +9,7 @@
     "preview": "astro preview",
     "format": "prettier --write .",
     "check": "astro check",
+    "audit:ci": "npm audit --audit-level=critical",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
@@ -17,6 +18,7 @@
   "dependencies": {
     "@astrojs/react": "^4.4.2",
     "@astrojs/tailwind": "^6.0.2",
+    "@sentry/react": "^10.67.0",
     "@supabase/supabase-js": "^2.98.0",
     "@uiw/react-md-editor": "^4.0.11",
     "astro": "^5.18.0",

@@ -35,7 +35,7 @@ This is a dynamic content site that displays statistics, projects, news, team me
 
 3. Set up Supabase:
    - Create a project at [app.supabase.com](https://app.supabase.com/)
-   - Run migrations in the SQL Editor: `supabase/migrations/001_initial_schema.sql`, then `supabase/migrations/002_storage_policies.sql`
+   - Run migrations in the SQL Editor in order: `001_initial_schema.sql` → `002_storage_policies.sql` → `003_secure_editor_access.sql` → `004_project_portfolio_metadata.sql` → `005_admin_users_management_model.sql` (see `supabase/README.md`)
    - Create a **Storage** bucket named `public-assets` with Public access
    - Add approved CMS editors to Supabase Auth and the `admin_users` allowlist table
    - (Optional) Run `supabase/seed.sql` for sample data
@@ -49,6 +49,7 @@ This is a dynamic content site that displays statistics, projects, news, team me
 For detailed setup (editor accounts, auth redirect URLs, etc.), see:
 - [specs/001-dynamic-cms-revamp/quickstart.md](specs/001-dynamic-cms-revamp/quickstart.md)
 - [specs/002-admin-ui/quickstart.md](specs/002-admin-ui/quickstart.md)
+- [docs/supabase-c1-staging-signoff.md](docs/supabase-c1-staging-signoff.md) — Supabase hardening on staging (C1)
 
 ## Admin Panel
 

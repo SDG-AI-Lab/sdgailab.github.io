@@ -94,6 +94,7 @@ The prototype would help analysts discover relevant evidence faster while keepin
 Code, model cards, data statements and related papers should be linked in this section once approved for publication.`,
     project_status: 'active', deployment_status: 'prototype', is_deployed: false, is_featured: true,
     image_url: null, sdgs: [9, 16, 17], is_sample: true, display_order: 1, status: 'published',
+    impact_area: 'Natural Language Processing', timeline: '6–18 months', best_fit: [], core_capabilities: [],
     published_at: null, created_at: '', updated_at: '',
   },
   {
@@ -120,6 +121,7 @@ This example project combines geospatial analysis, risk indicators and participa
 A decision-support prototype, documented validation process and reusable technical guidance. Real deployment status, evidence and links would be published here after partner approval.`,
     project_status: 'under_development', deployment_status: 'prototype', is_deployed: false, is_featured: true,
     image_url: null, sdgs: [11, 13, 17], is_sample: true, display_order: 2, status: 'published',
+    impact_area: 'Resilience', timeline: '6–15 months', best_fit: [], core_capabilities: [],
     published_at: null, created_at: '', updated_at: '',
   },
   {
@@ -146,6 +148,7 @@ The illustrative approach uses information retrieval, topic exploration and expe
 Search and exploration tools, transparent evaluation notes and reusable methods for responsible portfolio analysis.`,
     project_status: 'completed', deployment_status: 'internal', is_deployed: false, is_featured: true,
     image_url: null, sdgs: [16, 17], is_sample: true, display_order: 3, status: 'published',
+    impact_area: 'Natural Language Processing', timeline: '3–12 months', best_fit: [], core_capabilities: [],
     published_at: null, created_at: '', updated_at: '',
   },
 ];

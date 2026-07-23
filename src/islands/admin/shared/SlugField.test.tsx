@@ -5,6 +5,7 @@ import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 
 import { SlugField } from './SlugField';
+import { expectAccessible } from '../../../test/axe';
 
 function setInputValue(input: HTMLInputElement, value: string) {
   const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
@@ -82,5 +83,16 @@ describe('SlugField', () => {
     });
 
     expect(onChange).toHaveBeenLastCalledWith('my-manual_slug');
+  });
+
+  it('has no detectable accessibility violations', async () => {
+    await act(async () => {
+      root.render(
+        <SlugField value="custom-slug" sourceValue="Original Title" onChange={() => {}} label="URL slug" />
+      );
+    });
+    await flushEffects();
+
+    await expectAccessible(container);
   });
 });

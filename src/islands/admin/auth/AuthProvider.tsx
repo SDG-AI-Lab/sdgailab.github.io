@@ -5,6 +5,7 @@ import {
   getAuthorizedAdmin,
   normalizeAdminEmail,
 } from '../../../lib/admin-security';
+import { logAppError } from '../../../lib/observability';
 import { getSupabaseAuth } from '../../../lib/supabase-auth';
 
 interface AuthContextType {
@@ -67,6 +68,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
       setAdminUser(actor);
     } catch (error) {
+      logAppError('admin.auth.verify_editor', error);
       setAuthorizationError(error instanceof Error ? error.message : 'Unable to verify editor access.');
       setLoading(false);
       return;
