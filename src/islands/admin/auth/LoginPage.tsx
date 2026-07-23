@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { consumeRateLimit, normalizeAdminEmail } from '../../../lib/admin-security';
 import { getMagicLinkRequestError } from '../../../lib/magic-link-errors';
+import { logAppError, logAppMessage } from '../../../lib/observability';
 import { getSupabaseAuth } from '../../../lib/supabase-auth';
 
-export default function LoginPage() {  const [email, setEmail] = useState('');
+export default function LoginPage() {
+  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -38,10 +40,16 @@ export default function LoginPage() {  const [email, setEmail] = useState('');
         },
       });
       if (signInError) {
+        logAppMessage('admin.login.magic_link', signInError.message, 'warning', {
+          code: signInError.code ?? 'unknown',
+        });
         setError(getMagicLinkRequestError(signInError));
         return;
       }
       setSubmitted(true);
+    } catch (error) {
+      logAppError('admin.login.magic_link', error);
+      setError('Unable to send the magic link. Please try again.');
     } finally {
       setLoading(false);
     }

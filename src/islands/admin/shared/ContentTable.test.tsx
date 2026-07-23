@@ -5,6 +5,7 @@ import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 
 import { ContentTable } from './ContentTable';
+import { expectAccessible } from '../../../test/axe';
 
 type Item = {
   id: string;
@@ -122,5 +123,24 @@ describe('ContentTable', () => {
     expect(onEdit).toHaveBeenCalledWith('1');
     expect(onArchive).toHaveBeenCalledWith('1');
     expect(onDelete).toHaveBeenCalledWith('2');
+  });
+
+  it('has no detectable accessibility violations', async () => {
+    await act(async () => {
+      root.render(
+        <ContentTable<Item>
+          columns={[{ label: 'Name', accessor: 'name' }]}
+          data={[{ id: '1', name: 'Published item', status: 'published' }]}
+          loading={false}
+          error={null}
+          onEdit={() => {}}
+          onArchive={() => {}}
+          onDelete={() => {}}
+          addNewHref="#/new"
+        />
+      );
+    });
+
+    await expectAccessible(container);
   });
 });

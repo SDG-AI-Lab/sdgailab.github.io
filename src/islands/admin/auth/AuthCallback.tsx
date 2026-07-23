@@ -4,6 +4,7 @@ import {
   completeAuthCallback,
   hasAuthCallbackParams,
 } from '../../../lib/auth-callback';
+import { logAppError } from '../../../lib/observability';
 import { useAuth } from './AuthProvider';
 
 export default function AuthCallback() {
@@ -17,6 +18,7 @@ export default function AuthCallback() {
     async function handleCallback() {
       if (!hasAuthCallbackParams()) {
         if (!cancelled) {
+          logAppError('admin.auth.callback', new Error('Missing auth callback parameters'));
           setError(true);
           setProcessing(false);
         }
@@ -26,6 +28,7 @@ export default function AuthCallback() {
       const { error: exchangeError } = await completeAuthCallback();
       if (!cancelled) {
         if (exchangeError) {
+          logAppError('admin.auth.callback', exchangeError);
           setError(true);
         }
         clearAuthCallbackQueryParams();

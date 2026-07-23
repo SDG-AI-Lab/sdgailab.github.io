@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { logAppError } from '../lib/observability';
 import { getPublishedPeople } from '../lib/queries';
 import type { PersonCard, PeopleGroup } from '../lib/types';
+import ObservabilityBoundary from './components/ObservabilityBoundary';
 
 const LOAD_TIMEOUT_MS = 12_000;
 const TEAM_SECTIONS = [
@@ -83,6 +85,14 @@ function PersonCardView({ person }: { person: PersonCard }) {
 }
 
 export default function PeopleGrid({ groupType }: PeopleGridProps) {
+  return (
+    <ObservabilityBoundary surface="public" name="PeopleGrid">
+      <PeopleGridContent groupType={groupType} />
+    </ObservabilityBoundary>
+  );
+}
+
+function PeopleGridContent({ groupType }: PeopleGridProps) {
   const [people, setPeople] = useState<PersonCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -100,12 +110,14 @@ export default function PeopleGrid({ groupType }: PeopleGridProps) {
         if (cancelled) return;
 
         if (err) {
+          logAppError('public.people.load', new Error(err), { groupType });
           setError(err);
         } else {
           setPeople(data);
         }
-      } catch {
+      } catch (error) {
         if (!cancelled) {
+          logAppError('public.people.load', error, { groupType });
           setError('Unable to load team information at this time.');
         }
       } finally {

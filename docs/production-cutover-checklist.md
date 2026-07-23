@@ -23,6 +23,8 @@ It is specific to this repo’s current setup:
 - `.github/workflows/uptime-healthcheck.yml` defaults to the staging URL
 - Supabase auth/admin is currently validated for staging
 
+Complete [supabase-c1-staging-signoff.md](./supabase-c1-staging-signoff.md) and [supabase-backup-restore.md](./supabase-backup-restore.md) before starting this cutover (Phase C2).
+
 ## Cutover Goal
 
 After this checklist:

@@ -9,5 +9,16 @@
       "@islands/*": ["src/islands/*"],
       "@lib/*": ["src/lib/*"]
     }
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "e2e",
+    "tests",
+    "src/test",
+    "assets",
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ]
 }

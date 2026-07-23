@@ -11,6 +11,7 @@ import PartnerLogos from './PartnerLogos';
 import PeopleGrid from './PeopleGrid';
 import ProjectList from './ProjectList';
 import StatsCards from './StatsCards';
+import { expectAccessible } from '../test/axe';
 
 const {
   getFeaturedProjectsMock,
@@ -280,5 +281,16 @@ describe('public islands', () => {
     getPageContentMock.mockResolvedValueOnce({ data: null, error: 'failed' });
     await render(<PageContent pageSlug="about" sectionSlug="intro" />);
     expect(container.textContent).toContain('Unable to load content');
+  });
+
+  it('StatsCards has no detectable accessibility violations', async () => {
+    getPublishedStatisticsMock.mockResolvedValue({
+      data: [{ id: 'stat-1', label: 'Projects', value: '24', icon_name: null, display_order: 1 }],
+      error: null,
+    });
+
+    await render(<StatsCards />);
+
+    await expectAccessible(container);
   });
 });

@@ -62,6 +62,13 @@ The admin uses **passwordless login** (no passwords to remember):
 - You successfully signed in, but your account is not approved for CMS access.
 - Contact your site administrator and ask them to add your email to the `admin_users` allowlist.
 
+**If you see "Too many login attempts" or a message about rate limits:**
+
+- The system is temporarily blocking new magic-link emails to prevent abuse.
+- Wait 15–30 minutes before clicking **Send Magic Link** again.
+- Do not click the button repeatedly — that can extend the wait.
+- If you still cannot log in after an hour, contact your site administrator.
+
 ---
 
 ## Dashboard Overview

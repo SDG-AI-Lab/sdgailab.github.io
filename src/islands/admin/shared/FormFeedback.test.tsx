@@ -5,6 +5,7 @@ import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { FormFeedback } from './FormFeedback';
+import { expectAccessible } from '../../../test/axe';
 
 describe('FormFeedback', () => {
   let container: HTMLDivElement;
@@ -46,5 +47,13 @@ describe('FormFeedback', () => {
 
     expect(container.textContent).toContain('Save failed');
     expect(container.querySelector('[role="alert"]')).not.toBeNull();
+  });
+
+  it('has no detectable accessibility violations', async () => {
+    await act(async () => {
+      root.render(<FormFeedback type="error" message="Save failed" />);
+    });
+
+    await expectAccessible(container);
   });
 });

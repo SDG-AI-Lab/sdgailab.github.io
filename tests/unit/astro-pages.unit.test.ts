@@ -92,6 +92,23 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
       expect(source).toContain('client:load');
     },
   },
+  {
+    path: 'src/pages/launch-readiness.astro',
+    checks: (source) => {
+      expect(source).toContain('BaseLayout');
+      expect(source).toContain('noindex={true}');
+      expect(source).toContain('Website launch readiness');
+      expect(source).toContain('launchCriteria');
+    },
+  },
+  {
+    path: 'src/pages/resources.astro',
+    checks: (source) => {
+      expect(source).toContain('BaseLayout');
+      expect(source).toContain('Resources - SDG AI Lab');
+      expect(source).toContain('data-analytics-category="resources"');
+    },
+  },
 ];
 
 describe('Astro pages (unit source contracts)', () => {
