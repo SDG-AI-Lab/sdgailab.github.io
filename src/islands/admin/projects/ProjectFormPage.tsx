@@ -27,8 +27,26 @@ const defaultValues = {
   image_url: null as string | null,
   impact_area: '',
   timeline: '',
+  project_year: '' as number | '',
+  work_stream: '',
+  capabilities_involved: [] as string[],
+  reusable_components: '',
+  current_client_segments: [] as string[],
+  future_client_segments: [] as string[],
+  business_model: '',
+  project_category: '',
   best_fit: [] as string[],
   core_capabilities: [] as string[],
+  problem: '',
+  solution: '',
+  how_it_works: [] as string[],
+  features: [] as string[],
+  tech_stack: [] as string[],
+  collaboration_network: '',
+  implementation_countries: [] as string[],
+  resource_links: [] as string[],
+  video_url: '',
+  media_caption: '',
   sdgs: [] as number[],
   display_order: 0,
   status: 'draft' as PublishStatus,
@@ -99,8 +117,26 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
           image_url: data.image_url,
           impact_area: data.impact_area ?? '',
           timeline: data.timeline ?? '',
+          project_year: data.project_year ?? '',
+          work_stream: data.work_stream ?? '',
+          capabilities_involved: data.capabilities_involved ?? [],
+          reusable_components: data.reusable_components ?? '',
+          current_client_segments: data.current_client_segments ?? [],
+          future_client_segments: data.future_client_segments ?? [],
+          business_model: data.business_model ?? '',
+          project_category: data.project_category ?? '',
           best_fit: data.best_fit ?? [],
           core_capabilities: data.core_capabilities ?? [],
+          problem: data.problem ?? '',
+          solution: data.solution ?? '',
+          how_it_works: data.how_it_works ?? [],
+          features: data.features ?? [],
+          tech_stack: data.tech_stack ?? [],
+          collaboration_network: data.collaboration_network ?? '',
+          implementation_countries: data.implementation_countries ?? [],
+          resource_links: data.resource_links ?? [],
+          video_url: data.video_url ?? '',
+          media_caption: data.media_caption ?? '',
           sdgs: data.sdgs ?? [],
           display_order: data.display_order,
           status: data.status as PublishStatus,
@@ -134,8 +170,26 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
       image_url: values.image_url,
       impact_area: values.impact_area,
       timeline: values.timeline,
+      project_year: values.project_year === '' ? null : values.project_year,
+      work_stream: values.work_stream,
+      capabilities_involved: values.capabilities_involved,
+      reusable_components: values.reusable_components,
+      current_client_segments: values.current_client_segments,
+      future_client_segments: values.future_client_segments,
+      business_model: values.business_model,
+      project_category: values.project_category,
       best_fit: values.best_fit,
       core_capabilities: values.core_capabilities,
+      problem: values.problem,
+      solution: values.solution,
+      how_it_works: values.how_it_works,
+      features: values.features,
+      tech_stack: values.tech_stack,
+      collaboration_network: values.collaboration_network,
+      implementation_countries: values.implementation_countries,
+      resource_links: values.resource_links,
+      video_url: values.video_url,
+      media_caption: values.media_caption,
       sdgs: values.sdgs,
       display_order: values.display_order,
       status: values.status,
@@ -281,6 +335,108 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
               />
             </div>
           </div>
+          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+            <h2 className="text-sm font-semibold text-gray-800">Portfolio metadata</h2>
+            <p className="mt-1 text-xs text-gray-500">Fields imported from the definitive project portfolio workbook.</p>
+            <div className="mt-4 grid gap-4 md:grid-cols-3">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Year</label>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={values.project_year}
+                  onChange={(e) =>
+                    setValues((v) => ({
+                      ...v,
+                      project_year: e.target.value ? Number(e.target.value) : '',
+                    }))
+                  }
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  placeholder="2026"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Work Stream</label>
+                <input
+                  type="text"
+                  value={values.work_stream}
+                  onChange={(e) => setValues((v) => ({ ...v, work_stream: e.target.value }))}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  placeholder="GIS, NLP, Training..."
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Project Category</label>
+                <input
+                  type="text"
+                  value={values.project_category}
+                  onChange={(e) => setValues((v) => ({ ...v, project_category: e.target.value }))}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  placeholder="Prototype, research, tool..."
+                />
+              </div>
+            </div>
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Business Model</label>
+                <input
+                  type="text"
+                  value={values.business_model}
+                  onChange={(e) => setValues((v) => ({ ...v, business_model: e.target.value }))}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  placeholder="Advisory, implementation support, reusable product..."
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Capabilities Involved</label>
+                <textarea
+                  value={values.capabilities_involved.join('\n')}
+                  onChange={(e) =>
+                    setValues((v) => ({ ...v, capabilities_involved: parseLines(e.target.value) }))
+                  }
+                  rows={3}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  placeholder="One capability per line"
+                />
+              </div>
+            </div>
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Scalability / Reusable Components</label>
+              <textarea
+                value={values.reusable_components}
+                onChange={(e) => setValues((v) => ({ ...v, reusable_components: e.target.value }))}
+                rows={3}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                placeholder="Reusable assets, components, workflows, datasets or methods"
+              />
+            </div>
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Current Client Segments</label>
+                <textarea
+                  value={values.current_client_segments.join('\n')}
+                  onChange={(e) =>
+                    setValues((v) => ({ ...v, current_client_segments: parseLines(e.target.value) }))
+                  }
+                  rows={4}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  placeholder="One current client segment per line"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Future Addressable Client Segments</label>
+                <textarea
+                  value={values.future_client_segments.join('\n')}
+                  onChange={(e) =>
+                    setValues((v) => ({ ...v, future_client_segments: parseLines(e.target.value) }))
+                  }
+                  rows={4}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  placeholder="One future client segment per line"
+                />
+              </div>
+            </div>
+          </div>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Best Fit</label>
@@ -303,6 +459,129 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
                 className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
                 placeholder="One capability per line"
               />
+            </div>
+          </div>
+          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+            <h2 className="text-sm font-semibold text-gray-800">Structured project content</h2>
+            <p className="mt-1 text-xs text-gray-500">
+              Use these fields to match the agreed project template. Keep wording public-facing and concise.
+            </p>
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Problem</label>
+                <textarea
+                  value={values.problem}
+                  onChange={(e) => setValues((v) => ({ ...v, problem: e.target.value }))}
+                  rows={4}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  placeholder="What challenge does this project respond to?"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Solution</label>
+                <textarea
+                  value={values.solution}
+                  onChange={(e) => setValues((v) => ({ ...v, solution: e.target.value }))}
+                  rows={4}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  placeholder="What was built or delivered?"
+                />
+              </div>
+            </div>
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">How it works</label>
+                <textarea
+                  value={values.how_it_works.join('\n')}
+                  onChange={(e) =>
+                    setValues((v) => ({ ...v, how_it_works: parseLines(e.target.value) }))
+                  }
+                  rows={5}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  placeholder="One short step per line"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Features</label>
+                <textarea
+                  value={values.features.join('\n')}
+                  onChange={(e) => setValues((v) => ({ ...v, features: parseLines(e.target.value) }))}
+                  rows={5}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  placeholder="One feature per line"
+                />
+              </div>
+            </div>
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Tech Stack</label>
+                <textarea
+                  value={values.tech_stack.join('\n')}
+                  onChange={(e) => setValues((v) => ({ ...v, tech_stack: parseLines(e.target.value) }))}
+                  rows={5}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  placeholder="One technology, model, platform, or dataset per line"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Implementation Countries</label>
+                <textarea
+                  value={values.implementation_countries.join('\n')}
+                  onChange={(e) =>
+                    setValues((v) => ({
+                      ...v,
+                      implementation_countries: parseLines(e.target.value),
+                    }))
+                  }
+                  rows={5}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  placeholder="One country or territory per line"
+                />
+              </div>
+            </div>
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Collaboration / Our Network</label>
+              <textarea
+                value={values.collaboration_network}
+                onChange={(e) =>
+                  setValues((v) => ({ ...v, collaboration_network: e.target.value }))
+                }
+                rows={3}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                placeholder="Use collaborated with / our network wording; avoid formal partner language unless approved."
+              />
+            </div>
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Downloads / Resources</label>
+                <textarea
+                  value={values.resource_links.join('\n')}
+                  onChange={(e) =>
+                    setValues((v) => ({ ...v, resource_links: parseLines(e.target.value) }))
+                  }
+                  rows={4}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  placeholder="One approved public URL per line"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Video / Media URL</label>
+                <input
+                  type="url"
+                  value={values.video_url}
+                  onChange={(e) => setValues((v) => ({ ...v, video_url: e.target.value }))}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  placeholder="https://www.youtube.com/watch?v=..."
+                />
+                <label className="mt-3 block text-sm font-medium text-gray-700 mb-1">Media Caption</label>
+                <textarea
+                  value={values.media_caption}
+                  onChange={(e) => setValues((v) => ({ ...v, media_caption: e.target.value }))}
+                  rows={2}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  placeholder="Short context for the video or media block"
+                />
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-2">

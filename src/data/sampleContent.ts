@@ -16,43 +16,43 @@ export const labServiceLines = [
   { title: 'Research', body: 'Frontier technology research and analysis for sustainable development use cases.' },
   { title: 'Advisory', body: 'Technical guidance, strategic consulting and responsible AI support.' },
   { title: 'Training', body: 'Capacity-building programmes, bootcamps, fellowships and practical workshops.' },
-  { title: 'Partnerships', body: 'Facilitating collaborations with the technology sector and development partners.' },
+  { title: 'Partnerships & collaboration', body: 'Facilitating collaborations with the technology sector, development partners and the Lab network.' },
 ] as const;
 
 export const impactAreas = [
   {
     title: 'GIS / Remote Sensing',
-    timeline: '6–18 months',
+    timeline: '6â€“18 months',
     summary: 'Satellite imagery and geospatial intelligence for climate resilience, vulnerability mapping and sustainable development planning.',
     examples: ['Digital Social Vulnerability Index', 'Land Use Analysis Tool', 'Deforestation Monitoring and Prediction', 'Illegal Dumpsites Detection'],
   },
   {
     title: 'Natural Language Processing',
-    timeline: '3–12 months',
+    timeline: '3â€“12 months',
     summary: 'Agentic AI, machine learning and LLM-enabled tools that transform complex public data into actionable insight.',
     examples: ['AI for Tourism Platform', 'Audit Recommendation Tracking Tool', 'Public Finance Simplification Platform', 'AI-Powered Knowledge Base'],
   },
   {
     title: 'Digital Skills Development',
-    timeline: '3–12 months',
+    timeline: '3â€“12 months',
     summary: 'Hands-on AI, data science, entrepreneurship and frontier-tech programmes for youth and professionals.',
     examples: ['Innovation Campus', 'Frontier & Future Tech Leaders Programmes', 'Game Development Bootcamps', 'Volunteer Data Scientists Initiative'],
   },
   {
     title: 'Resilience',
-    timeline: '6–15 months',
+    timeline: '6â€“15 months',
     summary: 'Frontier technologies for disaster management, early warning, real-time risk data and coordinated volunteer support.',
-    examples: ['Madagascar Multi-Hazard Early Warning System', 'Tech4R — Tech Volunteers for Resilience', 'Frontier Technologies Radar for DRR', 'Earthquake Safety Routing'],
+    examples: ['Madagascar Multi-Hazard Early Warning System', 'Tech4R â€” Tech Volunteers for Resilience', 'Frontier Technologies Radar for DRR', 'Earthquake Safety Routing'],
   },
   {
     title: 'FinTech & Digital Finance',
-    timeline: '6–15 months',
+    timeline: '6â€“15 months',
     summary: 'AI and supervisory technology that support financial inclusion, consumer protection and responsible digital finance.',
     examples: ['SupTech for Fair Digital Finance'],
   },
   {
     title: 'Research & Advisory',
-    timeline: '3–12 months',
+    timeline: '3â€“12 months',
     summary: 'Technical assessments, project briefs, white papers, datasets, ToRs and partnership facilitation.',
     examples: ['Academic papers', 'Project briefs', 'White papers', 'Datasets'],
   },
@@ -94,7 +94,7 @@ The prototype would help analysts discover relevant evidence faster while keepin
 Code, model cards, data statements and related papers should be linked in this section once approved for publication.`,
     project_status: 'active', deployment_status: 'prototype', is_deployed: false, is_featured: true,
     image_url: null, sdgs: [9, 16, 17], is_sample: true, display_order: 1, status: 'published',
-    impact_area: 'Natural Language Processing', timeline: '6–18 months', best_fit: [], core_capabilities: [],
+    impact_area: 'Natural Language Processing', timeline: '6â€“18 months', best_fit: [], core_capabilities: [],
     published_at: null, created_at: '', updated_at: '',
   },
   {
@@ -108,7 +108,7 @@ Decision-makers need timely, local and reliable information before and after a d
 
 ## Methodology
 
-This example project combines geospatial analysis, risk indicators and participatory validation with local stakeholders. The approach starts with the decision need—not the model—and includes human review throughout.
+This example project combines geospatial analysis, risk indicators and participatory validation with local stakeholders. The approach starts with the decision needâ€”not the modelâ€”and includes human review throughout.
 
 ## Potential datasets
 
@@ -121,7 +121,7 @@ This example project combines geospatial analysis, risk indicators and participa
 A decision-support prototype, documented validation process and reusable technical guidance. Real deployment status, evidence and links would be published here after partner approval.`,
     project_status: 'under_development', deployment_status: 'prototype', is_deployed: false, is_featured: true,
     image_url: null, sdgs: [11, 13, 17], is_sample: true, display_order: 2, status: 'published',
-    impact_area: 'Resilience', timeline: '6–15 months', best_fit: [], core_capabilities: [],
+    impact_area: 'Resilience', timeline: '6â€“15 months', best_fit: [], core_capabilities: [],
     published_at: null, created_at: '', updated_at: '',
   },
   {
@@ -148,7 +148,7 @@ The illustrative approach uses information retrieval, topic exploration and expe
 Search and exploration tools, transparent evaluation notes and reusable methods for responsible portfolio analysis.`,
     project_status: 'completed', deployment_status: 'internal', is_deployed: false, is_featured: true,
     image_url: null, sdgs: [16, 17], is_sample: true, display_order: 3, status: 'published',
-    impact_area: 'Natural Language Processing', timeline: '3–12 months', best_fit: [], core_capabilities: [],
+    impact_area: 'Natural Language Processing', timeline: '3â€“12 months', best_fit: [], core_capabilities: [],
     published_at: null, created_at: '', updated_at: '',
   },
 ];
@@ -429,7 +429,7 @@ The platform integrates multi-source hazard data, predictive analytics and inter
   },
   {
     id: 'demo-tech4r',
-    title: 'Tech4R — Tech Volunteers for Resilience',
+    title: 'Tech4R â€” Tech Volunteers for Resilience',
     slug: 'tech4r-tech-volunteers-for-resilience',
     impact_area: 'Resilience',
     timeline: '6-15 months',
@@ -573,7 +573,7 @@ export const samplePartners: PartnerLogo[] = [
 
 const samplePageContentBodies: Record<string, Record<string, string>> = {
   about: {
-    'about-sdgailab': `The SDG AI Lab was established in 2019 and is one of UNDP's specialized AI units. It is a joint initiative of the UNDP BPPS Data, AI & Innovation Hub and the Sustainable Finance Hub, hosted under ICPSD and based in Istanbul, Türkiye. The Lab advances frontier technologies for sustainable development through development, research, advisory, training and community-building services.`,
+    'about-sdgailab': `The SDG AI Lab was established in 2019 and is one of UNDP's specialized AI units. It is a joint initiative of the UNDP BPPS Data, AI & Innovation Hub and the Sustainable Finance Hub, hosted under ICPSD and based in Istanbul, TÃ¼rkiye. The Lab advances frontier technologies for sustainable development through development, research, advisory, training and community-building services.`,
     'our-approach':
       'The SDG AI Lab provides a one-stop solution approach for AI/ML advisory and research support. We utilize an agile, gig-based approach to leverage global talent for sustainable development goals.',
   },

@@ -10,6 +10,7 @@ export default defineConfig({
   vite: {
     optimizeDeps: {
       include: [
+        '@supabase/supabase-js',
         '@uiw/react-md-editor',
         '@uiw/react-markdown-preview',
         'marked',

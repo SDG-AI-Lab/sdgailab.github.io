@@ -75,3 +75,136 @@
   .prose-content pre { @apply bg-gray-100 rounded p-4 overflow-x-auto my-4; }
   .prose-content img { @apply max-w-full h-auto rounded my-4; }
 }
+
+/* Public visual layer inspired by the current dark-blue design direction.
+   Scoped to BaseLayout's public main element so the standalone admin app stays unchanged. */
+#main-content {
+  min-height: 60vh;
+  background: #050a1a;
+  color: #f8fbff;
+}
+
+#main-content > section,
+#main-content > div,
+#main-content .section-padding {
+  background: #081126 !important;
+  color: #f8fbff;
+}
+
+#main-content > section:nth-of-type(even),
+#main-content .section-padding:nth-of-type(even) {
+  background: #070d20 !important;
+}
+
+#main-content .bg-primary,
+#main-content .wire-convert {
+  background: linear-gradient(135deg, #0a97d9, #18b7eb) !important;
+}
+
+#main-content .bg-white,
+#main-content .bg-slate-50,
+#main-content .bg-gray-50,
+#main-content .bg-blue-50 {
+  background: linear-gradient(180deg, rgba(20, 31, 65, 0.96), rgba(14, 22, 47, 0.96)) !important;
+}
+
+#main-content .bg-primary .bg-white,
+#main-content .wire-convert .bg-white {
+  background: #ffffff !important;
+  color: #0b3f70 !important;
+}
+
+#main-content .border-slate-200,
+#main-content .border-gray-100,
+#main-content .border-blue-100,
+#main-content .border-slate-300,
+#main-content .border-gray-200 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+#main-content .border-dashed {
+  border-style: solid !important;
+  border-color: rgba(124, 199, 255, 0.28) !important;
+}
+
+#main-content .shadow-sm,
+#main-content .shadow-md,
+#main-content .shadow-lg,
+#main-content .shadow-xl {
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18) !important;
+}
+
+#main-content .section-label,
+#main-content .text-primary {
+  color: #7dbdff !important;
+}
+
+#main-content .text-slate-950,
+#main-content .text-gray-900,
+#main-content .text-slate-900 {
+  color: #f8fbff !important;
+}
+
+#main-content .text-slate-800,
+#main-content .text-slate-700,
+#main-content .text-gray-700 {
+  color: #d5def2 !important;
+}
+
+#main-content .text-slate-600,
+#main-content .text-gray-600,
+#main-content .text-slate-500,
+#main-content .text-gray-500 {
+  color: #96a4c4 !important;
+}
+
+#main-content a:not(.wire-btn):not(.wire-link) {
+  color: #8ecbff;
+}
+
+#main-content a:not(.wire-btn):not(.wire-link):hover {
+  color: #ffffff;
+}
+
+#main-content .rounded-lg,
+#main-content .rounded-xl,
+#main-content .rounded-2xl {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+#main-content .prose-content,
+#main-content .prose-content p,
+#main-content .prose-content li {
+  color: #c9d6f4;
+}
+
+#main-content .prose-content h1,
+#main-content .prose-content h2,
+#main-content .prose-content h3,
+#main-content .prose-content h4 {
+  color: #f8fbff;
+}
+
+#main-content .prose-content blockquote {
+  border-left-color: #2f8cff;
+  color: #dbeafe;
+}
+
+#main-content .prose-content code,
+#main-content .prose-content pre {
+  background: rgba(255, 255, 255, 0.08);
+  color: #eaf3ff;
+}
+
+#main-content input,
+#main-content textarea,
+#main-content select {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #f8fbff;
+}
+
+#main-content .line-clamp-2,
+#main-content .line-clamp-3 {
+  color: inherit;
+}
