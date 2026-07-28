@@ -39,12 +39,6 @@ describe('Public Astro pages', () => {
     expect(source).toContain('<h1');
   });
 
-  it('partners page composes partner content', () => {
-    const source = readSource('src/pages/partners.astro');
-    expect(source).toContain('BaseLayout');
-    expect(source).toContain('PartnerLogos');
-  });
-
   it('volunteer page uses the shared base layout', () => {
     const source = readSource('src/pages/volunteer.astro');
     expect(source).toContain('BaseLayout');

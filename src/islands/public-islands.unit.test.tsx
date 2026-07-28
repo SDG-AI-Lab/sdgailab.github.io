@@ -139,6 +139,26 @@ describe('public islands (unit)', () => {
     expect(container.textContent).toContain('Partner 10');
   });
 
+
+
+  it('PartnerLogos can render all partners in a pauseable homepage marquee', async () => {
+    queryMocks.getPublishedPartners.mockResolvedValue({
+      data: Array.from({ length: 10 }, (_, index) => ({
+        id: `partner-${index + 1}`,
+        name: `Partner ${index + 1}`,
+        logo_url: null,
+        website_url: `https://partner-${index + 1}.example`,
+        display_order: index + 1,
+      })),
+      error: null,
+    });
+
+    await render(<PartnerLogos variant="marquee" />);
+    expect(container.textContent).toContain('Partner 10');
+    expect(container.querySelector('.partner-marquee-track')).not.toBeNull();
+    expect(container.textContent).toContain('Partner 1');
+  });
+
   it('PageContent renders the empty-state message', async () => {
     await render(<PageContent pageSlug="about" sectionSlug="missing-section" />);
     expect(container.textContent).toContain('No content available yet.');

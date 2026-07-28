@@ -15,7 +15,6 @@ const publicRoutes = [
   '/resources/',
   '/news/',
   '/team/',
-  '/partners/',
   '/volunteer/',
   '/contact/',
 ] as const;
