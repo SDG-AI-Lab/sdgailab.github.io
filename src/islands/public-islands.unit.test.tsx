@@ -72,6 +72,28 @@ describe('public islands (unit)', () => {
     expect(container.textContent).toContain('Featured projects are being updated.');
   });
 
+
+
+  it('FeaturedProjects can limit homepage selected work display', async () => {
+    queryMocks.getFeaturedProjects.mockResolvedValue({
+      data: Array.from({ length: 5 }, (_, index) => ({
+        id: `project-${index + 1}`,
+        title: `Project ${index + 1}`,
+        slug: `project-${index + 1}`,
+        project_status: 'active',
+        is_deployed: false,
+        image_url: null,
+        display_order: index + 1,
+        summary: `Project ${index + 1} summary`,
+      })),
+      error: null,
+    });
+
+    await render(<FeaturedProjects limit={3} />);
+    expect(container.textContent).toContain('Project 3');
+    expect(container.textContent).not.toContain('Project 4');
+  });
+
   it('ProjectList renders an empty state when no projects exist', async () => {
     await render(<ProjectList />);
     expect(container.textContent).toContain('No published projects in this impact area yet.');

@@ -125,7 +125,7 @@ const publicationCards = [
           </div>
           <a href={withBase('/projects')} class="wire-btn">View all projects &rarr;</a>
         </div>
-        <FeaturedProjects client:load />
+        <FeaturedProjects client:load limit={3} />
       </section>
 
     <section class="wire-sec" aria-labelledby="case-study-heading">

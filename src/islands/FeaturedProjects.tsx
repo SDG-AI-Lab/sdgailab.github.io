@@ -3,7 +3,11 @@ import { getFeaturedProjects } from '../lib/queries';
 import type { FeaturedProjectCard } from '../lib/types';
 import ProjectCard from './components/ProjectCard';
 
-export default function FeaturedProjects() {
+interface FeaturedProjectsProps {
+  limit?: number;
+}
+
+export default function FeaturedProjects({ limit }: FeaturedProjectsProps) {
   const [projects, setProjects] = useState<FeaturedProjectCard[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -32,7 +36,7 @@ export default function FeaturedProjects() {
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => <ProjectCard key={project.id} project={project} />)}
+          {(limit ? projects.slice(0, limit) : projects).map((project) => <ProjectCard key={project.id} project={project} />)}
         </div>
       )}
     </div>
