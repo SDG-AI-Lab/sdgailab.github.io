@@ -115,10 +115,7 @@ export default function GeographicReach() {
         </svg>
         <div className="relative mt-4 flex flex-col gap-4 border-t border-white/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm font-semibold text-white">
-              {mappedCountries.length} mapped {mappedCountries.length === 1 ? 'entry' : 'entries'} from the current portfolio
-            </p>
-            <p className="mt-1 text-xs text-slate-300">Countries and territories represented in the current portfolio.</p>
+            <p className="text-sm font-semibold text-white">Countries and territories where the Lab has supported work</p>
           </div>
           <button
             type="button"

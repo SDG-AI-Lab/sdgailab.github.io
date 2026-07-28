@@ -19,10 +19,8 @@ describe('Header.astro source', () => {
   });
 
   it('links to the primary public sections', () => {
-    expect(source).toContain("label: 'Solutions'");
     expect(source).toContain("label: 'Projects'");
     expect(source).toContain("label: 'Services'");
-    expect(source).toContain("label: 'Impact'");
     expect(source).toContain("label: 'News'");
     expect(source).toContain("label: 'Contact'");
   });

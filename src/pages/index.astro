@@ -10,24 +10,6 @@ import GeographicReach from '../islands/GeographicReach';
 import NewsList from '../islands/NewsList';
 import { labServiceLines } from '../data/sampleContent';
 
-const solutionCards = [
-  {
-    title: 'Digital Social Vulnerability Index',
-    summary: 'Geospatial and machine-learning methods for identifying vulnerability patterns and prioritizing interventions.',
-    tags: ['GIS', 'Risk analysis', 'Decision support'],
-  },
-  {
-    title: 'Audit Recommendation Tracking Tool',
-    summary: 'Structured tracking for recommendations, action plans, evidence, verification and oversight reporting.',
-    tags: ['NLP', 'Workflow', 'Public institutions'],
-  },
-  {
-    title: 'Public Finance Simplification Platform',
-    summary: 'AI-assisted analysis and visualization to make public finance information easier to understand.',
-    tags: ['Public finance', 'Visualization', 'Transparency'],
-  },
-];
-
 const publicationCards = [
   ['Research notes', 'Methods, lessons and findings from applied AI and data-science work.'],
   ['Toolkits', 'Reusable templates, checklists and practical guidance for development teams.'],
@@ -53,8 +35,8 @@ const publicationCards = [
               <a href={withBase('/contact')} data-analytics-event="cta_click" data-analytics-category="homepage" data-analytics-label="Hero partner with us" class="wire-btn wire-btn-solid">
                 Partner with us
               </a>
-              <a href={withBase('/solutions')} data-analytics-event="cta_click" data-analytics-category="homepage" data-analytics-label="Hero explore solutions" class="wire-btn">
-                Explore solutions
+              <a href={withBase('/projects')} data-analytics-event="cta_click" data-analytics-category="homepage" data-analytics-label="Hero explore projects" class="wire-btn">
+                Explore projects
               </a>
             </div>
             <p class="wire-mini">Support areas: discovery, data readiness, AI prototyping, GIS, NLP, public finance tools, advisory, training and partnerships.</p>
@@ -79,40 +61,17 @@ const publicationCards = [
         <div class="wire-section-head">
           <div>
             <p class="wire-eyebrow">Impact</p>
-            <h2 id="impact-heading" class="wire-title wire-title-lg">Impact numbers connected to the portfolio</h2>
+            <h2 id="impact-heading" class="wire-title wire-title-lg">Impact at a glance</h2>
           </div>
-          <a href={withBase('/impact')} class="wire-link">View impact evidence &rarr;</a>
+          <a href={withBase('/about#impact')} class="wire-link">View impact evidence &rarr;</a>
         </div>
         <StatsCards client:load />
-      </section>
-
-    <section class="wire-sec wire-alt" aria-labelledby="solutions-heading">
-        <div class="wire-section-head">
-          <div>
-            <p class="wire-eyebrow">Solutions - reusable tools</p>
-            <h2 id="solutions-heading" class="wire-title wire-title-lg">Featured solutions</h2>
-          </div>
-          <a href={withBase('/solutions')} class="wire-btn">View all solutions &rarr;</a>
-        </div>
-        <div class="wire-grid wire-grid-3">
-          {solutionCards.map((solution) => (
-            <article class="wire-card">
-              <div class="wire-media">Screenshot</div>
-              <h3 class="wire-title wire-title-md">{solution.title}</h3>
-              <p class="wire-sub">{solution.summary}</p>
-              <div class="wire-tags">
-                {solution.tags.map((tag) => <span class="wire-tag">{tag}</span>)}
-              </div>
-            </article>
-          ))}
-        </div>
       </section>
 
     <section class="wire-sec" aria-labelledby="reach-heading">
         <p class="wire-eyebrow">Where we work</p>
         <h2 id="reach-heading" class="wire-title wire-title-lg">Geographic reach</h2>
         <div class="wire-map">
-          <div class="wire-map-label">Interactive map / country list</div>
           <GeographicReach client:load />
         </div>
       </section>

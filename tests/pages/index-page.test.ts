@@ -18,7 +18,7 @@ describe('index page source', () => {
   });
 
   it('includes accessible CTA links to projects and contact', () => {
-    expect(source).toContain("withBase('/solutions')");
+    expect(source).not.toContain("withBase('/solutions')");
     expect(source).toContain("withBase('/projects')");
     expect(source).toContain("withBase('/contact')");
     expect(source).toContain('focus-visible:ring-2');

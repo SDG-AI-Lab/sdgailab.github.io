@@ -72,13 +72,6 @@ describe('Public Astro pages', () => {
 
 
 
-  it('solutions page exposes reusable solution structure', () => {
-    const source = readSource('src/pages/solutions.astro');
-    expect(source).toContain('BaseLayout');
-    expect(source).toContain('Reusable tools, methods and product patterns');
-    expect(source).toContain('Responsible AI safeguards');
-  });
-
   it('services page exposes requestable support pathways', () => {
     const source = readSource('src/pages/services.astro');
     expect(source).toContain('BaseLayout');
@@ -86,11 +79,12 @@ describe('Public Astro pages', () => {
     expect(source).toContain('labServiceLines');
   });
 
-  it('impact page exposes the evidence and geographic layers', () => {
-    const source = readSource('src/pages/impact.astro');
-    expect(source).toContain('BaseLayout');
-    expect(source).toContain('Evidence, reach and learning');
-    expect(source).toContain('Geographic layer');
+  it('about page includes the merged impact and evolution sections', () => {
+    const source = readSource('src/pages/about.astro');
+    expect(source).toContain('Our evolution');
+    expect(source).toContain('Impact and evidence');
+    expect(source).toContain('Evidence model');
+    expect(source).toContain('StatsCards');
   });
 
   it('resources page exposes the knowledge hub and CTA links', () => {

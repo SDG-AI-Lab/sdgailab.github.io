@@ -5,12 +5,10 @@ const productionHost = 'https://sdgailab.org';
 const publicRoutes = [
   '/',
   '/about/',
-  '/solutions/',
   '/projects/',
   '/services/',
   '/research/',
   '/capacity-building/',
-  '/impact/',
   '/partnerships/',
   '/resources/',
   '/news/',
