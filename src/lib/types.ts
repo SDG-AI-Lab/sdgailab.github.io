@@ -42,6 +42,24 @@ export interface Project {
   timeline?: string;
   best_fit?: string[];
   core_capabilities?: string[];
+  problem?: string;
+  solution?: string;
+  how_it_works?: string[];
+  features?: string[];
+  tech_stack?: string[];
+  collaboration_network?: string;
+  implementation_countries?: string[];
+  resource_links?: string[];
+  video_url?: string;
+  media_caption?: string;
+  project_year?: number | null;
+  capabilities_involved?: string[];
+  reusable_components?: string;
+  current_client_segments?: string[];
+  future_client_segments?: string[];
+  business_model?: string;
+  project_category?: string;
+  work_stream?: string;
 }
 
 export interface NewsArticle {

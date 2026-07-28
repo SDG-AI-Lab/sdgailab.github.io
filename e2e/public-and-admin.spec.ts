@@ -6,9 +6,9 @@ test.describe('Public site', () => {
 
     await expect(page.getByRole('navigation', { name: 'Main navigation' })).toBeVisible();
     await expect(
-      page.getByRole('heading', { name: /Artificial Intelligence for/i })
+      page.getByRole('heading', { name: /Turning development challenges into/i })
     ).toBeVisible();
-    await expect(page.getByRole('link', { name: /Explore solutions and projects/i })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Explore solutions/i })).toBeVisible();
   });
 
   test('projects page is reachable from the homepage', async ({ page }) => {

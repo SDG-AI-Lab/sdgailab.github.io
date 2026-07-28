@@ -1,0 +1,83 @@
+---
+import { withBase } from '../lib/url';
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import PartnerLogos from '../islands/PartnerLogos';
+---
+
+<BaseLayout
+  title="Partnerships - SDG AI Lab"
+  description="Partnership pathways, collaboration models and partner network for SDG AI Lab."
+>
+  <section class="section-padding bg-white">
+    <div class="container-narrow">
+      <p class="section-label">Partnerships</p>
+      <h1 class="mt-3 max-w-4xl text-3xl font-bold text-slate-950 sm:text-5xl">
+        Collaboration models for responsible AI, data and digital development work
+      </h1>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+        Partnerships explain how the Lab works with institutions, technical teams, researchers, funders and implementation partners to move from shared priorities to useful outputs.
+      </p>
+
+      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        {[
+          ['Strategic partners', 'Organizations aligning long-term priorities, policy direction and development outcomes.'],
+          ['Technical partners', 'Teams contributing engineering, AI, product, design, GIS, data or security expertise.'],
+          ['Research collaborators', 'Academic, policy and learning partners supporting evidence and responsible methods.'],
+          ['Implementation partners', 'Country, regional and thematic teams adapting solutions in real operating contexts.'],
+        ].map(([title, body]) => (
+          <article class="rounded-xl border border-slate-200 bg-slate-50 p-6">
+            <h2 class="text-lg font-bold text-slate-950">{title}</h2>
+            <p class="mt-3 text-sm leading-6 text-slate-600">{body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-padding bg-slate-50" aria-labelledby="partnership-model-heading">
+    <div class="container-narrow grid gap-10 lg:grid-cols-[.85fr_1.15fr]">
+      <div>
+        <p class="section-label">Collaboration model</p>
+        <h2 id="partnership-model-heading" class="mt-3 text-3xl font-bold text-slate-950 sm:text-4xl">
+          What partnership pages should make explicit
+        </h2>
+        <p class="mt-4 leading-7 text-slate-600">
+          This area should help potential collaborators understand where they fit, what contribution is expected and how collaboration connects to projects, solutions and impact evidence.
+        </p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        {[
+          'Partner type and role',
+          'Contribution and expected value',
+          'Related solution, project or country context',
+          'Governance, data and responsible-use considerations',
+          'Success stories or collaboration examples',
+          'Clear pathway to become a partner',
+        ].map((item) => (
+          <div class="flex gap-3 rounded-lg border border-slate-200 bg-white p-4">
+            <span class="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-primary"></span>
+            <p class="text-sm font-semibold text-slate-700">{item}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-padding bg-white" aria-labelledby="partner-network-heading">
+    <div class="container-narrow">
+      <p class="section-label">Current network</p>
+      <h2 id="partner-network-heading" class="mt-3 text-3xl font-bold text-slate-950 sm:text-4xl">Partners and collaborators</h2>
+      <p class="mt-4 max-w-3xl leading-7 text-slate-600">
+        Approved partner logos and names can be managed through the CMS and displayed here.
+      </p>
+      <div class="mt-8">
+        <PartnerLogos client:load />
+      </div>
+      <div class="mt-8">
+        <a href={withBase('/contact')} class="inline-flex min-h-12 items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-bold text-white shadow transition hover:bg-primary-dark">
+          Start a partnership conversation
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

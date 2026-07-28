@@ -8,13 +8,27 @@ const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') || '';
 const navLinks = [
   { href: withBase('/'), label: 'Home' },
   { href: withBase('/about'), label: 'About' },
+  { href: withBase('/solutions'), label: 'Solutions' },
   { href: withBase('/projects'), label: 'Projects' },
+  { href: withBase('/services'), label: 'Services' },
+  { href: withBase('/impact'), label: 'Impact' },
   { href: withBase('/resources'), label: 'Resources' },
   { href: withBase('/news'), label: 'News' },
   { href: withBase('/team'), label: 'Team' },
   { href: withBase('/partners'), label: 'Partners' },
   { href: withBase('/volunteer'), label: 'Volunteer' },
   { href: withBase('/contact'), label: 'Contact' },
+];
+
+const desktopNavLinks = [
+  { href: withBase('/about'), label: 'About' },
+  { href: withBase('/solutions'), label: 'Solutions' },
+  { href: withBase('/projects'), label: 'Projects' },
+  { href: withBase('/services'), label: 'Services' },
+  { href: withBase('/research'), label: 'Research' },
+  { href: withBase('/capacity-building'), label: 'Capacity Building' },
+  { href: withBase('/impact'), label: 'Impact' },
+  { href: withBase('/partnerships'), label: 'Partnerships' },
 ];
 
 function isActive(href: string): boolean {
@@ -27,29 +41,29 @@ function isActive(href: string): boolean {
 ---
 
 <header
-  class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur"
+  class="sticky top-0 z-50 border-b border-white/10 bg-[#050a1a]/95 text-white backdrop-blur"
 >
   <nav
     aria-label="Main navigation"
-    class="container-narrow flex items-center justify-between py-3"
+    class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8"
   >
-    <a href={withBase('/')} class="flex items-center gap-3 text-primary">
+    <a href={withBase('/')} class="flex shrink-0 items-center gap-2 text-white">
       <!-- <span class="grid h-12 w-auto place-items-center" aria-hidden="true"> -->
       <img
         src={logo.src}
         width={logo.width}
         height={logo.height}
         alt="SDG AI Lab"
-        class="h-12 w-auto"
+        class="h-10 w-auto"
         decoding="async"
       />
       <!-- </span> -->
       <span>
-        <span class="block text-base font-bold leading-tight text-slate-950"
+        <span class="block text-sm font-bold leading-tight text-white xl:text-base"
           >SDG AI Lab</span
         >
         <span
-          class="block text-[10px] font-semibold uppercase tracking-wider text-slate-500"
+          class="hidden text-[10px] font-semibold uppercase tracking-wider text-slate-400 xl:block"
           >A UNDP initiative</span
         >
       </span>
@@ -58,15 +72,15 @@ function isActive(href: string): boolean {
     {/* Desktop navigation */}
     <ul class="hidden lg:flex items-center gap-1">
       {
-        navLinks.map((link) => (
+        desktopNavLinks.map((link) => (
           <li>
             <a
               href={link.href}
               class:list={[
-                'block rounded px-3 py-2 text-sm font-medium transition-colors',
+                'block rounded-full px-2.5 py-2 text-xs font-semibold transition-colors xl:px-3 xl:text-sm',
                 isActive(link.href)
-                  ? 'bg-primary-50 text-primary'
-                  : 'text-gray-700 hover:bg-gray-100 hover:text-primary',
+                  ? 'bg-blue-500 text-white'
+                  : 'text-slate-300 hover:bg-white/10 hover:text-white',
               ]}
               aria-current={isActive(link.href) ? 'page' : undefined}
             >
@@ -82,7 +96,7 @@ function isActive(href: string): boolean {
       data-analytics-event="cta_click"
       data-analytics-category="navigation"
       data-analytics-label="Header request support"
-      class="hidden min-h-11 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-primary-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 lg:inline-flex"
+      class="hidden min-h-11 shrink-0 items-center justify-center whitespace-nowrap rounded-md bg-blue-500 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-blue-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050a1a] lg:inline-flex"
     >
       Request support
     </a>
@@ -91,7 +105,7 @@ function isActive(href: string): boolean {
     <button
       type="button"
       id="mobile-menu-toggle"
-      class="inline-flex items-center justify-center rounded p-2 text-gray-700 hover:bg-gray-100 hover:text-primary lg:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      class="inline-flex items-center justify-center rounded p-2 text-slate-200 hover:bg-white/10 hover:text-white lg:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050a1a]"
       aria-expanded="false"
       aria-controls="mobile-menu"
       aria-label="Toggle navigation menu"
@@ -121,7 +135,7 @@ function isActive(href: string): boolean {
   {/* Mobile menu */}
   <div
     id="mobile-menu"
-    class="hidden border-t border-gray-200 bg-white lg:hidden"
+    class="hidden border-t border-white/10 bg-[#050a1a] lg:hidden"
   >
     <ul class="container-narrow space-y-1 py-3">
       {
@@ -132,8 +146,8 @@ function isActive(href: string): boolean {
               class:list={[
                 'block rounded px-3 py-2 text-sm font-medium transition-colors',
                 isActive(link.href)
-                  ? 'bg-primary-50 text-primary'
-                  : 'text-gray-700 hover:bg-gray-100 hover:text-primary',
+                  ? 'bg-blue-500 text-white'
+                  : 'text-slate-300 hover:bg-white/10 hover:text-white',
               ]}
               aria-current={isActive(link.href) ? 'page' : undefined}
             >
@@ -148,7 +162,7 @@ function isActive(href: string): boolean {
           data-analytics-event="cta_click"
           data-analytics-category="navigation"
           data-analytics-label="Mobile request support"
-          class="inline-flex min-h-11 w-full items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-primary-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          class="inline-flex min-h-11 w-full items-center justify-center rounded-md bg-blue-500 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-blue-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050a1a]"
         >
           Request support
         </a>

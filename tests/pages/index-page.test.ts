@@ -7,8 +7,8 @@ describe('index page source', () => {
 
   it('composes the public homepage with the base layout and hero', () => {
     expect(source).toContain('BaseLayout');
-    expect(source).toContain('ParticlesHero');
-    expect(source).toContain('Artificial Intelligence for');
+    expect(source).toContain('wire-hero');
+    expect(source).toContain('Turning development challenges into reusable AI and data solutions');
   });
 
   it('hydrates the featured public islands', () => {
@@ -18,6 +18,7 @@ describe('index page source', () => {
   });
 
   it('includes accessible CTA links to projects and contact', () => {
+    expect(source).toContain("withBase('/solutions')");
     expect(source).toContain("withBase('/projects')");
     expect(source).toContain("withBase('/contact')");
     expect(source).toContain('focus-visible:ring-2');

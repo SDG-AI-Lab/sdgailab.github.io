@@ -50,8 +50,26 @@ export interface ProjectInput {
   image_url?: string | null;
   impact_area?: string | null;
   timeline?: string | null;
+  project_year?: number | null;
+  work_stream?: string | null;
+  capabilities_involved?: string[];
+  reusable_components?: string | null;
+  current_client_segments?: string[];
+  future_client_segments?: string[];
+  business_model?: string | null;
+  project_category?: string | null;
   best_fit?: string[];
   core_capabilities?: string[];
+  problem?: string | null;
+  solution?: string | null;
+  how_it_works?: string[];
+  features?: string[];
+  tech_stack?: string[];
+  collaboration_network?: string | null;
+  implementation_countries?: string[];
+  resource_links?: string[];
+  video_url?: string | null;
+  media_caption?: string | null;
   sdgs?: number[];
   display_order: number;
   status: PublishStatus;
@@ -167,6 +185,15 @@ function assertNonNegativeInteger(value: unknown, field: string): number {
     throw new Error(`${field} must be a non-negative integer.`);
   }
   return value;
+}
+
+function normalizeOptionalPositiveInteger(value: unknown, field: string): number | null {
+  if (value == null || value === '') return null;
+  const numberValue = typeof value === 'number' ? value : Number(value);
+  if (!Number.isInteger(numberValue) || numberValue < 0) {
+    throw new Error(`${field} must be a non-negative integer.`);
+  }
+  return numberValue;
 }
 
 function assertStatus(value: unknown): PublishStatus {
@@ -307,8 +334,28 @@ function validateProjectInput(input: ProjectInput): ProjectInput {
     image_url: assertOptionalHttpUrl(input.image_url, 'Image URL'),
     impact_area: normalizeOptionalString(input.impact_area, 'Impact area'),
     timeline: normalizeOptionalString(input.timeline, 'Timeline'),
+    project_year: normalizeOptionalPositiveInteger(input.project_year, 'Project year'),
+    work_stream: normalizeOptionalString(input.work_stream, 'Work stream'),
+    capabilities_involved: normalizeStringArray(input.capabilities_involved, 'Capabilities involved'),
+    reusable_components: normalizeOptionalString(input.reusable_components, 'Reusable components'),
+    current_client_segments: normalizeStringArray(input.current_client_segments, 'Current client segments'),
+    future_client_segments: normalizeStringArray(input.future_client_segments, 'Future client segments'),
+    business_model: normalizeOptionalString(input.business_model, 'Business model'),
+    project_category: normalizeOptionalString(input.project_category, 'Project category'),
     best_fit: normalizeStringArray(input.best_fit, 'Best fit'),
     core_capabilities: normalizeStringArray(input.core_capabilities, 'Core capabilities'),
+    problem: normalizeOptionalString(input.problem, 'Problem'),
+    solution: normalizeOptionalString(input.solution, 'Solution'),
+    how_it_works: normalizeStringArray(input.how_it_works, 'How it works'),
+    features: normalizeStringArray(input.features, 'Features'),
+    tech_stack: normalizeStringArray(input.tech_stack, 'Tech stack'),
+    collaboration_network: normalizeOptionalString(input.collaboration_network, 'Collaboration / network'),
+    implementation_countries: normalizeStringArray(input.implementation_countries, 'Implementation countries'),
+    resource_links: normalizeStringArray(input.resource_links, 'Resource links').map((url) =>
+      assertOptionalHttpUrl(url, 'Resource link')!
+    ),
+    video_url: assertOptionalHttpUrl(input.video_url, 'Video URL'),
+    media_caption: normalizeOptionalString(input.media_caption, 'Media caption'),
     sdgs: normalizeSdgArray(input.sdgs),
     display_order: assertNonNegativeInteger(input.display_order, 'Display order'),
     status: assertStatus(input.status),

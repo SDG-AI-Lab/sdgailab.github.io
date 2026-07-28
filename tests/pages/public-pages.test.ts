@@ -76,6 +76,29 @@ describe('Public Astro pages', () => {
     expect(source).toContain('withBase');
   });
 
+
+
+  it('solutions page exposes reusable solution structure', () => {
+    const source = readSource('src/pages/solutions.astro');
+    expect(source).toContain('BaseLayout');
+    expect(source).toContain('Reusable tools, methods and product patterns');
+    expect(source).toContain('Responsible AI safeguards');
+  });
+
+  it('services page exposes requestable support pathways', () => {
+    const source = readSource('src/pages/services.astro');
+    expect(source).toContain('BaseLayout');
+    expect(source).toContain('Support pathways');
+    expect(source).toContain('labServiceLines');
+  });
+
+  it('impact page exposes the evidence and geographic layers', () => {
+    const source = readSource('src/pages/impact.astro');
+    expect(source).toContain('BaseLayout');
+    expect(source).toContain('Evidence, reach and learning');
+    expect(source).toContain('Geographic layer');
+  });
+
   it('resources page exposes the knowledge hub and CTA links', () => {
     const source = readSource('src/pages/resources.astro');
     expect(source).toContain('BaseLayout');
@@ -83,4 +106,26 @@ describe('Public Astro pages', () => {
     expect(source).toContain("withBase('/news')");
     expect(source).toContain("withBase('/projects')");
   });
+
+  it('research page exposes research and knowledge content', () => {
+    const source = readSource('src/pages/research.astro');
+    expect(source).toContain('Research & knowledge');
+    expect(source).toContain('reports, briefs, blogs');
+    expect(source).toContain("withBase('/resources')");
+  });
+
+  it('capacity building page exposes learning pathways, not volunteer-only content', () => {
+    const source = readSource('src/pages/capacity-building.astro');
+    expect(source).toContain('Capacity building');
+    expect(source).toContain('Training, mentorship');
+    expect(source).toContain("withBase('/volunteer')");
+  });
+
+  it('partnerships page exposes collaboration models and partner network content', () => {
+    const source = readSource('src/pages/partnerships.astro');
+    expect(source).toContain('Partnerships');
+    expect(source).toContain('Collaboration model');
+    expect(source).toContain('PartnerLogos');
+  });
+
 });

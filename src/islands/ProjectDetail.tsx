@@ -8,6 +8,42 @@ import StatusBadge from './components/StatusBadge';
 import ObservabilityBoundary from './components/ObservabilityBoundary';
 import { getSampleProject } from '../data/sampleContent';
 
+function getYouTubeEmbedUrl(url?: string | null) {
+  if (!url) return null;
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.replace(/^www\./, '');
+    let id = '';
+    if (host === 'youtu.be') {
+      id = parsed.pathname.replace(/^\//, '');
+    } else if (host === 'youtube.com' || host === 'youtube-nocookie.com') {
+      if (parsed.pathname.startsWith('/embed/')) id = parsed.pathname.split('/embed/')[1] ?? '';
+      else id = parsed.searchParams.get('v') ?? '';
+    }
+    const cleanId = id.split(/[?&#/]/)[0];
+    return cleanId ? `https://www.youtube-nocookie.com/embed/${cleanId}` : null;
+  } catch {
+    return null;
+  }
+}
+
+function ListBlock({ title, items }: { title: string; items?: string[] }) {
+  if (!items?.length) return null;
+  return (
+    <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+      <h2 className="text-base font-bold text-slate-950">{title}</h2>
+      <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700">
+        {items.map((item) => (
+          <li key={item} className="flex gap-2">
+            <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-primary" aria-hidden="true" />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 function ProjectDetailContent() {
   const [project, setProject] = useState<Project | null>(null);
   const [html, setHtml] = useState('');
@@ -69,8 +105,35 @@ function ProjectDetailContent() {
 
   const hasBestFit = Boolean(project.best_fit?.length);
   const hasCoreCapabilities = Boolean(project.core_capabilities?.length);
-  const hasPortfolioMeta = Boolean(project.timeline || hasBestFit || hasCoreCapabilities);
+  const hasCountries = Boolean(project.implementation_countries?.length);
+  const hasTechStack = Boolean(project.tech_stack?.length);
+  const hasResources = Boolean(project.resource_links?.length);
+  const hasCurrentClients = Boolean(project.current_client_segments?.length);
+  const hasFutureClients = Boolean(project.future_client_segments?.length);
+  const hasPortfolioMeta = Boolean(
+    project.project_year ||
+      project.timeline ||
+      project.work_stream ||
+      project.business_model ||
+      project.project_category ||
+      project.reusable_components ||
+      hasBestFit ||
+      hasCoreCapabilities ||
+      hasCountries ||
+      hasTechStack ||
+      hasCurrentClients ||
+      hasFutureClients ||
+      project.collaboration_network
+  );
   const deploymentLabel = project.deployment_status ?? (project.is_deployed ? 'live' : 'prototype');
+  const embedUrl = getYouTubeEmbedUrl(project.video_url);
+  const hasStructuredMain = Boolean(
+    project.problem ||
+      project.solution ||
+      project.how_it_works?.length ||
+      project.features?.length ||
+      project.video_url
+  );
 
   return (
     <article>
@@ -93,9 +156,7 @@ function ProjectDetailContent() {
           </div>
 
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">Project case study</p>
-          <h1 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">
-            {project.title}
-          </h1>
+          <h1 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">{project.title}</h1>
 
           {project.summary && <p className="mt-5 max-w-3xl text-xl leading-8 text-slate-600">{project.summary}</p>}
 
@@ -111,11 +172,7 @@ function ProjectDetailContent() {
 
         <div className="overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
           {project.image_url ? (
-            <img
-              src={project.image_url}
-              alt=""
-              className="aspect-video h-full w-full object-cover lg:aspect-auto"
-            />
+            <img src={project.image_url} alt="" className="aspect-video h-full w-full object-cover lg:aspect-auto" />
           ) : (
             <div className="flex h-full min-h-64 flex-col justify-between p-6">
               <div>
@@ -135,21 +192,111 @@ function ProjectDetailContent() {
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
-        <div
-          className="prose-content"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-start">
+        <div className="space-y-8">
+          {project.problem || project.solution ? (
+            <section className="grid gap-5 md:grid-cols-2">
+              {project.problem && (
+                <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <p className="text-sm font-bold uppercase tracking-[0.16em] text-primary">Problem</p>
+                  <p className="mt-3 text-base leading-7 text-slate-700">{project.problem}</p>
+                </div>
+              )}
+              {project.solution && (
+                <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <p className="text-sm font-bold uppercase tracking-[0.16em] text-primary">Solution</p>
+                  <p className="mt-3 text-base leading-7 text-slate-700">{project.solution}</p>
+                </div>
+              )}
+            </section>
+          ) : null}
+
+          <ListBlock title="How it works" items={project.how_it_works} />
+          <ListBlock title="Key features" items={project.features} />
+
+          {project.video_url ? (
+            <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+              <h2 className="text-base font-bold text-slate-950">Video / media</h2>
+              {embedUrl ? (
+                <iframe
+                  className="mt-4 aspect-video w-full rounded-lg border border-slate-200"
+                  src={embedUrl}
+                  title={`${project.title} video`}
+                  loading="lazy"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              ) : (
+                <a href={project.video_url} target="_blank" rel="noreferrer" className="mt-4 inline-flex font-semibold text-primary hover:underline">
+                  Open approved media
+                </a>
+              )}
+              {project.media_caption && <p className="mt-3 text-sm leading-6 text-slate-600">{project.media_caption}</p>}
+            </section>
+          ) : null}
+
+          {hasStructuredMain ? (
+            <section>
+              <h2 className="mb-4 text-xl font-bold text-slate-950">Additional context</h2>
+              <div className="prose-content" dangerouslySetInnerHTML={{ __html: html }} />
+            </section>
+          ) : (
+            <div className="prose-content" dangerouslySetInnerHTML={{ __html: html }} />
+          )}
+        </div>
 
         <aside className="rounded-xl border border-slate-200 bg-slate-50 p-5">
           {hasPortfolioMeta && (
             <div className="mb-6 space-y-4 border-b border-slate-200 pb-6">
+              {project.project_year ? (
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">Year</h2>
+                  <p className="mt-1 text-sm font-semibold text-slate-800">{project.project_year}</p>
+                </div>
+              ) : null}
               {project.timeline && (
                 <div>
-                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">Typical timeline</h2>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">Indicative lead time</h2>
                   <p className="mt-1 text-sm font-semibold text-slate-800">{project.timeline}</p>
                 </div>
               )}
+              {project.work_stream ? (
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">Work stream</h2>
+                  <p className="mt-1 text-sm font-semibold text-slate-800">{project.work_stream}</p>
+                </div>
+              ) : null}
+              {project.business_model || project.project_category ? (
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">Delivery model</h2>
+                  {project.business_model && <p className="mt-1 text-sm font-semibold text-slate-800">{project.business_model}</p>}
+                  {project.project_category && <p className="mt-1 text-sm text-slate-700">{project.project_category}</p>}
+                </div>
+              ) : null}
+              {hasCountries ? (
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">Implementation countries</h2>
+                  <ul className="mt-2 space-y-1 text-sm text-slate-700">
+                    {project.implementation_countries!.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                </div>
+              ) : null}
+              {hasCurrentClients ? (
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">Current client segments</h2>
+                  <ul className="mt-2 space-y-1 text-sm text-slate-700">
+                    {project.current_client_segments!.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                </div>
+              ) : null}
+              {hasFutureClients ? (
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">Future addressable segments</h2>
+                  <ul className="mt-2 space-y-1 text-sm text-slate-700">
+                    {project.future_client_segments!.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                </div>
+              ) : null}
               {hasBestFit ? (
                 <div>
                   <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">Best fit for</h2>
@@ -166,18 +313,52 @@ function ProjectDetailContent() {
                   </ul>
                 </div>
               ) : null}
+              {hasTechStack ? (
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">Tech stack</h2>
+                  <ul className="mt-2 space-y-1 text-sm text-slate-700">
+                    {project.tech_stack!.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                </div>
+              ) : null}
+              {project.reusable_components ? (
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">Scalability / reusable components</h2>
+                  <p className="mt-2 text-sm leading-6 text-slate-700">{project.reusable_components}</p>
+                </div>
+              ) : null}
+              {project.collaboration_network ? (
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">Collaboration / network</h2>
+                  <p className="mt-2 text-sm leading-6 text-slate-700">{project.collaboration_network}</p>
+                </div>
+              ) : null}
+              {hasResources ? (
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">Downloads / resources</h2>
+                  <ul className="mt-2 space-y-1 text-sm text-slate-700">
+                    {project.resource_links!.map((item, index) => (
+                      <li key={item}>
+                        <a href={item} target="_blank" rel="noreferrer" className="font-semibold text-primary hover:underline">
+                          Resource {index + 1}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
             </div>
           )}
-          <h2 className="text-base font-bold text-slate-950">How to assess this work</h2>
+          <h2 className="text-base font-bold text-slate-950">Project information model</h2>
           <p className="mt-2 text-sm leading-6 text-slate-600">
-            Each project profile is organized around the information partners need before reuse, adaptation or follow-up.
+            Project profiles are structured around the information needed for reuse, adaptation and follow-up.
           </p>
           <ul className="mt-4 space-y-3 text-sm text-slate-700">
-            <li><strong>Problem:</strong> what development need the work responds to</li>
-            <li><strong>Approach:</strong> method, prototype, product or advisory support</li>
-            <li><strong>Status:</strong> maturity, implementation stage and next step</li>
-            <li><strong>Evidence:</strong> results, limitations and lessons where available</li>
-            <li><strong>Reuse:</strong> resources, documentation or support pathways</li>
+            <li><strong>Problem:</strong> the development need</li>
+            <li><strong>Solution:</strong> the product, prototype or support delivered</li>
+            <li><strong>How it works:</strong> the delivery or user flow</li>
+            <li><strong>Evidence:</strong> media, resources or implementation context</li>
+            <li><strong>Reuse:</strong> tech stack, capabilities and support pathways</li>
           </ul>
           <a href={withBase('/contact')} data-analytics-event="cta_click" data-analytics-category="project_detail" data-analytics-label={`Ask about this work: ${project.title}`} className="mt-6 inline-flex min-h-11 w-full items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-bold text-white transition hover:bg-primary-dark">
             Ask about this work

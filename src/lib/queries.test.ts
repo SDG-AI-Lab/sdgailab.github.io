@@ -61,6 +61,32 @@ describe('queries', () => {
     expect(builder.order).toHaveBeenCalledWith('display_order', { ascending: true });
   });
 
+
+  it('falls back to published project cards when no projects are marked featured', async () => {
+    const featuredBuilder = createCollectionBuilder([]);
+    const publishedBuilder = createCollectionBuilder([
+      { id: 'p1', title: 'Project One' },
+      { id: 'p2', title: 'Project Two' },
+      { id: 'p3', title: 'Project Three' },
+      { id: 'p4', title: 'Project Four' },
+    ]);
+    const fromMock = vi.fn().mockReturnValueOnce(featuredBuilder).mockReturnValueOnce(publishedBuilder);
+    getSupabaseMock.mockReturnValue({ from: fromMock });
+    const { getFeaturedProjects } = await loadQueriesModule(true);
+
+    const result = await getFeaturedProjects();
+
+    expect(result.error).toBeNull();
+    expect(result.data).toEqual([
+      { id: 'p1', title: 'Project One' },
+      { id: 'p2', title: 'Project Two' },
+      { id: 'p3', title: 'Project Three' },
+    ]);
+    expect(fromMock).toHaveBeenCalledTimes(2);
+    expect(featuredBuilder.eq).toHaveBeenNthCalledWith(2, 'is_featured', true);
+    expect(publishedBuilder.eq).toHaveBeenCalledWith('status', 'published');
+  });
+
   it('returns project lookup errors cleanly', async () => {
     const builder = createSingleBuilder(null, { message: 'row level security denied' });
     getSupabaseMock.mockReturnValue({

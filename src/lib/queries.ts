@@ -32,15 +32,28 @@ export async function getFeaturedProjects(): Promise<{
   error: string | null;
 }> {
   if (!isSupabaseConfigured) return { data: [], error: null };
+
+  const projectCardSelect =
+    'id, title, slug, project_status, is_deployed, image_url, display_order, summary, deployment_status, impact_area, timeline, best_fit, core_capabilities, sdgs';
+
   const { data, error } = await getSupabase()
     .from('projects')
-    .select('id, title, slug, project_status, is_deployed, image_url, display_order, summary, deployment_status, impact_area, timeline, best_fit, core_capabilities, sdgs')
+    .select(projectCardSelect)
     .eq('status', 'published')
     .eq('is_featured', true)
     .order('display_order', { ascending: true });
 
   if (error) return { data: [], error: error.message };
-  return { data: data as FeaturedProjectCard[], error: null };
+  if (data && data.length > 0) return { data: data as FeaturedProjectCard[], error: null };
+
+  const { data: publishedData, error: publishedError } = await getSupabase()
+    .from('projects')
+    .select(projectCardSelect)
+    .eq('status', 'published')
+    .order('display_order', { ascending: true });
+
+  if (publishedError) return { data: [], error: publishedError.message };
+  return { data: (publishedData ?? []).slice(0, 3) as FeaturedProjectCard[], error: null };
 }
 
 export async function getPublishedProjects(): Promise<{
