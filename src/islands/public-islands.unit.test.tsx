@@ -67,9 +67,9 @@ describe('public islands (unit)', () => {
     expect(container.textContent).toContain('Impact areas');
   });
 
-  it('FeaturedProjects renders an approval empty state when no featured projects exist', async () => {
+  it('FeaturedProjects renders a visitor-facing empty state when no featured projects exist', async () => {
     await render(<FeaturedProjects />);
-    expect(container.textContent).toContain('Featured projects will appear here once approved.');
+    expect(container.textContent).toContain('Featured projects are being updated.');
   });
 
   it('ProjectList renders an empty state when no projects exist', async () => {
@@ -77,9 +77,9 @@ describe('public islands (unit)', () => {
     expect(container.textContent).toContain('No published projects in this impact area yet.');
   });
 
-  it('NewsList renders an approval empty state when no news exists', async () => {
+  it('NewsList renders a visitor-facing empty state when no news exists', async () => {
     await render(<NewsList />);
-    expect(container.textContent).toContain('News and publications will appear here once approved.');
+    expect(container.textContent).toContain('News and publications are being updated.');
   });
 
   it('PeopleGrid renders the team empty state', async () => {
@@ -90,6 +90,31 @@ describe('public islands (unit)', () => {
   it('PartnerLogos renders sample partner names', async () => {
     await render(<PartnerLogos />);
     expect(container.textContent).toContain('UNDP');
+  });
+
+
+
+  it('PartnerLogos can limit homepage display while showing all partners elsewhere', async () => {
+    queryMocks.getPublishedPartners.mockResolvedValue({
+      data: Array.from({ length: 10 }, (_, index) => ({
+        id: `partner-${index + 1}`,
+        name: `Partner ${index + 1}`,
+        logo_url: null,
+        website_url: `https://partner-${index + 1}.example`,
+        display_order: index + 1,
+      })),
+      error: null,
+    });
+
+    await render(<PartnerLogos limit={8} />);
+    expect(container.textContent).toContain('Partner 8');
+    expect(container.textContent).not.toContain('Partner 9');
+
+    act(() => root.unmount());
+    root = createRoot(container);
+
+    await render(<PartnerLogos />);
+    expect(container.textContent).toContain('Partner 10');
   });
 
   it('PageContent renders the empty-state message', async () => {

@@ -6,6 +6,7 @@ import SDGWheel from '../components/ui/SDGWheel.astro';
 import StatsCards from '../islands/StatsCards';
 import FeaturedProjects from '../islands/FeaturedProjects';
 import PartnerLogos from '../islands/PartnerLogos';
+import GeographicReach from '../islands/GeographicReach';
 import NewsList from '../islands/NewsList';
 import { labServiceLines } from '../data/sampleContent';
 
@@ -25,17 +26,6 @@ const solutionCards = [
     summary: 'AI-assisted analysis and visualization to make public finance information easier to understand.',
     tags: ['Public finance', 'Visualization', 'Transparency'],
   },
-];
-
-const implementationCountries = [
-  'Kazakhstan',
-  'Guinea',
-  'Kyrgyzstan',
-  'Ecuador',
-  'Fiji',
-  'Solomon Islands',
-  'Palau',
-  'Cook Islands',
 ];
 
 const publicationCards = [
@@ -123,9 +113,7 @@ const publicationCards = [
         <h2 id="reach-heading" class="wire-title wire-title-lg">Geographic reach</h2>
         <div class="wire-map">
           <div class="wire-map-label">Interactive map / country list</div>
-          <div class="wire-country-grid">
-            {implementationCountries.map((country) => <span>{country}</span>)}
-          </div>
+          <GeographicReach client:load />
         </div>
       </section>
 
@@ -155,7 +143,7 @@ const publicationCards = [
     <section class="wire-sec wire-alt" aria-labelledby="partners-heading">
         <p class="wire-eyebrow">Working across the ecosystem</p>
         <h2 id="partners-heading" class="wire-title wire-title-lg">Partners and network</h2>
-        <PartnerLogos client:load />
+        <PartnerLogos client:load limit={8} />
       </section>
 
     <section class="wire-sec" aria-labelledby="services-heading">

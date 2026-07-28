@@ -177,9 +177,9 @@ function ProjectDetailContent() {
             <div className="flex h-full min-h-64 flex-col justify-between p-6">
               <div>
                 <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Visual evidence</p>
-                <h2 className="mt-3 text-xl font-bold text-slate-950">Screenshots, maps or diagrams can be added here</h2>
+                <h2 className="mt-3 text-xl font-bold text-slate-950">Visual context for the solution</h2>
                 <p className="mt-3 text-sm leading-6 text-slate-600">
-                  Project pages are structured to support product visuals once approved material is available.
+                  Screenshots, maps or diagrams help explain the solution context, workflow and results.
                 </p>
               </div>
               <div className="mt-6 grid grid-cols-3 gap-2" aria-hidden="true">
@@ -228,7 +228,7 @@ function ProjectDetailContent() {
                 />
               ) : (
                 <a href={project.video_url} target="_blank" rel="noreferrer" className="mt-4 inline-flex font-semibold text-primary hover:underline">
-                  Open approved media
+                  Open media
                 </a>
               )}
               {project.media_caption && <p className="mt-3 text-sm leading-6 text-slate-600">{project.media_caption}</p>}

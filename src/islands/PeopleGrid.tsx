@@ -166,7 +166,7 @@ function PeopleGridContent({ groupType }: PeopleGridProps) {
     <div>
       {error && (
         <p className="mb-5 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">
-          Live team data is temporarily unavailable. Showing the current team structure for review.
+          Team information is currently being refreshed.
         </p>
       )}
 

@@ -25,6 +25,8 @@ const PeopleListPage = lazy(() => import('./people/PeopleListPage'));
 const PersonFormPage = lazy(() => import('./people/PersonFormPage'));
 const PartnersListPage = lazy(() => import('./partners/PartnersListPage'));
 const PartnerFormPage = lazy(() => import('./partners/PartnerFormPage'));
+const GeographicReachListPage = lazy(() => import('./geographic-reach/GeographicReachListPage'));
+const GeographicReachFormPage = lazy(() => import('./geographic-reach/GeographicReachFormPage'));
 const PageContentListPage = lazy(() => import('./page-content/PageContentListPage'));
 const PageContentFormPage = lazy(() => import('./page-content/PageContentFormPage'));
 
@@ -166,6 +168,12 @@ function matchRoute(path: string, id: string | null): React.ReactNode {
       return <PartnerFormPage />;
     case '/partners/edit':
       return <PartnerFormPage id={id} />;
+    case '/geographic-reach':
+      return <GeographicReachListPage />;
+    case '/geographic-reach/new':
+      return <GeographicReachFormPage />;
+    case '/geographic-reach/edit':
+      return <GeographicReachFormPage id={id} />;
     case '/page-content':
       return <PageContentListPage />;
     case '/page-content/new':

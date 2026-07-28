@@ -3,7 +3,11 @@ import { getPublishedPartners } from '../lib/queries';
 import type { PartnerLogo } from '../lib/types';
 import { samplePartners } from '../data/sampleContent';
 
-export default function PartnerLogos() {
+interface PartnerLogosProps {
+  limit?: number;
+}
+
+export default function PartnerLogos({ limit }: PartnerLogosProps) {
   const [partners, setPartners] = useState<PartnerLogo[]>(samplePartners);
   const [error, setError] = useState<string | null>(null);
 
@@ -18,7 +22,7 @@ export default function PartnerLogos() {
     <div>
       {error && <p className="sr-only">Live partner data is unavailable; showing a representative partner list.</p>}
       <div className="grid grid-cols-2 items-stretch gap-3 md:grid-cols-4">
-        {partners.slice(0, 8).map((partner) => (
+        {(limit ? partners.slice(0, limit) : partners).map((partner) => (
         <a
           key={partner.id}
           href={partner.website_url}
