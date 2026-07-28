@@ -165,20 +165,14 @@ const publicationCards = [
       </section>
 
     <section class="wire-sec wire-alt" aria-labelledby="news-heading">
-        <div class="wire-grid wire-grid-2">
-          <div>
-            <p class="wire-eyebrow">Upcoming events</p>
-            <article class="wire-card wire-card-compact">
-              <h2 id="news-heading" class="wire-title wire-title-md">Events</h2>
-              <p class="wire-sub">Demo sessions, public webinars and launch moments can be published as the public calendar grows.</p>
-              <a href={withBase('/news')} class="wire-btn">View updates</a>
-            </article>
-          </div>
+        <div class="wire-section-head">
           <div>
             <p class="wire-eyebrow">Latest news</p>
-            <NewsList client:load />
+            <h2 id="news-heading" class="wire-title wire-title-lg">News and updates</h2>
           </div>
+          <a href={withBase('/news')} class="wire-btn">View all news &rarr;</a>
         </div>
+        <NewsList client:load />
       </section>
 
     <section class="wire-sec" aria-labelledby="publications-heading">
