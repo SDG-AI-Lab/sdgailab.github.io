@@ -40,10 +40,11 @@ describe('Header.astro (unit)', () => {
 describe('Footer.astro (unit)', () => {
   const source = readSource('src/components/layout/Footer.astro');
 
-  it('declares quick links and connect sections', () => {
+  it('declares essential links and connect sections', () => {
     expect(source).toContain('<footer');
-    expect(source).toContain('Quick Links');
-    expect(source).toContain("label: 'Resources'");
+    expect(source).toContain('Explore');
+    expect(source).toContain("label: 'Services'");
+    expect(source).toContain('https://www.linkedin.com/company/sdgailab');
     expect(source).toContain('mailto:sdgailab@undp.org');
   });
 

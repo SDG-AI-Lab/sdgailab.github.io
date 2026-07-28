@@ -34,10 +34,10 @@ describe('Astro UI components', () => {
 });
 
 describe('Astro layout and section components', () => {
-  it('Footer includes quick links and branding', () => {
+  it('Footer includes essential links and branding', () => {
     const source = readSource('src/components/layout/Footer.astro');
     expect(source).toContain('<footer');
-    expect(source).toContain('Quick Links');
+    expect(source).toContain('Explore');
     expect(source).toContain("label: 'Contact'");
   });
 
