@@ -15,7 +15,44 @@ interface ProjectFormPageProps {
   id?: string | null;
 }
 
-const defaultValues = {
+interface ProjectFormValues {
+  title: string;
+  slug: string;
+  summary: string;
+  description: string;
+  project_status: ProjectStatus;
+  deployment_status: DeploymentStatus;
+  is_deployed: boolean;
+  is_featured: boolean;
+  image_url: string | null;
+  impact_area: string;
+  timeline: string;
+  project_year: number | '';
+  work_stream: string;
+  capabilities_involved: string[];
+  reusable_components: string;
+  current_client_segments: string[];
+  future_client_segments: string[];
+  business_model: string;
+  project_category: string;
+  best_fit: string[];
+  core_capabilities: string[];
+  problem: string;
+  solution: string;
+  how_it_works: string[];
+  features: string[];
+  tech_stack: string[];
+  collaboration_network: string;
+  implementation_countries: string[];
+  resource_links: string[];
+  video_url: string;
+  media_caption: string;
+  sdgs: number[];
+  display_order: number;
+  status: PublishStatus;
+}
+
+const defaultValues: ProjectFormValues = {
   title: '',
   slug: '',
   summary: '',
@@ -105,7 +142,7 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
         return;
       }
       if (data) {
-        const v = {
+        const v: ProjectFormValues = {
           title: data.title,
           slug: data.slug,
           summary: data.summary ?? '',
@@ -117,7 +154,7 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
           image_url: data.image_url,
           impact_area: data.impact_area ?? '',
           timeline: data.timeline ?? '',
-          project_year: data.project_year ?? '',
+          project_year: typeof data.project_year === 'number' ? data.project_year : '',
           work_stream: data.work_stream ?? '',
           capabilities_involved: data.capabilities_involved ?? [],
           reusable_components: data.reusable_components ?? '',
