@@ -1,16 +1,106 @@
 ---
+import { withBase } from '../lib/url';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import PeopleGrid from '../islands/PeopleGrid';
+
+const workSteps = [
+  ['Business Understanding', 'Clarify the development challenge, users, constraints and expected value.'],
+  ['Team Building', 'Bring together domain, data, AI and delivery expertise.'],
+  ['Product Planning', 'Define scope, backlog and delivery priorities.'],
+  ['Bi-weekly Sprints', 'Plan, build, review and adjust in focused cycles.'],
+  ['Implementation', 'Build, test and refine the solution.'],
+  ['Delivery', 'Package outputs for handover and reuse.'],
+];
+
+const volunteerHighlights = [
+  ['Contribute technical skills', 'Support data analysis, responsible AI review, prototyping, documentation or open-source implementation.'],
+  ['Work with real development needs', 'Case studies should capture what worked, what did not and what can be reused by other teams.'],
+  ['Leave reusable knowledge', 'Where possible, contributions should result in documented methods, lessons, tools or resources that others can build on.'],
+];
 ---
 
-<BaseLayout title="Team - SDG AI Lab">
-  <section class="section-padding">
-    <div class="container-narrow">
-      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Our Team</h1>
-      <p class="text-lg text-gray-600 mb-8">
-        Meet the people driving AI innovation for sustainable development.
-      </p>
-      <PeopleGrid client:load groupType="team" />
-    </div>
-  </section>
+<BaseLayout
+  title="Team - SDG AI Lab"
+  description="Meet the SDG AI Lab team and learn how the Lab works with collaborators and volunteers."
+>
+  <main class="bg-[#050a1a] text-white">
+    <section class="section-padding bg-[#050a1a]">
+      <div class="container-narrow">
+        <p class="text-sm font-bold uppercase tracking-[0.22em] text-blue-300">People</p>
+        <h1 class="mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl">Our Team</h1>
+        <p class="mt-4 max-w-3xl text-lg leading-8 text-slate-300">
+          Meet the people driving AI innovation for sustainable development.
+        </p>
+        <div class="mt-10">
+          <PeopleGrid client:load groupType="team" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding bg-[#071126]" aria-labelledby="work-heading">
+      <div class="container-narrow">
+        <div class="mx-auto max-w-4xl text-center">
+          <p class="text-sm font-bold uppercase tracking-[0.22em] text-blue-300">How we work</p>
+          <h2 id="work-heading" class="mt-4 text-3xl font-extrabold tracking-tight sm:text-5xl">
+            Agile software development, aligned with UNDP best practices and enhanced by AI
+          </h2>
+          <p class="mx-auto mt-5 max-w-3xl text-sm leading-7 text-slate-300">
+            The Lab works through structured discovery, planning, implementation and delivery cycles, with bi-weekly sprints at the center of the process.
+          </p>
+        </div>
+
+        <div class="mx-auto mt-10 max-w-6xl rounded-3xl border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-slate-950/30 sm:p-7">
+          <div class="grid gap-4 md:grid-cols-3 xl:grid-cols-6">
+            {workSteps.map(([title, body], index) => (
+              <article class:list={[
+                'rounded-2xl border bg-white/[0.05] p-5',
+                index === 3 ? 'border-blue-400 bg-blue-500/10' : 'border-white/10',
+              ]}>
+                <span class="text-xs font-extrabold text-blue-300">{String(index + 1).padStart(2, '0')}</span>
+                <h3 class="mt-4 text-base font-bold text-white">{title}</h3>
+                <p class="mt-3 text-xs leading-6 text-slate-300">{body}</p>
+              </article>
+            ))}
+          </div>
+          <div class="mt-5 grid gap-3 md:grid-cols-3">
+            <div class="rounded-xl border border-emerald-400/35 bg-emerald-400/10 px-4 py-3 text-center text-xs font-bold text-emerald-100">Sprint Planning</div>
+            <div class="rounded-xl border border-blue-400/35 bg-blue-400/10 px-4 py-3 text-center text-xs font-bold text-blue-100">Bi-weekly sprint cycle</div>
+            <div class="rounded-xl border border-emerald-400/35 bg-emerald-400/10 px-4 py-3 text-center text-xs font-bold text-emerald-100">Review</div>
+          </div>
+          <div class="mt-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-center text-xs font-bold text-slate-200">
+            Continuous Integration &amp; Deployment
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding bg-[#050a1a]" aria-labelledby="volunteer-heading">
+      <div class="container-narrow">
+        <p class="text-sm font-bold uppercase tracking-[0.22em] text-blue-300">Volunteer data scientist initiative</p>
+        <h2 id="volunteer-heading" class="mt-4 text-3xl font-extrabold tracking-tight sm:text-5xl">Join the Lab's contributor network</h2>
+        <p class="mt-5 max-w-4xl text-sm leading-7 text-slate-300">
+          The UNV-ICPSD Digital Transformation Partnership brings together volunteer data scientists from around the world to contribute to sustainable development through AI and machine learning. Volunteers work on real-world projects that support UNDP's mission.
+        </p>
+
+        <div class="mt-8 grid gap-4 rounded-2xl border border-white/10 bg-white/[0.05] p-5 md:grid-cols-3">
+          {volunteerHighlights.map(([title, body]) => (
+            <article class="rounded-xl bg-white/[0.04] p-5">
+              <h3 class="text-sm font-bold text-white">{title}</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">{body}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="mt-8 rounded-2xl bg-sky-500 p-6 text-white shadow-lg shadow-sky-950/20 sm:flex sm:items-center sm:justify-between sm:gap-6">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.18em] text-sky-100">Work with us</p>
+            <h3 class="mt-2 text-2xl font-extrabold">Want to join our team as a volunteer?</h3>
+          </div>
+          <a href={withBase('/volunteer')} class="mt-5 inline-flex min-h-12 items-center justify-center rounded-md bg-white px-8 py-3 text-sm font-bold text-sky-700 shadow transition hover:bg-sky-50 sm:mt-0">
+            Apply
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
 </BaseLayout>

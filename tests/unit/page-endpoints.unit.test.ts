@@ -36,6 +36,7 @@ describe('Page endpoints', () => {
       'https://sdgailab.org/',
       'https://sdgailab.org/about/',
       'https://sdgailab.org/projects/',
+      'https://sdgailab.org/tech4r/',
       'https://sdgailab.org/resources/',
       'https://sdgailab.org/news/',
       'https://sdgailab.org/team/',

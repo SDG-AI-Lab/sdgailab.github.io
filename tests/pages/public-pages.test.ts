@@ -19,6 +19,15 @@ describe('Public Astro pages', () => {
     expect(source).toContain('BaseLayout');
     expect(source).toContain('ProjectList');
     expect(source).toContain('client:load');
+    expect(source).toContain("withBase('/tech4r')");
+  });
+
+  it('tech4r page presents the featured resilience initiative', () => {
+    const source = readSource('src/pages/tech4r.astro');
+    expect(source).toContain('Tech4R: Technology for Rescue, Response, Recovery and Resilience');
+    expect(source).toContain('Software planning and design');
+    expect(source).toContain('Ecosystem facilitation');
+    expect(source).toContain('https://tech4r.org/');
   });
 
   it('team page composes the PeopleGrid island', () => {
