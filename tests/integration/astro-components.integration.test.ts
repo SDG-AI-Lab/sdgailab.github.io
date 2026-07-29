@@ -49,9 +49,9 @@ describe('Footer.astro integration', () => {
   const footer = readSource('src/components/layout/Footer.astro');
   const baseLayout = readSource('src/components/layout/BaseLayout.astro');
 
-  it('is mounted by BaseLayout with quick links and branding', () => {
+  it('is mounted by BaseLayout with essential links and branding', () => {
     expect(baseLayout).toContain('<Footer />');
-    expect(footer).toContain('Quick Links');
+    expect(footer).toContain('Explore');
     expect(footer).toContain("label: 'Contact'");
   });
 });

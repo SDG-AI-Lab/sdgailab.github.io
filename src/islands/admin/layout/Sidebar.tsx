@@ -10,6 +10,7 @@ const navItems = [
   { label: 'News', href: '#/news' },
   { label: 'People', href: '#/people' },
   { label: 'Partners', href: '#/partners' },
+  { label: 'Geographic Reach', href: '#/geographic-reach' },
   { label: 'Page Content', href: '#/page-content' },
 ] as const;
 

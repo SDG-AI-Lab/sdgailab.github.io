@@ -67,9 +67,31 @@ describe('public islands (unit)', () => {
     expect(container.textContent).toContain('Impact areas');
   });
 
-  it('FeaturedProjects renders an approval empty state when no featured projects exist', async () => {
+  it('FeaturedProjects renders a visitor-facing empty state when no featured projects exist', async () => {
     await render(<FeaturedProjects />);
-    expect(container.textContent).toContain('Featured projects will appear here once approved.');
+    expect(container.textContent).toContain('Featured projects are being updated.');
+  });
+
+
+
+  it('FeaturedProjects can limit homepage selected work display', async () => {
+    queryMocks.getFeaturedProjects.mockResolvedValue({
+      data: Array.from({ length: 5 }, (_, index) => ({
+        id: `project-${index + 1}`,
+        title: `Project ${index + 1}`,
+        slug: `project-${index + 1}`,
+        project_status: 'active',
+        is_deployed: false,
+        image_url: null,
+        display_order: index + 1,
+        summary: `Project ${index + 1} summary`,
+      })),
+      error: null,
+    });
+
+    await render(<FeaturedProjects limit={3} />);
+    expect(container.textContent).toContain('Project 3');
+    expect(container.textContent).not.toContain('Project 4');
   });
 
   it('ProjectList renders an empty state when no projects exist', async () => {
@@ -77,9 +99,9 @@ describe('public islands (unit)', () => {
     expect(container.textContent).toContain('No published projects in this impact area yet.');
   });
 
-  it('NewsList renders an approval empty state when no news exists', async () => {
+  it('NewsList renders a visitor-facing empty state when no news exists', async () => {
     await render(<NewsList />);
-    expect(container.textContent).toContain('News and publications will appear here once approved.');
+    expect(container.textContent).toContain('News and publications are being updated.');
   });
 
   it('PeopleGrid renders the team empty state', async () => {
@@ -90,6 +112,51 @@ describe('public islands (unit)', () => {
   it('PartnerLogos renders sample partner names', async () => {
     await render(<PartnerLogos />);
     expect(container.textContent).toContain('UNDP');
+  });
+
+
+
+  it('PartnerLogos can limit homepage display while showing all partners elsewhere', async () => {
+    queryMocks.getPublishedPartners.mockResolvedValue({
+      data: Array.from({ length: 10 }, (_, index) => ({
+        id: `partner-${index + 1}`,
+        name: `Partner ${index + 1}`,
+        logo_url: null,
+        website_url: `https://partner-${index + 1}.example`,
+        display_order: index + 1,
+      })),
+      error: null,
+    });
+
+    await render(<PartnerLogos limit={8} />);
+    expect(container.textContent).toContain('Partner 8');
+    expect(container.textContent).not.toContain('Partner 9');
+
+    act(() => root.unmount());
+    root = createRoot(container);
+
+    await render(<PartnerLogos />);
+    expect(container.textContent).toContain('Partner 10');
+  });
+
+
+
+  it('PartnerLogos can render all partners in a pauseable homepage marquee', async () => {
+    queryMocks.getPublishedPartners.mockResolvedValue({
+      data: Array.from({ length: 10 }, (_, index) => ({
+        id: `partner-${index + 1}`,
+        name: `Partner ${index + 1}`,
+        logo_url: null,
+        website_url: `https://partner-${index + 1}.example`,
+        display_order: index + 1,
+      })),
+      error: null,
+    });
+
+    await render(<PartnerLogos variant="marquee" />);
+    expect(container.textContent).toContain('Partner 10');
+    expect(container.querySelector('.partner-marquee-track')).not.toBeNull();
+    expect(container.textContent).toContain('Partner 1');
   });
 
   it('PageContent renders the empty-state message', async () => {

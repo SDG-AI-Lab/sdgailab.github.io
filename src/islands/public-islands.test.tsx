@@ -137,7 +137,7 @@ describe('public islands', () => {
 
     await render(<ProjectList />);
 
-    expect(container.textContent).toContain('Published project data is temporarily unavailable');
+    expect(container.textContent).toContain('Project information is currently being updated');
     expect(container.textContent).toContain('No published projects in this impact area yet.');
   });
 

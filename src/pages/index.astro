@@ -6,37 +6,9 @@ import SDGWheel from '../components/ui/SDGWheel.astro';
 import StatsCards from '../islands/StatsCards';
 import FeaturedProjects from '../islands/FeaturedProjects';
 import PartnerLogos from '../islands/PartnerLogos';
+import GeographicReach from '../islands/GeographicReach';
 import NewsList from '../islands/NewsList';
 import { labServiceLines } from '../data/sampleContent';
-
-const solutionCards = [
-  {
-    title: 'Digital Social Vulnerability Index',
-    summary: 'Geospatial and machine-learning methods for identifying vulnerability patterns and prioritizing interventions.',
-    tags: ['GIS', 'Risk analysis', 'Decision support'],
-  },
-  {
-    title: 'Audit Recommendation Tracking Tool',
-    summary: 'Structured tracking for recommendations, action plans, evidence, verification and oversight reporting.',
-    tags: ['NLP', 'Workflow', 'Public institutions'],
-  },
-  {
-    title: 'Public Finance Simplification Platform',
-    summary: 'AI-assisted analysis and visualization to make public finance information easier to understand.',
-    tags: ['Public finance', 'Visualization', 'Transparency'],
-  },
-];
-
-const implementationCountries = [
-  'Kazakhstan',
-  'Guinea',
-  'Kyrgyzstan',
-  'Ecuador',
-  'Fiji',
-  'Solomon Islands',
-  'Palau',
-  'Cook Islands',
-];
 
 const publicationCards = [
   ['Research notes', 'Methods, lessons and findings from applied AI and data-science work.'],
@@ -63,8 +35,8 @@ const publicationCards = [
               <a href={withBase('/contact')} data-analytics-event="cta_click" data-analytics-category="homepage" data-analytics-label="Hero partner with us" class="wire-btn wire-btn-solid">
                 Partner with us
               </a>
-              <a href={withBase('/solutions')} data-analytics-event="cta_click" data-analytics-category="homepage" data-analytics-label="Hero explore solutions" class="wire-btn">
-                Explore solutions
+              <a href={withBase('/projects')} data-analytics-event="cta_click" data-analytics-category="homepage" data-analytics-label="Hero explore projects" class="wire-btn">
+                Explore projects
               </a>
             </div>
             <p class="wire-mini">Support areas: discovery, data readiness, AI prototyping, GIS, NLP, public finance tools, advisory, training and partnerships.</p>
@@ -89,43 +61,18 @@ const publicationCards = [
         <div class="wire-section-head">
           <div>
             <p class="wire-eyebrow">Impact</p>
-            <h2 id="impact-heading" class="wire-title wire-title-lg">Impact numbers connected to the portfolio</h2>
+            <h2 id="impact-heading" class="wire-title wire-title-lg">Impact at a glance</h2>
           </div>
-          <a href={withBase('/impact')} class="wire-link">View impact evidence &rarr;</a>
+          <a href={withBase('/about#impact')} class="wire-link">View impact evidence &rarr;</a>
         </div>
         <StatsCards client:load />
-      </section>
-
-    <section class="wire-sec wire-alt" aria-labelledby="solutions-heading">
-        <div class="wire-section-head">
-          <div>
-            <p class="wire-eyebrow">Solutions - reusable tools</p>
-            <h2 id="solutions-heading" class="wire-title wire-title-lg">Featured solutions</h2>
-          </div>
-          <a href={withBase('/solutions')} class="wire-btn">View all solutions &rarr;</a>
-        </div>
-        <div class="wire-grid wire-grid-3">
-          {solutionCards.map((solution) => (
-            <article class="wire-card">
-              <div class="wire-media">Screenshot</div>
-              <h3 class="wire-title wire-title-md">{solution.title}</h3>
-              <p class="wire-sub">{solution.summary}</p>
-              <div class="wire-tags">
-                {solution.tags.map((tag) => <span class="wire-tag">{tag}</span>)}
-              </div>
-            </article>
-          ))}
-        </div>
       </section>
 
     <section class="wire-sec" aria-labelledby="reach-heading">
         <p class="wire-eyebrow">Where we work</p>
         <h2 id="reach-heading" class="wire-title wire-title-lg">Geographic reach</h2>
         <div class="wire-map">
-          <div class="wire-map-label">Interactive map / country list</div>
-          <div class="wire-country-grid">
-            {implementationCountries.map((country) => <span>{country}</span>)}
-          </div>
+          <GeographicReach client:load />
         </div>
       </section>
 
@@ -137,7 +84,7 @@ const publicationCards = [
           </div>
           <a href={withBase('/projects')} class="wire-btn">View all projects &rarr;</a>
         </div>
-        <FeaturedProjects client:load />
+        <FeaturedProjects client:load limit={3} />
       </section>
 
     <section class="wire-sec" aria-labelledby="case-study-heading">
@@ -155,7 +102,7 @@ const publicationCards = [
     <section class="wire-sec wire-alt" aria-labelledby="partners-heading">
         <p class="wire-eyebrow">Working across the ecosystem</p>
         <h2 id="partners-heading" class="wire-title wire-title-lg">Partners and network</h2>
-        <PartnerLogos client:load />
+        <PartnerLogos client:load variant="marquee" />
       </section>
 
     <section class="wire-sec" aria-labelledby="services-heading">
@@ -177,20 +124,14 @@ const publicationCards = [
       </section>
 
     <section class="wire-sec wire-alt" aria-labelledby="news-heading">
-        <div class="wire-grid wire-grid-2">
-          <div>
-            <p class="wire-eyebrow">Upcoming events</p>
-            <article class="wire-card wire-card-compact">
-              <h2 id="news-heading" class="wire-title wire-title-md">Events</h2>
-              <p class="wire-sub">Demo sessions, public webinars and launch moments can be published as the public calendar grows.</p>
-              <a href={withBase('/news')} class="wire-btn">View updates</a>
-            </article>
-          </div>
+        <div class="wire-section-head">
           <div>
             <p class="wire-eyebrow">Latest news</p>
-            <NewsList client:load />
+            <h2 id="news-heading" class="wire-title wire-title-lg">News and updates</h2>
           </div>
+          <a href={withBase('/news')} class="wire-btn">View all news &rarr;</a>
         </div>
+        <NewsList client:load />
       </section>
 
     <section class="wire-sec" aria-labelledby="publications-heading">

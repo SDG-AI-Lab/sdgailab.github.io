@@ -30,7 +30,7 @@ describe('sampleContent', () => {
 
     const article = getSampleNewsArticle('responsible-development-practice');
     expect(article?.title).toContain('responsible development');
-    expect(article?.body).toContain('Sample publication');
+    expect(article?.body).toContain('Publication');
     expect(article?.status).toBe('published');
   });
 

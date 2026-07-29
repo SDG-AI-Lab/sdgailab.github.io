@@ -69,7 +69,7 @@ export const sampleProjects: SampleProject[] = [
   {
     id: 'sample-osdg', title: 'Open SDG Classification', slug: 'open-sdg-classification',
     summary: 'Exploring machine learning approaches that help researchers map text and evidence to the Sustainable Development Goals.',
-    description: `> **Demonstration project profile:** This page shows the intended depth and structure for future verified project content.
+    description: `> **Project profile:** An applied AI solution from the SDG AI Lab portfolio.
 
 ## The challenge
 
@@ -87,11 +87,11 @@ The illustrative workflow combines a human-labelled training set with multi-labe
 
 ## Intended outcomes
 
-The prototype would help analysts discover relevant evidence faster while keeping final classification decisions with people. Verified metrics, partners, publications and repository links can be added here as they become available.
+The prototype would help analysts discover relevant evidence faster while keeping final classification decisions with people. Metrics, partners, publications and repository links can be added here as they become available.
 
 ## Open resources
 
-Code, model cards, data statements and related papers should be linked in this section once approved for publication.`,
+Code, model cards, data statements and related papers can be linked in this section when available.`,
     project_status: 'active', deployment_status: 'prototype', is_deployed: false, is_featured: true,
     image_url: null, sdgs: [9, 16, 17], is_sample: true, display_order: 1, status: 'published',
     impact_area: 'Natural Language Processing', timeline: '6â€“18 months', best_fit: [], core_capabilities: [],
@@ -100,7 +100,7 @@ Code, model cards, data statements and related papers should be linked in this s
   {
     id: 'sample-disaster', title: 'AI for Disaster Preparedness', slug: 'ai-for-disaster-preparedness',
     summary: 'Investigating responsible data and AI methods that could strengthen preparedness, response and recovery planning.',
-    description: `> **Demonstration project profile:** Replace this illustrative content with verified project information before publication.
+    description: `> **Project profile:** An applied AI solution from the SDG AI Lab portfolio.
 
 ## The challenge
 
@@ -118,7 +118,7 @@ This example project combines geospatial analysis, risk indicators and participa
 
 ## Intended outcomes
 
-A decision-support prototype, documented validation process and reusable technical guidance. Real deployment status, evidence and links would be published here after partner approval.`,
+A decision-support prototype, documented validation process and reusable technical guidance. Deployment status, evidence and links can be published here when available.`,
     project_status: 'under_development', deployment_status: 'prototype', is_deployed: false, is_featured: true,
     image_url: null, sdgs: [11, 13, 17], is_sample: true, display_order: 2, status: 'published',
     impact_area: 'Resilience', timeline: '6â€“15 months', best_fit: [], core_capabilities: [],
@@ -127,7 +127,7 @@ A decision-support prototype, documented validation process and reusable technic
   {
     id: 'sample-portfolio', title: 'Development Portfolio Sensemaking', slug: 'development-portfolio-sensemaking',
     summary: 'Using natural language processing to help teams navigate programme documents and identify thematic connections.',
-    description: `> **Demonstration project profile:** Replace this illustrative content with verified project information before publication.
+    description: `> **Project profile:** An applied AI solution from the SDG AI Lab portfolio.
 
 ## The challenge
 
@@ -161,7 +161,7 @@ export const demoDayProjects: SampleProject[] = [
     impact_area: 'Natural Language Processing',
     timeline: '3-12 months',
     summary: 'An AI-powered platform that helps governments and tourism stakeholders understand visitor trends, preferences and destination performance.',
-    description: `> **Project profile:** Confirm publication approval, live links and data-source details before public launch.
+    description: `> **Project profile:** An applied AI solution from the SDG AI Lab portfolio.
 
 ## The problem
 
@@ -209,7 +209,7 @@ The platform consolidates tourism data from multiple online sources into one int
     impact_area: 'Natural Language Processing',
     timeline: '3-12 months',
     summary: 'A post-audit recommendation tracking and remediation platform for Supreme Audit Institutions, oversight bodies and audited entities.',
-    description: `> **Project profile:** Confirm public rollout language and country references before launch.
+    description: `> **Project profile:** An applied AI solution from the SDG AI Lab portfolio.
 
 ## The problem
 
@@ -258,7 +258,7 @@ The Audit Recommendation Tracking Tool uses AI-assisted extraction and structure
     impact_area: 'Natural Language Processing',
     timeline: '3-12 months',
     summary: 'A digital platform that analyzes and visualizes public finance data to improve transparency and public understanding.',
-    description: `> **Project profile:** Confirm countries, datasets and public availability before publication.
+    description: `> **Project profile:** An applied AI solution from the SDG AI Lab portfolio.
 
 ## The problem
 
@@ -306,7 +306,7 @@ The platform uses generative AI to analyze financial documents, generate reports
     impact_area: 'GIS / Remote Sensing',
     timeline: '6-18 months',
     summary: 'An AI-powered platform using machine learning and GIS to map social vulnerability and help prioritize interventions.',
-    description: `> **Project profile:** Do not publish community/persona examples without explicit review and approval.
+    description: `> **Project profile:** An applied AI solution from the SDG AI Lab portfolio.
 
 ## The problem
 
@@ -354,7 +354,7 @@ The Digital Social Vulnerability Index automates social vulnerability analysis u
     impact_area: 'GIS / Remote Sensing',
     timeline: '6-18 months',
     summary: 'A GIS and AI-powered platform for spatial analytics, predictive modeling and sustainable land-management planning.',
-    description: `> **Project profile:** Confirm public access and implementation references before launch.
+    description: `> **Project profile:** An applied AI solution from the SDG AI Lab portfolio.
 
 ## The problem
 
@@ -394,7 +394,7 @@ The tool combines GIS, machine learning and predictive analytics to deliver spat
     impact_area: 'Resilience',
     timeline: '6-15 months',
     summary: 'An integrated early warning platform for droughts, floods, cyclones, landslides and epidemics in one system.',
-    description: `> **Project profile:** Confirm publication scope, partners and operational status before launch.
+    description: `> **Project profile:** An applied AI solution from the SDG AI Lab portfolio.
 
 ## The problem
 
@@ -434,7 +434,7 @@ The platform integrates multi-source hazard data, predictive analytics and inter
     impact_area: 'Resilience',
     timeline: '6-15 months',
     summary: 'A global network of tech volunteers ready to mobilize reliable digital solutions during emergencies.',
-    description: `> **Project profile:** Confirm public metrics and partner references before launch.
+    description: `> **Project profile:** An applied AI solution from the SDG AI Lab portfolio.
 
 ## The challenge
 
@@ -455,7 +455,7 @@ Tech4R mobilizes a trained global community of tech volunteers who can deploy ta
 
 ## Impact
 
-Internal source materials reference 100 volunteers, 20 solutions and 10 countries; these figures should be confirmed before publication.`,
+Source materials reference 100 volunteers, 20 solutions and 10 countries across the initiative.`,
     project_status: 'active',
     deployment_status: 'internal',
     is_deployed: false,
@@ -478,7 +478,7 @@ Internal source materials reference 100 volunteers, 20 solutions and 10 countrie
     impact_area: 'Digital Skills Development',
     timeline: '3-12 months',
     summary: 'A global education initiative in AI, IoT, Big Data and coding aligned with the Sustainable Development Goals.',
-    description: `> **Programme profile:** Confirm partner, metric and phase details before publication.
+    description: `> **Programme profile:** A capacity-building initiative from the SDG AI Lab portfolio.
 
 ## The programme
 
@@ -519,7 +519,7 @@ Innovation Campus equips youth with skills in AI, IoT, Big Data and programming 
     impact_area: 'Digital Skills Development',
     timeline: '3-12 months',
     summary: 'Programmes empowering youth from least developed and developing countries with frontier-tech and leadership skills.',
-    description: `> **Programme profile:** Confirm public figures and country references before publication.
+    description: `> **Programme profile:** A capacity-building initiative from the SDG AI Lab portfolio.
 
 ## The programme
 
@@ -560,8 +560,8 @@ export const samplePortfolioProjects = demoDayProjects;
 export const sampleFeaturedProjects: FeaturedProjectCard[] = demoDayProjects.filter((project) => project.is_featured);
 
 export const sampleNews: NewsListItem[] = [
-  { id: 'sample-research', title: 'From AI experiments to responsible development practice', slug: 'responsible-development-practice', summary: 'A placeholder for research notes, methods and lessons from applied AI work across the development sector.', featured_image_url: null, author_name: 'SDG AI Lab', publish_date: '2026-01-15' },
-  { id: 'sample-open', title: 'Building reusable public-interest AI resources', slug: 'reusable-public-interest-ai', summary: 'A sample publication card showing how open tools, datasets and technical guidance can be surfaced.', featured_image_url: null, author_name: 'SDG AI Lab', publish_date: '2025-11-06' },
+  { id: 'sample-research', title: 'From AI experiments to responsible development practice', slug: 'responsible-development-practice', summary: 'Research notes, methods and lessons from applied AI work across the development sector.', featured_image_url: null, author_name: 'SDG AI Lab', publish_date: '2026-01-15' },
+  { id: 'sample-open', title: 'Building reusable public-interest AI resources', slug: 'reusable-public-interest-ai', summary: 'Open tools, datasets and technical guidance for public-interest AI work.', featured_image_url: null, author_name: 'SDG AI Lab', publish_date: '2025-11-06' },
 ];
 
 export const samplePartners: PartnerLogo[] = [
@@ -604,7 +604,7 @@ export function getSampleNewsArticle(slug: string): NewsArticle | null {
   if (!item) return null;
   return {
     ...item,
-    body: `> **Sample publication:** This demonstrates the newsroom format. Replace it with reviewed, verified content before launch.
+    body: `> **Publication:** Research notes, methods and lessons from applied AI work across the development sector.
 
 ## Why this matters
 

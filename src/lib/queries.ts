@@ -8,6 +8,7 @@ import type {
   NewsArticle,
   PersonCard,
   PartnerLogo,
+  GeographicReachCard,
   PageContent,
   PeopleGroup,
 } from './types';
@@ -147,6 +148,23 @@ export async function getPublishedPartners(): Promise<{
 
   if (error) return { data: [], error: error.message };
   return { data: data as PartnerLogo[], error: null };
+}
+
+
+export async function getPublishedGeographicReach(): Promise<{
+  data: GeographicReachCard[];
+  error: string | null;
+}> {
+  if (!isSupabaseConfigured) return { data: [], error: null };
+  const { data, error } = await getSupabase()
+    .from('geographic_reach')
+    .select('id, country_name, iso_alpha3, latitude, longitude, region, display_order')
+    .eq('status', 'published')
+    .order('display_order', { ascending: true })
+    .order('country_name', { ascending: true });
+
+  if (error) return { data: [], error: error.message };
+  return { data: data as GeographicReachCard[], error: null };
 }
 
 export async function getPageContent(

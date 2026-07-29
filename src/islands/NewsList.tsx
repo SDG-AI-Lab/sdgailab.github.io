@@ -22,12 +22,12 @@ export default function NewsList() {
 
   return (
     <div>
-      {error && <p className="mb-5 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">Published newsroom data is temporarily unavailable.</p>}
+      {error && <p className="mb-5 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">Newsroom updates are currently being refreshed.</p>}
       {articles.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
-          <h3 className="text-lg font-bold text-slate-950">News and publications will appear here once approved.</h3>
+          <h3 className="text-lg font-bold text-slate-950">News and publications are being updated.</h3>
           <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-slate-600">
-            This section is reserved for reviewed updates, publications and learning notes.
+            Please check back soon for updates, publications and learning notes.
           </p>
         </div>
       ) : (

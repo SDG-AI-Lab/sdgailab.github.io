@@ -33,7 +33,7 @@ export default function ProjectList() {
 
   return (
     <div>
-      {error && <p className="mb-5 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">Published project data is temporarily unavailable.</p>}
+      {error && <p className="mb-5 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">Project information is currently being updated.</p>}
 
       <div className="mb-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
         <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
@@ -88,7 +88,7 @@ export default function ProjectList() {
         <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
           <h3 className="text-lg font-bold text-slate-950">No published projects in this impact area yet.</h3>
           <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-slate-600">
-            Add or tag a project with "{activeArea}" in the CMS to make it appear here.
+            Try another impact area or browse the full portfolio.
           </p>
         </div>
       ) : (

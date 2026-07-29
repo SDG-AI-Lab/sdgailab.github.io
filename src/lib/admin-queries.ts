@@ -10,6 +10,7 @@ import type {
   Person,
   Partner,
   PageContent,
+  GeographicReachItem,
 } from './types';
 
 export interface AdminResult<T> {
@@ -108,6 +109,17 @@ export interface PartnerInput {
   published_at?: string | null;
 }
 
+export interface GeographicReachInput {
+  country_name: string;
+  iso_alpha3?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
+  region?: string | null;
+  display_order: number;
+  status: PublishStatus;
+  published_at?: string | null;
+}
+
 export interface PageContentInput {
   page_slug: string;
   section_slug: string;
@@ -194,6 +206,26 @@ function normalizeOptionalPositiveInteger(value: unknown, field: string): number
     throw new Error(`${field} must be a non-negative integer.`);
   }
   return numberValue;
+}
+
+
+function normalizeOptionalNumber(value: unknown, field: string): number | null {
+  if (value == null || value === '') return null;
+  const numberValue = typeof value === 'number' ? value : Number(value);
+  if (!Number.isFinite(numberValue)) {
+    throw new Error(`${field} must be a number.`);
+  }
+  return numberValue;
+}
+
+function normalizeOptionalIsoAlpha3(value: unknown): string | null {
+  const normalized = normalizeOptionalString(value, 'ISO Alpha-3');
+  if (!normalized) return null;
+  const code = normalized.toUpperCase();
+  if (!/^[A-Z]{3}$/.test(code)) {
+    throw new Error('ISO Alpha-3 must use exactly three letters.');
+  }
+  return code;
 }
 
 function assertStatus(value: unknown): PublishStatus {
@@ -401,6 +433,19 @@ function validatePartnerInput(input: PartnerInput): PartnerInput {
   };
 }
 
+function validateGeographicReachInput(input: GeographicReachInput): GeographicReachInput {
+  return {
+    country_name: assertNonEmptyString(input.country_name, 'Country name'),
+    iso_alpha3: normalizeOptionalIsoAlpha3(input.iso_alpha3),
+    latitude: normalizeOptionalNumber(input.latitude, 'Latitude'),
+    longitude: normalizeOptionalNumber(input.longitude, 'Longitude'),
+    region: normalizeOptionalString(input.region, 'Region'),
+    display_order: assertNonNegativeInteger(input.display_order, 'Display order'),
+    status: assertStatus(input.status),
+    published_at: assertOptionalIsoDateTime(input.published_at, 'Published at'),
+  };
+}
+
 function validatePageContentInput(input: PageContentInput): PageContentInput {
   return {
     page_slug: assertSectionSlug(input.page_slug, 'Page slug'),
@@ -553,6 +598,35 @@ export async function archiveStatistic(id: string): Promise<AdminResult<{ id: st
 
 export async function deleteStatistic(id: string): Promise<AdminResult<{ id: string }>> {
   return permanentlyDeleteRecord('statistics', id);
+}
+
+export async function listGeographicReach(): Promise<AdminListResult<GeographicReachItem>> {
+  return listAll<GeographicReachItem>('geographic_reach', 'display_order', true);
+}
+
+export async function getGeographicReachItem(id: string): Promise<AdminResult<GeographicReachItem>> {
+  return getById<GeographicReachItem>('geographic_reach', id);
+}
+
+export async function createGeographicReachItem(
+  input: GeographicReachInput
+): Promise<AdminResult<GeographicReachItem>> {
+  return createRecord<GeographicReachItem, GeographicReachInput>('geographic_reach', input, validateGeographicReachInput);
+}
+
+export async function updateGeographicReachItem(
+  id: string,
+  input: GeographicReachInput
+): Promise<AdminResult<GeographicReachItem>> {
+  return updateRecord<GeographicReachItem, GeographicReachInput>('geographic_reach', id, input, validateGeographicReachInput);
+}
+
+export async function archiveGeographicReachItem(id: string): Promise<AdminResult<{ id: string }>> {
+  return archiveRecord('geographic_reach', id);
+}
+
+export async function deleteGeographicReachItem(id: string): Promise<AdminResult<{ id: string }>> {
+  return permanentlyDeleteRecord('geographic_reach', id);
 }
 
 export async function listProjects(): Promise<AdminListResult<Project>> {

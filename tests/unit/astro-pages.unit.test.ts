@@ -45,13 +45,6 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
     },
   },
   {
-    path: 'src/pages/partners.astro',
-    checks: (source) => {
-      expect(source).toContain('PartnerLogos');
-      expect(source).toContain('BaseLayout');
-    },
-  },
-  {
     path: 'src/pages/volunteer.astro',
     checks: (source) => {
       expect(source).toContain('BaseLayout');
