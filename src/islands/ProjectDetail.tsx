@@ -28,6 +28,15 @@ function getYouTubeEmbedUrl(url?: string | null) {
   }
 }
 
+function isDirectVideoUrl(url?: string | null) {
+  if (!url) return false;
+  try {
+    const parsed = new URL(url);
+    return /\.(mp4|webm|ogg|mov)$/i.test(parsed.pathname);
+  } catch {
+    return /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url);
+  }
+}
 function ListBlock({ title, items }: { title: string; items?: string[] }) {
   if (!items?.length) return null;
   return (
@@ -131,6 +140,7 @@ function ProjectDetailContent() {
   const hasFutureClients = Boolean(project.future_client_segments?.length);
   const deploymentLabel = project.deployment_status ?? (project.is_deployed ? 'live' : 'prototype');
   const embedUrl = getYouTubeEmbedUrl(project.video_url);
+  const isDirectVideo = isDirectVideoUrl(project.video_url);
   const objectiveText = project.solution || project.summary;
   const backgroundText = project.problem;
   const hasResults = Boolean(project.reusable_components || hasCoreCapabilities || hasBestFit);
@@ -258,6 +268,13 @@ function ProjectDetailContent() {
                   allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                 />
+              ) : project.video_url && isDirectVideo ? (
+                <video className="aspect-video w-full bg-black" controls preload="metadata" poster={project.image_url ?? undefined}>
+                  <source src={project.video_url} />
+                  <a href={project.video_url} target="_blank" rel="noreferrer" className="font-semibold text-primary hover:underline">
+                    Open video
+                  </a>
+                </video>
               ) : project.image_url ? (
                 <img src={project.image_url} alt="" className="aspect-video w-full object-cover" />
               ) : project.video_url ? (
@@ -342,3 +359,6 @@ export default function ProjectDetail() {
     </ObservabilityBoundary>
   );
 }
+
+
+

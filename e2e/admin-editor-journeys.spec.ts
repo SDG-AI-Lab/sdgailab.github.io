@@ -102,12 +102,12 @@ test.describe('Editor journeys', () => {
     await waitForProjectForm(page);
 
     const imagePath = path.resolve('public/og-image.png');
-    await page.locator('input[type="file"]').setInputFiles(imagePath);
+    await page.getByLabel('Image', { exact: true }).setInputFiles(imagePath);
     await expect(page.getByAltText('Upload preview')).toBeVisible();
     expect(state.uploadedPaths.length).toBeGreaterThanOrEqual(1);
 
     await page.getByRole('button', { name: 'Replace' }).click();
-    await page.locator('input[type="file"]').setInputFiles(imagePath);
+    await page.getByLabel('Image', { exact: true }).setInputFiles(imagePath);
     await expect(page.getByAltText('Upload preview')).toBeVisible();
   });
 
@@ -138,3 +138,4 @@ test.describe('Editor journeys', () => {
     expect(state.projects).toHaveLength(0);
   });
 });
+
