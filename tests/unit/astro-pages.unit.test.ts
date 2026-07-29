@@ -79,6 +79,14 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
     },
   },
   {
+    path: 'src/pages/tech4r.astro',
+    checks: (source) => {
+      expect(source).toContain('BaseLayout');
+      expect(source).toContain('Featured initiative');
+      expect(source).toContain('serviceAreas');
+    },
+  },
+  {
     path: 'src/pages/projects/detail.astro',
     checks: (source) => {
       expect(source).toContain('ProjectDetail');

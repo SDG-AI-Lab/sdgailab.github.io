@@ -37,30 +37,12 @@ function getTeamSection(person: PersonCard) {
   return TEAM_SECTIONS.find((section) => person.biography?.includes(section)) ?? 'Team';
 }
 
-function getSectionId(section: string) {
-  return `team-section-${section.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
-}
-
-function groupPeopleBySection(people: PersonCard[]) {
-  const sections = new Map<string, PersonCard[]>();
-
-  for (const person of people) {
-    const section = getTeamSection(person);
-    sections.set(section, [...(sections.get(section) ?? []), person]);
-  }
-
-  return [
-    ...TEAM_SECTIONS.map((section) => [section, sections.get(section) ?? []] as const),
-    ...Array.from(sections.entries()).filter(
-      ([section]) => !TEAM_SECTIONS.includes(section as (typeof TEAM_SECTIONS)[number])
-    ),
-  ].filter(([, members]) => members.length > 0);
-}
-
 function PersonCardView({ person }: { person: PersonCard }) {
+  const section = getTeamSection(person);
+
   return (
-    <article className="overflow-hidden rounded-lg border border-gray-100 bg-white text-center shadow-md">
-      <div className="aspect-square overflow-hidden bg-gray-100">
+    <article className="overflow-hidden rounded-xl border border-white/10 bg-[#111a36] text-center shadow-lg shadow-slate-950/20 transition hover:-translate-y-1 hover:border-blue-300/40 hover:shadow-blue-950/30">
+      <div className="aspect-[1.15/1] overflow-hidden bg-[#e9edff]">
         {person.photo_url ? (
           <img
             src={person.photo_url}
@@ -69,16 +51,19 @@ function PersonCardView({ person }: { person: PersonCard }) {
             loading="lazy"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-primary-50">
-            <svg className="h-20 w-20 text-primary-200" fill="currentColor" viewBox="0 0 24 24">
+          <div className="flex h-full w-full items-center justify-center bg-[#eef1ff]">
+            <svg className="h-16 w-16 text-indigo-300" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
             </svg>
           </div>
         )}
       </div>
       <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-900">{person.name}</h3>
-        <p className="mt-1 text-sm text-gray-600">{person.role_title}</p>
+        <span className="inline-flex rounded-full bg-blue-500/25 px-3 py-1 text-[11px] font-bold leading-none text-blue-100">
+          {section}
+        </span>
+        <h3 className="mt-3 text-base font-bold text-white">{person.name}</h3>
+        <p className="mt-1 text-sm text-slate-400">{person.role_title}</p>
       </div>
     </article>
   );
@@ -137,7 +122,7 @@ function PeopleGridContent({ groupType }: PeopleGridProps) {
   if (loading) {
     return (
       <div className="flex justify-center py-12" role="status" aria-label="Loading">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary-200 border-t-primary" />
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-300/30 border-t-blue-400" />
         <span className="sr-only">Loading people...</span>
       </div>
     );
@@ -145,7 +130,7 @@ function PeopleGridContent({ groupType }: PeopleGridProps) {
 
   if (error && people.length === 0) {
     return (
-      <div className="text-center py-8 text-gray-500">
+      <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 text-center text-slate-300">
         <p>Unable to load team information at this time.</p>
       </div>
     );
@@ -153,44 +138,23 @@ function PeopleGridContent({ groupType }: PeopleGridProps) {
 
   if (people.length === 0) {
     return (
-      <div className="text-center py-8 text-gray-500 italic">
+      <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 text-center text-slate-300 italic">
         <p>No members listed yet.</p>
       </div>
     );
   }
 
-  const groupedPeople =
-    groupType === 'team' ? groupPeopleBySection(people) : ([['People', people]] as const);
-
   return (
     <div>
       {error && (
-        <p className="mb-5 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">
+        <p className="mb-5 rounded-lg border border-amber-300/30 bg-amber-300/10 p-4 text-sm text-amber-100">
           Team information is currently being refreshed.
         </p>
       )}
 
-      <div className="space-y-12">
-        {groupedPeople.map(([section, members]) => (
-          <section key={section} aria-labelledby={getSectionId(section)}>
-            <div className="mb-5 flex items-end justify-between gap-4 border-b border-slate-200 pb-3">
-              <div>
-                <p className="section-label">Team</p>
-                <h2 id={getSectionId(section)} className="text-2xl font-bold text-slate-950">
-                  {section}
-                </h2>
-              </div>
-              <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">
-                {members.length} member{members.length === 1 ? '' : 's'}
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {members.map((person) => (
-                <PersonCardView key={person.id} person={person} />
-              ))}
-            </div>
-          </section>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {people.map((person) => (
+          <PersonCardView key={person.id} person={person} />
         ))}
       </div>
     </div>
