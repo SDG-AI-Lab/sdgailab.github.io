@@ -75,8 +75,9 @@ describe('Public Astro pages', () => {
   it('services page exposes requestable support pathways', () => {
     const source = readSource('src/pages/services.astro');
     expect(source).toContain('BaseLayout');
-    expect(source).toContain('Support pathways');
-    expect(source).toContain('labServiceLines');
+    expect(source).toContain('Suite of services');
+    expect(source).toContain('serviceSuites');
+    expect(source).toContain('Responsible data and AI governance');
   });
 
   it('about page includes the merged impact and evolution sections', () => {

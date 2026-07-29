@@ -2,28 +2,160 @@
 import { withBase } from '../lib/url';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import { labServiceLines } from '../data/sampleContent';
+
+const serviceSuites = [
+  {
+    ...labServiceLines[0],
+    accent: 'from-blue-500 to-cyan-400',
+    border: 'border-blue-300',
+    text: 'text-blue-600',
+    icon: 'code',
+    promise: 'Design and build practical digital products from prototype to deployment.',
+    items: [
+      'Custom digital applications',
+      'AI/ML prototypes and tools',
+      'Interactive dashboards and web platforms',
+      'Data pipelines and workflow automation',
+      'Deployment, maintenance and handover support',
+    ],
+  },
+  {
+    ...labServiceLines[1],
+    accent: 'from-fuchsia-500 to-pink-400',
+    border: 'border-pink-300',
+    text: 'text-pink-600',
+    icon: 'research',
+    promise: 'Turn emerging technology questions into evidence, methods and reusable knowledge.',
+    items: [
+      'Frontier technology research',
+      'Use-case analysis and feasibility reviews',
+      'Datasets, briefs and technical notes',
+      'Responsible AI methods and safeguards',
+      'Open-source documentation and learning material',
+    ],
+  },
+  {
+    ...labServiceLines[2],
+    accent: 'from-emerald-500 to-lime-400',
+    border: 'border-emerald-300',
+    text: 'text-emerald-600',
+    icon: 'advisory',
+    promise: 'Provide targeted guidance for responsible AI, data systems and digital delivery.',
+    items: [
+      'Technical advisory and architecture review',
+      'AI, GIS and data-system guidance',
+      'Terms of reference drafting or review',
+      'Data readiness and risk assessment',
+      'Implementation planning and quality assurance',
+    ],
+  },
+  {
+    ...labServiceLines[3],
+    accent: 'from-violet-500 to-indigo-400',
+    border: 'border-violet-300',
+    text: 'text-violet-600',
+    icon: 'training',
+    promise: 'Build practical AI, data and digital skills for teams and communities.',
+    items: [
+      'Capacity-building programmes',
+      'Hands-on bootcamps and workshops',
+      'Mentorship and fellowship support',
+      'Responsible AI learning sessions',
+      'Volunteer and community learning pathways',
+    ],
+  },
+  {
+    ...labServiceLines[4],
+    accent: 'from-orange-500 to-amber-300',
+    border: 'border-orange-300',
+    text: 'text-orange-600',
+    icon: 'network',
+    promise: 'Connect development needs with technical partners, institutions and the wider ecosystem.',
+    items: [
+      'Partner mapping and collaboration design',
+      'Technology-sector engagement',
+      'Joint project scoping and coordination',
+      'Knowledge exchange across the Lab network',
+      'Pathways for reuse, adoption and scale',
+    ],
+  },
+];
+
+const requestSteps = [
+  ['Context', 'Country, team, institution, users and development challenge.'],
+  ['Need', 'The decision, process, service or product that needs support.'],
+  ['Readiness', 'Available data, constraints, risks, timeline and existing systems.'],
+  ['Pathway', 'Advisory, prototype, research, training, partnership or handover support.'],
+];
 ---
 
 <BaseLayout
   title="Services - SDG AI Lab"
   description="Requestable advisory, prototyping, research, training and collaboration services from SDG AI Lab."
 >
-  <section class="section-padding bg-white">
+  <section class="section-padding bg-[#061632] text-white">
     <div class="container-narrow">
-      <p class="section-label">Services</p>
-      <h1 class="mt-3 max-w-4xl text-3xl font-bold text-slate-950 sm:text-5xl">Support pathways for teams exploring AI, data and digital solutions</h1>
-      <p class="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-        Services explain what can be requested from the Lab and how support can connect to project scoping, implementation, handover or reuse.
+      <p class="text-sm font-bold uppercase tracking-[0.22em] text-blue-200">Our services</p>
+      <h1 class="mt-3 max-w-4xl text-4xl font-extrabold uppercase tracking-tight sm:text-5xl">Let's work together</h1>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-blue-100">
+        SDG AI Lab provides practical technical support for teams exploring AI, data and digital approaches - from early scoping to prototypes, research, capacity building, partnerships and handover.
       </p>
+    </div>
+  </section>
 
-      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {labServiceLines.map(({ title, body }, index) => (
-          <article class="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
-            <span class="text-sm font-bold text-primary">{String(index + 1).padStart(2, '0')}</span>
-            <h2 class="mt-3 text-xl font-bold text-slate-950">{title}</h2>
-            <p class="mt-3 text-sm leading-6 text-slate-600">{body}</p>
+  <section class="section-padding bg-gradient-to-b from-[#061632] to-[#0b2853] text-white" aria-labelledby="suite-heading">
+    <div class="container-narrow">
+      <div class="mb-20 flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <p class="text-sm font-bold uppercase tracking-[0.22em] text-blue-200">Suite of services</p>
+          <h2 id="suite-heading" class="mt-3 text-3xl font-bold sm:text-4xl">Choose the support pathway that fits the work</h2>
+        </div>
+        <a href={withBase('/contact')} class="inline-flex min-h-11 items-center justify-center rounded-md bg-blue-500 px-5 py-2 text-sm font-bold text-white shadow transition hover:bg-blue-400 lg:mt-6">
+          Request support
+        </a>
+      </div>
+
+      <div class="grid gap-x-7 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
+        {serviceSuites.map((service, index) => (
+          <article class={`flex h-full flex-col rounded-3xl border-2 ${service.border} bg-white text-slate-950 shadow-xl shadow-slate-950/20`}>
+            <div class="relative px-6 pb-5 pt-12 text-center">
+              <div class={`absolute left-1/2 top-0 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-br ${service.accent} shadow-lg shadow-slate-950/25`} aria-hidden="true">
+                {service.icon === 'code' && (
+                  <svg class="h-9 w-9 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/><path d="m14.5 4-5 16"/></svg>
+                )}
+                {service.icon === 'research' && (
+                  <svg class="h-9 w-9 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/><path d="M8 11h6M11 8v6"/></svg>
+                )}
+                {service.icon === 'advisory' && (
+                  <svg class="h-9 w-9 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M3 14l9 5 9-5"/><path d="M3 11l9 5 9-5"/></svg>
+                )}
+                {service.icon === 'training' && (
+                  <svg class="h-9 w-9 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>
+                )}
+                {service.icon === 'network' && (
+                  <svg class="h-9 w-9 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="m8.6 10.5 6.8-3"/><path d="m8.6 13.5 6.8 3"/></svg>
+                )}
+              </div>
+              <span class={`text-xs font-extrabold ${service.text}`}>{String(index + 1).padStart(2, '0')}</span>
+              <h3 class={`mt-2 text-xl font-extrabold uppercase leading-tight ${service.text}`}>{service.title}</h3>
+              <p class="mt-4 text-sm font-semibold leading-6 text-slate-700">{service.promise}</p>
+            </div>
+            <div class="mx-5 mb-5 flex-1 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <ul class="space-y-3 text-sm leading-6 text-slate-700">
+                {service.items.map((item) => (
+                  <li class="flex gap-3">
+                    <span class={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-br ${service.accent}`} aria-hidden="true"></span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </article>
         ))}
+      </div>
+
+      <div class="mt-10 rounded-2xl border border-blue-300/25 bg-blue-300/10 p-6 text-center text-blue-50">
+        Responsible data and AI governance is treated as a layer across all services - from scoping and design to delivery, publication and reuse.
       </div>
     </div>
   </section>
@@ -35,12 +167,7 @@ import { labServiceLines } from '../data/sampleContent';
         <h2 id="request-heading" class="mt-3 text-3xl font-bold text-slate-950 sm:text-4xl">Start with the problem, users and decision context</h2>
       </div>
       <div class="grid gap-4 sm:grid-cols-2">
-        {[
-          ['Context', 'Country, team, institution, users and development challenge.'],
-          ['Need', 'The decision, process, service or product that needs support.'],
-          ['Readiness', 'Available data, constraints, risks, timeline and existing systems.'],
-          ['Pathway', 'Advisory, prototype, research, training, partnership or handover support.'],
-        ].map(([title, body]) => (
+        {requestSteps.map(([title, body]) => (
           <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
             <h3 class="font-bold text-slate-950">{title}</h3>
             <p class="mt-3 text-sm leading-6 text-slate-600">{body}</p>

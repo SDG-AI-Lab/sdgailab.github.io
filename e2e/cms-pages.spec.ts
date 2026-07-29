@@ -6,8 +6,8 @@ test.describe('CMS-driven static pages', () => {
     await expect(page.getByText(/established in 2019|specialized AI units/i).first()).toBeVisible({
       timeout: 15_000,
     });
-    await expect(page.getByRole('heading', { name: /Our Approach/i })).toBeVisible();
-    await expect(page.getByText(/Problem-first, evidence-led and iterative/i)).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Problem-first, evidence-led and reusable/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Figures should be sourced/i })).toBeVisible();
   });
 
   test('volunteer page hydrates page content', async ({ page }) => {
