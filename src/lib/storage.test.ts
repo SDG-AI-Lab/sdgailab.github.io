@@ -28,7 +28,7 @@ vi.mock('./supabase-auth', () => ({
   getSupabaseAuth: getSupabaseAuthMock,
 }));
 
-import { deleteImage, replaceImage, uploadImage } from './storage';
+import { deleteImage, replaceImage, replaceVideo, uploadImage, uploadVideo } from './storage';
 
 describe('storage', () => {
   beforeEach(() => {
@@ -98,6 +98,52 @@ describe('storage', () => {
     expect(result).toEqual({ url: null, error: 'bucket write failed' });
   });
 
+
+  it('uploads valid videos into the project videos folder', async () => {
+    vi.spyOn(Date, 'now').mockReturnValue(222333);
+    bucketMock.getPublicUrl.mockReturnValue({
+      data: { publicUrl: 'https://example.com/storage/v1/object/public/public-assets/projects/videos/222333-demo.mp4' },
+    });
+    const file = new File(['video'], 'demo.mp4', { type: 'video/mp4' });
+
+    const result = await uploadVideo('projects', file);
+
+    expect(result).toEqual({
+      url: 'https://example.com/storage/v1/object/public/public-assets/projects/videos/222333-demo.mp4',
+      error: null,
+    });
+    expect(runProtectedAdminActionMock).toHaveBeenCalledWith(
+      expect.objectContaining({ key: 'upload-video:projects' }),
+      expect.any(Function)
+    );
+    expect(bucketMock.upload).toHaveBeenCalledWith('projects/videos/222333-demo.mp4', file);
+  });
+
+  it('rejects oversized videos before calling storage', async () => {
+    const file = new File([new Uint8Array(100 * 1024 * 1024 + 1)], 'large.mp4', { type: 'video/mp4' });
+
+    const result = await uploadVideo('projects', file);
+
+    expect(result.url).toBeNull();
+    expect(result.error).toContain('File too large. Maximum size: 100MB');
+    expect(runProtectedAdminActionMock).not.toHaveBeenCalled();
+  });
+
+  it('replaces a managed video by deleting first and uploading second', async () => {
+    vi.spyOn(Date, 'now').mockReturnValue(333444);
+    const file = new File(['video'], 'new demo.webm', { type: 'video/webm' });
+
+    const result = await replaceVideo(
+      'projects',
+      'https://example.com/storage/v1/object/public/public-assets/projects/videos/old-demo.mp4',
+      file
+    );
+
+    expect(result.error).toBeNull();
+    expect(bucketMock.remove).toHaveBeenCalledWith(['projects/videos/old-demo.mp4']);
+    expect(bucketMock.upload).toHaveBeenCalledWith('projects/videos/333444-new-demo.webm', file);
+  });
+
   it('extracts a storage path and removes the old image', async () => {
     const result = await deleteImage(
       'https://example.com/storage/v1/object/public/public-assets/projects/123-hero.png?download=1'
@@ -133,3 +179,4 @@ describe('storage', () => {
     expect(bucketMock.upload).toHaveBeenCalledWith('partners/987654-new-logo.svg', file);
   });
 });
+

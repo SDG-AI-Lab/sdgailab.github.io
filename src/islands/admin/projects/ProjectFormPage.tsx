@@ -4,6 +4,7 @@ import { StatusSelect } from '../shared/StatusSelect';
 import { SlugField } from '../shared/SlugField';
 import { MarkdownField } from '../shared/MarkdownField';
 import { ImageUpload } from '../shared/ImageUpload';
+import { VideoUpload } from '../shared/VideoUpload';
 import { FormFeedback } from '../shared/FormFeedback';
 import { getProject, createProject, updateProject } from '../../../lib/admin-queries';
 import { useToast } from '../layout/Toast';
@@ -608,8 +609,15 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
                   value={values.video_url}
                   onChange={(e) => setValues((v) => ({ ...v, video_url: e.target.value }))}
                   className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
-                  placeholder="https://www.youtube.com/watch?v=..."
+                  placeholder="https://www.youtube.com/watch?v=... or a direct .mp4 URL"
                 />
+                <div className="mt-3">
+                  <VideoUpload
+                    value={values.video_url || null}
+                    folder="projects"
+                    onChange={(url) => setValues((v) => ({ ...v, video_url: url ?? '' }))}
+                  />
+                </div>
                 <label className="mt-3 block text-sm font-medium text-gray-700 mb-1">Media Caption</label>
                 <textarea
                   value={values.media_caption}
@@ -675,3 +683,7 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
     </div>
   );
 }
+
+
+
+
