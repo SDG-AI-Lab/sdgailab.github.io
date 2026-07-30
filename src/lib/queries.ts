@@ -35,7 +35,7 @@ export async function getFeaturedProjects(): Promise<{
   if (!isSupabaseConfigured) return { data: [], error: null };
 
   const projectCardSelect =
-    'id, title, slug, project_status, is_deployed, image_url, display_order, summary, deployment_status, impact_area, timeline, best_fit, core_capabilities, sdgs';
+    'id, title, slug, project_status, is_deployed, image_url, display_order, summary, deployment_status, impact_area, timeline, project_year, best_fit, core_capabilities, sdgs';
 
   const { data, error } = await getSupabase()
     .from('projects')
@@ -64,7 +64,7 @@ export async function getPublishedProjects(): Promise<{
   if (!isSupabaseConfigured) return { data: [], error: null };
   const { data, error } = await getSupabase()
     .from('projects')
-    .select('id, title, slug, project_status, is_deployed, image_url, display_order, summary, deployment_status, impact_area, timeline, best_fit, core_capabilities, sdgs')
+    .select('id, title, slug, project_status, is_deployed, image_url, display_order, summary, deployment_status, impact_area, timeline, project_year, best_fit, core_capabilities, sdgs')
     .eq('status', 'published')
     .order('display_order', { ascending: true });
 

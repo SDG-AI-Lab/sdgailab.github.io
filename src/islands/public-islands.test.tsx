@@ -138,7 +138,7 @@ describe('public islands', () => {
     await render(<ProjectList />);
 
     expect(container.textContent).toContain('Project information is currently being updated');
-    expect(container.textContent).toContain('No published projects in this impact area yet.');
+    expect(container.textContent).toContain('No published projects match these filters yet.');
   });
 
   it('filters projects by impact area and shows an empty state', async () => {
@@ -146,7 +146,7 @@ describe('public islands', () => {
 
     await render(<ProjectList />);
 
-    expect(container.textContent).toContain('Filter by impact area');
+    expect(container.textContent).toContain('Filter projects');
     expect(container.textContent).toContain('Natural Language Processing');
 
     const fintechFilter = Array.from(container.querySelectorAll('button')).find((button) =>
@@ -158,9 +158,57 @@ describe('public islands', () => {
     });
 
     expect(fintechFilter.getAttribute('aria-pressed')).toBe('true');
-    expect(container.textContent).toContain('No published projects in this impact area yet.');
+    expect(container.textContent).toContain('No published projects match these filters yet.');
   });
 
+
+  it('filters projects by year and sorts newest first by default', async () => {
+    getPublishedProjectsMock.mockResolvedValue({
+      data: [
+        {
+          id: 'project-old',
+          title: 'Older Project',
+          slug: 'older-project',
+          project_status: 'completed',
+          is_deployed: true,
+          image_url: null,
+          display_order: 1,
+          summary: 'Older project summary',
+          project_year: 2023,
+          impact_area: 'Natural Language Processing',
+        },
+        {
+          id: 'project-new',
+          title: 'Newer Project',
+          slug: 'newer-project',
+          project_status: 'active',
+          is_deployed: false,
+          image_url: null,
+          display_order: 2,
+          summary: 'Newer project summary',
+          project_year: 2025,
+          impact_area: 'Resilience',
+        },
+      ],
+      error: null,
+    });
+
+    await render(<ProjectList />);
+
+    expect(container.textContent).toContain('Newest first');
+    expect(container.textContent!.indexOf('Newer Project')).toBeLessThan(
+      container.textContent!.indexOf('Older Project')
+    );
+
+    const yearSelect = container.querySelector('select') as HTMLSelectElement;
+    await act(async () => {
+      yearSelect.value = '2023';
+      yearSelect.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+
+    expect(container.textContent).toContain('Older Project');
+    expect(container.textContent).not.toContain('Newer Project');
+  });
   it('renders published news cards with dates and authors', async () => {
     getPublishedNewsMock.mockResolvedValue({
       data: [

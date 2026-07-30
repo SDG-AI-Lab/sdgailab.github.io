@@ -96,7 +96,7 @@ describe('public islands (unit)', () => {
 
   it('ProjectList renders an empty state when no projects exist', async () => {
     await render(<ProjectList />);
-    expect(container.textContent).toContain('No published projects in this impact area yet.');
+    expect(container.textContent).toContain('No published projects match these filters yet.');
   });
 
   it('NewsList renders a visitor-facing empty state when no news exists', async () => {
