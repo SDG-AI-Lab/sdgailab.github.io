@@ -59,10 +59,10 @@ export const impactAreas = [
 ] as const;
 
 export const sampleStats: StatisticCard[] = [
-  { id: 'sample-impact-areas', label: 'Impact areas', value: '6', icon_name: null, display_order: 1 },
-  { id: 'sample-services', label: 'Service lines', value: '5', icon_name: null, display_order: 2 },
-  { id: 'sample-founded', label: 'Established', value: '2019', icon_name: null, display_order: 3 },
-  { id: 'sample-goals', label: 'Sustainable Development Goals', value: '17', icon_name: null, display_order: 4 },
+  { id: 'sample-digital-projects', label: 'Digital projects', value: '50+', icon_name: 'projects', display_order: 1 },
+  { id: 'sample-learners', label: 'Learners', value: '3000+', icon_name: 'learners', display_order: 2 },
+  { id: 'sample-knowledge-products', label: 'Knowledge products', value: '15', icon_name: 'knowledge', display_order: 3 },
+  { id: 'sample-online-volunteers', label: 'Online UN Volunteers', value: '3500+', icon_name: 'volunteers', display_order: 4 },
 ];
 
 export const sampleProjects: SampleProject[] = [

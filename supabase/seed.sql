@@ -4,12 +4,11 @@
 -- =============================================================================
 -- Statistics (4 rows)
 -- =============================================================================
-INSERT INTO statistics (label, value, display_order, status, published_at) VALUES
-  ('Technical Advisors', '1', 1, 'published', now()),
-  ('Full-Time Data Scientists', '3', 2, 'published', now()),
-  ('Volunteer Data Scientists', '50+', 3, 'published', now()),
-  ('Partnership & Outreach Analysts', '1', 4, 'published', now());
-
+INSERT INTO statistics (label, value, icon_name, display_order, status, published_at) VALUES
+  ('Digital projects', '50+', 'projects', 1, 'published', now()),
+  ('Learners', '3000+', 'learners', 2, 'published', now()),
+  ('Knowledge products', '15', 'knowledge', 3, 'published', now()),
+  ('Online UN Volunteers', '3500+', 'volunteers', 4, 'published', now());
 -- =============================================================================
 -- Projects (10 rows) - first 3 is_featured=true, all project_status='active', is_deployed=false
 -- =============================================================================

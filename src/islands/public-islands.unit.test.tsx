@@ -64,7 +64,7 @@ describe('public islands (unit)', () => {
 
   it('StatsCards renders sample statistics by default', async () => {
     await render(<StatsCards />);
-    expect(container.textContent).toContain('Impact areas');
+    expect(container.textContent).toContain('Digital projects');
   });
 
   it('FeaturedProjects renders a visitor-facing empty state when no featured projects exist', async () => {
