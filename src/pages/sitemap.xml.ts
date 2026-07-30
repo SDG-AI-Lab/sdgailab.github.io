@@ -10,7 +10,6 @@ const publicRoutes = [
   '/services/',
   '/research/',
   '/capacity-building/',
-  '/partnerships/',
   '/resources/',
   '/news/',
   '/team/',
