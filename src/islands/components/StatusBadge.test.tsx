@@ -31,7 +31,7 @@ describe('StatusBadge', () => {
 
     const badge = container.querySelector('span');
     expect(badge?.textContent).toBe('Active');
-    expect(badge?.className).toContain('bg-green-100');
+    expect(badge?.className).toContain('ui-badge--active');
   });
 
   it('falls back to the raw status value for unknown statuses', async () => {
@@ -41,6 +41,7 @@ describe('StatusBadge', () => {
 
     const badge = container.querySelector('span');
     expect(badge?.textContent).toBe('custom_status');
-    expect(badge?.className).toContain('bg-gray-100');
+    expect(badge?.className).toContain('ui-badge--neutral');
   });
 });
+

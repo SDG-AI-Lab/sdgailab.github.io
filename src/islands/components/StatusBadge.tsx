@@ -3,10 +3,10 @@ interface StatusBadgeProps {
 }
 
 const colorMap: Record<string, string> = {
-  active: 'bg-green-100 text-green-800',
-  completed: 'bg-blue-100 text-blue-800',
-  under_development: 'bg-amber-100 text-amber-800',
-  on_hold: 'bg-gray-100 text-gray-800',
+  active: 'ui-badge--active',
+  completed: 'ui-badge--completed',
+  under_development: 'ui-badge--under-development',
+  on_hold: 'ui-badge--on-hold',
 };
 
 const labelMap: Record<string, string> = {
@@ -17,12 +17,8 @@ const labelMap: Record<string, string> = {
 };
 
 export default function StatusBadge({ status }: StatusBadgeProps) {
-  const colors = colorMap[status] ?? 'bg-gray-100 text-gray-800';
+  const colors = colorMap[status] ?? 'ui-badge--neutral';
   const label = labelMap[status] ?? status;
 
-  return (
-    <span className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${colors}`}>
-      {label}
-    </span>
-  );
+  return <span className={`ui-badge ui-badge--md ${colors}`}>{label}</span>;
 }

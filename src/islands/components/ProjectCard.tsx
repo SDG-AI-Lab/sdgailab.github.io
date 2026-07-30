@@ -37,8 +37,8 @@ export default function ProjectCard({ project }: { project: ProjectListItem }) {
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <div className="mb-4 flex flex-wrap items-center gap-2">
           <StatusBadge status={project.project_status} />
-          <span className="inline-block rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">{deploymentLabel}</span>
-          {project.impact_area && <span className="inline-block rounded-full bg-primary-50 px-3 py-1 text-xs font-semibold text-primary">{project.impact_area}</span>}
+          <span className={`ui-badge ui-badge--sm ui-badge--deployment-${deployment}`}>{deploymentLabel}</span>
+          {project.impact_area && <span className="ui-badge ui-badge--sm ui-badge--impact">{project.impact_area}</span>}
         </div>
         <h3 className="text-xl font-semibold text-slate-950 transition-colors group-hover:text-primary">{project.title}</h3>
         {project.summary && <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{project.summary}</p>}
@@ -53,3 +53,4 @@ export default function ProjectCard({ project }: { project: ProjectListItem }) {
     </a>
   );
 }
+

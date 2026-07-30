@@ -163,11 +163,11 @@ function ProjectDetailContent() {
       <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm lg:p-8">
         <div className="flex flex-wrap items-center gap-3">
           <StatusBadge status={project.project_status} />
-          <span className="inline-block rounded-full bg-slate-100 px-3 py-1 text-sm font-medium capitalize text-slate-700">
+          <span className={`ui-badge ui-badge--md ui-badge--deployment-${deploymentLabel}`}>
             {deploymentLabel}
           </span>
           {project.impact_area && (
-            <span className="inline-block rounded-full bg-primary-50 px-3 py-1 text-sm font-medium text-primary">
+            <span className="ui-badge ui-badge--md ui-badge--impact">
               {project.impact_area}
             </span>
           )}
@@ -359,6 +359,7 @@ export default function ProjectDetail() {
     </ObservabilityBoundary>
   );
 }
+
 
 
 
