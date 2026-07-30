@@ -91,6 +91,38 @@ describe('detail islands', () => {
     expect(container.innerHTML).toContain('<p>Project **body**</p>');
   });
 
+  it('renders a direct project video player when video_url points to an MP4', async () => {
+    getProjectBySlugMock.mockResolvedValue({
+      data: {
+        id: 'project-video',
+        title: 'Video Project',
+        slug: 'video-project',
+        description: 'Project body',
+        project_status: 'active',
+        is_deployed: true,
+        is_featured: false,
+        image_url: null,
+        video_url: 'https://example.supabase.co/storage/v1/object/public/public-assets/projects/videos/demo.mp4',
+        media_caption: 'Demo walkthrough',
+        display_order: 1,
+        status: 'published',
+        published_at: '2026-07-15T00:00:00Z',
+        created_at: '2026-07-15T00:00:00Z',
+        updated_at: '2026-07-15T00:00:00Z',
+        summary: 'Video summary',
+      },
+      error: null,
+    });
+
+    await render(<ProjectDetail />, '?slug=video-project');
+
+    const video = container.querySelector('video');
+    expect(video).toBeTruthy();
+    expect(video?.querySelector('source')?.getAttribute('src')).toBe(
+      'https://example.supabase.co/storage/v1/object/public/public-assets/projects/videos/demo.mp4'
+    );
+    expect(container.textContent).toContain('Demo walkthrough');
+  });
   it('renders project missing-slug and not-found states', async () => {
     await render(<ProjectDetail />);
 
@@ -193,3 +225,4 @@ describe('detail islands', () => {
     await expectAccessible(container);
   });
 });
+
