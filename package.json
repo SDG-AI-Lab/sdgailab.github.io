@@ -22,7 +22,7 @@
     "@supabase/supabase-js": "^2.98.0",
     "@types/d3-geo": "^3.1.0",
     "@types/topojson-client": "^3.1.5",
-    "@uiw/react-md-editor": "^4.0.11",
+    "@uiw/react-md-editor": "^4.1.1",
     "astro": "^5.18.0",
     "d3-geo": "^3.1.1",
     "marked": "^17.0.3",
