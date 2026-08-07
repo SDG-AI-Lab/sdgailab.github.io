@@ -19,7 +19,7 @@
     "@astrojs/react": "^4.4.2",
     "@astrojs/tailwind": "^6.0.2",
     "@sentry/react": "^10.67.0",
-    "@supabase/supabase-js": "^2.98.0",
+    "@supabase/supabase-js": "^2.111.0",
     "@types/d3-geo": "^3.1.0",
     "@types/topojson-client": "^3.1.5",
     "@uiw/react-md-editor": "^4.0.11",
