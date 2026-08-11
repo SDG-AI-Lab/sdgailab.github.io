@@ -1,30 +1,30 @@
 ---
 import { withBase } from '../../lib/url';
 import logo from '../../../assets/img/whitelogo.png';
+import icpsdLogo from '../../../assets/img/ICPSD-logo-navbar.png';
+import undpLogo from '../../../assets/img/UNDP_logo.svg';
 
 const pathname = Astro.url.pathname;
 const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') || '';
 
 const navLinks = [
   { href: withBase('/'), label: 'Home' },
-  { href: withBase('/about'), label: 'About' },
-  { href: withBase('/projects'), label: 'Projects' },
-  { href: withBase('/services'), label: 'Services' },
-  { href: withBase('/resources'), label: 'Resources' },
-  { href: withBase('/news'), label: 'News' },
+  { href: withBase('/about'), label: 'How we work' },
+  { href: withBase('/projects'), label: 'Our projects' },
+  { href: withBase('/services'), label: 'Our services', hasDropdown: true },
+  { href: withBase('/resources'), label: 'Publications' },
   { href: withBase('/team'), label: 'Team' },
-  { href: withBase('/volunteer'), label: 'Volunteer' },
   { href: withBase('/contact'), label: 'Contact' },
+  { href: withBase('/volunteer'), label: 'Become a Volunteer' },
 ];
 
-const desktopNavLinks = [
-  { href: withBase('/about'), label: 'About' },
-  { href: withBase('/projects'), label: 'Projects' },
-  { href: withBase('/services'), label: 'Services' },
-  { href: withBase('/research'), label: 'Research' },
-  { href: withBase('/capacity-building'), label: 'Capacity Building' },
-  { href: withBase('/team'), label: 'Team' },
-  { href: withBase('/contact'), label: 'Contact' },
+const desktopNavLinks = navLinks.filter((link) => link.label !== 'Home' && link.label !== 'Become a Volunteer');
+
+const serviceSubLinks = [
+  { href: withBase('/services#research'), label: 'Research' },
+  { href: withBase('/services#advisory'), label: 'Advisory' },
+  { href: withBase('/services#training'), label: 'Training' },
+  { href: withBase('/services#partnership'), label: 'Partnership' },
 ];
 
 function isActive(href: string): boolean {
@@ -36,103 +36,101 @@ function isActive(href: string): boolean {
 }
 ---
 
-<header
-  class="sticky top-0 z-50 border-b border-white/10 bg-[#050a1a]/95 text-white backdrop-blur"
->
+<header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 text-slate-900 backdrop-blur-xl">
   <nav
     aria-label="Main navigation"
     class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8"
   >
-    <a href={withBase('/')} class="flex shrink-0 items-center gap-2 text-white">
-      <!-- <span class="grid h-12 w-auto place-items-center" aria-hidden="true"> -->
+    <a href={withBase('/')} class="flex shrink-0 items-center gap-2 text-slate-950">
       <img
         src={logo.src}
         width={logo.width}
         height={logo.height}
         alt="SDG AI Lab"
-        class="h-10 w-auto"
+        class="h-10 w-auto rounded-sm"
         decoding="async"
       />
-      <!-- </span> -->
       <span>
-        <span class="block text-sm font-bold leading-tight text-white xl:text-base"
-          >SDG AI Lab</span
-        >
-        <span
-          class="hidden text-[10px] font-semibold uppercase tracking-wider text-slate-400 xl:block"
-          >A UNDP initiative</span
-        >
+        <span class="block text-sm font-black leading-tight text-slate-950 xl:text-base">SDG AI Lab</span>
+        <span class="hidden text-[10px] font-bold uppercase tracking-wider text-slate-600 xl:block">A UNDP initiative</span>
       </span>
     </a>
 
-    {/* Desktop navigation */}
-    <ul class="hidden lg:flex items-center gap-1">
+    <ul class="hidden items-center gap-2 lg:flex">
       {
         desktopNavLinks.map((link) => (
-          <li>
-            <a
-              href={link.href}
-              class:list={[
-                'block rounded-full px-2.5 py-2 text-xs font-semibold transition-colors xl:px-3 xl:text-sm',
-                isActive(link.href)
-                  ? 'bg-blue-500 text-white'
-                  : 'text-slate-300 hover:bg-white/10 hover:text-white',
-              ]}
-              aria-current={isActive(link.href) ? 'page' : undefined}
-            >
-              {link.label}
-            </a>
+          <li class:list={['relative', link.hasDropdown && 'group']}>
+            {
+              link.hasDropdown ? (
+                <>
+                  <a
+                    href={link.href}
+                    class:list={[
+                      'flex items-center rounded-full px-3 py-2 text-xs font-bold transition-colors xl:text-sm',
+                      isActive(link.href)
+                        ? 'bg-blue-600 text-white shadow-sm'
+                        : 'text-slate-700 hover:bg-white/55 hover:text-blue-700',
+                    ]}
+                    aria-current={isActive(link.href) ? 'page' : undefined}
+                    aria-haspopup="true"
+                  >
+                    {link.label}
+                    <svg class="ml-1 h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.17l3.71-3.94a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z" clip-rule="evenodd" />
+                    </svg>
+                  </a>
+                  <div class="invisible absolute left-0 top-full z-50 min-w-56 translate-y-2 rounded-2xl border border-blue-100 bg-white p-2 opacity-0 shadow-xl shadow-blue-950/10 transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                    {serviceSubLinks.map((subLink) => (
+                      <a
+                        href={subLink.href}
+                        class="block rounded-xl px-4 py-3 text-sm font-bold text-slate-700 transition hover:bg-blue-50 hover:text-blue-700 focus:bg-blue-50 focus:text-blue-700 focus:outline-none"
+                      >
+                        {subLink.label}
+                      </a>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <a
+                  href={link.href}
+                  class:list={[
+                    'block rounded-full px-3 py-2 text-xs font-bold transition-colors xl:text-sm',
+                    isActive(link.href)
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-slate-700 hover:bg-white/55 hover:text-blue-700',
+                  ]}
+                  aria-current={isActive(link.href) ? 'page' : undefined}
+                >
+                  {link.label}
+                </a>
+              )
+            }
           </li>
         ))
       }
     </ul>
 
-    <a
-      href={withBase('/contact')}
-      data-analytics-event="cta_click"
-      data-analytics-category="navigation"
-      data-analytics-label="Header request support"
-      class="hidden min-h-11 shrink-0 items-center justify-center whitespace-nowrap rounded-md bg-blue-500 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-blue-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050a1a] lg:inline-flex"
-    >
-      Request support
-    </a>
+    <div class="hidden shrink-0 items-center gap-3 lg:flex" aria-label="Institutional logos">
+      <img src={icpsdLogo.src} width={icpsdLogo.width} height={icpsdLogo.height} alt="ICPSD" class="h-9 w-auto object-contain" decoding="async" />
+      <img src={undpLogo.src} width={undpLogo.width} height={undpLogo.height} alt="UNDP" class="h-10 w-auto object-contain" decoding="async" />
+    </div>
 
-    {/* Mobile hamburger button */}
     <button
       type="button"
       id="mobile-menu-toggle"
-      class="inline-flex items-center justify-center rounded p-2 text-slate-200 hover:bg-white/10 hover:text-white lg:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050a1a]"
+      class="inline-flex items-center justify-center rounded p-2 text-slate-800 hover:bg-white/60 hover:text-blue-700 lg:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
       aria-expanded="false"
       aria-controls="mobile-menu"
       aria-label="Toggle navigation menu"
     >
-      <svg
-        class="h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="2"
-        stroke="currentColor"
-        aria-hidden="true"
-      >
-        <path
-          class="menu-icon"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
-        <path
-          class="close-icon hidden"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M6 18L18 6M6 6l12 12"></path>
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+        <path class="menu-icon" stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+        <path class="close-icon hidden" stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
       </svg>
     </button>
   </nav>
 
-  {/* Mobile menu */}
-  <div
-    id="mobile-menu"
-    class="hidden border-t border-white/10 bg-[#050a1a] lg:hidden"
-  >
+  <div id="mobile-menu" class="hidden border-t border-slate-200 bg-white lg:hidden">
     <ul class="container-narrow space-y-1 py-3">
       {
         navLinks.map((link) => (
@@ -140,28 +138,35 @@ function isActive(href: string): boolean {
             <a
               href={link.href}
               class:list={[
-                'block rounded px-3 py-2 text-sm font-medium transition-colors',
+                'block rounded px-3 py-2 text-sm font-bold transition-colors',
                 isActive(link.href)
-                  ? 'bg-blue-500 text-white'
-                  : 'text-slate-300 hover:bg-white/10 hover:text-white',
+                  ? 'bg-blue-600 text-white'
+                  : 'text-slate-700 hover:bg-white/60 hover:text-blue-700',
               ]}
               aria-current={isActive(link.href) ? 'page' : undefined}
             >
               {link.label}
             </a>
+            {link.hasDropdown && (
+              <ul class="mt-1 space-y-1 pl-4">
+                {serviceSubLinks.map((subLink) => (
+                  <li>
+                    <a
+                      href={subLink.href}
+                      class="block rounded px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:bg-white/60 hover:text-blue-700"
+                    >
+                      {subLink.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))
       }
-      <li class="px-3 pt-2">
-        <a
-          href={withBase('/contact')}
-          data-analytics-event="cta_click"
-          data-analytics-category="navigation"
-          data-analytics-label="Mobile request support"
-          class="inline-flex min-h-11 w-full items-center justify-center rounded-md bg-blue-500 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-blue-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050a1a]"
-        >
-          Request support
-        </a>
+      <li class="flex items-center gap-3 px-3 pt-2" aria-label="Institutional logos">
+        <img src={icpsdLogo.src} width={icpsdLogo.width} height={icpsdLogo.height} alt="ICPSD" class="h-9 w-auto object-contain" decoding="async" />
+        <img src={undpLogo.src} width={undpLogo.width} height={undpLogo.height} alt="UNDP" class="h-10 w-auto object-contain" decoding="async" />
       </li>
     </ul>
   </div>
@@ -201,12 +206,13 @@ function isActive(href: string): boolean {
     });
 
     document.addEventListener('keydown', (e) => {
-      if (
-        e.key === 'Escape' &&
-        toggleButton.getAttribute('aria-expanded') === 'true'
-      ) {
+      if (e.key === 'Escape' && toggleButton.getAttribute('aria-expanded') === 'true') {
         closeMenu();
       }
     });
   }
 </script>
+
+
+
+

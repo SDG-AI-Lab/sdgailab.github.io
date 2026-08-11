@@ -1,4 +1,4 @@
-// @vitest-environment jsdom
+﻿// @vitest-environment jsdom
 
 import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
@@ -146,8 +146,9 @@ describe('public islands', () => {
 
     await render(<ProjectList />);
 
-    expect(container.textContent).toContain('Filter projects');
+    expect(container.textContent).toContain('Search projects');
     expect(container.textContent).toContain('Natural Language Processing');
+    expect(container.querySelector('input[type="search"]')).not.toBeNull();
 
     const fintechFilter = Array.from(container.querySelectorAll('button')).find((button) =>
       button.textContent?.includes('FinTech & Digital Finance')
@@ -342,3 +343,4 @@ describe('public islands', () => {
     await expectAccessible(container);
   });
 });
+

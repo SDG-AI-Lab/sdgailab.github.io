@@ -11,7 +11,7 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
     path: 'src/pages/index.astro',
     checks: (source) => {
       expect(source).toContain('BaseLayout');
-      expect(source).toContain('StatsCards');
+      expect(source).toContain('quickStats');
       expect(source).toContain('FeaturedProjects');
     },
   },

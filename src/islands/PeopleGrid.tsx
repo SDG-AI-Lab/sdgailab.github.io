@@ -41,7 +41,7 @@ function PersonCardView({ person }: { person: PersonCard }) {
   const section = getTeamSection(person);
 
   return (
-    <article className="overflow-hidden rounded-xl border border-white/10 bg-[#111a36] text-center shadow-lg shadow-slate-950/20 transition hover:-translate-y-1 hover:border-blue-300/40 hover:shadow-blue-950/30">
+    <article className="overflow-hidden rounded-xl border border-[#c9ddf4] bg-white text-center shadow-[0_12px_34px_rgba(16,29,53,0.08)] transition hover:-translate-y-1 hover:border-[#246bfe]/35 hover:shadow-[0_18px_45px_rgba(36,107,254,0.16)]">
       <div className="aspect-[1.15/1] overflow-hidden bg-[#e9edff]">
         {person.photo_url ? (
           <img
@@ -59,11 +59,11 @@ function PersonCardView({ person }: { person: PersonCard }) {
         )}
       </div>
       <div className="p-4">
-        <span className="inline-flex rounded-full bg-blue-500/25 px-3 py-1 text-[11px] font-bold leading-none text-blue-100">
+        <span className="inline-flex rounded-full bg-[#e7f1ff] px-3 py-1 text-[11px] font-bold leading-none text-[#246bfe]">
           {section}
         </span>
-        <h3 className="mt-3 text-base font-bold text-white">{person.name}</h3>
-        <p className="mt-1 text-sm text-slate-400">{person.role_title}</p>
+        <h3 className="mt-3 text-base font-bold text-[#101d35]">{person.name}</h3>
+        <p className="mt-1 text-sm font-semibold text-[#667995]">{person.role_title}</p>
       </div>
     </article>
   );
@@ -130,7 +130,7 @@ function PeopleGridContent({ groupType }: PeopleGridProps) {
 
   if (error && people.length === 0) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 text-center text-slate-300">
+      <div className="rounded-2xl border border-[#c9ddf4] bg-white p-8 text-center text-[#667995] shadow-sm">
         <p>Unable to load team information at this time.</p>
       </div>
     );
@@ -138,7 +138,7 @@ function PeopleGridContent({ groupType }: PeopleGridProps) {
 
   if (people.length === 0) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 text-center text-slate-300 italic">
+      <div className="rounded-2xl border border-[#c9ddf4] bg-white p-8 text-center text-[#667995] shadow-sm italic">
         <p>No members listed yet.</p>
       </div>
     );
@@ -147,7 +147,7 @@ function PeopleGridContent({ groupType }: PeopleGridProps) {
   return (
     <div>
       {error && (
-        <p className="mb-5 rounded-lg border border-amber-300/30 bg-amber-300/10 p-4 text-sm text-amber-100">
+        <p className="mb-5 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm font-semibold text-amber-800">
           Team information is currently being refreshed.
         </p>
       )}

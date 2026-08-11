@@ -25,7 +25,7 @@ const serviceSuites = [
     border: 'border-pink-300',
     text: 'text-pink-600',
     icon: 'research',
-    promise: 'Turn emerging technology questions into evidence, methods and reusable knowledge.',
+    promise: 'Turn emerging technology questions into evidence, methods and reusable knowledge that UNDP units and government partners can act on.',
     items: [
       'Frontier technology research',
       'Use-case analysis and feasibility reviews',
@@ -40,7 +40,7 @@ const serviceSuites = [
     border: 'border-emerald-300',
     text: 'text-emerald-600',
     icon: 'advisory',
-    promise: 'Provide targeted guidance for responsible AI, data systems and digital delivery.',
+    promise: 'Give UNDP units, governments and ministries targeted technical guidance for turning evidence into working, responsible solutions.',
     items: [
       'Technical advisory and architecture review',
       'AI, GIS and data-system guidance',
@@ -55,12 +55,12 @@ const serviceSuites = [
     border: 'border-violet-300',
     text: 'text-violet-600',
     icon: 'training',
-    promise: 'Build practical AI, data and digital skills for teams and communities.',
+    promise: 'Strengthen practical AI, data and digital skills for the people who will own a solution after direct Lab involvement ends.',
     items: [
       'Capacity-building programmes',
       'Hands-on bootcamps and workshops',
       'Mentorship and fellowship support',
-      'Responsible AI learning sessions',
+      'Learning pathways for government officials, UNDP staff and community volunteers',
       'Volunteer and community learning pathways',
     ],
   },
@@ -70,16 +70,22 @@ const serviceSuites = [
     border: 'border-orange-300',
     text: 'text-orange-600',
     icon: 'network',
-    promise: 'Connect development needs with technical partners, institutions and the wider ecosystem.',
+    promise: "Connect development needs with the right technical partners, institutions and members of the Lab's wider network.",
     items: [
       'Partner mapping and collaboration design',
       'Technology-sector engagement',
       'Joint project scoping and coordination',
-      'Knowledge exchange across the Lab network',
+      'Clear pathways for teams to reuse, adapt or scale existing Lab work',
       'Pathways for reuse, adoption and scale',
     ],
   },
 ];
+
+function getServiceId(title: string) {
+  if (title === 'Training') return 'training';
+  if (title === 'Partnerships') return 'partnership';
+  return title.toLowerCase();
+}
 
 const requestSteps = [
   ['Context', 'Country, team, institution, users and development challenge.'],
@@ -93,21 +99,21 @@ const requestSteps = [
   title="Services - SDG AI Lab"
   description="Requestable advisory, prototyping, research, training and collaboration services from SDG AI Lab."
 >
-  <section class="section-padding bg-[#061632] text-white">
+  <section class="section-padding bg-[#f4f8fd] text-[#101d35]">
     <div class="container-narrow">
-      <p class="text-sm font-bold uppercase tracking-[0.22em] text-blue-200">Our services</p>
+      <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#246bfe]">Our services</p>
       <h1 class="mt-3 max-w-4xl text-4xl font-extrabold uppercase tracking-tight sm:text-5xl">Let's work together</h1>
-      <p class="mt-5 max-w-3xl text-lg leading-8 text-blue-100">
-        SDG AI Lab provides practical technical support for teams exploring AI, data and digital approaches - from early scoping to prototypes, research, capacity building, partnerships and handover.
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-[#667995]">
+        SDG AI Lab delivers AI solutions and provides research, advisory, training and collaboration support to UNDP units, governments and development partners. The Lab builds custom digital solutions from the ground up or adapts existing tools to meet specific needs.
       </p>
     </div>
   </section>
 
-  <section class="section-padding bg-gradient-to-b from-[#061632] to-[#0b2853] text-white" aria-labelledby="suite-heading">
+  <section class="section-padding bg-white text-[#101d35]" aria-labelledby="suite-heading">
     <div class="container-narrow">
       <div class="mb-20 flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
         <div>
-          <p class="text-sm font-bold uppercase tracking-[0.22em] text-blue-200">Suite of services</p>
+          <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#246bfe]">Suite of services</p>
           <h2 id="suite-heading" class="mt-3 text-3xl font-bold sm:text-4xl">Choose the support pathway that fits the work</h2>
         </div>
         <a href={withBase('/contact')} class="inline-flex min-h-11 items-center justify-center rounded-md bg-blue-500 px-5 py-2 text-sm font-bold text-white shadow transition hover:bg-blue-400 lg:mt-6">
@@ -117,7 +123,7 @@ const requestSteps = [
 
       <div class="grid gap-x-7 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
         {serviceSuites.map((service, index) => (
-          <article class={`flex h-full flex-col rounded-3xl border-2 ${service.border} bg-white text-slate-950 shadow-xl shadow-slate-950/20`}>
+          <article id={getServiceId(service.title)} class={`scroll-mt-28 flex h-full flex-col rounded-3xl border-2 ${service.border} bg-white text-slate-950 shadow-[0_14px_34px_rgba(16,29,53,0.08)]`}>
             <div class="relative px-6 pb-5 pt-12 text-center">
               <div class={`absolute left-1/2 top-0 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-br ${service.accent} shadow-lg shadow-slate-950/25`} aria-hidden="true">
                 {service.icon === 'code' && (
@@ -137,7 +143,7 @@ const requestSteps = [
                 )}
               </div>
               <span class={`text-xs font-extrabold ${service.text}`}>{String(index + 1).padStart(2, '0')}</span>
-              <h3 class={`mt-2 text-xl font-extrabold uppercase leading-tight ${service.text}`}>{service.title}</h3>
+              <h3 class={`mt-2 text-xl font-extrabold uppercase leading-tight ${service.text}`}>{service.title === 'Training' ? 'Capacity Building' : service.title}</h3>
               <p class="mt-4 text-sm font-semibold leading-6 text-slate-700">{service.promise}</p>
             </div>
             <div class="mx-5 mb-5 flex-1 rounded-2xl border border-slate-200 bg-slate-50 p-5">
@@ -154,8 +160,8 @@ const requestSteps = [
         ))}
       </div>
 
-      <div class="mt-10 rounded-2xl border border-blue-300/25 bg-blue-300/10 p-6 text-center text-blue-50">
-        Responsible data and AI governance is treated as a layer across all services - from scoping and design to delivery, publication and reuse.
+      <div class="mt-10 rounded-2xl border border-[#bdd9fb] bg-[#eaf5ff] p-6 text-center text-[#334867]">
+        Responsible data and AI governance is treated as a layer across all services &mdash; from scoping and design to delivery, publication and reuse.
       </div>
     </div>
   </section>
@@ -177,15 +183,17 @@ const requestSteps = [
     </div>
   </section>
 
-  <section class="section-padding bg-primary text-white">
+  <section class="section-padding bg-[#eaf5ff] text-[#101d35]">
     <div class="container-narrow flex flex-col justify-between gap-6 md:flex-row md:items-center">
       <div>
-        <p class="text-sm font-bold uppercase tracking-[0.18em] text-blue-100">Ready to scope a request?</p>
+        <p class="text-sm font-bold uppercase tracking-[0.18em] text-[#246bfe]">Ready to scope a request?</p>
         <h2 class="mt-3 text-3xl font-bold">Send the Lab enough context to route the request.</h2>
       </div>
-      <a href={withBase('/contact')} class="inline-flex min-h-12 items-center justify-center rounded-md bg-white px-6 py-3 text-sm font-bold text-primary shadow transition hover:bg-blue-50">
+      <a href={withBase('/contact')} class="inline-flex min-h-12 items-center justify-center rounded-md bg-[#246bfe] px-6 py-3 text-sm font-bold text-white shadow transition hover:bg-[#145de5]">
         Contact the Lab
       </a>
     </div>
   </section>
 </BaseLayout>
+
+

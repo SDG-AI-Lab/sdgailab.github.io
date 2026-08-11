@@ -41,12 +41,12 @@ export default function GeographicReach() {
   );
 
   if (loading) {
-    return <div className="h-72 rounded-2xl border border-white/10 bg-white/5" role="status" aria-label="Loading geographic reach" />;
+    return <div className="h-72 rounded-2xl border border-[#c9ddf4] bg-white shadow-sm" role="status" aria-label="Loading geographic reach" />;
   }
 
   if (error && countries.length === 0) {
     return (
-      <p className="rounded-lg border border-amber-300/30 bg-amber-300/10 p-4 text-sm text-amber-100">
+      <p className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm font-semibold text-amber-800">
         Geographic reach information is currently being updated.
       </p>
     );
@@ -54,9 +54,9 @@ export default function GeographicReach() {
 
   if (countries.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-white/20 bg-white/5 p-8 text-center">
-        <h3 className="text-lg font-bold text-white">Geographic reach information is being updated.</h3>
-        <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-slate-300">
+      <div className="rounded-2xl border border-dashed border-[#c9ddf4] bg-white p-8 text-center shadow-sm">
+        <h3 className="text-lg font-bold text-[#101d35]">Geographic reach information is being updated.</h3>
+        <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-[#667995]">
           Please check back soon for the latest country and territory coverage.
         </p>
       </div>
@@ -65,8 +65,8 @@ export default function GeographicReach() {
 
   return (
     <div className="space-y-5">
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#07142c] p-3 shadow-2xl shadow-sky-950/30 sm:p-5">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_28%_22%,rgba(56,189,248,0.16),transparent_32%),radial-gradient(circle_at_76%_36%,rgba(59,130,246,0.13),transparent_35%)]" />
+      <div className="relative overflow-hidden rounded-2xl border border-[#c9ddf4] bg-white p-3 shadow-[0_18px_50px_rgba(16,29,53,0.08)] sm:p-5">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_28%_22%,rgba(36,107,254,0.10),transparent_32%),radial-gradient(circle_at_76%_36%,rgba(82,173,255,0.12),transparent_35%)]" />
         <svg
           className="relative h-auto w-full"
           viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`}
@@ -75,7 +75,7 @@ export default function GeographicReach() {
         >
           <defs>
             <pattern id="map-grid" width="50" height="50" patternUnits="userSpaceOnUse">
-              <path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(148, 163, 184, 0.10)" strokeWidth="1" />
+              <path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(148, 163, 184, 0.18)" strokeWidth="1" />
             </pattern>
             <filter id="pin-glow" x="-70%" y="-70%" width="240%" height="240%">
               <feGaussianBlur stdDeviation="4" result="blur" />
@@ -94,8 +94,8 @@ export default function GeographicReach() {
                 <path
                   key={country.id ?? index}
                   d={d}
-                  fill="rgba(30, 64, 175, 0.58)"
-                  stroke="rgba(125, 211, 252, 0.24)"
+                  fill="#d9e8fb"
+                  stroke="#b8cde8"
                   strokeWidth="0.7"
                 />
               );
@@ -113,14 +113,14 @@ export default function GeographicReach() {
             );
           })}
         </svg>
-        <div className="relative mt-4 flex flex-col gap-4 border-t border-white/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative mt-4 flex flex-col gap-4 border-t border-[#d7e5f7] pt-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm font-semibold text-white">Countries and territories where the Lab has supported work</p>
+            <p className="text-sm font-semibold text-[#101d35]">Countries and territories where the Lab has supported work</p>
           </div>
           <button
             type="button"
             onClick={() => setShowList((value) => !value)}
-            className="inline-flex min-h-10 items-center justify-center rounded-full border border-sky-300/35 bg-sky-300/10 px-4 py-2 text-sm font-bold text-sky-100 transition hover:border-sky-200 hover:bg-sky-300/20"
+            className="inline-flex min-h-10 items-center justify-center rounded-full border border-[#bdd9fb] bg-[#eaf5ff] px-4 py-2 text-sm font-bold text-[#246bfe] transition hover:border-[#246bfe]/40 hover:bg-[#d8ecff]"
             aria-expanded={showList}
           >
             {showList ? 'Hide country list' : `View all ${countries.length} countries`}
@@ -129,16 +129,16 @@ export default function GeographicReach() {
       </div>
 
       {showList ? (
-        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+        <div className="rounded-2xl border border-[#c9ddf4] bg-white p-4 shadow-sm">
           <div className="mb-3 flex items-center justify-between gap-3">
-            <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-sky-200">Country list</h3>
-            <span className="text-xs text-slate-400">{countries.length} entries</span>
+            <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-[#246bfe]">Country list</h3>
+            <span className="text-xs font-semibold text-[#667995]">{countries.length} entries</span>
           </div>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {countries.map((country) => (
               <span
                 key={country.id}
-                className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-2 text-center text-sm font-semibold leading-tight text-white shadow-sm backdrop-blur transition hover:border-sky-300/60 hover:bg-sky-300/10"
+                className="rounded-full border border-[#c9ddf4] bg-[#f4f8fd] px-3 py-2 text-center text-sm font-semibold leading-tight text-[#334867] shadow-sm transition hover:border-[#246bfe]/40 hover:bg-[#eaf5ff]"
               >
                 {country.country_name}
               </span>

@@ -6,9 +6,9 @@ test.describe('Public site', () => {
 
     await expect(page.getByRole('navigation', { name: 'Main navigation' })).toBeVisible();
     await expect(
-      page.getByRole('heading', { name: /Turning development challenges into/i })
+      page.getByRole('heading', { name: /We help UNDP teams turn complex challenges/i })
     ).toBeVisible();
-    await expect(page.getByRole('link', { name: /Explore projects/i })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Request support/i }).first()).toBeVisible();
   });
 
   test('projects page is reachable from the homepage', async ({ page }) => {
@@ -36,3 +36,4 @@ test.describe('Admin shell', () => {
     await expect(page.locator('#admin-root astro-island')).toBeAttached();
   });
 });
+

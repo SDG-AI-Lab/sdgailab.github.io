@@ -24,3 +24,30 @@
 | `demo_day_projects.sql` | Demo project data |
 
 Seeds can be re-run; migrations should be applied once per environment (idempotent where noted).
+
+## Contact form email notifications
+
+The public contact form uses the `contact-submit` Supabase Edge Function.
+
+Apply the migration:
+
+```sql
+supabase/migrations/009_contact_submissions.sql
+```
+
+For the temporary Gmail notification setup, use Google Apps Script as the email webhook. See:
+
+```text
+docs/contact-form/gmail-notifications.md
+```
+
+Configure Supabase secrets after creating the Apps Script web app:
+
+```bash
+supabase secrets set CONTACT_EMAIL_WEBHOOK_URL="https://script.google.com/macros/s/.../exec"
+supabase secrets set CONTACT_EMAIL_WEBHOOK_SECRET="your-long-random-secret"
+supabase secrets set CONTACT_NOTIFICATION_TO="josueuzj9@gmail.com"
+supabase functions deploy contact-submit
+```
+
+For production, replace `CONTACT_NOTIFICATION_TO` with the Lab inbox and use an approved institutional sender/workflow where possible.

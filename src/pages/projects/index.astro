@@ -2,110 +2,43 @@
 import { withBase } from '../../lib/url';
 import BaseLayout from '../../components/layout/BaseLayout.astro';
 import ProjectList from '../../islands/ProjectList';
-import { impactAreas } from '../../data/sampleContent';
 ---
 
-<BaseLayout title="Projects - SDG AI Lab">
-  <section class="section-padding">
-    <div class="container-narrow">
-      <p class="section-label">Portfolio</p>
-      <h1 class="mt-3 text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Projects</h1>
-      <p class="max-w-3xl text-lg leading-8 text-gray-600 mb-8">
-        Explore the SDG AI Lab portfolio: applied AI, data science and machine-learning work designed around development challenges, responsible methods and reusable learning.
-      </p>
-
-      <div class="mb-10 grid gap-4 rounded-xl border border-slate-200 bg-slate-50 p-5 md:grid-cols-4">
-        {[
-          ['Challenge', 'What development problem is being addressed?'],
-          ['Solution', 'What approach, tool or prototype is being tested?'],
-          ['Impact', 'What changed, or what evidence is being generated?'],
-          ['Resources', 'What can others reuse: methods, code, reports or lessons?'],
-        ].map(([title, body]) => (
-          <article class="rounded-lg bg-white p-4 shadow-sm">
-            <h2 class="text-sm font-bold uppercase tracking-wider text-primary">{title}</h2>
-            <p class="mt-2 text-sm leading-6 text-slate-600">{body}</p>
-          </article>
-        ))}
-      </div>
-
-      <div class="mb-8 flex flex-wrap gap-2" aria-label="Portfolio themes">
-        {['Responsible AI', 'Data readiness', 'Prototype', 'Internal tool', 'Published output', 'SDG alignment'].map((label) => (
-          <span class="ui-badge ui-badge--sm ui-badge--neutral">{label}</span>
-        ))}
-      </div>
-      <section class="mb-10 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-[#07142c] to-[#0b2853] p-6 shadow-xl shadow-slate-950/20 sm:p-8" aria-labelledby="tech4r-heading">
-        <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
-          <div>
-            <p class="text-sm font-bold uppercase tracking-[0.18em] text-blue-300">Featured initiative</p>
-            <h2 id="tech4r-heading" class="mt-3 text-2xl font-bold text-white">Tech4R: Technology for Rescue, Response, Recovery and Resilience</h2>
-            <p class="mt-4 max-w-3xl text-sm leading-7 text-blue-100">
-              Tech4R mobilizes technology volunteers, startups, companies and field partners to co-create data-driven and digital tools for disaster relief, recovery and resilience.
-            </p>
-          </div>
-          <a href={withBase('/tech4r')} class="inline-flex min-h-12 items-center justify-center rounded-md bg-blue-500 px-6 py-3 text-sm font-bold text-white shadow transition hover:bg-blue-400">
-            View Tech4R
+<BaseLayout
+  title="Projects - SDG AI Lab"
+  description="Browse SDG AI Lab projects, reusable AI and data solutions, and implementation examples across the Lab portfolio."
+>
+  <main class="projects-page bg-white text-[#10213f]">
+    <section
+      class="relative overflow-hidden border-b border-blue-500/10 bg-[linear-gradient(120deg,rgba(255,255,255,0.4),transparent_42%),radial-gradient(circle_at_18%_22%,rgba(47,128,237,0.14),transparent_24%),#d4eaff] py-[clamp(72px,9vw,128px)]"
+      aria-labelledby="projects-heading"
+    >
+      <span class="pointer-events-none absolute left-[-40px] top-[46px] h-[150px] w-[150px] rotate-[20deg] border border-blue-500/20 [clip-path:polygon(15%_0,100%_22%,82%_86%,20%_100%,0_42%)]" aria-hidden="true"></span>
+      <span class="pointer-events-none absolute right-[-42px] top-[-50px] h-[180px] w-[180px] rotate-[20deg] border border-blue-500/20 [clip-path:polygon(28%_0,100%_8%,82%_80%,12%_100%,0_24%)]" aria-hidden="true"></span>
+      <div class="relative z-10 mx-auto w-[min(100%-2rem,1120px)]">
+        <p class="mb-3.5 text-xs font-black uppercase tracking-[0.18em] text-[#2f80ed]">Project portfolio</p>
+        <h1 id="projects-heading" class="m-0 max-w-[850px] text-[clamp(2.5rem,5vw,4.9rem)] font-black leading-[0.98] tracking-[-0.055em] text-[#0f1d38]">
+          Explore practical AI and data work
+        </h1>
+        <p class="mt-6 max-w-[760px] text-[clamp(1rem,1.35vw,1.18rem)] font-semibold leading-8 text-[#526580]">
+          Find projects by domain, year or keyword. Each project page shows what was built,
+          where it was applied, the technologies used and what can be reused.
+        </p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a
+            href={withBase('/tech4r')}
+            class="inline-flex min-h-11 items-center gap-2 rounded-full border border-blue-500/30 bg-white/70 px-4 py-3 text-sm font-black text-[#1f6ed5] no-underline transition hover:-translate-y-0.5 hover:bg-white focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-blue-500/40"
+          >
+            Featured initiative: Tech4R <span aria-hidden="true">?</span>
           </a>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="mb-10 rounded-2xl border border-blue-100 bg-blue-50 p-6 sm:p-8" aria-labelledby="portfolio-language-heading">
-        <div class="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-          <div>
-            <p class="section-label">Portfolio language</p>
-            <h2 id="portfolio-language-heading" class="mt-3 text-2xl font-bold text-slate-950">
-              How to read this portfolio
-            </h2>
-            <p class="mt-4 text-sm leading-7 text-slate-700">
-              The Lab's portfolio brings together project work, reusable methods, technical outputs and implementation experience in one place so visitors can understand what was built, where it was applied and what can be reused.
-            </p>
-          </div>
-
-          <div class="grid gap-4 md:grid-cols-3">
-            {[
-              ['Solution', 'A reusable tool, product, platform, model, dashboard or methodology.'],
-              ['Project', 'A time-bound implementation or case study in a specific development context.'],
-              ['Service', 'Expertise or support the Lab can provide, such as advisory, prototyping, research or training.'],
-            ].map(([title, body]) => (
-              <article class="rounded-xl border border-blue-100 bg-white p-5 shadow-sm">
-                <h3 class="text-base font-bold text-slate-950">{title}</h3>
-                <p class="mt-3 text-sm leading-6 text-slate-600">{body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section class="mb-10 rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8" aria-labelledby="impact-area-heading">
-        <div class="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-          <div>
-            <p class="section-label">Portfolio map</p>
-            <h2 id="impact-area-heading" class="mt-3 text-2xl font-bold text-slate-950">
-              How the Lab organizes its work
-            </h2>
-            <p class="mt-4 text-sm leading-7 text-slate-600">
-              Projects are grouped into six practical domains, from geospatial intelligence and NLP tools to resilience, digital finance, skills development and advisory support. Use the filters below to explore the current portfolio.
-            </p>
-          </div>
-
-          <div class="grid gap-3 sm:grid-cols-2">
-            {impactAreas.map((area) => (
-              <article class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-                <div class="flex items-start justify-between gap-3">
-                  <h3 class="font-bold text-slate-950">{area.title}</h3>
-                  {/* <span class="shrink-0 rounded-full bg-primary-50 px-2.5 py-1 text-[11px] font-bold text-primary">{area.timeline}</span> */}
-                </div>
-                <p class="mt-2 text-sm leading-6 text-slate-600">{area.summary}</p>
-                <p class="mt-3 text-xs font-semibold text-slate-500">
-                  Examples: {area.examples.slice(0, 2).join(', ')}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <ProjectList client:load />
-    </div>
-  </section>
+    <section class="bg-white pb-[clamp(72px,8vw,112px)] pt-[clamp(42px,6vw,76px)]" aria-label="Browse projects">
+      <div class="mx-auto w-[min(100%-2rem,1120px)]">
+        <ProjectList client:load />
+      </div>
+    </section>
+  </main>
 </BaseLayout>
-

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import ContactForm from '../islands/ContactForm';
 
 const requestTypes = [
   ['Request technical support', 'For UNDP teams, governments or partners exploring an AI, GIS, data or digital product need.', 'Share the challenge, country or team context, available data, timeline and expected users.'],
@@ -12,80 +13,44 @@ const requestTypes = [
   title="Contact - SDG AI Lab"
   description="Request technical support, propose a partnership or contact the SDG AI Lab."
 >
-  <main class="bg-[#050a1a] text-white">
-    <section class="section-padding bg-[#050a1a]">
-      <div class="container-narrow">
-        <div class="max-w-6xl">
-          <p class="text-sm font-bold uppercase tracking-[0.22em] text-blue-300">Work with us</p>
-          <h1 class="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
+  <main class="bg-[#f4f8fd] text-[#101d35]">
+    <section class="py-[clamp(70px,8vw,112px)]">
+      <div class="mx-auto w-[min(100%-2rem,1120px)]">
+        <div class="max-w-5xl">
+          <p class="text-sm font-black uppercase tracking-[0.18em] text-[#246bfe]">Work with us</p>
+          <h1 class="mt-4 text-[clamp(2.35rem,5vw,4.6rem)] font-black leading-[1.02] tracking-[-0.055em] text-[#101d35]">
             Request support or start a collaboration
           </h1>
-          <p class="mt-6 max-w-5xl text-lg leading-8 text-slate-300">
+          <p class="mt-6 max-w-5xl text-lg font-semibold leading-8 text-[#667995]">
             Use this form to reach the SDG AI Lab for technical support, partnerships, programme collaboration, media enquiries or general questions. The more context you provide, the easier it is to route your request to the right team.
           </p>
         </div>
 
         <div class="mt-14 grid gap-6 lg:grid-cols-3">
           {requestTypes.map(([title, body, next]) => (
-            <article class="rounded-2xl border border-white/10 bg-white/[0.06] p-6 shadow-lg shadow-slate-950/20">
-              <h2 class="text-xl font-bold text-white">{title}</h2>
-              <p class="mt-5 text-sm leading-7 text-slate-300">{body}</p>
-              <p class="mt-5 text-xs font-bold uppercase tracking-[0.16em] text-blue-300">What to include</p>
-              <p class="mt-2 text-sm leading-7 text-slate-300">{next}</p>
+            <article class="rounded-2xl border border-[#c9ddf4] bg-white p-6 shadow-[0_12px_34px_rgba(16,29,53,0.06)]">
+              <h2 class="text-xl font-black text-[#101d35]">{title}</h2>
+              <p class="mt-5 text-sm font-semibold leading-7 text-[#667995]">{body}</p>
+              <p class="mt-5 text-xs font-black uppercase tracking-[0.16em] text-[#246bfe]">What to include</p>
+              <p class="mt-2 text-sm font-semibold leading-7 text-[#667995]">{next}</p>
             </article>
           ))}
         </div>
 
         <div class="mt-14 grid gap-8 lg:grid-cols-[1.25fr_0.65fr] lg:items-start">
-          <section class="rounded-2xl border border-white/10 bg-white/[0.06] p-6 shadow-lg shadow-slate-950/20 sm:p-8" aria-labelledby="proposal-heading">
-            <h2 id="proposal-heading" class="text-2xl font-bold text-white">Submit your proposal</h2>
-            <p class="mt-3 text-sm leading-6 text-slate-400">
+          <section class="rounded-2xl border border-[#c9ddf4] bg-white p-6 shadow-[0_12px_34px_rgba(16,29,53,0.06)] sm:p-8" aria-labelledby="proposal-heading">
+            <h2 id="proposal-heading" class="text-2xl font-black text-[#101d35]">Submit your proposal</h2>
+            <p class="mt-3 text-sm font-semibold leading-6 text-[#667995]">
               Please fill out the form below. Required fields are marked with an asterisk (*).
             </p>
 
-            <form class="mt-8 space-y-6" action="mailto:sdgailab@undp.org" method="post" enctype="text/plain">
-              <div>
-                <label for="name" class="block text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Name <span class="text-blue-300">*</span></label>
-                <input id="name" name="name" type="text" required placeholder="Enter your full name" class="mt-3 min-h-12 w-full rounded-lg border border-white/15 bg-[#080f26] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
-              </div>
-
-              <div>
-                <label for="email" class="block text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Email <span class="text-blue-300">*</span></label>
-                <input id="email" name="email" type="email" required placeholder="Enter your business email address" class="mt-3 min-h-12 w-full rounded-lg border border-white/15 bg-[#080f26] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
-              </div>
-
-              <div>
-                <label for="organization" class="block text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Organization / affiliation <span class="text-blue-300">*</span></label>
-                <input id="organization" name="organization" type="text" required placeholder="Your institution or UNDP team name" class="mt-3 min-h-12 w-full rounded-lg border border-white/15 bg-[#080f26] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
-              </div>
-
-              <div>
-                <label for="request-type" class="block text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Request type</label>
-                <select id="request-type" name="request_type" class="mt-3 min-h-12 w-full rounded-lg border border-white/15 bg-[#080f26] px-4 py-3 text-sm text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30">
-                  <option value="">Select an option</option>
-                  <option>Request technical support</option>
-                  <option>Propose a partnership</option>
-                  <option>Contribute expertise</option>
-                  <option>Media or general enquiry</option>
-                </select>
-              </div>
-
-              <div>
-                <label for="message" class="block text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Message <span class="text-blue-300">*</span></label>
-                <textarea id="message" name="message" required rows="7" placeholder="Briefly describe the scope, goals, datasets available and how SDG AI Lab can collaborate with you..." class="mt-3 w-full rounded-lg border border-white/15 bg-[#080f26] px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30"></textarea>
-              </div>
-
-              <button type="submit" class="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-blue-500 px-6 py-3 text-sm font-bold text-white shadow transition hover:bg-blue-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050a1a]">
-                Submit Request
-                <span aria-hidden="true">?</span>
-              </button>
-            </form>
+            <ContactForm client:load />
           </section>
 
-          <aside class="rounded-2xl border border-white/10 bg-white/[0.06] p-6 shadow-lg shadow-slate-950/20 sm:p-8" aria-label="Contact details">
+          <aside class="rounded-2xl border border-[#c9ddf4] bg-white p-6 shadow-[0_12px_34px_rgba(16,29,53,0.06)] sm:p-8" aria-label="Contact details">
             <div>
-              <h2 class="text-2xl font-bold text-white">Email us directly</h2>
-              <a href="mailto:sdgailab@undp.org" class="mt-5 inline-flex min-h-11 items-center gap-3 text-lg font-semibold text-blue-300 transition hover:text-blue-200">
+              <h2 class="text-2xl font-black text-[#101d35]">Email us directly</h2>
+              <a href="mailto:sdgailab@undp.org" class="mt-5 inline-flex min-h-11 items-center gap-3 text-lg font-bold text-[#246bfe] transition hover:text-[#145de5]">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                 </svg>
@@ -94,16 +59,16 @@ const requestTypes = [
             </div>
 
             <div class="mt-10">
-              <h2 class="text-2xl font-bold text-white">Social media</h2>
+              <h2 class="text-2xl font-black text-[#101d35]">Social media</h2>
               <div class="mt-5 space-y-3">
-                <a href="https://www.linkedin.com/company/sdgailab" target="_blank" rel="noopener noreferrer" class="flex min-h-10 items-center gap-3 text-sm font-semibold text-slate-300 transition hover:text-white">
-                  <svg class="h-5 w-5 text-slate-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <a href="https://www.linkedin.com/company/sdgailab" target="_blank" rel="noopener noreferrer" class="flex min-h-10 items-center gap-3 text-sm font-bold text-[#667995] transition hover:text-[#246bfe]">
+                  <svg class="h-5 w-5 text-[#246bfe]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.447-2.136 2.942v5.664H9.351V9h3.414v1.561h.049c.476-.9 1.637-1.852 3.369-1.852 3.602 0 4.267 2.371 4.267 5.455v6.288zM5.337 7.433a2.063 2.063 0 1 1 0-4.126 2.063 2.063 0 0 1 0 4.126zM7.114 20.452H3.558V9h3.556v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
                   </svg>
                   LinkedIn
                 </a>
-                <a href="https://github.com/SDG-AI-Lab" target="_blank" rel="noopener noreferrer" class="flex min-h-10 items-center gap-3 text-sm font-semibold text-slate-300 transition hover:text-white">
-                  <svg class="h-5 w-5 text-slate-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <a href="https://github.com/SDG-AI-Lab" target="_blank" rel="noopener noreferrer" class="flex min-h-10 items-center gap-3 text-sm font-bold text-[#667995] transition hover:text-[#246bfe]">
+                  <svg class="h-5 w-5 text-[#246bfe]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
                   </svg>
                   SDG-AI-Lab
@@ -112,15 +77,15 @@ const requestTypes = [
             </div>
 
             <div class="mt-10">
-              <h2 class="text-2xl font-bold text-white">Office location</h2>
-              <p class="mt-5 text-sm leading-7 text-slate-300">
-                UNDP Istanbul International Centre for Private Sector in Development (IICPSD)<br />Istanbul, Türkiye
+              <h2 class="text-2xl font-black text-[#101d35]">Office location</h2>
+              <p class="mt-5 text-sm font-semibold leading-7 text-[#667995]">
+                UNDP Istanbul International Centre for Private Sector in Development (IICPSD)<br />Istanbul, T?rkiye
               </p>
             </div>
 
-            <div class="mt-10 border-t border-white/10 pt-6">
-              <p class="text-xs font-bold uppercase tracking-[0.16em] text-blue-300">Response SLA</p>
-              <p class="mt-4 text-sm leading-7 text-slate-300">
+            <div class="mt-10 border-t border-[#d7e5f7] pt-6">
+              <p class="text-xs font-black uppercase tracking-[0.16em] text-[#246bfe]">Response SLA</p>
+              <p class="mt-4 text-sm font-semibold leading-7 text-[#667995]">
                 All institutional enquiries are triaged and routed within 48 business hours.
               </p>
             </div>

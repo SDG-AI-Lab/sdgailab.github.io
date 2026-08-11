@@ -34,6 +34,20 @@ export default {
         lg: '992px',
         xl: '1200px',
       },
+      keyframes: {
+        'landing-float': {
+          '0%, 100%': { transform: 'translateY(0) scale(1)', opacity: '0.35' },
+          '50%': { transform: 'translateY(-18px) scale(1.15)', opacity: '0.72' },
+        },
+        'partner-marquee-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
+        },
+      },
+      animation: {
+        'landing-float': 'landing-float 9s ease-in-out infinite',
+        'partner-marquee-scroll': 'partner-marquee-scroll 34s linear infinite',
+      },
     },
   },
   plugins: [],

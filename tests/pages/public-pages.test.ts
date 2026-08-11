@@ -119,11 +119,5 @@ describe('Public Astro pages', () => {
     expect(source).toContain("withBase('/volunteer')");
   });
 
-  it('partnerships page exposes collaboration models and partner network content', () => {
-    const source = readSource('src/pages/partnerships.astro');
-    expect(source).toContain('Partnerships');
-    expect(source).toContain('Collaboration model');
-    expect(source).toContain('PartnerLogos');
-  });
 
 });

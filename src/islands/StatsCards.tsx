@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { getPublishedStatistics } from '../lib/queries';
 import type { StatisticCard } from '../lib/types';
 import { sampleStats } from '../data/sampleContent';
 
-const statVisuals: Record<string, { icon: string; accent: string; glow: string }> = {
-  projects: { icon: 'AI', accent: 'text-emerald-300', glow: 'shadow-emerald-400/20' },
-  learners: { icon: 'EDU', accent: 'text-sky-300', glow: 'shadow-sky-400/20' },
-  knowledge: { icon: 'KP', accent: 'text-orange-300', glow: 'shadow-orange-400/20' },
-  volunteers: { icon: 'UNV', accent: 'text-pink-300', glow: 'shadow-pink-400/20' },
-  countries: { icon: 'MAP', accent: 'text-cyan-300', glow: 'shadow-cyan-400/20' },
-  default: { icon: 'STAT', accent: 'text-blue-200', glow: 'shadow-blue-400/20' },
+const statVisuals: Record<string, { accent: string }> = {
+  projects: { accent: 'text-blue-700' },
+  learners: { accent: 'text-blue-700' },
+  knowledge: { accent: 'text-blue-700' },
+  volunteers: { accent: 'text-blue-700' },
+  countries: { accent: 'text-blue-700' },
+  default: { accent: 'text-blue-700' },
 };
 
 function getVisual(stat: StatisticCard) {
@@ -47,16 +47,13 @@ export default function StatsCards() {
           return (
             <article
               key={stat.id}
-              className={`rounded-2xl border border-white/15 bg-white/[0.06] p-5 text-center shadow-lg backdrop-blur ${visual.glow}`}
+              className="rounded-xl border border-blue-200 bg-[#eef7ff] p-5 shadow-[0_16px_40px_rgba(47,128,237,0.08)]"
             >
-              <div className={`mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-current bg-white/[0.04] text-2xl ${visual.accent}`} aria-hidden="true">
-                {visual.icon}
-              </div>
-              <p className={`mt-4 text-3xl font-black sm:text-4xl ${visual.accent}`} aria-label={`${stat.label}: ${stat.value}`}>
-                {stat.value}
-              </p>
-              <p className="mt-2 text-xs font-bold uppercase leading-5 tracking-[0.18em] text-slate-200 sm:text-sm">
+              <p className="text-[0.68rem] font-black uppercase tracking-[0.16em] text-blue-600">
                 {stat.label}
+              </p>
+              <p className={`mt-2 text-4xl font-black tracking-tight ${visual.accent}`} aria-label={`${stat.label}: ${stat.value}`}>
+                {stat.value}
               </p>
             </article>
           );
@@ -65,4 +62,3 @@ export default function StatsCards() {
     </div>
   );
 }
-

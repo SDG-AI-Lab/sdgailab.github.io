@@ -21,6 +21,29 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
 const socialImage = new URL(withBase(image), Astro.site ?? Astro.url.origin);
 const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '';
 const siteOrigin = Astro.site ?? Astro.url.origin;
+const openSansFontCss = `
+@font-face {
+  font-family: 'Open Sans';
+  src: url('${withBase('/fonts/OpenSans-Regular.woff2')}') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('${withBase('/fonts/OpenSans-SemiBold.woff2')}') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('${withBase('/fonts/OpenSans-Bold.woff2')}') format('woff2');
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+`;
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -72,6 +95,7 @@ const contentSecurityPolicy = [
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="canonical" href={canonicalUrl} />
     <meta name="theme-color" content="#111947" />
+    <style is:inline set:html={openSansFontCss}></style>
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="SDG AI Lab" />
