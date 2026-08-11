@@ -1,5 +1,4 @@
 ---
-import { withBase } from '../../lib/url';
 import BaseLayout from '../../components/layout/BaseLayout.astro';
 import ProjectList from '../../islands/ProjectList';
 ---
@@ -10,7 +9,7 @@ import ProjectList from '../../islands/ProjectList';
 >
   <main class="projects-page bg-white text-[#10213f]">
     <section
-      class="relative overflow-hidden border-b border-blue-500/10 bg-[linear-gradient(120deg,rgba(255,255,255,0.4),transparent_42%),radial-gradient(circle_at_18%_22%,rgba(47,128,237,0.14),transparent_24%),#d4eaff] py-[clamp(72px,9vw,128px)]"
+      class="relative overflow-hidden bg-[linear-gradient(120deg,rgba(255,255,255,0.4),transparent_42%),radial-gradient(circle_at_18%_22%,rgba(47,128,237,0.14),transparent_24%),#d4eaff] pb-[clamp(24px,4vw,40px)] pt-[clamp(64px,8vw,112px)]"
       aria-labelledby="projects-heading"
     >
       <span class="pointer-events-none absolute left-[-40px] top-[46px] h-[150px] w-[150px] rotate-[20deg] border border-blue-500/20 [clip-path:polygon(15%_0,100%_22%,82%_86%,20%_100%,0_42%)]" aria-hidden="true"></span>
@@ -24,18 +23,10 @@ import ProjectList from '../../islands/ProjectList';
           Find projects by domain, year or keyword. Each project page shows what was built,
           where it was applied, the technologies used and what can be reused.
         </p>
-        <div class="mt-7 flex flex-wrap gap-3">
-          <a
-            href={withBase('/tech4r')}
-            class="inline-flex min-h-11 items-center gap-2 rounded-full border border-blue-500/30 bg-white/70 px-4 py-3 text-sm font-black text-[#1f6ed5] no-underline transition hover:-translate-y-0.5 hover:bg-white focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-blue-500/40"
-          >
-            Featured initiative: Tech4R <span aria-hidden="true">?</span>
-          </a>
-        </div>
       </div>
     </section>
 
-    <section class="bg-white pb-[clamp(72px,8vw,112px)] pt-[clamp(42px,6vw,76px)]" aria-label="Browse projects">
+    <section class="bg-white pb-[clamp(72px,8vw,112px)] pt-3" aria-label="Browse projects">
       <div class="mx-auto w-[min(100%-2rem,1120px)]">
         <ProjectList client:load />
       </div>

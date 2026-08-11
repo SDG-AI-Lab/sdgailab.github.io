@@ -19,7 +19,7 @@ describe('Public Astro pages', () => {
     expect(source).toContain('BaseLayout');
     expect(source).toContain('ProjectList');
     expect(source).toContain('client:load');
-    expect(source).toContain("withBase('/tech4r')");
+    expect(source).not.toContain("Featured initiative: Tech4R");
   });
 
   it('tech4r page presents the featured resilience initiative', () => {
