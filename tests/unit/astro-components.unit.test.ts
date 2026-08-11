@@ -31,8 +31,10 @@ describe('Header.astro (unit)', () => {
   });
 
   it('links to primary public sections', () => {
-    expect(source).toContain("label: 'Projects'");
-    expect(source).toContain("label: 'News'");
+    expect(source).toContain("label: 'Our projects'");
+    expect(source).toContain("label: 'Our services'");
+    expect(source).toContain("label: 'Publications'");
+    expect(source).toContain("label: 'Team'");
     expect(source).toContain("label: 'Contact'");
   });
 });

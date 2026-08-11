@@ -41,7 +41,7 @@ describe('Header.astro integration', () => {
   it('is mounted by BaseLayout for every public page', () => {
     expect(baseLayout).toContain('<Header />');
     expect(header).toContain('aria-label="Toggle navigation menu"');
-    expect(header).toContain("label: 'Projects'");
+    expect(header).toContain("label: 'Our projects'");
   });
 });
 
@@ -56,28 +56,14 @@ describe('Footer.astro integration', () => {
   });
 });
 
-describe('ParticlesHero.astro integration', () => {
-  const hero = readSource('src/components/sections/ParticlesHero.astro');
+describe('Homepage v3 composition integration', () => {
   const indexPage = readSource('src/pages/index.astro');
 
-  it('composes the homepage hero slot with reduced-motion handling', () => {
-    expect(indexPage).toContain("import ParticlesHero from '../components/sections/ParticlesHero.astro'");
-    expect(indexPage).toContain('<ParticlesHero>');
-    expect(hero).toContain('<slot />');
-    expect(hero).toContain('prefers-reduced-motion');
-    expect(hero).toContain('particles-js');
-  });
-});
-
-describe('SDGWheel.astro integration', () => {
-  const wheel = readSource('src/components/ui/SDGWheel.astro');
-  const indexPage = readSource('src/pages/index.astro');
-
-  it('is composed inside the homepage hero section', () => {
-    expect(indexPage).toContain("import SDGWheel from '../components/ui/SDGWheel.astro'");
-    expect(indexPage).toContain('<SDGWheel');
-    expect(wheel).toContain('aria-label');
-    expect(wheel).toContain('SDG AI Lab applies AI and data for development impact');
+  it('composes the current light homepage hero and portfolio sections', () => {
+    expect(indexPage).toContain('We help UNDP teams turn complex challenges into AI solutions.');
+    expect(indexPage).toContain('<FeaturedProjects client:load limit={3} />');
+    expect(indexPage).toContain('<PartnerLogos client:load variant="marquee" />');
+    expect(indexPage).toContain('Explore our project portfolio');
   });
 });
 
