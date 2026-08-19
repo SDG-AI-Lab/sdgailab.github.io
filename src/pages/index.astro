@@ -7,49 +7,22 @@ import { impactAreas } from '../data/sampleContent';
 
 const areaIcons = ['01', '02', '03', '04', '05', '06'];
 
-const proofCards = [
+const credibilityMetrics = [
   {
-    eyebrow: 'UNDP Colombia',
-    value: '2-3 wk',
-    label: 'analyst time saved per project cycle',
-    quote:
-      '"The DFx cut 2-3 weeks of analyst time. We reduced complexity and avoided thousands in consultancy costs."',
-    initials: 'SP',
-    name: 'Santiago Plata Diaz',
-    org: 'UNDP Colombia',
+    label: 'Years of experience',
+    value: '7',
   },
   {
-    eyebrow: 'RBLAC',
-    value: '+40%',
-    label: 'faster delivery on complex data challenges',
-    quote:
-      '"From functionality to creativity, you have helped us create an exceptional product that narrates our regional challenges."',
-    initials: 'AP',
-    name: 'Ana Pirela-Rios',
-    org: 'RBLAC',
-  },
-];
-
-const quickStats = [
-  {
-    eyebrow: 'Digital Solutions',
+    label: 'Projects in the portfolio',
     value: '50+',
-    label: 'developed across public-interest AI, data and digital work',
   },
   {
-    eyebrow: 'Country Reach',
+    label: 'Countries reached',
     value: '25+',
-    label: 'countries represented through Lab projects and collaborations',
   },
   {
-    eyebrow: 'Learners',
-    value: '3,000+',
-    label: 'young people, government officials and practitioners trained',
-  },
-  {
-    eyebrow: 'Knowledge Products',
-    value: '15',
-    label: 'published outputs, methods and reusable technical resources',
+    label: 'Knowledge products',
+    value: '15+',
   },
 ];
 ---
@@ -58,29 +31,29 @@ const quickStats = [
   title="SDG AI Lab | Practical AI and data solutions for development"
   description="A UNDP initiative helping country offices, governments and partners turn development challenges into practical, reusable AI and data solutions."
 >
-  <main class="landing-home bg-[#f4f8fd] text-[#101d35]">
+  <main class="landing-home bg-lab-base text-lab-text">
     <section
-      class="landing-hero relative grid min-h-[560px] place-items-center overflow-hidden border-b border-blue-500/15 bg-[radial-gradient(ellipse_at_50%_4%,rgba(255,255,255,0.96)_0%,rgba(232,241,255,0.78)_28%,rgba(36,107,254,0.2)_54%,rgba(36,107,254,0)_72%),radial-gradient(ellipse_at_50%_86%,rgba(13,92,244,0.96)_0%,rgba(36,107,254,0.92)_38%,rgba(36,107,254,0.55)_62%,rgba(246,250,255,0)_78%),linear-gradient(180deg,#f8fbff_0%,#dceaff_45%,#1769f2_100%)] max-[620px]:min-h-[520px]"
+      class="landing-hero relative grid min-h-[560px] place-items-center overflow-hidden border-b border-lab-accent/20 bg-[radial-gradient(ellipse_at_50%_18%,rgba(76,141,255,0.26)_0%,rgba(76,141,255,0.10)_32%,rgba(34,36,42,0)_66%),linear-gradient(180deg,#2B2E36_0%,#22242A_72%,#22242A_100%)] max-[620px]:min-h-[520px]"
       aria-labelledby="hero-heading"
     >
       <div class="pointer-events-none absolute inset-0" aria-hidden="true">
         <span
-          class="absolute left-[-40px] top-[54px] h-40 w-40 rotate-[20deg] border border-blue-500/15 opacity-75 [clip-path:polygon(16%_0,100%_28%,82%_88%,18%_100%,0_40%)]"
+          class="absolute left-[-40px] top-[54px] h-40 w-40 rotate-[20deg] border border-lab-accent/20 opacity-75 [clip-path:polygon(16%_0,100%_28%,82%_88%,18%_100%,0_40%)]"
         ></span>
         <span
-          class="absolute right-[-54px] top-[-40px] h-[190px] w-[190px] rotate-[20deg] border border-blue-500/15 opacity-75 [clip-path:polygon(28%_0,100%_10%,80%_80%,10%_100%,0_24%)]"
+          class="absolute right-[-54px] top-[-40px] h-[190px] w-[190px] rotate-[20deg] border border-lab-accent/20 opacity-75 [clip-path:polygon(28%_0,100%_10%,80%_80%,10%_100%,0_24%)]"
         ></span>
         <span
-          class="absolute left-[11%] top-[55%] h-2.5 w-2.5 rounded-full bg-[#6aa8ff] opacity-55 shadow-[0_0_18px_rgba(36,107,254,0.42)] motion-safe:animate-landing-float"
+          class="absolute left-[11%] top-[55%] h-2.5 w-2.5 rounded-full bg-lab-accent opacity-55 shadow-[0_0_18px_rgba(36,107,254,0.42)] motion-safe:animate-landing-float"
         ></span>
         <span
-          class="absolute left-[25%] top-[77%] h-2.5 w-2.5 rounded-full bg-[#6aa8ff] opacity-55 shadow-[0_0_18px_rgba(36,107,254,0.42)] motion-safe:animate-landing-float [animation-delay:-2s]"
+          class="absolute left-[25%] top-[77%] h-2.5 w-2.5 rounded-full bg-lab-accent opacity-55 shadow-[0_0_18px_rgba(36,107,254,0.42)] motion-safe:animate-landing-float [animation-delay:-2s]"
         ></span>
         <span
-          class="absolute right-[17%] top-[45%] h-2.5 w-2.5 rounded-full bg-[#6aa8ff] opacity-55 shadow-[0_0_18px_rgba(36,107,254,0.42)] motion-safe:animate-landing-float [animation-delay:-4s]"
+          class="absolute right-[17%] top-[45%] h-2.5 w-2.5 rounded-full bg-lab-accent opacity-55 shadow-[0_0_18px_rgba(36,107,254,0.42)] motion-safe:animate-landing-float [animation-delay:-4s]"
         ></span>
         <span
-          class="absolute right-[8%] top-[63%] h-2.5 w-2.5 rounded-full bg-[#6aa8ff] opacity-55 shadow-[0_0_18px_rgba(36,107,254,0.42)] motion-safe:animate-landing-float [animation-delay:-6s]"
+          class="absolute right-[8%] top-[63%] h-2.5 w-2.5 rounded-full bg-lab-accent opacity-55 shadow-[0_0_18px_rgba(36,107,254,0.42)] motion-safe:animate-landing-float [animation-delay:-6s]"
         ></span>
       </div>
 
@@ -89,12 +62,12 @@ const quickStats = [
       >
         <h1
           id="hero-heading"
-          class="max-w-[850px] text-[clamp(2.55rem,5.6vw,5rem)] font-black leading-[0.98] tracking-[-0.055em] text-[#101d35] max-[620px]:text-[clamp(2.35rem,14vw,3.4rem)]"
+          class="max-w-[850px] text-[clamp(2.55rem,5.6vw,5rem)] font-black leading-[0.98] tracking-[-0.055em] text-lab-text max-[620px]:text-[clamp(2.35rem,14vw,3.4rem)]"
         >
           We help UNDP teams turn complex challenges into AI solutions.
         </h1>
         <p
-          class="mt-7 max-w-[730px] text-[clamp(1rem,1.25vw,1.15rem)] font-semibold leading-7 text-white"
+          class="mt-7 max-w-[730px] text-[clamp(1rem,1.25vw,1.15rem)] font-semibold leading-7 text-lab-muted"
         >
           Identifying where AI can create meaningful value&mdash;drawing on
           development expertise, responsible AI principles, and global
@@ -109,13 +82,13 @@ const quickStats = [
             data-analytics-event="cta_click"
             data-analytics-category="homepage"
             data-analytics-label="Hero request support"
-            class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#246bfe] px-6 py-3 text-sm font-extrabold text-white no-underline shadow-[0_14px_30px_rgba(36,107,254,0.24)] transition hover:-translate-y-0.5 hover:bg-[#145de5] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-blue-500/40 max-[620px]:w-full"
+            class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-lab-accent px-6 py-3 text-sm font-extrabold text-white no-underline shadow-[0_14px_30px_rgba(76,141,255,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-dark focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-lab-accent/40 max-[620px]:w-full"
           >
             Request support <span aria-hidden="true">&rarr;</span>
           </a>
           <a
             href={withBase('/projects')}
-            class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-extrabold text-[#17315a] no-underline shadow-[0_12px_26px_rgba(16,29,53,0.1)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-blue-500/40 max-[620px]:w-full"
+            class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-lab-surface px-6 py-3 text-sm font-extrabold text-lab-text no-underline shadow-[0_12px_26px_rgba(16,29,53,0.1)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-lab-accent/40 max-[620px]:w-full"
           >
             Explore projects
           </a>
@@ -124,94 +97,80 @@ const quickStats = [
     </section>
 
     <section
-      class="bg-[#f4f8fd] py-[clamp(70px,8vw,112px)]"
-      aria-labelledby="proof-heading"
+      class="bg-lab-base py-[clamp(70px,8vw,112px)]"
+      aria-labelledby="track-record-heading"
     >
       <div class="mx-auto w-[min(100%-2rem,1120px)]">
-        <div class="mb-11 max-w-[760px]">
-          <h2
-            id="proof-heading"
-            class="m-0 text-[clamp(2rem,3.2vw,3.05rem)] font-black leading-[1.08] tracking-[-0.04em] text-[#101d35]"
+        <div class="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div>
+            <!-- <p
+              class="text-sm font-black uppercase tracking-[0.18em] text-lab-accent-soft"
+            >
+              Track record
+            </p> -->
+            <h2
+              id="track-record-heading"
+              class="mt-4 max-w-[680px] text-[clamp(2.15rem,4vw,4.1rem)] font-black leading-[1.02] tracking-[-0.055em] text-lab-text"
+            >
+              A proven record in AI for development.
+            </h2>
+            <p
+              class="mt-5 max-w-[640px] text-justify text-base font-semibold leading-7 text-lab-muted"
+            >
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a
+                href={withBase('/projects')}
+                class="inline-flex min-h-11 items-center justify-center rounded-full bg-lab-accent px-5 py-3 text-sm font-extrabold text-white no-underline shadow-[0_14px_30px_rgba(76,141,255,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-dark"
+              >
+                Explore projects <span aria-hidden="true" class="ml-2"
+                  >&rarr;</span
+                >
+              </a>
+              <a
+                href={withBase('/resources')}
+                class="inline-flex min-h-11 items-center justify-center rounded-full bg-lab-surface px-5 py-3 text-sm font-extrabold text-lab-text no-underline ring-1 ring-lab-border/70 transition hover:-translate-y-0.5 hover:ring-lab-accent/50"
+              >
+                Browse publications
+              </a>
+            </div>
+          </div>
+
+          <div
+            class="grid gap-x-8 gap-y-7 border-y border-lab-border/70 py-8 sm:grid-cols-2"
+            aria-label="SDG AI Lab track record indicators"
           >
-            What it's like working with SDG AI Lab
-          </h2>
-          <p class="mt-3.5 text-base font-semibold leading-7 text-[#667995]">
-            Feedback from partners and teams who have worked with the Lab to
-            design, build and deploy practical AI solutions.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-2 gap-[18px] max-[900px]:grid-cols-1">
-          {
-            proofCards.map((card) => (
-              <article class="rounded-[14px] border border-[#c9ddf4] bg-white p-[clamp(24px,4vw,34px)] shadow-[0_12px_34px_rgba(16,29,53,0.06)]">
-                <p class="mb-[18px] text-xs font-black uppercase tracking-[0.04em] text-[#0F172A]">
-                  {card.eyebrow}
-                </p>
-                <strong class="block text-[clamp(2rem,4vw,3rem)] font-black leading-none tracking-[-0.045em] text-[#101d35]">
-                  {card.value}
-                </strong>
-                <span class="mt-2 block text-sm font-semibold text-[#7a8ba3]">
-                  {card.label}
-                </span>
-                <blockquote class="mt-7 text-[0.96rem] font-semibold leading-7 text-[#4d5f78]">
-                  {card.quote}
-                </blockquote>
-                <div class="mt-6 flex items-center gap-3">
-                  <span
-                    class="grid h-[38px] w-[38px] place-items-center rounded-full bg-[#e5f0ff] text-xs font-black text-[#246bfe]"
-                    aria-hidden="true"
-                  >
-                    {card.initials}
-                  </span>
-                  <div>
-                    <b class="block text-sm text-[#101d35]">{card.name}</b>
-                    <small class="block text-xs font-semibold text-[#7a8ba3]">
-                      {card.org}
-                    </small>
-                  </div>
-                </div>
-              </article>
-            ))
-          }
-        </div>
-
-        <div
-          class="mt-3.5 grid grid-cols-4 gap-3.5 max-[900px]:grid-cols-1"
-          aria-label="SDG AI Lab delivery indicators"
-        >
-          {
-            quickStats.map((stat) => (
-              <article class="rounded-[14px] border border-[#c9ddf4] bg-white p-[22px] shadow-[0_12px_34px_rgba(16,29,53,0.06)]">
-                <p class="mb-3 text-xs font-black uppercase tracking-[0.04em] text-[#334867]">
-                  {stat.eyebrow}
-                </p>
-                <strong class="block text-[clamp(1.75rem,2.7vw,2.35rem)] font-black leading-none tracking-[-0.045em] text-[#101d35]">
-                  {stat.value}
-                </strong>
-                <span class="mt-2 block text-sm font-semibold text-[#7a8ba3]">
-                  {stat.label}
-                </span>
-              </article>
-            ))
-          }
+            {
+              credibilityMetrics.map((metric) => (
+                <article>
+                  <strong class="block text-[clamp(2.5rem,5vw,4.75rem)] font-black leading-none tracking-[-0.055em] text-lab-text">
+                    {metric.value}
+                  </strong>
+                  <p class="mt-3 text-sm font-black uppercase tracking-[0.13em] text-lab-accent-soft">
+                    {metric.label}
+                  </p>
+                </article>
+              ))
+            }
+          </div>
         </div>
       </div>
     </section>
-
     <section
-      class="bg-[#f4f8fd] py-[clamp(70px,8vw,112px)]"
+      class="bg-lab-base py-[clamp(70px,8vw,112px)]"
       aria-labelledby="expertise-heading"
     >
       <div class="mx-auto w-[min(100%-2rem,1120px)]">
         <div class="mb-11 max-w-[760px]">
           <h2
             id="expertise-heading"
-            class="m-0 text-[clamp(2rem,3.2vw,3.05rem)] font-black leading-[1.08] tracking-[-0.04em] text-[#101d35]"
+            class="m-0 text-[clamp(2rem,3.2vw,3.05rem)] font-black leading-[1.08] tracking-[-0.04em] text-lab-text"
           >
             Our core areas of expertise
           </h2>
-          <p class="mt-3.5 text-base font-semibold leading-7 text-[#667995]">
+          <p class="mt-3.5 text-base font-semibold leading-7 text-lab-muted">
             We focus on six key domains where we bring the greatest experience,
             proven methodologies, and practical AI solutions.
           </p>
@@ -224,16 +183,16 @@ const quickStats = [
             impactAreas.map((area, index) => (
               <article class="grid grid-cols-[auto_1fr] gap-[18px]">
                 <span
-                  class="grid h-[30px] w-[30px] place-items-center text-lg font-black leading-none text-[#246bfe]"
+                  class="grid h-[30px] w-[30px] place-items-center text-lg font-black leading-none text-lab-accent-soft"
                   aria-hidden="true"
                 >
                   {areaIcons[index]}
                 </span>
                 <div>
-                  <h3 class="m-0 text-lg font-black text-[#101d35]">
+                  <h3 class="m-0 text-lg font-black text-lab-text">
                     {area.title}
                   </h3>
-                  <p class="mt-2.5 text-sm font-semibold leading-7 text-[#51647f]">
+                  <p class="mt-2.5 text-sm font-semibold leading-7 text-lab-muted">
                     {area.summary}
                   </p>
                 </div>
@@ -243,23 +202,23 @@ const quickStats = [
         </div>
 
         <!-- <div
-          class="mt-[74px] flex items-center justify-between gap-6 rounded-xl border border-[#bdd9fb] bg-[#eaf5ff] px-[clamp(24px,5vw,54px)] py-7 max-[900px]:flex-col max-[900px]:items-start"
+          class="mt-[74px] flex items-center justify-between gap-6 rounded-xl border border-lab-border bg-lab-section px-[clamp(24px,5vw,54px)] py-7 max-[900px]:flex-col max-[900px]:items-start"
         >
           <div>
             <p
-              class="mb-2 text-xs font-black uppercase tracking-[0.12em] text-[#246bfe]"
+              class="mb-2 text-xs font-black uppercase tracking-[0.12em] text-lab-accent-soft"
             >
               Work with us
             </p>
             <h2
-              class="m-0 text-[clamp(1.25rem,2.2vw,1.75rem)] font-black tracking-[-0.02em] text-[#101d35]"
+              class="m-0 text-[clamp(1.25rem,2.2vw,1.75rem)] font-black tracking-[-0.02em] text-lab-text"
             >
               Have a development challenge to explore?
             </h2>
           </div>
           <a
             href={withBase('/contact')}
-            class="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#246bfe] px-5 py-3 text-sm font-extrabold text-white no-underline shadow-[0_14px_30px_rgba(36,107,254,0.24)] transition hover:-translate-y-0.5 hover:bg-[#145de5] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-blue-500/40"
+            class="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-lab-accent px-5 py-3 text-sm font-extrabold text-white no-underline shadow-[0_14px_30px_rgba(76,141,255,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-dark focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-lab-accent/40"
           >
             Start a conversation <span aria-hidden="true">&rarr;</span>
           </a>
@@ -268,22 +227,23 @@ const quickStats = [
     </section>
 
     <section
-      class="bg-white py-[clamp(70px,8vw,112px)]"
+      class="bg-lab-surface py-[clamp(70px,8vw,112px)]"
       aria-labelledby="portfolio-heading"
     >
       <div class="mx-auto w-[min(100%-2rem,1120px)]">
         <div class="mb-10 max-w-[760px]">
-          <span
-            class="mb-3.5 inline-flex rounded-full bg-[#e7f1ff] px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-[#246bfe]"
-            >Portfolio</span
+          <!-- <span
+            class="mb-3.5 inline-flex rounded-full bg-lab-surface px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-lab-accent-soft"
           >
+            Portfolio
+          </span> -->
           <h2
             id="portfolio-heading"
-            class="m-0 text-[clamp(2rem,3.2vw,3.05rem)] font-black leading-[1.08] tracking-[-0.04em] text-[#101d35]"
+            class="m-0 text-[clamp(2rem,3.2vw,3.05rem)] font-black leading-[1.08] tracking-[-0.04em] text-lab-text"
           >
             Explore our project portfolio
           </h2>
-          <p class="mt-3.5 text-base font-semibold leading-7 text-[#667995]">
+          <p class="mt-3.5 text-base font-semibold leading-7 text-lab-muted">
             Browse real-world AI projects, practical approaches, and reusable
             solutions developed with UNDP teams and partners.
           </p>
@@ -292,7 +252,7 @@ const quickStats = [
         <div class="mt-[46px] flex justify-center">
           <a
             href={withBase('/projects')}
-            class="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#246bfe] px-5 py-3 text-sm font-extrabold text-white no-underline shadow-[0_14px_30px_rgba(36,107,254,0.24)] transition hover:-translate-y-0.5 hover:bg-[#145de5] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-blue-500/40"
+            class="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-lab-accent px-5 py-3 text-sm font-extrabold text-white no-underline shadow-[0_14px_30px_rgba(76,141,255,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-dark focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-lab-accent/40"
           >
             View all projects <span aria-hidden="true">&rarr;</span>
           </a>
@@ -301,38 +261,38 @@ const quickStats = [
     </section>
 
     <section
-      class="bg-white pb-[clamp(70px,8vw,112px)] pt-[18px]"
+      class="bg-lab-surface pb-[clamp(70px,8vw,112px)] pt-[18px]"
       aria-labelledby="partners-heading"
     >
       <div class="mx-auto w-[min(100%-2rem,1120px)]">
-        <div class="mb-[26px] text-center">
-          <h2 id="partners-heading" class="sr-only">Our partners</h2>
-          <p class="m-0 text-sm font-semibold text-[#7a8ba3]">
-            Partnerships with UNDP Country Offices, UN Technology Bank, UN
-            Volunteers, private-sector partners and academic institutions help
-            SDG AI Lab turn technical work into reusable development value
-          </p>
+        <div class="mb-10">
+          <h2
+            id="partners-heading"
+            class="m-0 text-[clamp(2rem,3.2vw,3.05rem)] font-black leading-[1.08] tracking-[-0.04em] text-lab-text"
+          >
+            Our Partners
+          </h2>
         </div>
         <PartnerLogos client:load variant="marquee" />
 
         <div
-          class="mt-[54px] flex items-center justify-between gap-6 rounded-xl border border-[#bdd9fb] bg-[#eaf5ff] px-[clamp(24px,5vw,54px)] py-7 max-[900px]:flex-col max-[900px]:items-start"
+          class="mt-[54px] flex items-center justify-between gap-6 rounded-xl border border-lab-border bg-lab-section px-[clamp(24px,5vw,54px)] py-7 max-[900px]:flex-col max-[900px]:items-start"
         >
           <div>
             <p
-              class="mb-2 text-xs font-black uppercase tracking-[0.12em] text-[#246bfe]"
+              class="mb-2 text-xs font-black uppercase tracking-[0.12em] text-lab-accent-soft"
             >
               Work with us
             </p>
             <h2
-              class="m-0 text-[clamp(1.25rem,2.2vw,1.75rem)] font-black tracking-[-0.02em] text-[#101d35]"
+              class="m-0 text-[clamp(1.25rem,2.2vw,1.75rem)] font-black tracking-[-0.02em] text-lab-text"
             >
               Have a development challenge to explore?
             </h2>
           </div>
           <a
             href={withBase('/contact')}
-            class="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#246bfe] px-5 py-3 text-sm font-extrabold text-white no-underline shadow-[0_14px_30px_rgba(36,107,254,0.24)] transition hover:-translate-y-0.5 hover:bg-[#145de5] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-blue-500/40"
+            class="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-lab-accent px-5 py-3 text-sm font-extrabold text-white no-underline shadow-[0_14px_30px_rgba(76,141,255,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-dark focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-lab-accent/40"
           >
             Start a conversation <span aria-hidden="true">&rarr;</span>
           </a>

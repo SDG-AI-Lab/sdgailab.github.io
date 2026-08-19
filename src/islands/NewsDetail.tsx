@@ -57,9 +57,9 @@ function NewsDetailContent() {
   if (error || !article) {
     return (
       <div className="text-center py-12" role="alert">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">Article Not Found</h1>
-        <p className="text-xl text-gray-500 mb-4">{error || 'The requested article could not be found.'}</p>
-        <a href={withBase('/news')} className="text-primary hover:underline font-medium">
+        <h1 className="text-2xl font-bold text-lab-text mb-4">Article Not Found</h1>
+        <p className="text-xl text-lab-subtle mb-4">{error || 'The requested article could not be found.'}</p>
+        <a href={withBase('/news')} className="text-lab-accent-soft hover:underline font-medium">
           &larr; Back to News
         </a>
       </div>
@@ -68,12 +68,12 @@ function NewsDetailContent() {
 
   return (
     <article>
-      <a href={withBase('/news')} className="inline-flex items-center text-primary hover:underline font-medium mb-6">
+      <a href={withBase('/news')} className="inline-flex items-center text-lab-accent-soft hover:underline font-medium mb-6">
         &larr; Back to News
       </a>
 
       {article.featured_image_url && (
-        <div className="aspect-video overflow-hidden rounded-lg bg-gray-100 mb-8 max-h-96">
+        <div className="aspect-video overflow-hidden rounded-lg bg-lab-section mb-8 max-h-96">
           <img
             src={article.featured_image_url}
             alt=""
@@ -83,10 +83,10 @@ function NewsDetailContent() {
       )}
 
       <header className="mb-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+        <h1 className="text-3xl sm:text-4xl font-bold text-lab-text mb-4">
           {article.title}
         </h1>
-        <div className="flex items-center gap-2 text-sm text-gray-500">
+        <div className="flex items-center gap-2 text-sm text-lab-subtle">
           <time dateTime={article.publish_date}>
             {new Date(article.publish_date).toLocaleDateString('en-US', {
               year: 'numeric',

@@ -9,7 +9,7 @@ export function FormFeedback({ message, type }: FormFeedbackProps) {
   const styles =
     type === 'success'
       ? 'bg-green-50 text-green-700 border border-green-200'
-      : 'bg-red-50 text-red-700 border border-red-200';
+      : 'bg-red-500/10 text-red-200 border border-red-500/30';
 
   return (
     <div className={`rounded-md p-3 text-sm my-3 ${styles}`} role="alert">

@@ -7,44 +7,44 @@ import BaseLayout from '../components/layout/BaseLayout.astro';
   title="Research and Knowledge - SDG AI Lab"
   description="Research, methods, open knowledge and learning outputs from SDG AI Lab."
 >
-  <section class="section-padding bg-white">
+  <section class="section-padding bg-lab-surface">
     <div class="container-narrow">
       <p class="section-label">Research & knowledge</p>
-      <h1 class="mt-3 max-w-4xl text-3xl font-bold text-slate-950 sm:text-5xl">
+      <h1 class="mt-3 max-w-4xl text-3xl font-bold text-lab-text sm:text-5xl">
         Evidence, methods and reusable learning for responsible AI in development
       </h1>
-      <p class="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-lab-muted">
         This area is for the Lab's reports, briefs, blogs, methods, open-source documentation and lessons learned from applied AI, data and digital work.
       </p>
 
-      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+      <div class="mt-10 grid gap-8 border-y border-lab-border/70 py-8 md:grid-cols-2 lg:grid-cols-4">
         {[
           ['Reports and briefs', 'Short, usable knowledge products that explain findings, methods and implications.'],
           ['Methods', 'Practical documentation on data readiness, responsible AI, evaluation and implementation choices.'],
           ['Open-source docs', 'Repositories, model cards, data statements and implementation notes.'],
           ['Blogs and learning notes', 'Updates that translate technical work into accessible learning for teams and partners.'],
         ].map(([title, body]) => (
-          <article class="rounded-xl border border-slate-200 bg-slate-50 p-6">
-            <h2 class="text-lg font-bold text-slate-950">{title}</h2>
-            <p class="mt-3 text-sm leading-6 text-slate-600">{body}</p>
+          <article class="border-l-2 border-lab-accent/45 pl-5">
+            <h2 class="text-lg font-bold text-lab-text">{title}</h2>
+            <p class="mt-3 text-sm leading-6 text-lab-muted">{body}</p>
           </article>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section-padding bg-slate-50" aria-labelledby="research-standards-heading">
+  <section class="section-padding bg-lab-section" aria-labelledby="research-standards-heading">
     <div class="container-narrow grid gap-10 lg:grid-cols-[.85fr_1.15fr]">
       <div>
         <p class="section-label">Publication model</p>
-        <h2 id="research-standards-heading" class="mt-3 text-3xl font-bold text-slate-950 sm:text-4xl">
-          What research and knowledge items should make clear
+        <h2 id="research-standards-heading" class="mt-3 text-3xl font-bold text-lab-text sm:text-4xl">
+          What each knowledge output explains
         </h2>
-        <p class="mt-4 leading-7 text-slate-600">
-          Knowledge outputs should help visitors understand what was learned, where it applies, what limitations exist and how the work connects to projects or services.
+        <p class="mt-4 leading-7 text-lab-muted">
+          Knowledge outputs help visitors understand what was learned, where it applies, what limitations exist and how the work connects to projects or services.
         </p>
       </div>
-      <div class="grid gap-4 sm:grid-cols-2">
+      <div class="grid gap-x-8 gap-y-5 sm:grid-cols-2">
         {[
           'Purpose, audience and development context',
           'Methods, assumptions and limitations',
@@ -53,26 +53,26 @@ import BaseLayout from '../components/layout/BaseLayout.astro';
           'Responsible-use notes where relevant',
           'Download, repository or next-step links',
         ].map((item) => (
-          <div class="flex gap-3 rounded-lg border border-slate-200 bg-white p-4">
+          <div class="flex gap-3 border-t border-lab-border/70 pt-4">
             <span class="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-primary"></span>
-            <p class="text-sm font-semibold text-slate-700">{item}</p>
+            <p class="text-sm font-semibold text-lab-muted">{item}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section-padding bg-[#eaf5ff] text-[#101d35]">
+  <section class="section-padding bg-lab-base text-lab-text">
     <div class="container-narrow flex flex-col justify-between gap-6 md:flex-row md:items-center">
       <div>
-        <p class="text-sm font-bold uppercase tracking-[0.18em] text-[#246bfe]">Knowledge hub</p>
-        <h2 class="mt-3 text-3xl font-bold">Browse public resources and updates.</h2>
+        <p class="text-sm font-bold uppercase tracking-[0.18em] text-lab-accent-soft">Research outputs</p>
+        <h2 class="mt-3 text-3xl font-bold">Browse publications and updates.</h2>
       </div>
       <div class="flex flex-col gap-3 sm:flex-row">
-        <a href={withBase('/resources')} class="inline-flex min-h-12 items-center justify-center rounded-md bg-[#246bfe] px-6 py-3 text-sm font-bold text-white shadow transition hover:bg-[#145de5]">
-          View resources
+        <a href={withBase('/resources')} class="inline-flex min-h-12 items-center justify-center rounded-md bg-lab-accent px-6 py-3 text-sm font-bold text-white shadow transition hover:bg-primary-dark">
+          Browse publications
         </a>
-        <a href={withBase('/news')} class="inline-flex min-h-12 items-center justify-center rounded-md border border-[#bdd9fb] bg-white px-6 py-3 text-sm font-bold text-[#246bfe] transition hover:border-[#246bfe]/40 hover:bg-[#f4f8fd]">
+        <a href={withBase('/news')} class="inline-flex min-h-12 items-center justify-center rounded-md border border-lab-border bg-lab-surface px-6 py-3 text-sm font-bold text-lab-accent-soft transition hover:border-lab-accent/50 hover:bg-lab-base">
           Visit newsroom
         </a>
       </div>

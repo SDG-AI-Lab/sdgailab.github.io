@@ -93,7 +93,7 @@ function PageContentInner({ pageSlug, sectionSlug }: PageContentProps) {
 
   if (error) {
     return (
-      <div className="text-center py-8 text-gray-500">
+      <div className="text-center py-8 text-lab-subtle">
         <p>Unable to load content at this time.</p>
       </div>
     );
@@ -101,7 +101,7 @@ function PageContentInner({ pageSlug, sectionSlug }: PageContentProps) {
 
   if (!html) {
     return (
-      <div className="text-center py-8 text-gray-500 italic">
+      <div className="text-center py-8 text-lab-subtle italic">
         <p>No content available yet.</p>
       </div>
     );

@@ -10,6 +10,7 @@ import PageContent from './PageContent';
 import PartnerLogos from './PartnerLogos';
 import PeopleGrid from './PeopleGrid';
 import ProjectList from './ProjectList';
+import PublicationsList from './PublicationsList';
 import StatsCards from './StatsCards';
 import { renderMarkdown } from '../lib/markdown';
 
@@ -102,6 +103,13 @@ describe('public islands (unit)', () => {
   it('NewsList renders a visitor-facing empty state when no news exists', async () => {
     await render(<NewsList />);
     expect(container.textContent).toContain('News and publications are being updated.');
+  });
+
+  it('PublicationsList renders publication cards when no live data exists', async () => {
+    await render(<PublicationsList />);
+    expect(container.textContent).toContain('Publications');
+    expect(container.textContent).toContain('Read more');
+    expect(container.textContent).toContain('From AI experiments to responsible development practice');
   });
 
   it('PeopleGrid renders the team empty state', async () => {

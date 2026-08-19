@@ -79,31 +79,31 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="name" className="block text-xs font-bold uppercase tracking-[0.16em] text-[#667995]">
-          Name <span className="text-[#246bfe]">*</span>
+        <label htmlFor="name" className="block text-xs font-bold uppercase tracking-[0.16em] text-lab-muted">
+          Name <span className="text-lab-accent-soft">*</span>
         </label>
-        <input id="name" name="name" type="text" required placeholder="Enter your full name" className="mt-3 min-h-12 w-full rounded-lg border border-[#c9ddf4] bg-white px-4 py-3 text-sm font-semibold text-[#101d35] placeholder:text-[#9aabc1] outline-none transition focus:border-[#246bfe] focus:ring-2 focus:ring-[#246bfe]/20" />
+        <input id="name" name="name" type="text" required placeholder="Enter your full name" className="mt-3 min-h-12 w-full rounded-lg border border-lab-border bg-lab-surface px-4 py-3 text-sm font-semibold text-lab-text placeholder:text-lab-subtle outline-none transition focus:border-lab-accent focus:ring-2 focus:ring-lab-accent/25" />
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-xs font-bold uppercase tracking-[0.16em] text-[#667995]">
-          Email <span className="text-[#246bfe]">*</span>
+        <label htmlFor="email" className="block text-xs font-bold uppercase tracking-[0.16em] text-lab-muted">
+          Email <span className="text-lab-accent-soft">*</span>
         </label>
-        <input id="email" name="email" type="email" required placeholder="Enter your business email address" className="mt-3 min-h-12 w-full rounded-lg border border-[#c9ddf4] bg-white px-4 py-3 text-sm font-semibold text-[#101d35] placeholder:text-[#9aabc1] outline-none transition focus:border-[#246bfe] focus:ring-2 focus:ring-[#246bfe]/20" />
+        <input id="email" name="email" type="email" required placeholder="Enter your business email address" className="mt-3 min-h-12 w-full rounded-lg border border-lab-border bg-lab-surface px-4 py-3 text-sm font-semibold text-lab-text placeholder:text-lab-subtle outline-none transition focus:border-lab-accent focus:ring-2 focus:ring-lab-accent/25" />
       </div>
 
       <div>
-        <label htmlFor="organization" className="block text-xs font-bold uppercase tracking-[0.16em] text-[#667995]">
-          Organization / affiliation <span className="text-[#246bfe]">*</span>
+        <label htmlFor="organization" className="block text-xs font-bold uppercase tracking-[0.16em] text-lab-muted">
+          Organization / affiliation <span className="text-lab-accent-soft">*</span>
         </label>
-        <input id="organization" name="organization" type="text" required placeholder="Your institution or UNDP team name" className="mt-3 min-h-12 w-full rounded-lg border border-[#c9ddf4] bg-white px-4 py-3 text-sm font-semibold text-[#101d35] placeholder:text-[#9aabc1] outline-none transition focus:border-[#246bfe] focus:ring-2 focus:ring-[#246bfe]/20" />
+        <input id="organization" name="organization" type="text" required placeholder="Your institution or UNDP team name" className="mt-3 min-h-12 w-full rounded-lg border border-lab-border bg-lab-surface px-4 py-3 text-sm font-semibold text-lab-text placeholder:text-lab-subtle outline-none transition focus:border-lab-accent focus:ring-2 focus:ring-lab-accent/25" />
       </div>
 
       <div>
-        <label htmlFor="request-type" className="block text-xs font-bold uppercase tracking-[0.16em] text-[#667995]">
+        <label htmlFor="request-type" className="block text-xs font-bold uppercase tracking-[0.16em] text-lab-muted">
           Request type
         </label>
-        <select id="request-type" name="request_type" className="mt-3 min-h-12 w-full rounded-lg border border-[#c9ddf4] bg-white px-4 py-3 text-sm font-semibold text-[#101d35] outline-none transition focus:border-[#246bfe] focus:ring-2 focus:ring-[#246bfe]/20">
+        <select id="request-type" name="request_type" className="mt-3 min-h-12 w-full rounded-lg border border-lab-border bg-lab-surface px-4 py-3 text-sm font-semibold text-lab-text outline-none transition focus:border-lab-accent focus:ring-2 focus:ring-lab-accent/25">
           <option value="">Select an option</option>
           {requestTypeOptions.map((option) => (
             <option key={option} value={option}>{option}</option>
@@ -112,10 +112,10 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-xs font-bold uppercase tracking-[0.16em] text-[#667995]">
-          Message <span className="text-[#246bfe]">*</span>
+        <label htmlFor="message" className="block text-xs font-bold uppercase tracking-[0.16em] text-lab-muted">
+          Message <span className="text-lab-accent-soft">*</span>
         </label>
-        <textarea id="message" name="message" required rows={7} maxLength={5000} placeholder="Briefly describe the scope, goals, datasets available and how SDG AI Lab can collaborate with you..." className="mt-3 w-full rounded-lg border border-[#c9ddf4] bg-white px-4 py-3 text-sm font-semibold text-[#101d35] placeholder:text-[#9aabc1] outline-none transition focus:border-[#246bfe] focus:ring-2 focus:ring-[#246bfe]/20" />
+        <textarea id="message" name="message" required rows={7} maxLength={5000} placeholder="Briefly describe the scope, goals, datasets available and how SDG AI Lab can collaborate with you..." className="mt-3 w-full rounded-lg border border-lab-border bg-lab-surface px-4 py-3 text-sm font-semibold text-lab-text placeholder:text-lab-subtle outline-none transition focus:border-lab-accent focus:ring-2 focus:ring-lab-accent/25" />
       </div>
 
       {feedback && (
@@ -131,7 +131,7 @@ export default function ContactForm() {
         </p>
       )}
 
-      <button type="submit" disabled={state === 'submitting'} className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#246bfe] px-6 py-3 text-sm font-black text-white shadow-[0_14px_30px_rgba(36,107,254,0.24)] transition hover:-translate-y-0.5 hover:bg-[#145de5] disabled:cursor-not-allowed disabled:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#246bfe] focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+      <button type="submit" disabled={state === 'submitting'} className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-lab-accent px-6 py-3 text-sm font-black text-white shadow-[0_14px_30px_rgba(76,141,255,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-lab-accent focus-visible:ring-offset-2 focus-visible:ring-offset-lab-base">
         {state === 'submitting' ? 'Submitting...' : 'Submit Request'}
         <span aria-hidden="true">&rarr;</span>
       </button>

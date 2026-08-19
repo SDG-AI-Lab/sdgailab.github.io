@@ -4,7 +4,10 @@ import BaseLayout from '../components/layout/BaseLayout.astro';
 import PeopleGrid from '../islands/PeopleGrid';
 
 const workSteps = [
-  ['Business Understanding', 'Clarify the development challenge, users, constraints and expected value.'],
+  [
+    'Business Understanding',
+    'Clarify the development challenge, users, constraints and expected value.',
+  ],
   ['Team Building', 'Bring together domain, data, AI and delivery expertise.'],
   ['Product Planning', 'Define scope, backlog and delivery priorities.'],
   ['Bi-weekly Sprints', 'Plan, build, review and adjust in focused cycles.'],
@@ -13,9 +16,18 @@ const workSteps = [
 ];
 
 const volunteerHighlights = [
-  ['Contribute technical skills', 'Support data analysis, responsible AI review, prototyping, documentation or open-source implementation.'],
-  ['Work with real development needs', 'Case studies should capture what worked, what did not and what can be reused by other teams.'],
-  ['Leave reusable knowledge', 'Where possible, contributions should result in documented methods, lessons, tools or resources that others can build on.'],
+  [
+    'Contribute technical skills',
+    'Support data analysis, responsible AI review, prototyping, documentation or open-source implementation.',
+  ],
+  [
+    'Work with real development needs',
+    'Case studies should capture what worked, what did not and what can be reused by other teams.',
+  ],
+  [
+    'Leave reusable knowledge',
+    'Where possible, contributions should result in documented methods, lessons, tools or resources that others can build on.',
+  ],
 ];
 ---
 
@@ -23,12 +35,22 @@ const volunteerHighlights = [
   title="Team - SDG AI Lab"
   description="Meet the SDG AI Lab team and learn how the Lab works with collaborators and volunteers."
 >
-  <main class="bg-[#f4f8fd] text-[#101d35]">
+  <main class="bg-lab-base text-lab-text">
     <section class="py-[clamp(70px,8vw,112px)]">
       <div class="mx-auto w-[min(100%-2rem,1120px)]">
-        <p class="text-sm font-black uppercase tracking-[0.18em] text-[#246bfe]">People</p>
-        <h1 class="mt-3 text-[clamp(2.35rem,5vw,4.6rem)] font-black leading-[1.02] tracking-[-0.055em] text-[#101d35]">Our Team</h1>
-        <p class="mt-5 max-w-3xl text-lg font-semibold leading-8 text-[#667995]">
+        <p
+          class="text-sm font-black uppercase tracking-[0.18em] text-lab-accent-soft"
+        >
+          People
+        </p>
+        <h1
+          class="mt-3 text-[clamp(2.35rem,5vw,4.6rem)] font-black leading-[1.02] tracking-[-0.055em] text-lab-text"
+        >
+          Our Team
+        </h1>
+        <p
+          class="mt-5 max-w-3xl text-lg font-semibold leading-8 text-lab-muted"
+        >
           Meet the people driving AI innovation for sustainable development.
         </p>
         <div class="mt-10">
@@ -37,66 +59,100 @@ const volunteerHighlights = [
       </div>
     </section>
 
-    <section class="bg-white py-[clamp(70px,8vw,112px)]" aria-labelledby="work-heading">
+    <!-- <section class="bg-lab-surface py-[clamp(70px,8vw,112px)]" aria-labelledby="work-heading">
       <div class="mx-auto w-[min(100%-2rem,1120px)]">
         <div class="mx-auto max-w-4xl text-center">
-          <p class="text-sm font-black uppercase tracking-[0.18em] text-[#246bfe]">How we work</p>
-          <h2 id="work-heading" class="mt-4 text-[clamp(2rem,3.4vw,3.5rem)] font-black leading-[1.05] tracking-[-0.045em] text-[#101d35]">
+          <p class="text-sm font-black uppercase tracking-[0.18em] text-lab-accent-soft">How we work</p>
+          <h2 id="work-heading" class="mt-4 text-[clamp(2rem,3.4vw,3.5rem)] font-black leading-[1.05] tracking-[-0.045em] text-lab-text">
             Agile software development, aligned with UNDP best practices and enhanced by AI
           </h2>
-          <p class="mx-auto mt-5 max-w-3xl text-base font-semibold leading-7 text-[#667995]">
+          <p class="mx-auto mt-5 max-w-3xl text-base font-semibold leading-7 text-lab-muted">
             The Lab works through structured discovery, planning, implementation and delivery cycles, with bi-weekly sprints at the center of the process.
           </p>
         </div>
 
-        <div class="mx-auto mt-10 max-w-6xl rounded-3xl border border-[#c9ddf4] bg-[#f8fbff] p-5 shadow-[0_18px_50px_rgba(16,29,53,0.08)] sm:p-7">
+        <div class="mx-auto mt-10 max-w-6xl rounded-3xl border border-lab-border bg-lab-section p-5 shadow-[0_18px_50px_rgba(0,0,0,0.22)] sm:p-7">
           <div class="grid gap-4 md:grid-cols-3 xl:grid-cols-6">
             {workSteps.map(([title, body], index) => (
               <article class:list={[
-                'rounded-2xl border bg-white p-5 shadow-sm',
-                index === 3 ? 'border-[#246bfe] bg-[#eaf5ff]' : 'border-[#d7e5f7]',
+                'rounded-2xl border p-5 shadow-sm',
+                index === 3 ? 'border-lab-accent bg-lab-elevated' : 'border-lab-border bg-lab-surface',
               ]}>
-                <span class="text-xs font-black text-[#246bfe]">{String(index + 1).padStart(2, '0')}</span>
-                <h3 class="mt-4 text-base font-black text-[#101d35]">{title}</h3>
-                <p class="mt-3 text-xs font-semibold leading-6 text-[#667995]">{body}</p>
+                <span class="text-xs font-black text-lab-accent-soft">{String(index + 1).padStart(2, '0')}</span>
+                <h3 class="mt-4 text-base font-black text-lab-text">{title}</h3>
+                <p class="mt-3 text-xs font-semibold leading-6 text-lab-muted">{body}</p>
               </article>
             ))}
           </div>
           <div class="mt-5 grid gap-3 md:grid-cols-3">
-            <div class="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-center text-xs font-black text-emerald-700">Sprint Planning</div>
-            <div class="rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-center text-xs font-black text-blue-700">Bi-weekly sprint cycle</div>
-            <div class="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-center text-xs font-black text-emerald-700">Review</div>
+            <div class="rounded-xl border border-lab-accent/30 bg-lab-accent/10 px-4 py-3 text-center text-xs font-black text-lab-accent-soft">Sprint Planning</div>
+            <div class="rounded-xl border border-lab-accent/40 bg-lab-accent/10 px-4 py-3 text-center text-xs font-black text-lab-accent-soft">Bi-weekly sprint cycle</div>
+            <div class="rounded-xl border border-lab-accent/30 bg-lab-accent/10 px-4 py-3 text-center text-xs font-black text-lab-accent-soft">Review</div>
           </div>
-          <div class="mt-3 rounded-xl border border-[#d7e5f7] bg-white px-4 py-3 text-center text-xs font-black text-[#334867]">
+          <div class="mt-3 rounded-xl border border-lab-border bg-lab-surface px-4 py-3 text-center text-xs font-black text-lab-muted">
             Continuous Integration &amp; Deployment
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
-    <section class="py-[clamp(70px,8vw,112px)]" aria-labelledby="volunteer-heading">
+    <section
+      class="py-[clamp(70px,8vw,112px)]"
+      aria-labelledby="volunteer-heading"
+    >
       <div class="mx-auto w-[min(100%-2rem,1120px)]">
-        <p class="text-sm font-black uppercase tracking-[0.18em] text-[#246bfe]">Volunteer data scientist initiative</p>
-        <h2 id="volunteer-heading" class="mt-4 text-[clamp(2rem,3.4vw,3.5rem)] font-black leading-[1.05] tracking-[-0.045em] text-[#101d35]">Join the Lab's contributor network</h2>
-        <p class="mt-5 max-w-4xl text-base font-semibold leading-7 text-[#667995]">
-          The UNV-ICPSD Digital Transformation Partnership brings together volunteer data scientists from around the world to contribute to sustainable development through AI and machine learning. Volunteers work on real-world projects that support UNDP's mission.
+        <p
+          class="text-sm font-black uppercase tracking-[0.18em] text-lab-accent-soft"
+        >
+          Volunteer data scientist initiative
+        </p>
+        <h2
+          id="volunteer-heading"
+          class="mt-4 text-[clamp(2rem,3.4vw,3.5rem)] font-black leading-[1.05] tracking-[-0.045em] text-lab-text"
+        >
+          Join the Lab's contributor network
+        </h2>
+        <p
+          class="mt-5 max-w-4xl text-justify text-base font-semibold leading-7 text-lab-muted"
+        >
+          The UNV-ICPSD Digital Transformation Partnership brings together
+          volunteer data scientists from around the world to contribute to
+          sustainable development through AI and machine learning. Volunteers
+          work on real-world projects that support UNDP's mission.
         </p>
 
-        <div class="mt-8 grid gap-4 rounded-2xl border border-[#c9ddf4] bg-white p-5 shadow-[0_12px_34px_rgba(16,29,53,0.06)] md:grid-cols-3">
-          {volunteerHighlights.map(([title, body]) => (
-            <article class="rounded-xl bg-[#f4f8fd] p-5">
-              <h3 class="text-sm font-black text-[#101d35]">{title}</h3>
-              <p class="mt-3 text-sm font-semibold leading-6 text-[#667995]">{body}</p>
-            </article>
-          ))}
+        <div
+          class="mt-8 grid gap-6 border-y border-lab-border/70 py-6 md:grid-cols-3"
+        >
+          {
+            volunteerHighlights.map(([title, body]) => (
+              <article class="border-l-2 border-lab-accent/45 pl-5">
+                <h3 class="text-sm font-black text-lab-text">{title}</h3>
+                <p class="mt-3 text-sm font-semibold leading-6 text-lab-muted">
+                  {body}
+                </p>
+              </article>
+            ))
+          }
         </div>
 
-        <div class="mt-8 rounded-2xl border border-[#bdd9fb] bg-[#eaf5ff] p-6 text-[#101d35] shadow-[0_12px_34px_rgba(16,29,53,0.06)] sm:flex sm:items-center sm:justify-between sm:gap-6">
+        <div
+          class="mt-8 rounded-3xl bg-lab-section/80 p-6 text-lab-text ring-1 ring-lab-border/70 sm:flex sm:items-center sm:justify-between sm:gap-6"
+        >
           <div>
-            <p class="text-xs font-black uppercase tracking-[0.18em] text-[#246bfe]">Work with us</p>
-            <h3 class="mt-2 text-2xl font-black">Want to join our team as a volunteer?</h3>
+            <p
+              class="text-xs font-black uppercase tracking-[0.18em] text-lab-accent-soft"
+            >
+              Work with us
+            </p>
+            <h3 class="mt-2 text-2xl font-black">
+              Want to join our team as a volunteer?
+            </h3>
           </div>
-          <a href={withBase('/volunteer')} class="mt-5 inline-flex min-h-12 items-center justify-center rounded-full bg-[#246bfe] px-8 py-3 text-sm font-black text-white shadow-[0_14px_30px_rgba(36,107,254,0.24)] transition hover:-translate-y-0.5 hover:bg-[#145de5] sm:mt-0">
+          <a
+            href={withBase('/volunteer')}
+            class="mt-5 inline-flex min-h-12 items-center justify-center rounded-full bg-lab-accent px-8 py-3 text-sm font-black text-white shadow-[0_14px_30px_rgba(76,141,255,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-dark sm:mt-0"
+          >
             Apply
           </a>
         </div>

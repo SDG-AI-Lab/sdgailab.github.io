@@ -116,7 +116,7 @@ export default function PersonFormPage({ id }: PersonFormPageProps) {
     return (
       <div className="flex items-center justify-center py-12">
         <div
-          className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"
+          className="h-8 w-8 animate-spin rounded-full border-2 border-lab-accent border-t-transparent"
           aria-label="Loading"
         />
       </div>
@@ -125,7 +125,7 @@ export default function PersonFormPage({ id }: PersonFormPageProps) {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold text-gray-800 mb-6">
+      <h1 className="text-2xl font-semibold text-lab-text mb-6">
         {id ? 'Edit Person' : 'New Person'}
       </h1>
       <ContentForm
@@ -137,33 +137,33 @@ export default function PersonFormPage({ id }: PersonFormPageProps) {
       >
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Name *</label>
             <input
               type="text"
               required
               value={values.name}
               onChange={(e) => setValues((v) => ({ ...v, name: e.target.value }))}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Role Title *</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Role Title *</label>
             <input
               type="text"
               required
               value={values.role_title}
               onChange={(e) => setValues((v) => ({ ...v, role_title: e.target.value }))}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Group Type</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Group Type</label>
             <select
               value={values.group_type}
               onChange={(e) =>
                 setValues((v) => ({ ...v, group_type: e.target.value as PeopleGroup }))
               }
-              className="border rounded px-3 py-2 text-sm border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary w-full"
+              className="border rounded px-3 py-2 text-sm border-lab-border focus:outline-none focus:ring-2 focus:ring-lab-accent focus:border-lab-accent w-full"
             >
               {GROUP_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -179,23 +179,23 @@ export default function PersonFormPage({ id }: PersonFormPageProps) {
             label="Photo"
           />
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Biography</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Biography</label>
             <textarea
               value={values.biography}
               onChange={(e) => setValues((v) => ({ ...v, biography: e.target.value }))}
               rows={4}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Display Order</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Display Order</label>
             <input
               type="number"
               value={values.display_order}
               onChange={(e) =>
                 setValues((v) => ({ ...v, display_order: Number(e.target.value) || 0 }))
               }
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
             />
           </div>
           <StatusSelect

@@ -1,15 +1,15 @@
-﻿import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getPublishedStatistics } from '../lib/queries';
 import type { StatisticCard } from '../lib/types';
 import { sampleStats } from '../data/sampleContent';
 
 const statVisuals: Record<string, { accent: string }> = {
-  projects: { accent: 'text-blue-700' },
-  learners: { accent: 'text-blue-700' },
-  knowledge: { accent: 'text-blue-700' },
-  volunteers: { accent: 'text-blue-700' },
-  countries: { accent: 'text-blue-700' },
-  default: { accent: 'text-blue-700' },
+  projects: { accent: 'text-lab-accent-soft' },
+  learners: { accent: 'text-lab-accent-soft' },
+  knowledge: { accent: 'text-lab-accent-soft' },
+  volunteers: { accent: 'text-lab-accent-soft' },
+  countries: { accent: 'text-lab-accent-soft' },
+  default: { accent: 'text-lab-accent-soft' },
 };
 
 function getVisual(stat: StatisticCard) {
@@ -47,9 +47,9 @@ export default function StatsCards() {
           return (
             <article
               key={stat.id}
-              className="rounded-xl border border-blue-200 bg-[#eef7ff] p-5 shadow-[0_16px_40px_rgba(47,128,237,0.08)]"
+              className="border-l-2 border-lab-accent/45 pl-5"
             >
-              <p className="text-[0.68rem] font-black uppercase tracking-[0.16em] text-blue-600">
+              <p className="text-[0.68rem] font-black uppercase tracking-[0.16em] text-lab-accent-soft">
                 {stat.label}
               </p>
               <p className={`mt-2 text-4xl font-black tracking-tight ${visual.accent}`} aria-label={`${stat.label}: ${stat.value}`}>

@@ -96,7 +96,7 @@ export default function PageContentFormPage({ id }: PageContentFormPageProps) {
     return (
       <div className="flex items-center justify-center py-12">
         <div
-          className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"
+          className="h-8 w-8 animate-spin rounded-full border-2 border-lab-accent border-t-transparent"
           aria-label="Loading"
         />
       </div>
@@ -105,7 +105,7 @@ export default function PageContentFormPage({ id }: PageContentFormPageProps) {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold text-gray-800 mb-6">
+      <h1 className="text-2xl font-semibold text-lab-text mb-6">
         {id ? 'Edit Page Content' : 'New Page Content'}
       </h1>
       <ContentForm
@@ -117,7 +117,7 @@ export default function PageContentFormPage({ id }: PageContentFormPageProps) {
       >
         <div className="space-y-4">
           <div>
-            <label htmlFor="page-slug" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="page-slug" className="block text-sm font-medium text-lab-text mb-1">
               Page Slug *
             </label>
             <input
@@ -127,7 +127,7 @@ export default function PageContentFormPage({ id }: PageContentFormPageProps) {
               required
               value={values.page_slug}
               onChange={(e) => setValues((v) => ({ ...v, page_slug: e.target.value }))}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
             />
             <datalist id="page-slugs">
               <option value="about" />
@@ -136,7 +136,7 @@ export default function PageContentFormPage({ id }: PageContentFormPageProps) {
             </datalist>
           </div>
           <div>
-            <label htmlFor="section-slug" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="section-slug" className="block text-sm font-medium text-lab-text mb-1">
               Section Slug *
             </label>
             <input
@@ -145,7 +145,7 @@ export default function PageContentFormPage({ id }: PageContentFormPageProps) {
               required
               value={values.section_slug}
               onChange={(e) => setValues((v) => ({ ...v, section_slug: e.target.value }))}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
             />
           </div>
           <MarkdownField

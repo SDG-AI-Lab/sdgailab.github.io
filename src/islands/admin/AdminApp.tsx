@@ -97,7 +97,7 @@ function useHashRoute() {
 function RouteFallback() {
   return (
     <div className="flex justify-center py-12" role="status" aria-label="Loading">
-      <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-lab-accent border-t-transparent" />
     </div>
   );
 }
@@ -106,25 +106,25 @@ function UnauthorizedPage() {
   const { user, authorizationError, signOut } = useAuth();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-lg rounded-xl border border-gray-200 bg-white p-8 text-center shadow-lg">
-        <h1 className="text-2xl font-bold text-primary">Editor access required</h1>
-        <p className="mt-3 text-sm text-gray-600">
+    <div className="flex min-h-screen items-center justify-center bg-lab-base px-4">
+      <div className="w-full max-w-lg rounded-xl border border-lab-border bg-lab-surface p-8 text-center shadow-lg">
+        <h1 className="text-2xl font-bold text-lab-accent-soft">Editor access required</h1>
+        <p className="mt-3 text-sm text-lab-muted">
           You are signed in as <span className="font-medium">{user?.email}</span>, but this account
           is not on the approved SDG AI Lab editor list.
         </p>
         {authorizationError && (
-          <p className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-left text-sm text-amber-800">
+          <p className="mt-4 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-left text-sm text-amber-100">
             {authorizationError}
           </p>
         )}
-        <p className="mt-4 text-sm text-gray-500">
+        <p className="mt-4 text-sm text-lab-muted">
           Please contact the site administrator if you need CMS access.
         </p>
         <button
           type="button"
           onClick={() => void signOut()}
-          className="mt-6 rounded-lg bg-primary px-4 py-2 font-medium text-white transition-colors hover:bg-primary-dark"
+          className="mt-6 rounded-lg bg-lab-accent px-4 py-2 font-medium text-[#f8fafc] transition-colors hover:bg-primary-dark"
         >
           Sign out
         </button>
@@ -182,9 +182,9 @@ function matchRoute(path: string, id: string | null): React.ReactNode {
       return <PageContentFormPage id={id} />;
     default:
       return (
-        <div className="py-12 text-center text-gray-500">
+        <div className="py-12 text-center text-lab-muted">
           Page not found.{' '}
-          <a href="#/" className="text-primary underline">
+          <a href="#/" className="text-lab-accent-soft underline">
             Go to Dashboard
           </a>
         </div>
@@ -205,7 +205,7 @@ function AdminAppInner() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div
-          className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"
+          className="h-8 w-8 animate-spin rounded-full border-2 border-lab-accent border-t-transparent"
           aria-label="Loading"
         />
       </div>

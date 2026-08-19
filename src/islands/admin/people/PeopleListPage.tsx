@@ -91,13 +91,13 @@ export default function PeopleListPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold text-gray-800 mb-6">People</h1>
+      <h1 className="text-2xl font-semibold text-lab-text mb-6">People</h1>
       <div className="flex gap-2 mb-4">
         <button
           type="button"
           onClick={() => setFilter('all')}
           className={`px-3 py-1.5 rounded-md text-sm font-medium ${
-            filter === 'all' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            filter === 'all' ? 'bg-lab-accent text-[#f8fafc]' : 'bg-lab-section text-lab-text hover:bg-lab-elevated'
           }`}
         >
           All
@@ -106,7 +106,7 @@ export default function PeopleListPage() {
           type="button"
           onClick={() => setFilter('team')}
           className={`px-3 py-1.5 rounded-md text-sm font-medium ${
-            filter === 'team' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            filter === 'team' ? 'bg-lab-accent text-[#f8fafc]' : 'bg-lab-section text-lab-text hover:bg-lab-elevated'
           }`}
         >
           Team
@@ -115,7 +115,7 @@ export default function PeopleListPage() {
           type="button"
           onClick={() => setFilter('advisory_board')}
           className={`px-3 py-1.5 rounded-md text-sm font-medium ${
-            filter === 'advisory_board' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            filter === 'advisory_board' ? 'bg-lab-accent text-[#f8fafc]' : 'bg-lab-section text-lab-text hover:bg-lab-elevated'
           }`}
         >
           Advisory Board

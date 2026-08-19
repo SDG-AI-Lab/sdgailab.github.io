@@ -34,7 +34,7 @@ export default function PartnersListPage() {
           href={item.website_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-600 underline truncate max-w-[200px] inline-block"
+          className="text-lab-accent-soft underline truncate max-w-[200px] inline-block"
         >
           {item.website_url}
         </a>
@@ -100,7 +100,7 @@ export default function PartnersListPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold text-gray-800 mb-6">Partners</h1>
+      <h1 className="text-2xl font-semibold text-lab-text mb-6">Partners</h1>
       <ContentTable
         columns={columns}
         data={data}

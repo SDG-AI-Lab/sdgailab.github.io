@@ -84,25 +84,29 @@ describe('Public Astro pages', () => {
   it('services page exposes requestable support pathways', () => {
     const source = readSource('src/pages/services.astro');
     expect(source).toContain('BaseLayout');
-    expect(source).toContain('Suite of services');
+    expect(source).toContain('Discover Our Services');
     expect(source).toContain('serviceSuites');
-    expect(source).toContain('Responsible data and AI governance');
+    expect(source).toContain('from-lab-accent to-primary-light');
+    expect(source).toContain('Ready to scope a request?');
   });
 
-  it('about page includes the merged impact and evolution sections', () => {
+  it('about page includes Cansu-aligned approach and methodology sections', () => {
     const source = readSource('src/pages/about.astro');
-    expect(source).toContain('Our evolution');
-    expect(source).toContain('Impact and evidence');
-    expect(source).toContain('Evidence model');
-    expect(source).toContain('StatsCards');
+    expect(source).toContain('How we work');
+    expect(source).toContain('An agile, end-to-end approach to applied AI research for sustainable development.');
+    expect(source).toContain('Formulating research questions and solution architecture');
+    expect(source).toContain('Our Methodology');
+    expect(source).toContain('From exploration to reusable development tools');
   });
 
-  it('resources page exposes the knowledge hub and CTA links', () => {
+  it('publications page is reserved for publication content only', () => {
     const source = readSource('src/pages/resources.astro');
     expect(source).toContain('BaseLayout');
-    expect(source).toContain('Knowledge hub');
-    expect(source).toContain("withBase('/news')");
-    expect(source).toContain("withBase('/projects')");
+    expect(source).toContain('Publications - SDG AI Lab');
+    expect(source).toContain('PublicationsList');
+    expect(source).not.toContain('Knowledge hub');
+    expect(source).not.toContain("withBase('/news')");
+    expect(source).not.toContain("withBase('/projects')");
   });
 
   it('research page exposes research and knowledge content', () => {

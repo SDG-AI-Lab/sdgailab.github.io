@@ -41,34 +41,31 @@ function PersonCardView({ person }: { person: PersonCard }) {
   const section = getTeamSection(person);
 
   return (
-    <article className="overflow-hidden rounded-xl border border-[#c9ddf4] bg-white text-center shadow-[0_12px_34px_rgba(16,29,53,0.08)] transition hover:-translate-y-1 hover:border-[#246bfe]/35 hover:shadow-[0_18px_45px_rgba(36,107,254,0.16)]">
-      <div className="aspect-[1.15/1] overflow-hidden bg-[#e9edff]">
+    <article className="group text-center transition hover:-translate-y-0.5">
+      <div className="mx-auto flex h-32 w-32 items-center justify-center overflow-hidden rounded-full bg-lab-section ring-1 ring-lab-border transition group-hover:ring-lab-accent/55 sm:h-36 sm:w-36">
         {person.photo_url ? (
           <img
             src={person.photo_url}
             alt={person.name}
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
             loading="lazy"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-[#eef1ff]">
-            <svg className="h-16 w-16 text-indigo-300" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-            </svg>
-          </div>
+          <svg className="h-9 w-9 text-lab-accent-soft/70" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+          </svg>
         )}
       </div>
-      <div className="p-4">
-        <span className="inline-flex rounded-full bg-[#e7f1ff] px-3 py-1 text-[11px] font-bold leading-none text-[#246bfe]">
+      <div className="mt-5">
+        <span className="inline-flex rounded-full bg-lab-accent/10 px-3 py-1 text-[11px] font-bold leading-none text-lab-accent-soft">
           {section}
         </span>
-        <h3 className="mt-3 text-base font-bold text-[#101d35]">{person.name}</h3>
-        <p className="mt-1 text-sm font-semibold text-[#667995]">{person.role_title}</p>
+        <h3 className="mt-3 text-base font-extrabold text-lab-text">{person.name}</h3>
+        <p className="mt-1 text-sm font-semibold text-lab-muted">{person.role_title}</p>
       </div>
     </article>
   );
 }
-
 export default function PeopleGrid({ groupType }: PeopleGridProps) {
   return (
     <ObservabilityBoundary surface="public" name="PeopleGrid">
@@ -122,7 +119,7 @@ function PeopleGridContent({ groupType }: PeopleGridProps) {
   if (loading) {
     return (
       <div className="flex justify-center py-12" role="status" aria-label="Loading">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-300/30 border-t-blue-400" />
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-lab-accent/30 border-t-lab-accent" />
         <span className="sr-only">Loading people...</span>
       </div>
     );
@@ -130,7 +127,7 @@ function PeopleGridContent({ groupType }: PeopleGridProps) {
 
   if (error && people.length === 0) {
     return (
-      <div className="rounded-2xl border border-[#c9ddf4] bg-white p-8 text-center text-[#667995] shadow-sm">
+      <div className="rounded-2xl border border-lab-border bg-lab-surface p-8 text-center text-lab-muted shadow-sm">
         <p>Unable to load team information at this time.</p>
       </div>
     );
@@ -138,7 +135,7 @@ function PeopleGridContent({ groupType }: PeopleGridProps) {
 
   if (people.length === 0) {
     return (
-      <div className="rounded-2xl border border-[#c9ddf4] bg-white p-8 text-center text-[#667995] shadow-sm italic">
+      <div className="rounded-2xl border border-lab-border bg-lab-surface p-8 text-center text-lab-muted shadow-sm italic">
         <p>No members listed yet.</p>
       </div>
     );
@@ -152,7 +149,7 @@ function PeopleGridContent({ groupType }: PeopleGridProps) {
         </p>
       )}
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {people.map((person) => (
           <PersonCardView key={person.id} person={person} />
         ))}

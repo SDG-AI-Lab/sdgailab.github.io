@@ -1,4 +1,4 @@
-﻿import { readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
@@ -18,14 +18,12 @@ describe('Header.astro source', () => {
     expect(source).toContain('aria-expanded');
   });
 
-  it('links to the primary public sections', () => {
+  it('links to the primary public sections without service subnavigation', () => {
     expect(source).toContain("label: 'How we work'");
     expect(source).toContain("label: 'Our projects'");
     expect(source).toContain("label: 'Our services'");
-    expect(source).toContain("label: 'Research'");
-    expect(source).toContain("label: 'Advisory'");
-    expect(source).toContain("label: 'Training'");
-    expect(source).toContain("label: 'Partnership'");
+    expect(source).not.toContain('serviceSubLinks');
+    expect(source).not.toContain('aria-haspopup');
     expect(source).toContain("label: 'Publications'");
     expect(source).toContain("label: 'Team'");
     expect(source).toContain("label: 'Contact'");

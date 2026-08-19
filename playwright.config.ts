@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
+declare const process: { env: Record<string, string | undefined> };
+
 const port = 4321;
 const baseURL = `http://127.0.0.1:${port}`;
 const e2eSupabaseEnv = {

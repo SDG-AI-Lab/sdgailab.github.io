@@ -257,7 +257,7 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
     return (
       <div className="flex items-center justify-center py-12">
         <div
-          className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"
+          className="h-8 w-8 animate-spin rounded-full border-2 border-lab-accent border-t-transparent"
           aria-label="Loading"
         />
       </div>
@@ -266,7 +266,7 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold text-gray-800 mb-6">
+      <h1 className="text-2xl font-semibold text-lab-text mb-6">
         {id ? 'Edit Project' : 'New Project'}
       </h1>
       <ContentForm
@@ -278,13 +278,13 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
       >
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Title *</label>
             <input
               type="text"
               required
               value={values.title}
               onChange={(e) => setValues((v) => ({ ...v, title: e.target.value }))}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
             />
           </div>
           <SlugField
@@ -293,12 +293,12 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
             onChange={(slug) => setValues((v) => ({ ...v, slug }))}
           />
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Summary</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Summary</label>
             <textarea
               value={values.summary}
               onChange={(e) => setValues((v) => ({ ...v, summary: e.target.value }))}
               rows={3}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
               placeholder="Short project summary used on cards and detail page intros."
             />
           </div>
@@ -308,13 +308,13 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
             label="Description *"
           />
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Project Status</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Project Status</label>
             <select
               value={values.project_status}
               onChange={(e) =>
                 setValues((v) => ({ ...v, project_status: e.target.value as ProjectStatus }))
               }
-              className="border rounded px-3 py-2 text-sm border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary w-full"
+              className="border rounded px-3 py-2 text-sm border-lab-border focus:outline-none focus:ring-2 focus:ring-lab-accent focus:border-lab-accent w-full"
             >
               {PROJECT_STATUS_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -325,13 +325,13 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Deployment Label</label>
+              <label className="block text-sm font-medium text-lab-text mb-1">Deployment Label</label>
               <select
                 value={values.deployment_status}
                 onChange={(e) =>
                   setValues((v) => ({ ...v, deployment_status: e.target.value as DeploymentStatus }))
                 }
-                className="border rounded px-3 py-2 text-sm border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary w-full"
+                className="border rounded px-3 py-2 text-sm border-lab-border focus:outline-none focus:ring-2 focus:ring-lab-accent focus:border-lab-accent w-full"
               >
                 {DEPLOYMENT_STATUS_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -341,44 +341,44 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Impact Area</label>
+              <label className="block text-sm font-medium text-lab-text mb-1">Impact Area</label>
               <input
                 type="text"
                 value={values.impact_area}
                 onChange={(e) => setValues((v) => ({ ...v, impact_area: e.target.value }))}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                 placeholder="Natural Language Processing"
               />
             </div>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Timeline</label>
+              <label className="block text-sm font-medium text-lab-text mb-1">Timeline</label>
               <input
                 type="text"
                 value={values.timeline}
                 onChange={(e) => setValues((v) => ({ ...v, timeline: e.target.value }))}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                 placeholder="3-12 months"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">SDGs</label>
+              <label className="block text-sm font-medium text-lab-text mb-1">SDGs</label>
               <input
                 type="text"
                 value={values.sdgs.join(', ')}
                 onChange={(e) => setValues((v) => ({ ...v, sdgs: parseSdgs(e.target.value) }))}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                 placeholder="4, 9, 17"
               />
             </div>
           </div>
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-            <h2 className="text-sm font-semibold text-gray-800">Portfolio metadata</h2>
-            <p className="mt-1 text-xs text-gray-500">Fields imported from the definitive project portfolio workbook.</p>
+          <div className="rounded-lg border border-lab-border bg-lab-base p-4">
+            <h2 className="text-sm font-semibold text-lab-text">Portfolio metadata</h2>
+            <p className="mt-1 text-xs text-lab-muted">Fields imported from the definitive project portfolio workbook.</p>
             <div className="mt-4 grid gap-4 md:grid-cols-3">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Year</label>
+                <label className="block text-sm font-medium text-lab-text mb-1">Year</label>
                 <input
                   type="text"
                   inputMode="numeric"
@@ -389,87 +389,87 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
                       project_year: e.target.value ? Number(e.target.value) : '',
                     }))
                   }
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                   placeholder="2026"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Work Stream</label>
+                <label className="block text-sm font-medium text-lab-text mb-1">Work Stream</label>
                 <input
                   type="text"
                   value={values.work_stream}
                   onChange={(e) => setValues((v) => ({ ...v, work_stream: e.target.value }))}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                   placeholder="GIS, NLP, Training..."
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Project Category</label>
+                <label className="block text-sm font-medium text-lab-text mb-1">Project Category</label>
                 <input
                   type="text"
                   value={values.project_category}
                   onChange={(e) => setValues((v) => ({ ...v, project_category: e.target.value }))}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                   placeholder="Prototype, research, tool..."
                 />
               </div>
             </div>
             <div className="mt-4 grid gap-4 md:grid-cols-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Business Model</label>
+                <label className="block text-sm font-medium text-lab-text mb-1">Business Model</label>
                 <input
                   type="text"
                   value={values.business_model}
                   onChange={(e) => setValues((v) => ({ ...v, business_model: e.target.value }))}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                   placeholder="Advisory, implementation support, reusable product..."
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Capabilities Involved</label>
+                <label className="block text-sm font-medium text-lab-text mb-1">Capabilities Involved</label>
                 <textarea
                   value={values.capabilities_involved.join('\n')}
                   onChange={(e) =>
                     setValues((v) => ({ ...v, capabilities_involved: parseLines(e.target.value) }))
                   }
                   rows={3}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                   placeholder="One capability per line"
                 />
               </div>
             </div>
             <div className="mt-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Scalability / Reusable Components</label>
+              <label className="block text-sm font-medium text-lab-text mb-1">Scalability / Reusable Components</label>
               <textarea
                 value={values.reusable_components}
                 onChange={(e) => setValues((v) => ({ ...v, reusable_components: e.target.value }))}
                 rows={3}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                 placeholder="Reusable assets, components, workflows, datasets or methods"
               />
             </div>
             <div className="mt-4 grid gap-4 md:grid-cols-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Current Client Segments</label>
+                <label className="block text-sm font-medium text-lab-text mb-1">Current Client Segments</label>
                 <textarea
                   value={values.current_client_segments.join('\n')}
                   onChange={(e) =>
                     setValues((v) => ({ ...v, current_client_segments: parseLines(e.target.value) }))
                   }
                   rows={4}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                   placeholder="One current client segment per line"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Future Addressable Client Segments</label>
+                <label className="block text-sm font-medium text-lab-text mb-1">Future Addressable Client Segments</label>
                 <textarea
                   value={values.future_client_segments.join('\n')}
                   onChange={(e) =>
                     setValues((v) => ({ ...v, future_client_segments: parseLines(e.target.value) }))
                   }
                   rows={4}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                   placeholder="One future client segment per line"
                 />
               </div>
@@ -477,92 +477,92 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Best Fit</label>
+              <label className="block text-sm font-medium text-lab-text mb-1">Best Fit</label>
               <textarea
                 value={values.best_fit.join('\n')}
                 onChange={(e) => setValues((v) => ({ ...v, best_fit: parseLines(e.target.value) }))}
                 rows={4}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                 placeholder="One audience or partner type per line"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Core Capabilities</label>
+              <label className="block text-sm font-medium text-lab-text mb-1">Core Capabilities</label>
               <textarea
                 value={values.core_capabilities.join('\n')}
                 onChange={(e) =>
                   setValues((v) => ({ ...v, core_capabilities: parseLines(e.target.value) }))
                 }
                 rows={4}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                 placeholder="One capability per line"
               />
             </div>
           </div>
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-            <h2 className="text-sm font-semibold text-gray-800">Structured project content</h2>
-            <p className="mt-1 text-xs text-gray-500">
+          <div className="rounded-lg border border-lab-border bg-lab-base p-4">
+            <h2 className="text-sm font-semibold text-lab-text">Structured project content</h2>
+            <p className="mt-1 text-xs text-lab-muted">
               Use these fields to match the agreed project template. Keep wording public-facing and concise.
             </p>
             <div className="mt-4 grid gap-4 md:grid-cols-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Problem</label>
+                <label className="block text-sm font-medium text-lab-text mb-1">Problem</label>
                 <textarea
                   value={values.problem}
                   onChange={(e) => setValues((v) => ({ ...v, problem: e.target.value }))}
                   rows={4}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                   placeholder="What challenge does this project respond to?"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Solution</label>
+                <label className="block text-sm font-medium text-lab-text mb-1">Solution</label>
                 <textarea
                   value={values.solution}
                   onChange={(e) => setValues((v) => ({ ...v, solution: e.target.value }))}
                   rows={4}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                   placeholder="What was built or delivered?"
                 />
               </div>
             </div>
             <div className="mt-4 grid gap-4 md:grid-cols-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">How it works</label>
+                <label className="block text-sm font-medium text-lab-text mb-1">How it works</label>
                 <textarea
                   value={values.how_it_works.join('\n')}
                   onChange={(e) =>
                     setValues((v) => ({ ...v, how_it_works: parseLines(e.target.value) }))
                   }
                   rows={5}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                   placeholder="One short step per line"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Features</label>
+                <label className="block text-sm font-medium text-lab-text mb-1">Features</label>
                 <textarea
                   value={values.features.join('\n')}
                   onChange={(e) => setValues((v) => ({ ...v, features: parseLines(e.target.value) }))}
                   rows={5}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                   placeholder="One feature per line"
                 />
               </div>
             </div>
             <div className="mt-4 grid gap-4 md:grid-cols-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Tech Stack</label>
+                <label className="block text-sm font-medium text-lab-text mb-1">Tech Stack</label>
                 <textarea
                   value={values.tech_stack.join('\n')}
                   onChange={(e) => setValues((v) => ({ ...v, tech_stack: parseLines(e.target.value) }))}
                   rows={5}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                   placeholder="One technology, model, platform, or dataset per line"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Implementation Countries</label>
+                <label className="block text-sm font-medium text-lab-text mb-1">Implementation Countries</label>
                 <textarea
                   value={values.implementation_countries.join('\n')}
                   onChange={(e) =>
@@ -572,43 +572,43 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
                     }))
                   }
                   rows={5}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                   placeholder="One country or territory per line"
                 />
               </div>
             </div>
             <div className="mt-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Collaboration / Our Network</label>
+              <label className="block text-sm font-medium text-lab-text mb-1">Collaboration / Our Network</label>
               <textarea
                 value={values.collaboration_network}
                 onChange={(e) =>
                   setValues((v) => ({ ...v, collaboration_network: e.target.value }))
                 }
                 rows={3}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                 placeholder="Use collaborated with / our network wording; avoid formal partner language unless approved."
               />
             </div>
             <div className="mt-4 grid gap-4 md:grid-cols-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Downloads / Resources</label>
+                <label className="block text-sm font-medium text-lab-text mb-1">Downloads / Resources</label>
                 <textarea
                   value={values.resource_links.join('\n')}
                   onChange={(e) =>
                     setValues((v) => ({ ...v, resource_links: parseLines(e.target.value) }))
                   }
                   rows={4}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                   placeholder="One approved public URL per line"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Video / Media URL</label>
+                <label className="block text-sm font-medium text-lab-text mb-1">Video / Media URL</label>
                 <input
                   type="url"
                   value={values.video_url}
                   onChange={(e) => setValues((v) => ({ ...v, video_url: e.target.value }))}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                   placeholder="https://www.youtube.com/watch?v=... or a direct .mp4 URL"
                 />
                 <div className="mt-3">
@@ -618,12 +618,12 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
                     onChange={(url) => setValues((v) => ({ ...v, video_url: url ?? '' }))}
                   />
                 </div>
-                <label className="mt-3 block text-sm font-medium text-gray-700 mb-1">Media Caption</label>
+                <label className="mt-3 block text-sm font-medium text-lab-text mb-1">Media Caption</label>
                 <textarea
                   value={values.media_caption}
                   onChange={(e) => setValues((v) => ({ ...v, media_caption: e.target.value }))}
                   rows={2}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                   placeholder="Short context for the video or media block"
                 />
               </div>
@@ -635,9 +635,9 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
               id="is_deployed"
               checked={values.is_deployed}
               onChange={(e) => setValues((v) => ({ ...v, is_deployed: e.target.checked }))}
-              className="rounded border-gray-300 text-primary focus:ring-primary"
+              className="rounded border-lab-border text-lab-accent-soft focus:ring-lab-accent"
             />
-            <label htmlFor="is_deployed" className="text-sm font-medium text-gray-700">
+            <label htmlFor="is_deployed" className="text-sm font-medium text-lab-text">
               Is Deployed
             </label>
           </div>
@@ -647,9 +647,9 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
               id="is_featured"
               checked={values.is_featured}
               onChange={(e) => setValues((v) => ({ ...v, is_featured: e.target.checked }))}
-              className="rounded border-gray-300 text-primary focus:ring-primary"
+              className="rounded border-lab-border text-lab-accent-soft focus:ring-lab-accent"
             />
-            <label htmlFor="is_featured" className="text-sm font-medium text-gray-700">
+            <label htmlFor="is_featured" className="text-sm font-medium text-lab-text">
               Is Featured
             </label>
           </div>
@@ -659,14 +659,14 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
             onChange={(url) => setValues((v) => ({ ...v, image_url: url }))}
           />
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Display Order</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Display Order</label>
             <input
               type="number"
               value={values.display_order}
               onChange={(e) =>
                 setValues((v) => ({ ...v, display_order: Number(e.target.value) || 0 }))
               }
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
             />
           </div>
           <StatusSelect

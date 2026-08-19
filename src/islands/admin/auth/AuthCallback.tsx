@@ -51,13 +51,13 @@ export default function AuthCallback() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-gray-50 px-4">
-        <p className="text-center text-gray-600">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-lab-base px-4">
+        <p className="text-center text-lab-muted">
           Invalid or expired link. Please request a new magic link.
         </p>
         <a
           href="#/login"
-          className="rounded-lg bg-primary px-4 py-2 font-medium text-white hover:bg-primary-dark"
+          className="rounded-lg bg-lab-accent px-4 py-2 font-medium text-[#f8fafc] hover:bg-primary-dark"
         >
           Back to login
         </a>
@@ -67,9 +67,9 @@ export default function AuthCallback() {
 
   if (processing || loading || !session) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-gray-50 px-4">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary-200 border-t-primary" />
-        <p className="text-gray-600">Signing you in...</p>
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-lab-base px-4">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-lab-border border-t-lab-accent" />
+        <p className="text-lab-muted">Signing you in...</p>
       </div>
     );
   }

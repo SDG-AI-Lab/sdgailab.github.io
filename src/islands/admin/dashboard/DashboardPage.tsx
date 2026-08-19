@@ -24,13 +24,13 @@ const CARD_CONFIG: {
 
 function SkeletonCard() {
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-5 animate-pulse">
-      <div className="h-5 bg-gray-200 rounded w-24 mb-4" />
-      <div className="h-9 bg-gray-200 rounded w-16 mb-4" />
+    <div className="bg-lab-surface rounded-lg shadow-sm border p-5 animate-pulse">
+      <div className="h-5 bg-lab-elevated rounded w-24 mb-4" />
+      <div className="h-9 bg-lab-elevated rounded w-16 mb-4" />
       <div className="flex flex-wrap gap-2">
-        <div className="h-6 bg-gray-200 rounded w-16" />
-        <div className="h-6 bg-gray-200 rounded w-20" />
-        <div className="h-6 bg-gray-200 rounded w-20" />
+        <div className="h-6 bg-lab-elevated rounded w-16" />
+        <div className="h-6 bg-lab-elevated rounded w-20" />
+        <div className="h-6 bg-lab-elevated rounded w-20" />
       </div>
     </div>
   );
@@ -48,18 +48,18 @@ function StatCard({
   return (
     <a
       href={href}
-      className="bg-white rounded-lg shadow-sm border p-5 hover:shadow-md transition-shadow cursor-pointer block"
+      className="bg-lab-surface rounded-lg shadow-sm border p-5 hover:shadow-md transition-shadow cursor-pointer block"
     >
-      <h3 className="text-sm font-medium text-gray-600 mb-2">{label}</h3>
-      <p className="text-3xl font-bold text-gray-800 mb-3">{counts.total}</p>
+      <h3 className="text-sm font-medium text-lab-muted mb-2">{label}</h3>
+      <p className="text-3xl font-bold text-lab-text mb-3">{counts.total}</p>
       <div className="flex flex-wrap gap-2">
-        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600">
+        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-lab-section text-lab-muted">
           {counts.draft} draft
         </span>
-        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700">
+        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-500/15 text-green-200 border border-green-500/30">
           {counts.published} published
         </span>
-        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-600">
+        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-300">
           {counts.archived} archived
         </span>
       </div>
@@ -94,7 +94,7 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <div>
-        <h1 className="text-2xl font-semibold text-gray-800 mb-6">Dashboard</h1>
+        <h1 className="text-2xl font-semibold text-lab-text mb-6">Dashboard</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <SkeletonCard key={i} />
@@ -107,13 +107,13 @@ export default function DashboardPage() {
   if (error) {
     return (
       <div>
-        <h1 className="text-2xl font-semibold text-gray-800 mb-6">Dashboard</h1>
-        <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-          <p className="text-red-700 mb-4">{error}</p>
+        <h1 className="text-2xl font-semibold text-lab-text mb-6">Dashboard</h1>
+        <div className="bg-red-500/100/10 border border-red-500/30 rounded-lg p-6 text-center">
+          <p className="text-red-200 mb-4">{error}</p>
           <button
             type="button"
             onClick={fetchCounts}
-            className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+            className="px-4 py-2 bg-red-600 text-[#f8fafc] rounded-md hover:bg-red-700 transition-colors"
           >
             Retry
           </button>
@@ -124,7 +124,7 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold text-gray-800 mb-6">Dashboard</h1>
+      <h1 className="text-2xl font-semibold text-lab-text mb-6">Dashboard</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {CARD_CONFIG.map(({ key, label, slug }) => (
           <StatCard

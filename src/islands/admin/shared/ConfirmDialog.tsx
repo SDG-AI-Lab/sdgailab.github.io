@@ -43,17 +43,17 @@ export function ConfirmDialog({
       onClick={onCancel}
     >
       <div
-        className="bg-white rounded-lg shadow-xl p-6 max-w-md mx-4"
+        className="bg-lab-surface rounded-lg shadow-xl p-6 max-w-md mx-4"
         role="alertdialog"
         aria-modal="true"
         aria-labelledby="confirm-dialog-title"
         aria-describedby="confirm-dialog-message"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 id="confirm-dialog-title" className="font-bold text-lg text-gray-900">
+        <h2 id="confirm-dialog-title" className="font-bold text-lg text-lab-text">
           {title}
         </h2>
-        <p id="confirm-dialog-message" className="mt-2 text-gray-600">
+        <p id="confirm-dialog-message" className="mt-2 text-lab-muted">
           {message}
         </p>
         <div className="mt-6 flex justify-end gap-3">
@@ -61,7 +61,7 @@ export function ConfirmDialog({
             ref={cancelRef}
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 text-sm font-medium"
+            className="px-4 py-2 rounded-md border border-lab-border bg-lab-surface text-lab-text hover:bg-lab-base text-sm font-medium"
           >
             Cancel
           </button>
@@ -69,12 +69,12 @@ export function ConfirmDialog({
             type="button"
             onClick={onConfirm}
             disabled={loading}
-            className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 disabled:opacity-50 text-sm font-medium flex items-center gap-2"
+            className="px-4 py-2 rounded-md bg-red-600 text-[#f8fafc] hover:bg-red-700 disabled:opacity-50 text-sm font-medium flex items-center gap-2"
           >
             {loading ? (
               <>
                 <span
-                  className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"
+                  className="h-4 w-4 animate-spin rounded-full border-2 border-[#f8fafc] border-t-transparent"
                   aria-hidden
                 />
                 {confirmLabel}

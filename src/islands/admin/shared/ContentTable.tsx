@@ -49,7 +49,7 @@ export function ContentTable<T extends { id: string; status: string }>({
     <div className="flex justify-end mb-4">
       <a
         href={addNewHref}
-        className="inline-flex items-center px-4 py-2 rounded-md bg-primary text-white text-sm font-medium hover:bg-primary/90"
+        className="inline-flex items-center px-4 py-2 rounded-md bg-lab-accent text-[#f8fafc] text-sm font-medium hover:bg-lab-accent/90"
       >
         {addNewLabel}
       </a>
@@ -60,33 +60,33 @@ export function ContentTable<T extends { id: string; status: string }>({
     return (
       <div className="overflow-x-auto">
         {addButton}
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+        <table className="min-w-full divide-y divide-lab-border">
+          <thead className="bg-lab-base">
             <tr>
               {allColumns.map((col, i) => (
                 <th
                   key={i}
                   scope="col"
-                  className={`px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${col.className ?? ''}`}
+                  className={`px-4 py-3 text-left text-xs font-medium text-lab-muted uppercase tracking-wider ${col.className ?? ''}`}
                 >
                   {col.label}
                 </th>
               ))}
-              <th scope="col" className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-4 py-3 text-right text-xs font-medium text-lab-muted uppercase tracking-wider">
                 Actions
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-lab-surface divide-y divide-lab-border">
             {[1, 2, 3, 4, 5].map((i) => (
               <tr key={i}>
                 {allColumns.map((col, j) => (
                   <td key={j} className="px-4 py-3">
-                    <div className="h-4 bg-gray-200 rounded animate-pulse" />
+                    <div className="h-4 bg-lab-elevated rounded animate-pulse" />
                   </td>
                 ))}
                 <td className="px-4 py-3">
-                  <div className="h-4 bg-gray-200 rounded animate-pulse w-16" />
+                  <div className="h-4 bg-lab-elevated rounded animate-pulse w-16" />
                 </td>
               </tr>
             ))}
@@ -100,13 +100,13 @@ export function ContentTable<T extends { id: string; status: string }>({
     return (
       <div>
         {addButton}
-        <div className="rounded-md bg-red-50 p-4 text-red-700 text-sm">
+        <div className="rounded-md bg-red-500/10 p-4 text-red-200 text-sm">
           <p>{error}</p>
           {onRetry && (
             <button
               type="button"
               onClick={onRetry}
-              className="mt-2 text-red-800 font-medium underline hover:no-underline"
+              className="mt-2 text-red-100 font-medium underline hover:no-underline"
             >
               Retry
             </button>
@@ -120,7 +120,7 @@ export function ContentTable<T extends { id: string; status: string }>({
     return (
       <div>
         {addButton}
-        <div className="text-center py-12 text-gray-500">
+        <div className="text-center py-12 text-lab-muted">
           No items found
         </div>
       </div>
@@ -130,28 +130,28 @@ export function ContentTable<T extends { id: string; status: string }>({
   return (
     <div className="overflow-x-auto">
       {addButton}
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
+      <table className="min-w-full divide-y divide-lab-border">
+        <thead className="bg-lab-base">
           <tr>
             {allColumns.map((col, i) => (
               <th
                 key={i}
                 scope="col"
-                className={`px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${col.className ?? ''}`}
+                className={`px-4 py-3 text-left text-xs font-medium text-lab-muted uppercase tracking-wider ${col.className ?? ''}`}
               >
                 {col.label}
               </th>
             ))}
-            <th scope="col" className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-4 py-3 text-right text-xs font-medium text-lab-muted uppercase tracking-wider">
               Actions
             </th>
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="bg-lab-surface divide-y divide-lab-border">
           {data.map((item) => (
             <tr key={item.id}>
               {allColumns.map((col, i) => (
-                <td key={i} className={`px-4 py-3 text-sm text-gray-900 ${col.className ?? ''}`}>
+                <td key={i} className={`px-4 py-3 text-sm text-lab-text ${col.className ?? ''}`}>
                   {col.accessor === 'status' ? (
                     <StatusBadge status={item.status} />
                   ) : (
@@ -164,7 +164,7 @@ export function ContentTable<T extends { id: string; status: string }>({
                   <button
                     type="button"
                     onClick={() => onEdit(item.id)}
-                    className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    className="text-lab-accent-soft hover:text-lab-accent text-sm font-medium"
                   >
                     Edit
                   </button>
@@ -172,7 +172,7 @@ export function ContentTable<T extends { id: string; status: string }>({
                     <button
                       type="button"
                       onClick={() => onArchive(item.id)}
-                      className="text-yellow-600 hover:text-yellow-800 text-sm font-medium"
+                      className="text-amber-300 hover:text-amber-200 text-sm font-medium"
                     >
                       Archive
                     </button>
@@ -181,7 +181,7 @@ export function ContentTable<T extends { id: string; status: string }>({
                     <button
                       type="button"
                       onClick={() => onDelete(item.id)}
-                      className="text-red-600 hover:text-red-800 text-sm font-medium"
+                      className="text-red-300 hover:text-red-200 text-sm font-medium"
                     >
                       Delete
                     </button>
