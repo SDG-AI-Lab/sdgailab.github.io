@@ -56,7 +56,7 @@ describe('StatusSelect', () => {
 
     const badge = container.querySelector('span');
     expect(badge?.textContent).toBe('published');
-    expect(badge?.className).toContain('bg-green-100');
+    expect(badge?.className).toContain('bg-green-500/15');
   });
 
   it('falls back to neutral styling for unknown statuses', async () => {
@@ -65,7 +65,7 @@ describe('StatusSelect', () => {
     });
 
     const badge = container.querySelector('span');
-    expect(badge?.className).toContain('bg-gray-100');
+    expect(badge?.className).toContain('bg-lab-section');
   });
 
   it('has no detectable accessibility violations', async () => {

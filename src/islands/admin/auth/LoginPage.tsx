@@ -1,3 +1,6 @@
+import logoUrl from '../../../../assets/img/whitelogo.png?url';
+import icpsdLogoUrl from '../../../../assets/img/ICPSD-logo-navbar.png?url';
+import undpLogoUrl from '../../../../assets/img/UNDP_logo.svg?url';
 import { useState } from 'react';
 import { consumeRateLimit, normalizeAdminEmail } from '../../../lib/admin-security';
 import { getMagicLinkRequestError } from '../../../lib/magic-link-errors';
@@ -56,15 +59,21 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-md rounded-xl border border-gray-200 bg-white p-8 shadow-lg">
-        <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold text-primary">SDG AI Lab</h1>
-          <p className="mt-1 text-sm text-gray-500">Admin</p>
+    <div className="flex min-h-screen items-center justify-center bg-lab-base px-4 py-10">
+      <div className="w-full max-w-md overflow-hidden rounded-2xl border border-lab-border bg-lab-surface shadow-2xl">
+        <div className="border-b border-lab-border bg-lab-section p-8 text-center">
+          <img src={logoUrl} alt="SDG AI Lab" className="mx-auto h-16 w-16 rounded-sm object-contain" />
+          <h1 className="mt-5 text-2xl font-extrabold text-lab-text">SDG AI Lab</h1>
+          <p className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-lab-muted">Content Management System</p>
+          <div className="mt-5 flex justify-center gap-4">
+            <img src={icpsdLogoUrl} alt="ICPSD" className="h-8 w-auto object-contain" />
+            <img src={undpLogoUrl} alt="UNDP" className="h-9 w-auto object-contain" />
+          </div>
         </div>
+        <div className="p-8">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700">
+            <label htmlFor="email" className="mb-1 block text-sm font-medium text-lab-text">
               Email address
             </label>
             <input
@@ -73,7 +82,7 @@ export default function LoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+              className="w-full rounded-lg border border-lab-border px-3 py-2 text-lab-text placeholder-lab-subtle focus:border-lab-accent focus:outline-none focus:ring-1 focus:ring-lab-accent"
               placeholder="you@example.com"
               disabled={loading}
               autoComplete="email"
@@ -82,7 +91,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-primary px-4 py-2 font-medium text-white transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full rounded-lg bg-lab-accent px-4 py-2 font-medium text-[#f8fafc] transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
@@ -110,15 +119,16 @@ export default function LoginPage() {
           </button>
         </form>
         {submitted && (
-          <p className="mt-4 text-center text-sm text-gray-600">
+          <p className="mt-4 text-center text-sm text-lab-muted">
             Check your email for the magic link.
           </p>
         )}
         {error && (
-          <p className="mt-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+          <p className="mt-4 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-200">
             {error}
           </p>
         )}
+        </div>
       </div>
     </div>
   );

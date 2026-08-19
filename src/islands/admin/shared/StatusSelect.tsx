@@ -10,7 +10,7 @@ export function StatusSelect({ value, onChange, label, id }: StatusSelectProps) 
   return (
     <div>
       {label && (
-        <label htmlFor={selectId} className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor={selectId} className="block text-sm font-medium text-lab-text mb-1">
           {label}
         </label>
       )}
@@ -18,7 +18,7 @@ export function StatusSelect({ value, onChange, label, id }: StatusSelectProps) 
         id={selectId}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="border rounded px-3 py-2 text-sm border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+        className="border rounded px-3 py-2 text-sm border-lab-border focus:outline-none focus:ring-2 focus:ring-lab-accent focus:border-lab-accent"
       >
         <option value="draft">Draft</option>
         <option value="published">Published</option>
@@ -35,13 +35,13 @@ interface StatusBadgeProps {
 function getStatusStyles(status: string) {
   switch (status.toLowerCase()) {
     case 'draft':
-      return 'bg-gray-100 text-gray-600';
+      return 'bg-lab-section text-lab-muted';
     case 'published':
-      return 'bg-green-100 text-green-700';
+      return 'bg-green-500/15 text-green-200 border border-green-500/30';
     case 'archived':
-      return 'bg-red-100 text-red-600';
+      return 'bg-red-100 text-red-300';
     default:
-      return 'bg-gray-100 text-gray-600';
+      return 'bg-lab-section text-lab-muted';
   }
 }
 

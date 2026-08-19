@@ -54,7 +54,7 @@ export function SlugField({
 
   return (
     <div>
-      <label htmlFor="slug-field" className="block text-sm font-medium text-gray-700 mb-1">
+      <label htmlFor="slug-field" className="block text-sm font-medium text-lab-text mb-1">
         {label}
       </label>
       <input
@@ -62,9 +62,9 @@ export function SlugField({
         type="text"
         value={value}
         onChange={handleChange}
-        className="w-full border rounded-md px-3 py-2 text-sm border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+        className="w-full border rounded-md px-3 py-2 text-sm border-lab-border focus:outline-none focus:ring-2 focus:ring-lab-accent focus:border-lab-accent"
       />
-      <span className="text-xs text-gray-500 block mt-1">Slug: /{value}</span>
+      <span className="text-xs text-lab-muted block mt-1">Slug: /{value}</span>
     </div>
   );
 }

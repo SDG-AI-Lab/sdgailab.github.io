@@ -7,26 +7,38 @@ import ProjectList from '../../islands/ProjectList';
   title="Projects - SDG AI Lab"
   description="Browse SDG AI Lab projects, reusable AI and data solutions, and implementation examples across the Lab portfolio."
 >
-  <main class="projects-page bg-white text-[#10213f]">
+  <main class="projects-page bg-lab-surface text-lab-text">
     <section
-      class="relative overflow-hidden bg-[linear-gradient(120deg,rgba(255,255,255,0.4),transparent_42%),radial-gradient(circle_at_18%_22%,rgba(47,128,237,0.14),transparent_24%),#d4eaff] pb-[clamp(24px,4vw,40px)] pt-[clamp(64px,8vw,112px)]"
+      class="relative overflow-hidden bg-[radial-gradient(circle_at_18%_22%,rgba(76,141,255,0.18),transparent_26%),linear-gradient(180deg,#2B2E36_0%,#22242A_100%)] pb-[clamp(24px,4vw,40px)] pt-[clamp(64px,8vw,112px)]"
       aria-labelledby="projects-heading"
     >
-      <span class="pointer-events-none absolute left-[-40px] top-[46px] h-[150px] w-[150px] rotate-[20deg] border border-blue-500/20 [clip-path:polygon(15%_0,100%_22%,82%_86%,20%_100%,0_42%)]" aria-hidden="true"></span>
-      <span class="pointer-events-none absolute right-[-42px] top-[-50px] h-[180px] w-[180px] rotate-[20deg] border border-blue-500/20 [clip-path:polygon(28%_0,100%_8%,82%_80%,12%_100%,0_24%)]" aria-hidden="true"></span>
+      <span
+        class="pointer-events-none absolute left-[-40px] top-[46px] h-[150px] w-[150px] rotate-[20deg] border border-lab-accent/20 [clip-path:polygon(15%_0,100%_22%,82%_86%,20%_100%,0_42%)]"
+        aria-hidden="true"></span>
+      <span
+        class="pointer-events-none absolute right-[-42px] top-[-50px] h-[180px] w-[180px] rotate-[20deg] border border-lab-accent/20 [clip-path:polygon(28%_0,100%_8%,82%_80%,12%_100%,0_24%)]"
+        aria-hidden="true"></span>
       <div class="relative z-10 mx-auto w-[min(100%-2rem,1120px)]">
-        <p class="mb-3.5 text-xs font-black uppercase tracking-[0.18em] text-[#2f80ed]">Project portfolio</p>
-        <h1 id="projects-heading" class="m-0 max-w-[850px] text-[clamp(2.5rem,5vw,4.9rem)] font-black leading-[0.98] tracking-[-0.055em] text-[#0f1d38]">
-          Explore practical AI and data work
+        <h1
+          id="projects-heading"
+          class="m-0 max-w-[850px] text-[clamp(2.5rem,5vw,4.9rem)] font-black leading-[0.98] tracking-[-0.055em] text-lab-text"
+        >
+          Explore the Lab's AI and Digital Solutions
         </h1>
-        <p class="mt-6 max-w-[760px] text-[clamp(1rem,1.35vw,1.18rem)] font-semibold leading-8 text-[#526580]">
-          Find projects by domain, year or keyword. Each project page shows what was built,
-          where it was applied, the technologies used and what can be reused.
+        <p
+          class="mt-6 max-w-[760px] text-justify text-[clamp(1rem,1.35vw,1.18rem)] font-semibold leading-8 text-lab-muted"
+        >
+          Find projects by domain, year or keyword. Each project page shows what
+          was built, where it was applied, the technologies used and what can be
+          reused.
         </p>
       </div>
     </section>
 
-    <section class="bg-white pb-[clamp(72px,8vw,112px)] pt-3" aria-label="Browse projects">
+    <section
+      class="bg-lab-surface pb-[clamp(72px,8vw,112px)] pt-3"
+      aria-label="Browse projects"
+    >
       <div class="mx-auto w-[min(100%-2rem,1120px)]">
         <ProjectList client:load />
       </div>

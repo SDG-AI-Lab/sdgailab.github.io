@@ -112,7 +112,7 @@ export default function NewsFormPage({ id }: NewsFormPageProps) {
     return (
       <div className="flex items-center justify-center py-12">
         <div
-          className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"
+          className="h-8 w-8 animate-spin rounded-full border-2 border-lab-accent border-t-transparent"
           aria-label="Loading"
         />
       </div>
@@ -121,7 +121,7 @@ export default function NewsFormPage({ id }: NewsFormPageProps) {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold text-gray-800 mb-6">
+      <h1 className="text-2xl font-semibold text-lab-text mb-6">
         {id ? 'Edit Article' : 'New Article'}
       </h1>
       <ContentForm
@@ -133,13 +133,13 @@ export default function NewsFormPage({ id }: NewsFormPageProps) {
       >
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Title *</label>
             <input
               type="text"
               required
               value={values.title}
               onChange={(e) => setValues((v) => ({ ...v, title: e.target.value }))}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
             />
           </div>
           <SlugField
@@ -153,12 +153,12 @@ export default function NewsFormPage({ id }: NewsFormPageProps) {
             label="Body *"
           />
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Summary</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Summary</label>
             <textarea
               rows={3}
               value={values.summary}
               onChange={(e) => setValues((v) => ({ ...v, summary: e.target.value }))}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
             />
           </div>
           <ImageUpload
@@ -168,21 +168,21 @@ export default function NewsFormPage({ id }: NewsFormPageProps) {
             label="Featured Image"
           />
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Author Name</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Author Name</label>
             <input
               type="text"
               value={values.author_name}
               onChange={(e) => setValues((v) => ({ ...v, author_name: e.target.value }))}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Publish Date</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Publish Date</label>
             <input
               type="date"
               value={values.publish_date}
               onChange={(e) => setValues((v) => ({ ...v, publish_date: e.target.value }))}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
             />
           </div>
           <StatusSelect

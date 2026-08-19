@@ -7,10 +7,10 @@ import type { Project, ProjectStatus } from '../../../lib/types';
 
 function ProjectStatusBadge({ status }: { status: ProjectStatus }) {
   const styles: Record<ProjectStatus, string> = {
-    active: 'bg-green-100 text-green-700',
+    active: 'bg-green-500/15 text-green-200 border border-green-500/30',
     completed: 'bg-blue-100 text-blue-700',
     under_development: 'bg-yellow-100 text-yellow-700',
-    on_hold: 'bg-gray-100 text-gray-600',
+    on_hold: 'bg-lab-section text-lab-muted',
   };
   const label = status.replace(/_/g, ' ');
   return (
@@ -107,7 +107,7 @@ export default function ProjectsListPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold text-gray-800 mb-6">Projects</h1>
+      <h1 className="text-2xl font-semibold text-lab-text mb-6">Projects</h1>
       <ContentTable
         columns={columns}
         data={data}

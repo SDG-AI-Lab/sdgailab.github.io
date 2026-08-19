@@ -85,9 +85,11 @@ describe('MarkdownField', () => {
     await flushEffects();
 
     expect(container.textContent).toContain('Body');
+    expect(container.querySelector('[data-color-mode="dark"]')).not.toBeNull();
     expect(container.querySelector('[data-editor-value="**hello**"]')).not.toBeNull();
     expect(latestEditorPropsRef.current.preview).toBe('live');
-    expect(latestEditorPropsRef.current.height).toBe(300);
+    expect(latestEditorPropsRef.current.highlightEnable).toBe(false);
+    expect(latestEditorPropsRef.current.height).toBe(420);
     expect(container.querySelector('[data-command-count="12"]')).not.toBeNull();
     expect(renderMarkdownMock).toHaveBeenCalledWith('**hello**');
     expect(container.querySelector('.wmde-markdown')?.innerHTML).toContain('<p>preview html</p>');

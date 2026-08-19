@@ -560,9 +560,37 @@ export const samplePortfolioProjects = demoDayProjects;
 export const sampleFeaturedProjects: FeaturedProjectCard[] = demoDayProjects.filter((project) => project.is_featured);
 
 export const sampleNews: NewsListItem[] = [
-  { id: 'sample-research', title: 'From AI experiments to responsible development practice', slug: 'responsible-development-practice', summary: 'Research notes, methods and lessons from applied AI work across the development sector.', featured_image_url: null, author_name: 'SDG AI Lab', publish_date: '2026-01-15' },
-  { id: 'sample-open', title: 'Building reusable public-interest AI resources', slug: 'reusable-public-interest-ai', summary: 'Open tools, datasets and technical guidance for public-interest AI work.', featured_image_url: null, author_name: 'SDG AI Lab', publish_date: '2025-11-06' },
+  {
+    id: 'sample-research',
+    title: 'From AI experiments to responsible development practice',
+    slug: 'responsible-development-practice',
+    summary:
+      'Research notes, methods and lessons from applied AI work across the development sector. Applied AI work is most useful when teams share not only successful outputs, but also methods, limitations and lessons from the lab and its partners.',
+    featured_image_url: null,
+    author_name: 'SDG AI Lab',
+    publish_date: '2026-01-15',
+  },
+  {
+    id: 'sample-collective-rnd',
+    title: 'Collective R&D: A Practice Guide for Sustainable Development',
+    slug: 'collective-rnd-practice-guide',
+    summary: null,
+    featured_image_url: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80',
+    author_name: 'SDG AI Lab',
+    publish_date: '2025-12-10',
+  },
+  {
+    id: 'sample-ai-human-dev',
+    title: 'AI and Human Development: A Qualitative Perspective from Bangladesh',
+    slug: 'ai-human-development-bangladesh',
+    summary: null,
+    featured_image_url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80',
+    author_name: 'SDG AI Lab',
+    publish_date: '2025-11-06',
+  },
 ];
+
+export const samplePublications = sampleNews;
 
 export const samplePartners: PartnerLogo[] = [
   { id: 'sample-undp', name: 'UNDP', logo_url: null, website_url: 'https://www.undp.org/', display_order: 1 },
@@ -573,7 +601,7 @@ export const samplePartners: PartnerLogo[] = [
 
 const samplePageContentBodies: Record<string, Record<string, string>> = {
   about: {
-    'about-sdgailab': `The SDG AI Lab was established in 2019 and is one of UNDP's specialized AI units. It is a joint initiative of the UNDP BPPS Data, AI & Innovation Hub and the Sustainable Finance Hub, hosted under ICPSD and based in Istanbul, TÃ¼rkiye. The Lab advances frontier technologies for sustainable development through development, research, advisory, training and community-building services.`,
+    'about-sdgailab': `The SDG AI Lab was established in 2019 and is one of UNDP's specialized AI units. It is a joint initiative of the UNDP BPPS Data, AI & Innovation Hub and the Sustainable Finance Hub, hosted under ICPSD and based in Istanbul, Türkiye. The Lab advances frontier technologies for sustainable development through development, research, advisory, training and community-building services.`,
     'our-approach':
       'The SDG AI Lab provides a one-stop solution approach for AI/ML advisory and research support. We utilize an agile, gig-based approach to leverage global talent for sustainable development goals.',
   },

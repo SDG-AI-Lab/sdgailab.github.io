@@ -123,7 +123,7 @@ export default function GeographicReachFormPage({ id }: GeographicReachFormPageP
     return (
       <div className="flex items-center justify-center py-12">
         <div
-          className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"
+          className="h-8 w-8 animate-spin rounded-full border-2 border-lab-accent border-t-transparent"
           aria-label="Loading"
         />
       </div>
@@ -132,7 +132,7 @@ export default function GeographicReachFormPage({ id }: GeographicReachFormPageP
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold text-gray-800 mb-6">
+      <h1 className="text-2xl font-semibold text-lab-text mb-6">
         {id ? 'Edit Geographic Reach Item' : 'New Geographic Reach Item'}
       </h1>
       <ContentForm
@@ -144,69 +144,69 @@ export default function GeographicReachFormPage({ id }: GeographicReachFormPageP
       >
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Country / Territory *</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Country / Territory *</label>
             <input
               type="text"
               required
               value={values.country_name}
               onChange={(e) => setValues((v) => ({ ...v, country_name: e.target.value }))}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
               placeholder="Kazakhstan"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Region</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Region</label>
             <input
               type="text"
               value={values.region}
               onChange={(e) => setValues((v) => ({ ...v, region: e.target.value }))}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
               placeholder="Europe and Central Asia"
             />
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">ISO Alpha-3</label>
+              <label className="block text-sm font-medium text-lab-text mb-1">ISO Alpha-3</label>
               <input
                 type="text"
                 value={values.iso_alpha3}
                 onChange={(e) => setValues((v) => ({ ...v, iso_alpha3: e.target.value.toUpperCase().slice(0, 3) }))}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm uppercase"
+                className="w-full border border-lab-border rounded-md px-3 py-2 text-sm uppercase"
                 placeholder="KAZ"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Latitude</label>
+              <label className="block text-sm font-medium text-lab-text mb-1">Latitude</label>
               <input
                 type="number"
                 step="any"
                 value={values.latitude}
                 onChange={(e) => setValues((v) => ({ ...v, latitude: e.target.value ? Number(e.target.value) : '' }))}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                 placeholder="48.0196"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Longitude</label>
+              <label className="block text-sm font-medium text-lab-text mb-1">Longitude</label>
               <input
                 type="number"
                 step="any"
                 value={values.longitude}
                 onChange={(e) => setValues((v) => ({ ...v, longitude: e.target.value ? Number(e.target.value) : '' }))}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
                 placeholder="66.9237"
               />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Display Order</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Display Order</label>
             <input
               type="number"
               value={values.display_order}
               onChange={(e) =>
                 setValues((v) => ({ ...v, display_order: Number(e.target.value) || 0 }))
               }
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
             />
           </div>
           <StatusSelect

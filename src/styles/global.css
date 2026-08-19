@@ -10,8 +10,7 @@
   }
 
   body {
-    @apply font-sans text-slate-800 antialiased;
-    background: #fff;
+    @apply bg-lab-base font-sans text-lab-text antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -20,6 +19,34 @@
 }
 
 @layer components {
+  .admin-cms input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+  .admin-cms textarea:not(.w-md-editor-text-input),
+  .admin-cms select {
+    @apply border-lab-border bg-lab-base text-lab-text placeholder:text-lab-subtle shadow-sm;
+    color-scheme: dark;
+  }
+
+  .admin-cms input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus,
+  .admin-cms textarea:not(.w-md-editor-text-input):focus,
+  .admin-cms select:focus {
+    @apply border-lab-accent outline-none ring-2 ring-lab-accent/30;
+  }
+
+  .admin-cms option {
+    background-color: #343843;
+    color: #E4E6EB;
+  }
+
+  .admin-cms input[type="checkbox"],
+  .admin-cms input[type="radio"] {
+    @apply border-lab-border bg-lab-base text-lab-accent;
+    color-scheme: dark;
+  }
+
+  .admin-cms .w-md-editor {
+    border-color: rgba(228, 230, 235, 0.16) !important;
+    box-shadow: none !important;
+  }
   .container-narrow {
     @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
   }
@@ -29,7 +56,7 @@
   }
 
   .section-label {
-    @apply text-sm font-bold uppercase tracking-[0.18em] text-primary;
+    @apply text-sm font-bold uppercase tracking-[0.18em] text-lab-accent-soft;
   }
 
   .prose-content {
@@ -45,20 +72,20 @@
   .prose-content ul { @apply mb-4 ml-6 list-disc; }
   .prose-content ol { @apply mb-4 ml-6 list-decimal; }
   .prose-content li { @apply mb-1; }
-  .prose-content a { @apply text-primary underline hover:text-primary-dark; }
-  .prose-content blockquote { @apply border-l-4 border-primary-200 pl-4 italic my-4; }
-  .prose-content code { @apply bg-gray-100 rounded px-1 py-0.5 text-sm; }
-  .prose-content pre { @apply bg-gray-100 rounded p-4 overflow-x-auto my-4; }
+  .prose-content a { @apply text-lab-accent underline hover:text-lab-accent-soft; }
+  .prose-content blockquote { @apply my-4 border-l-4 border-lab-accent pl-4 italic text-lab-muted; }
+  .prose-content code { @apply rounded bg-lab-surface px-1 py-0.5 text-sm text-lab-text; }
+  .prose-content pre { @apply my-4 overflow-x-auto rounded bg-lab-surface p-4 text-lab-text; }
   .prose-content img { @apply max-w-full h-auto rounded my-4; }
   .ui-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 9999px;
-    border: 1px solid #c9ddf4;
-    background: #f4f8fd;
-    color: #334867;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(228, 230, 235, 0.18);
+    background: rgba(228, 230, 235, 0.08);
+    color: #E4E6EB;
+    box-shadow: inset 0 1px 0 rgba(228, 230, 235, 0.12);
     white-space: nowrap;
   }
 
@@ -77,41 +104,68 @@
   }
 
   .ui-badge--active {
-    border-color: #86d7a2;
-    background: #dcfce7;
-    color: #166534;
+    border-color: rgba(34, 197, 94, 0.36);
+    background: rgba(34, 197, 94, 0.14);
+    color: #86efac;
   }
 
   .ui-badge--completed,
   .ui-badge--deployment-live {
-    border-color: #93c5fd;
-    background: #dbeafe;
-    color: #1e40af;
+    border-color: rgba(76, 141, 255, 0.42);
+    background: rgba(76, 141, 255, 0.16);
+    color: #B8D4FF;
   }
 
   .ui-badge--under-development,
   .ui-badge--deployment-prototype {
-    border-color: #facc15;
-    background: #fef3c7;
-    color: #92400e;
+    border-color: rgba(245, 158, 11, 0.42);
+    background: rgba(245, 158, 11, 0.14);
+    color: #FCD34D;
   }
 
   .ui-badge--on-hold,
   .ui-badge--deployment-internal {
-    border-color: #cbd5e1;
-    background: #e2e8f0;
-    color: #334155;
+    border-color: rgba(228, 230, 235, 0.22);
+    background: rgba(228, 230, 235, 0.10);
+    color: #CBD5E1;
   }
 
   .ui-badge--impact {
-    border-color: #7dd3fc;
-    background: #e0f2fe;
-    color: #075985;
+    border-color: rgba(127, 169, 255, 0.42);
+    background: rgba(127, 169, 255, 0.14);
+    color: #B8D4FF;
   }
 
   .ui-badge--neutral {
-    border-color: #cbd5e1;
-    background: #f1f5f9;
-    color: #334155;
+    border-color: rgba(228, 230, 235, 0.18);
+    background: rgba(228, 230, 235, 0.08);
+    color: #E4E6EB;
   }
+}
+
+/* Unlayered so these beat @uiw/react-md-editor's transparent text overlay. */
+.admin-cms .w-md-editor,
+.admin-cms .w-md-editor-toolbar,
+.admin-cms .w-md-editor-content,
+.admin-cms .w-md-editor-preview,
+.admin-cms .wmde-markdown {
+  background-color: #343843 !important;
+  color: #E4E6EB !important;
+}
+
+.admin-cms .w-md-editor-toolbar svg {
+  color: #E4E6EB;
+}
+
+.admin-cms .w-md-editor-text,
+.admin-cms .w-md-editor-text-pre,
+.admin-cms .w-md-editor-text-pre code {
+  color: #E4E6EB !important;
+}
+
+.admin-cms .w-md-editor-text-input {
+  background-color: #343843 !important;
+  color: #E4E6EB !important;
+  -webkit-text-fill-color: #E4E6EB !important;
+  caret-color: #E4E6EB !important;
 }

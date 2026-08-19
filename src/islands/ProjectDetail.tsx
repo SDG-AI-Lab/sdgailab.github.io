@@ -40,9 +40,9 @@ function isDirectVideoUrl(url?: string | null) {
 function ListBlock({ title, items }: { title: string; items?: string[] }) {
   if (!items?.length) return null;
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="text-sm font-bold uppercase tracking-[0.16em] text-primary">{title}</h2>
-      <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-700">
+    <section className="border-t border-lab-border/70 pt-6">
+      <h2 className="text-sm font-bold uppercase tracking-[0.16em] text-lab-accent-soft">{title}</h2>
+      <ul className="mt-4 space-y-3 text-sm leading-6 text-lab-muted">
         {items.map((item) => (
           <li key={item} className="flex gap-3">
             <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-primary" aria-hidden="true" />
@@ -56,18 +56,18 @@ function ListBlock({ title, items }: { title: string; items?: string[] }) {
 
 function MetaCard({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-      <h2 className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">{title}</h2>
-      <div className="mt-3 text-sm font-semibold leading-6 text-slate-800">{children}</div>
+    <article className="border-l-2 border-lab-accent/45 pl-5">
+      <h2 className="text-xs font-bold uppercase tracking-[0.18em] text-lab-subtle">{title}</h2>
+      <div className="mt-3 text-sm font-semibold leading-6 text-lab-text">{children}</div>
     </article>
   );
 }
 
 function TextSection({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="text-sm font-bold uppercase tracking-[0.16em] text-primary">{label}</h2>
-      <div className="mt-4 text-base leading-7 text-slate-700">{children}</div>
+    <section className="border-t border-lab-border/70 pt-6">
+      <h2 className="text-sm font-bold uppercase tracking-[0.16em] text-lab-accent-soft">{label}</h2>
+      <div className="mt-4 text-base leading-7 text-lab-muted">{children}</div>
     </section>
   );
 }
@@ -122,9 +122,9 @@ function ProjectDetailContent() {
   if (error || !project) {
     return (
       <div className="text-center py-12" role="alert">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">Project Not Found</h1>
-        <p className="text-xl text-gray-500 mb-4">{error || 'The requested project could not be found.'}</p>
-        <a href={withBase('/projects')} className="text-primary hover:underline font-medium">
+        <h1 className="text-2xl font-bold text-lab-text mb-4">Project Not Found</h1>
+        <p className="text-xl text-lab-subtle mb-4">{error || 'The requested project could not be found.'}</p>
+        <a href={withBase('/projects')} className="text-lab-accent-soft hover:underline font-medium">
           &larr; Back to Projects
         </a>
       </div>
@@ -156,11 +156,11 @@ function ProjectDetailContent() {
 
   return (
     <article className="space-y-10">
-      <a href={withBase('/projects')} className="inline-flex items-center text-primary hover:underline font-medium">
+      <a href={withBase('/projects')} className="inline-flex items-center text-lab-accent-soft hover:underline font-medium">
         &larr; Back to Projects
       </a>
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm lg:p-8">
+      <section className="rounded-3xl bg-lab-surface/70 p-6 ring-1 ring-lab-border/70 lg:p-8">
         <div className="flex flex-wrap items-center gap-3">
           <StatusBadge status={project.project_status} />
           <span className={`ui-badge ui-badge--md ui-badge--deployment-${deploymentLabel}`}>
@@ -173,10 +173,10 @@ function ProjectDetailContent() {
           )}
         </div>
 
-        <p className="mt-7 text-sm font-bold uppercase tracking-[0.18em] text-primary">Project case study</p>
-        <h1 className="mt-3 text-3xl font-bold text-gray-900 sm:text-5xl">{project.title}</h1>
+        <p className="mt-7 text-sm font-bold uppercase tracking-[0.18em] text-lab-accent-soft">Project case study</p>
+        <h1 className="mt-3 text-3xl font-bold text-lab-text sm:text-5xl">{project.title}</h1>
 
-        {project.summary && <p className="mt-5 max-w-4xl text-xl leading-8 text-slate-600">{project.summary}</p>}
+        {project.summary && <p className="mt-5 max-w-4xl text-xl leading-8 text-lab-muted">{project.summary}</p>}
 
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
           {backgroundText && (
@@ -208,14 +208,14 @@ function ProjectDetailContent() {
         {(project.business_model || project.project_category || project.work_stream) && (
           <MetaCard title="Funding / model">
             {project.business_model && <p>{project.business_model}</p>}
-            {project.project_category && <p className="mt-1 font-normal text-slate-600">{project.project_category}</p>}
-            {project.work_stream && <p className="mt-1 font-normal text-slate-600">{project.work_stream}</p>}
+            {project.project_category && <p className="mt-1 font-normal text-lab-muted">{project.project_category}</p>}
+            {project.work_stream && <p className="mt-1 font-normal text-lab-muted">{project.work_stream}</p>}
           </MetaCard>
         )}
         {(project.timeline || project.project_year) && (
           <MetaCard title="Timeline">
             {project.timeline && <p>{project.timeline}</p>}
-            {project.project_year ? <p className="mt-1 font-normal text-slate-600">{project.project_year}</p> : null}
+            {project.project_year ? <p className="mt-1 font-normal text-lab-muted">{project.project_year}</p> : null}
           </MetaCard>
         )}
       </section>
@@ -225,27 +225,27 @@ function ProjectDetailContent() {
       {project.features?.length ? <ListBlock title="Key features" items={project.features} /> : null}
 
       {hasResults && (
-        <section className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm lg:p-8" aria-labelledby="results-heading">
-          <h2 id="results-heading" className="text-sm font-bold uppercase tracking-[0.16em] text-primary">Results & impact</h2>
-          <div className="mt-5 grid gap-4 md:grid-cols-3">
+        <section className="rounded-3xl bg-lab-section/80 p-6 ring-1 ring-lab-border/70 lg:p-8" aria-labelledby="results-heading">
+          <h2 id="results-heading" className="text-sm font-bold uppercase tracking-[0.16em] text-lab-accent-soft">Results & impact</h2>
+          <div className="mt-5 grid gap-7 md:grid-cols-3">
             {project.reusable_components && (
-              <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                <h3 className="font-bold text-slate-950">Reusable components</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-700">{project.reusable_components}</p>
+              <article className="border-l-2 border-lab-accent/45 pl-5">
+                <h3 className="font-bold text-lab-text">Reusable components</h3>
+                <p className="mt-3 text-sm leading-6 text-lab-muted">{project.reusable_components}</p>
               </article>
             )}
             {hasCoreCapabilities && (
-              <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                <h3 className="font-bold text-slate-950">Core capabilities</h3>
-                <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700">
+              <article className="border-l-2 border-lab-accent/45 pl-5">
+                <h3 className="font-bold text-lab-text">Core capabilities</h3>
+                <ul className="mt-3 space-y-2 text-sm leading-6 text-lab-muted">
                   {project.core_capabilities!.map((item) => <li key={item}>{item}</li>)}
                 </ul>
               </article>
             )}
             {hasBestFit && (
-              <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                <h3 className="font-bold text-slate-950">Best fit for</h3>
-                <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700">
+              <article className="border-l-2 border-lab-accent/45 pl-5">
+                <h3 className="font-bold text-lab-text">Best fit for</h3>
+                <ul className="mt-3 space-y-2 text-sm leading-6 text-lab-muted">
                   {project.best_fit!.map((item) => <li key={item}>{item}</li>)}
                 </ul>
               </article>
@@ -256,9 +256,9 @@ function ProjectDetailContent() {
 
       <section className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
         {hasMedia && (
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-sm font-bold uppercase tracking-[0.16em] text-primary">Media</h2>
-            <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+          <div className="rounded-3xl bg-lab-surface/70 p-6 ring-1 ring-lab-border/70">
+            <h2 className="text-sm font-bold uppercase tracking-[0.16em] text-lab-accent-soft">Media</h2>
+            <div className="mt-5 overflow-hidden rounded-2xl border border-lab-border bg-lab-section">
               {project.video_url && embedUrl ? (
                 <iframe
                   className="aspect-video w-full"
@@ -271,7 +271,7 @@ function ProjectDetailContent() {
               ) : project.video_url && isDirectVideo ? (
                 <video className="aspect-video w-full bg-black" controls preload="metadata" poster={project.image_url ?? undefined}>
                   <source src={project.video_url} />
-                  <a href={project.video_url} target="_blank" rel="noreferrer" className="font-semibold text-primary hover:underline">
+                  <a href={project.video_url} target="_blank" rel="noreferrer" className="font-semibold text-lab-accent-soft hover:underline">
                     Open video
                   </a>
                 </video>
@@ -279,24 +279,24 @@ function ProjectDetailContent() {
                 <img src={project.image_url} alt="" className="aspect-video w-full object-cover" />
               ) : project.video_url ? (
                 <div className="p-6">
-                  <a href={project.video_url} target="_blank" rel="noreferrer" className="font-semibold text-primary hover:underline">
+                  <a href={project.video_url} target="_blank" rel="noreferrer" className="font-semibold text-lab-accent-soft hover:underline">
                     Open media
                   </a>
                 </div>
               ) : null}
             </div>
-            {project.media_caption && <p className="mt-4 text-sm leading-6 text-slate-600">{project.media_caption}</p>}
+            {project.media_caption && <p className="mt-4 text-sm leading-6 text-lab-muted">{project.media_caption}</p>}
           </div>
         )}
 
         <div className="space-y-6">
           {hasTechStack && <ListBlock title="Tech stack" items={project.tech_stack} />}
           {hasResources && (
-            <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h2 className="text-sm font-bold uppercase tracking-[0.16em] text-primary">Publications & downloads</h2>
+            <section className="border-t border-lab-border/70 pt-6">
+              <h2 className="text-sm font-bold uppercase tracking-[0.16em] text-lab-accent-soft">Publications & downloads</h2>
               <div className="mt-4 flex flex-wrap gap-3">
                 {project.resource_links!.map((item, index) => (
-                  <a key={item} href={item} target="_blank" rel="noreferrer" className="inline-flex min-h-10 items-center justify-center rounded-md border border-slate-300 px-4 py-2 text-sm font-bold text-slate-700 transition hover:border-primary hover:text-primary">
+                  <a key={item} href={item} target="_blank" rel="noreferrer" className="inline-flex min-h-10 items-center justify-center rounded-md border border-lab-border px-4 py-2 text-sm font-bold text-lab-muted transition hover:border-primary hover:text-lab-accent-soft">
                     Resource {index + 1}
                   </a>
                 ))}
@@ -307,43 +307,43 @@ function ProjectDetailContent() {
       </section>
 
       {hasAdditionalMetadata && (
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm lg:p-8" aria-labelledby="additional-heading">
-          <h2 id="additional-heading" className="text-sm font-bold uppercase tracking-[0.16em] text-primary">Additional portfolio details</h2>
-          <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <section className="rounded-3xl bg-lab-surface/70 p-6 ring-1 ring-lab-border/70 lg:p-8" aria-labelledby="additional-heading">
+          <h2 id="additional-heading" className="text-sm font-bold uppercase tracking-[0.16em] text-lab-accent-soft">Additional portfolio details</h2>
+          <div className="mt-5 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
             {hasCurrentClients && (
               <div>
-                <h3 className="font-bold text-slate-950">Current client segments</h3>
-                <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700">
+                <h3 className="font-bold text-lab-text">Current client segments</h3>
+                <ul className="mt-3 space-y-2 text-sm leading-6 text-lab-muted">
                   {project.current_client_segments!.map((item) => <li key={item}>{item}</li>)}
                 </ul>
               </div>
             )}
             {hasFutureClients && (
               <div>
-                <h3 className="font-bold text-slate-950">Future addressable segments</h3>
-                <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700">
+                <h3 className="font-bold text-lab-text">Future addressable segments</h3>
+                <ul className="mt-3 space-y-2 text-sm leading-6 text-lab-muted">
                   {project.future_client_segments!.map((item) => <li key={item}>{item}</li>)}
                 </ul>
               </div>
             )}
             {project.work_stream && (
               <div>
-                <h3 className="font-bold text-slate-950">Work stream</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-700">{project.work_stream}</p>
+                <h3 className="font-bold text-lab-text">Work stream</h3>
+                <p className="mt-3 text-sm leading-6 text-lab-muted">{project.work_stream}</p>
               </div>
             )}
           </div>
         </section>
       )}
 
-      <section className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm lg:p-8">
-        <h2 className="text-xl font-bold text-slate-950">More context</h2>
+      <section className="rounded-3xl bg-lab-section/80 p-6 ring-1 ring-lab-border/70 lg:p-8">
+        <h2 className="text-xl font-bold text-lab-text">More context</h2>
         <div className="prose-content mt-4" dangerouslySetInnerHTML={{ __html: html }} />
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
           <a href={withBase('/contact')} data-analytics-event="cta_click" data-analytics-category="project_detail" data-analytics-label={`Ask about this work: ${project.title}`} className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-bold text-white shadow transition hover:bg-primary-dark">
             Ask about this work
           </a>
-          <a href={withBase('/projects')} data-analytics-event="cta_click" data-analytics-category="project_detail" data-analytics-label={`Explore full portfolio from: ${project.title}`} className="inline-flex min-h-11 items-center justify-center rounded-md border border-slate-300 px-5 py-2.5 text-sm font-bold text-slate-700 transition hover:border-primary hover:text-primary">
+          <a href={withBase('/projects')} data-analytics-event="cta_click" data-analytics-category="project_detail" data-analytics-label={`Explore full portfolio from: ${project.title}`} className="inline-flex min-h-11 items-center justify-center rounded-md border border-lab-border px-5 py-2.5 text-sm font-bold text-lab-muted transition hover:border-primary hover:text-lab-accent-soft">
             Explore full portfolio
           </a>
         </div>

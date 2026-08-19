@@ -1,3 +1,7 @@
+import logoUrl from '../../../../assets/img/whitelogo.png?url';
+import icpsdLogoUrl from '../../../../assets/img/ICPSD-logo-navbar.png?url';
+import undpLogoUrl from '../../../../assets/img/UNDP_logo.svg?url';
+
 interface SidebarProps {
   currentPath: string;
   isOpen?: boolean;
@@ -23,12 +27,25 @@ export default function Sidebar({ currentPath, isOpen = false }: SidebarProps) {
       aria-label="Admin navigation"
       className={`
         fixed inset-y-0 left-0 z-40 w-64 shrink-0
-        transform bg-white shadow-md transition-transform duration-200 ease-in-out
-        md:relative md:translate-x-0 md:shadow-none
+        transform bg-lab-surface shadow-md transition-transform duration-200 ease-in-out
+        md:relative md:translate-x-0 md:shadow-none flex flex-col border-r border-lab-border
         ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       `}
     >
-      <ul className="flex flex-col gap-0.5 p-4">
+      <div className="border-b border-lab-border p-4">
+        <div className="flex items-center gap-3">
+          <img src={logoUrl} alt="SDG AI Lab" className="h-12 w-12 rounded-sm object-contain" />
+          <div>
+            <p className="text-base font-extrabold leading-tight text-lab-text">SDG AI Lab</p>
+            <p className="mt-0.5 text-[0.65rem] font-bold uppercase tracking-[0.16em] text-lab-muted">CMS workspace</p>
+          </div>
+        </div>
+        <p className="mt-4 rounded-xl border border-lab-border bg-lab-base px-3 py-2 text-xs leading-5 text-lab-muted">
+          Manage public website content, portfolio data, media and editor-controlled sections.
+        </p>
+      </div>
+
+      <ul className="flex flex-1 flex-col gap-0.5 p-4">
         {navItems.map(({ label, href }) => {
           const isActive = hashHref === href;
           return (
@@ -40,8 +57,8 @@ export default function Sidebar({ currentPath, isOpen = false }: SidebarProps) {
                   transition-colors
                   ${
                     isActive
-                      ? 'bg-primary-50 text-primary font-semibold'
-                      : 'text-gray-600 hover:bg-gray-50'
+                      ? 'bg-lab-section text-lab-accent-soft font-semibold'
+                      : 'text-lab-muted hover:bg-lab-base'
                   }
                 `}
                 aria-current={isActive ? 'page' : undefined}
@@ -52,6 +69,13 @@ export default function Sidebar({ currentPath, isOpen = false }: SidebarProps) {
           );
         })}
       </ul>
+
+      <div className="mt-auto border-t border-lab-border p-4">
+        <div className="flex items-center gap-3">
+          <img src={icpsdLogoUrl} alt="ICPSD" className="h-8 w-auto object-contain" />
+          <img src={undpLogoUrl} alt="UNDP" className="h-9 w-auto object-contain" />
+        </div>
+      </div>
     </nav>
   );
 }

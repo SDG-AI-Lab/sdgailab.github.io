@@ -48,7 +48,7 @@ describe('Sidebar', () => {
       link.textContent?.includes('Dashboard')
     );
     expect(dashboardLink?.getAttribute('aria-current')).toBe('page');
-    expect(dashboardLink?.className).toContain('bg-primary-50');
+    expect(dashboardLink?.className).toContain('bg-lab-section');
   });
 
   it('marks the matching section link active', async () => {

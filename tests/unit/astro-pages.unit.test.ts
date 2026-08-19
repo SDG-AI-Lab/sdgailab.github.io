@@ -11,7 +11,8 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
     path: 'src/pages/index.astro',
     checks: (source) => {
       expect(source).toContain('BaseLayout');
-      expect(source).toContain('quickStats');
+      expect(source).toContain('credibilityMetrics');
+      expect(source).toContain('track-record-heading');
       expect(source).toContain('FeaturedProjects');
     },
   },
@@ -106,8 +107,9 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
     path: 'src/pages/resources.astro',
     checks: (source) => {
       expect(source).toContain('BaseLayout');
-      expect(source).toContain('Resources - SDG AI Lab');
-      expect(source).toContain('data-analytics-category="resources"');
+      expect(source).toContain('PublicationsList');
+      expect(source).toContain('client:load');
+      expect(source).not.toContain('Knowledge hub');
     },
   },
 ];

@@ -9,7 +9,7 @@ interface PartnerLogosProps {
 }
 
 const cardClasses =
-  'flex min-h-24 items-center justify-center rounded-xl border border-slate-200 bg-white p-4 text-center transition hover:border-blue-200 hover:shadow-md';
+  'flex min-h-24 items-center justify-center rounded-xl border border-lab-border bg-lab-surface p-4 text-center transition hover:border-lab-border hover:shadow-md';
 const stripCardClasses =
   'flex min-h-14 items-center justify-center rounded-none border-0 bg-transparent p-2 text-center transition';
 const marqueeCardClasses =
@@ -32,7 +32,7 @@ function PartnerLogoContent({ partner, compact = false, marquee = false }: { par
           }}
         />
       ) : null}
-      <span className={`text-sm font-medium text-gray-600 text-center ${partner.logo_url ? 'hidden' : 'block'}`}>
+      <span className={`text-sm font-medium text-lab-muted text-center ${partner.logo_url ? 'hidden' : 'block'}`}>
         {partner.name}
       </span>
     </>
@@ -93,8 +93,6 @@ export default function PartnerLogos({ limit, variant = 'grid' }: PartnerLogosPr
       <div>
         {error && <p className="sr-only">Live partner data is unavailable; showing a representative partner list.</p>}
         <div className="group relative overflow-hidden py-2 motion-reduce:overflow-x-auto" aria-label="Partners and network">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent" />
           <div className="partner-marquee-track flex w-max gap-3 motion-safe:animate-partner-marquee-scroll group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused] motion-reduce:animate-none">
             {scrollingPartners.map((partner, index) => {
               const isDuplicate = index >= visiblePartners.length;

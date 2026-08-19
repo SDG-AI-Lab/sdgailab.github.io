@@ -79,7 +79,7 @@ export default function StatisticsListPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold text-gray-800 mb-6">Statistics</h1>
+      <h1 className="text-2xl font-semibold text-lab-text mb-6">Statistics</h1>
       <ContentTable
         columns={columns}
         data={data}

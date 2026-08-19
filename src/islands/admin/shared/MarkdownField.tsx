@@ -40,17 +40,18 @@ export function MarkdownField({
   label = 'Content',
 }: MarkdownFieldProps) {
   return (
-    <div data-color-mode="light" className="mb-4">
+    <div data-color-mode="dark" className="mb-4">
       {label && (
-        <label className="mb-2 block text-sm font-medium text-gray-700">
+        <label className="mb-2 block text-sm font-medium text-lab-text">
           {label}
         </label>
       )}
       <MDEditor
         value={value}
         onChange={(val) => onChange(val ?? '')}
-        height={300}
+        height={420}
         preview="live"
+        highlightEnable={false}
         commands={simplifiedCommands}
         components={{
           preview: (source) => <SafeMarkdownPreview source={source} />,

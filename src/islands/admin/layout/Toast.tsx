@@ -76,8 +76,8 @@ function ToastItem({
         transition-all duration-200 ease-out
         ${
           isError
-            ? 'bg-red-50 text-red-800 border-red-200'
-            : 'bg-green-50 text-green-800 border-green-200'
+            ? 'bg-red-500/100/15 text-red-100 border-red-500/30'
+            : 'bg-green-500/15 text-green-100 border-green-500/30'
         }
       `}
     >

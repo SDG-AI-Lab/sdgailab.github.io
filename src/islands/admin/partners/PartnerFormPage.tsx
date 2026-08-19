@@ -105,7 +105,7 @@ export default function PartnerFormPage({ id }: PartnerFormPageProps) {
     return (
       <div className="flex items-center justify-center py-12">
         <div
-          className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"
+          className="h-8 w-8 animate-spin rounded-full border-2 border-lab-accent border-t-transparent"
           aria-label="Loading"
         />
       </div>
@@ -114,7 +114,7 @@ export default function PartnerFormPage({ id }: PartnerFormPageProps) {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold text-gray-800 mb-6">
+      <h1 className="text-2xl font-semibold text-lab-text mb-6">
         {id ? 'Edit Partner' : 'New Partner'}
       </h1>
       <ContentForm
@@ -126,23 +126,23 @@ export default function PartnerFormPage({ id }: PartnerFormPageProps) {
       >
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Name *</label>
             <input
               type="text"
               required
               value={values.name}
               onChange={(e) => setValues((v) => ({ ...v, name: e.target.value }))}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Website URL *</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Website URL *</label>
             <input
               type="url"
               required
               value={values.website_url}
               onChange={(e) => setValues((v) => ({ ...v, website_url: e.target.value }))}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
             />
           </div>
           <ImageUpload
@@ -152,14 +152,14 @@ export default function PartnerFormPage({ id }: PartnerFormPageProps) {
             label="Logo"
           />
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Display Order</label>
+            <label className="block text-sm font-medium text-lab-text mb-1">Display Order</label>
             <input
               type="number"
               value={values.display_order}
               onChange={(e) =>
                 setValues((v) => ({ ...v, display_order: Number(e.target.value) || 0 }))
               }
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+              className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
             />
           </div>
           <StatusSelect

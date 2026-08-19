@@ -6,19 +6,25 @@ const sdgColors: Record<number, string> = {
   9: '#FD6925', 11: '#FD9D24', 13: '#3F7E44', 16: '#00689D', 17: '#19486A',
 };
 
+function uniqueCompact(items?: string[]) {
+  return Array.from(new Set((items ?? []).map((item) => item.trim()).filter(Boolean)));
+}
+
 export default function ProjectCard({ project }: { project: ProjectListItem }) {
   const deployment = project.deployment_status ?? (project.is_deployed ? 'live' : 'prototype');
   const deploymentLabel = deployment === 'live' ? 'Live' : deployment === 'internal' ? 'Internal' : 'Prototype';
+  const countries = uniqueCompact(project.implementation_countries);
+  const technologies = uniqueCompact([...(project.tech_stack ?? []), ...(project.capabilities_involved ?? [])]);
   const hasBestFit = Boolean(project.best_fit?.length);
-  const hasPortfolioMeta = Boolean(project.timeline || hasBestFit);
+  const hasPortfolioMeta = Boolean(project.timeline || project.project_year || countries.length || technologies.length || hasBestFit);
 
   return (
     <a
       href={withBase(`/projects/detail/?slug=${project.slug}`)}
-      className="group flex h-full flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-primary-200 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl bg-lab-surface ring-1 ring-lab-border/70 transition hover:-translate-y-1 hover:ring-lab-accent/55 hover:shadow-[0_18px_42px_rgba(0,0,0,0.18)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
     >
       {project.image_url ? (
-        <div className="aspect-[16/9] overflow-hidden bg-slate-100">
+        <div className="aspect-[16/9] overflow-hidden bg-lab-elevated">
           <img src={project.image_url} alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
         </div>
       ) : (
@@ -40,17 +46,25 @@ export default function ProjectCard({ project }: { project: ProjectListItem }) {
           <span className={`ui-badge ui-badge--sm ui-badge--deployment-${deployment}`}>{deploymentLabel}</span>
           {project.impact_area && <span className="ui-badge ui-badge--sm ui-badge--impact">{project.impact_area}</span>}
         </div>
-        <h3 className="text-xl font-semibold text-slate-950 transition-colors group-hover:text-primary">{project.title}</h3>
-        {project.summary && <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{project.summary}</p>}
+        <h3 className="text-xl font-semibold text-lab-text transition-colors group-hover:text-lab-accent-soft">{project.title}</h3>
+        {project.summary && <p className="mt-3 flex-1 text-sm leading-6 text-lab-muted">{project.summary}</p>}
         {hasPortfolioMeta && (
-          <div className="mt-4 space-y-2 border-t border-slate-100 pt-4 text-xs leading-5 text-slate-500">
-            {project.timeline && <p><strong className="text-slate-700">Timeline:</strong> {project.timeline}</p>}
-            {hasBestFit ? <p><strong className="text-slate-700">Best fit:</strong> {project.best_fit!.slice(0, 2).join(', ')}</p> : null}
+          <div className="mt-4 space-y-3 border-t border-lab-border/50 pt-4 text-xs leading-5 text-lab-subtle">
+            <div className="grid gap-2 sm:grid-cols-2">
+              {project.project_year && <p><strong className="text-lab-muted">Year:</strong> {project.project_year}</p>}
+              {project.timeline && <p><strong className="text-lab-muted">Timeline:</strong> {project.timeline}</p>}
+            </div>
+            {countries.length > 0 && (
+              <p><strong className="text-lab-muted">Geography:</strong> {countries.slice(0, 2).join(', ')}{countries.length > 2 ? ` +${countries.length - 2}` : ''}</p>
+            )}
+            {technologies.length > 0 && (
+              <p><strong className="text-lab-muted">Technology:</strong> {technologies.slice(0, 2).join(', ')}{technologies.length > 2 ? ` +${technologies.length - 2}` : ''}</p>
+            )}
+            {hasBestFit ? <p><strong className="text-lab-muted">Best fit:</strong> {project.best_fit!.slice(0, 2).join(', ')}</p> : null}
           </div>
         )}
-        <span className="mt-5 text-sm font-semibold text-primary">View project <span aria-hidden="true">→</span></span>
+        <span className="mt-5 text-sm font-semibold text-lab-accent-soft">View project <span aria-hidden="true">→</span></span>
       </div>
     </a>
   );
 }
-
