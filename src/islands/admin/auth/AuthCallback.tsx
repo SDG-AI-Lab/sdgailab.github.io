@@ -57,7 +57,7 @@ export default function AuthCallback() {
         </p>
         <a
           href="#/login"
-          className="rounded-lg bg-lab-accent px-4 py-2 font-medium text-[#f8fafc] hover:bg-primary-dark"
+          className="rounded-lg bg-lab-accent px-4 py-2 font-medium text-lab-text hover:bg-primary-dark"
         >
           Back to login
         </a>

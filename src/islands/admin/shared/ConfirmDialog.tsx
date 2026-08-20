@@ -69,12 +69,12 @@ export function ConfirmDialog({
             type="button"
             onClick={onConfirm}
             disabled={loading}
-            className="px-4 py-2 rounded-md bg-red-600 text-[#f8fafc] hover:bg-red-700 disabled:opacity-50 text-sm font-medium flex items-center gap-2"
+            className="px-4 py-2 rounded-md bg-red-600 text-lab-text hover:bg-red-700 disabled:opacity-50 text-sm font-medium flex items-center gap-2"
           >
             {loading ? (
               <>
                 <span
-                  className="h-4 w-4 animate-spin rounded-full border-2 border-[#f8fafc] border-t-transparent"
+                  className="h-4 w-4 animate-spin rounded-full border-2 border-lab-text border-t-transparent"
                   aria-hidden
                 />
                 {confirmLabel}

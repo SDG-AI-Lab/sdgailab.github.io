@@ -131,7 +131,7 @@ export default function ContactForm() {
         </p>
       )}
 
-      <button type="submit" disabled={state === 'submitting'} className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-lab-accent px-6 py-3 text-sm font-black text-white shadow-[0_14px_30px_rgba(76,141,255,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-lab-accent focus-visible:ring-offset-2 focus-visible:ring-offset-lab-base">
+      <button type="submit" disabled={state === 'submitting'} className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-lab-accent px-6 py-3 text-sm font-black text-lab-text shadow-[0_14px_30px_rgba(76,141,255,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-lab-accent focus-visible:ring-offset-2 focus-visible:ring-offset-lab-base">
         {state === 'submitting' ? 'Submitting...' : 'Submit Request'}
         <span aria-hidden="true">&rarr;</span>
       </button>

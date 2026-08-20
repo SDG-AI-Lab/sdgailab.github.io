@@ -2,25 +2,8 @@
 import { withBase } from '../lib/url';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import PageContent from '../islands/PageContent';
+import EvolutionTimeline from '../islands/EvolutionTimeline';
 
-const evolutionSteps = [
-  [
-    'Explore',
-    'Identify development challenges where AI, data, or digital solutions can add practical value.',
-  ],
-  [
-    'Prototype',
-    'Co-design testable tools, methods, and workflows with domain experts and partners.',
-  ],
-  [
-    'Validate',
-    'Assess usability, safeguards, and data readiness, and review the evidence before broader publication or reuse.',
-  ],
-  [
-    'Reuse',
-    'Package lessons, resources, and technical materials so other teams can adapt what works.',
-  ],
-];
 const approachHighlights = [
   'Formulating research questions and solution architecture, and matching the right expertise to each challenge',
   'Assembling and coordinating in-house engineers, developers, designers, and vetted technical specialists',
@@ -28,6 +11,8 @@ const approachHighlights = [
   'Overseeing R&D to uphold rigorous, high-quality standards throughout',
   'Delivering outputs as prototypes, technical architecture, reports, and presentations; built from the ground up or adapted from existing tools',
 ];
+
+const methodologySteps = ['Step 01', 'Step 02', 'Step 03', 'Step 04'];
 ---
 
 <BaseLayout
@@ -57,21 +42,16 @@ const approachHighlights = [
       class="container-narrow grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start"
     >
       <div>
-        <p class="section-label">How we work</p>
+        <p class="section-label">Our approach</p>
         <h2
           id="approach-heading"
           class="mt-3 text-3xl font-bold text-lab-text sm:text-4xl"
         >
           Problem-first, evidence-led and reusable
         </h2>
-        <p class="mt-5 text-xl font-bold leading-8 text-lab-text">
-          An agile, end-to-end approach to applied AI research for sustainable
-          development.
-        </p>
         <p class="mt-4 leading-7 text-lab-muted">
-          The Lab combines research, technical delivery and coordination so
-          development challenges can move from early framing to tested,
-          documented and reusable outputs.
+          One-stop solution with agile, gig approach to AI research in
+          Sustainable Development.
         </p>
       </div>
       <div class="grid gap-4">
@@ -92,36 +72,59 @@ const approachHighlights = [
   </section>
   <section
     class="section-padding bg-lab-surface"
-    aria-labelledby="evolution-heading"
+    aria-labelledby="methodology-heading"
   >
     <div class="container-narrow">
-      <div class="mb-9 max-w-3xl">
-        <p class="section-label">Our Methodology</p>
-        <h2
-          id="evolution-heading"
-          class="mt-3 text-3xl font-bold text-lab-text sm:text-4xl"
-        >
-          From exploration to reusable development tools
-        </h2>
-        <p class="mt-4 leading-7 text-lab-muted">
-          The Lab's work follows a practical cycle: understand the development
-          challenge, build responsibly, validate the evidence, and package
-          outputs for reuse.
-        </p>
-      </div>
-      <div class="grid gap-4 md:grid-cols-4">
+      <p class="section-label">Our Methodology</p>
+      <h2
+        id="methodology-heading"
+        class="mt-3 text-3xl font-bold text-lab-text sm:text-4xl"
+      >
+        From exploration to reusable development tools
+      </h2>
+      <p class="mt-4 max-w-3xl leading-7 text-lab-muted">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         {
-          evolutionSteps.map(([title, body], index) => (
-            <article class="relative rounded-2xl border border-lab-border bg-lab-section p-6 shadow-sm">
-              <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
+          methodologySteps.map((step, index) => (
+            <article class="rounded-2xl border border-lab-border bg-lab-section p-6 shadow-sm transition hover:-translate-y-1 hover:border-lab-accent/40 hover:shadow-md">
+              <p class="text-xs font-black uppercase tracking-[0.18em] text-lab-accent-soft">
                 {String(index + 1).padStart(2, '0')}
-              </div>
-              <h3 class="text-lg font-bold text-lab-text">{title}</h3>
-              <p class="mt-3 text-sm leading-6 text-lab-muted">{body}</p>
+              </p>
+              <h3 class="mt-4 text-xl font-black text-lab-text">{step}</h3>
+              <p class="mt-3 text-sm font-semibold leading-6 text-lab-muted">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                eiusmod tempor.
+              </p>
             </article>
           ))
         }
       </div>
+    </div>
+  </section>
+
+  <section
+    class="section-padding bg-lab-surface"
+    aria-labelledby="evolution-heading"
+  >
+    <div class="container-narrow">
+      <div class="mb-10 max-w-3xl">
+        <p class="section-label">Lab evolution</p>
+        <h2
+          id="evolution-heading"
+          class="mt-3 text-3xl font-bold text-lab-text sm:text-4xl"
+        >
+          From foundations to mainstreaming
+        </h2>
+        <p class="mt-4 leading-7 text-lab-muted">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </div>
+
+      <EvolutionTimeline client:load />
     </div>
   </section>
 

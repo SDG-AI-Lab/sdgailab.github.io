@@ -49,7 +49,7 @@ export function ContentTable<T extends { id: string; status: string }>({
     <div className="flex justify-end mb-4">
       <a
         href={addNewHref}
-        className="inline-flex items-center px-4 py-2 rounded-md bg-lab-accent text-[#f8fafc] text-sm font-medium hover:bg-lab-accent/90"
+        className="inline-flex items-center px-4 py-2 rounded-md bg-lab-accent text-lab-text text-sm font-medium hover:bg-lab-accent/90"
       >
         {addNewLabel}
       </a>

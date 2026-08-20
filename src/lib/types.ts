@@ -118,6 +118,18 @@ export interface GeographicReachItem {
   updated_at: string;
 }
 
+export interface EvolutionTimelineItem {
+  id: string;
+  period: string;
+  title: string;
+  body: string | null;
+  display_order: number;
+  status: PublishStatus;
+  published_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface PageContent {
   id: string;
   page_slug: string;
@@ -136,3 +148,4 @@ export type NewsListItem = Pick<NewsArticle, "id" | "title" | "slug" | "summary"
 export type PersonCard = Pick<Person, "id" | "name" | "role_title" | "photo_url" | "biography" | "display_order">;
 export type PartnerLogo = Pick<Partner, "id" | "name" | "logo_url" | "website_url" | "display_order">;
 export type GeographicReachCard = Pick<GeographicReachItem, "id" | "country_name" | "iso_alpha3" | "latitude" | "longitude" | "region" | "display_order">;
+export type EvolutionTimelineCard = Pick<EvolutionTimelineItem, "id" | "period" | "title" | "body" | "display_order">;
