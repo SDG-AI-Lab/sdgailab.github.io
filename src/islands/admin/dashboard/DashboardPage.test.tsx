@@ -48,7 +48,9 @@ describe('DashboardPage', () => {
         news_articles: { total: 3, draft: 1, published: 1, archived: 1 },
         people: { total: 4, draft: 1, published: 2, archived: 1 },
         partners: { total: 5, draft: 0, published: 4, archived: 1 },
-        page_content: { total: 6, draft: 2, published: 3, archived: 1 },
+        geographic_reach: { total: 6, draft: 1, published: 5, archived: 0 },
+        evolution_timeline: { total: 7, draft: 0, published: 7, archived: 0 },
+        page_content: { total: 8, draft: 2, published: 5, archived: 1 },
       },
       error: null,
     });
@@ -76,6 +78,8 @@ describe('DashboardPage', () => {
           news_articles: { total: 1, draft: 0, published: 1, archived: 0 },
           people: { total: 1, draft: 0, published: 1, archived: 0 },
           partners: { total: 1, draft: 0, published: 1, archived: 0 },
+          geographic_reach: { total: 1, draft: 0, published: 1, archived: 0 },
+          evolution_timeline: { total: 1, draft: 0, published: 1, archived: 0 },
           page_content: { total: 1, draft: 0, published: 1, archived: 0 },
         },
         error: null,
@@ -116,7 +120,7 @@ describe('DashboardPage', () => {
     });
 
     expect(container.textContent).toContain('Dashboard');
-    expect(container.querySelectorAll('.animate-pulse')).toHaveLength(6);
+    expect(container.querySelectorAll('.animate-pulse')).toHaveLength(8);
 
     await act(async () => {
       resolveCounts({
@@ -126,6 +130,8 @@ describe('DashboardPage', () => {
           news_articles: { total: 0, draft: 0, published: 0, archived: 0 },
           people: { total: 0, draft: 0, published: 0, archived: 0 },
           partners: { total: 0, draft: 0, published: 0, archived: 0 },
+          geographic_reach: { total: 0, draft: 0, published: 0, archived: 0 },
+          evolution_timeline: { total: 0, draft: 0, published: 0, archived: 0 },
           page_content: { total: 0, draft: 0, published: 0, archived: 0 },
         },
         error: null,

@@ -9,6 +9,7 @@ import type {
   PersonCard,
   PartnerLogo,
   GeographicReachCard,
+  EvolutionTimelineCard,
   PageContent,
   PeopleGroup,
 } from './types';
@@ -165,6 +166,22 @@ export async function getPublishedGeographicReach(): Promise<{
 
   if (error) return { data: [], error: error.message };
   return { data: data as GeographicReachCard[], error: null };
+}
+
+export async function getPublishedEvolutionTimeline(): Promise<{
+  data: EvolutionTimelineCard[];
+  error: string | null;
+}> {
+  if (!isSupabaseConfigured) return { data: [], error: null };
+  const { data, error } = await getSupabase()
+    .from('evolution_timeline')
+    .select('id, period, title, body, display_order')
+    .eq('status', 'published')
+    .order('display_order', { ascending: true })
+    .order('period', { ascending: true });
+
+  if (error) return { data: [], error: error.message };
+  return { data: data as EvolutionTimelineCard[], error: null };
 }
 
 export async function getPageContent(

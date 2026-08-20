@@ -39,11 +39,35 @@ export default function GeographicReach() {
   const [showList, setShowList] = useState(false);
 
   useEffect(() => {
-    getPublishedGeographicReach().then(({ data, error: err }) => {
-      setCountries(data);
-      setError(err);
+    let cancelled = false;
+
+    const timeout = window.setTimeout(() => {
+      if (cancelled) return;
+      setError('Geographic reach request timed out.');
       setLoading(false);
-    });
+    }, 6000);
+
+    getPublishedGeographicReach()
+      .then(({ data, error: err }) => {
+        if (cancelled) return;
+        setCountries(data);
+        setError(err);
+      })
+      .catch((err: unknown) => {
+        if (cancelled) return;
+        setCountries([]);
+        setError(err instanceof Error ? err.message : 'Geographic reach information is currently unavailable.');
+      })
+      .finally(() => {
+        if (cancelled) return;
+        window.clearTimeout(timeout);
+        setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeout);
+    };
   }, []);
 
   const mappedCountries = useMemo(
@@ -52,14 +76,43 @@ export default function GeographicReach() {
   );
 
   if (loading) {
-    return <div className="h-72 rounded-2xl border border-lab-border bg-lab-surface shadow-sm" role="status" aria-label="Loading geographic reach" />;
+    return (
+      <div
+        className="relative min-h-[340px] overflow-hidden rounded-3xl border border-lab-border bg-lab-surface/70 p-5 shadow-sm"
+        role="status"
+        aria-label="Loading geographic reach"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_24%,rgba(76,141,255,0.14),transparent_34%),radial-gradient(circle_at_78%_36%,rgba(127,169,255,0.12),transparent_38%)]" />
+        <div className="relative h-[260px] overflow-hidden rounded-2xl border border-lab-border/70 bg-lab-base">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(228,230,235,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(228,230,235,0.08)_1px,transparent_1px)] bg-[size:64px_64px]" />
+          <div className="absolute left-[9%] top-[42%] h-24 w-28 rounded-[55%_45%_50%_50%] bg-lab-accent/18" />
+          <div className="absolute left-[36%] top-[28%] h-32 w-40 rounded-[45%_55%_50%_50%] bg-lab-accent/16" />
+          <div className="absolute right-[12%] top-[30%] h-36 w-52 rounded-[55%_45%_48%_52%] bg-lab-accent/18" />
+          <div className="absolute left-[49%] top-[55%] h-24 w-20 rounded-[48%_52%_55%_45%] bg-lab-accent/14" />
+          {['18%_38%', '31%_54%', '43%_44%', '51%_50%', '61%_40%', '72%_46%', '84%_54%'].map((position) => {
+            const [left, top] = position.split('_');
+            return (
+              <span
+                key={position}
+                className="absolute h-3 w-3 rounded-full bg-lab-accent shadow-[0_0_0_5px_rgba(76,141,255,0.18),0_0_18px_rgba(76,141,255,0.45)]"
+                style={{ left, top }}
+              />
+            );
+          })}
+        </div>
+        <p className="relative mt-4 text-sm font-semibold text-lab-muted">Loading geographic reach map...</p>
+      </div>
+    );
   }
 
   if (error && countries.length === 0) {
     return (
-      <p className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm font-semibold text-amber-800">
-        Geographic reach information is currently being updated.
-      </p>
+      <div className="rounded-3xl border border-lab-border bg-lab-surface/70 p-8 text-center shadow-sm">
+        <h3 className="text-lg font-bold text-lab-text">Geographic reach information is being updated.</h3>
+        <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-lab-muted">
+          The map will appear here once published country records are available.
+        </p>
+      </div>
     );
   }
 
@@ -160,3 +213,5 @@ export default function GeographicReach() {
     </div>
   );
 }
+
+

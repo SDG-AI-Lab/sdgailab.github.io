@@ -13,6 +13,8 @@ const { emptyList, emptyCounts } = vi.hoisted(() => ({
       news_articles: { total: 0, draft: 0, published: 0, archived: 0 },
       people: { total: 0, draft: 0, published: 0, archived: 0 },
       partners: { total: 0, draft: 0, published: 0, archived: 0 },
+      geographic_reach: { total: 0, draft: 0, published: 0, archived: 0 },
+      evolution_timeline: { total: 0, draft: 0, published: 0, archived: 0 },
       page_content: { total: 0, draft: 0, published: 0, archived: 0 },
     },
     error: null as string | null,
@@ -26,24 +28,34 @@ vi.mock('../../lib/admin-queries', () => ({
   listNewsArticles: vi.fn().mockResolvedValue(emptyList),
   listPeople: vi.fn().mockResolvedValue(emptyList),
   listPartners: vi.fn().mockResolvedValue(emptyList),
+  listGeographicReach: vi.fn().mockResolvedValue(emptyList),
+  listEvolutionTimeline: vi.fn().mockResolvedValue(emptyList),
   listPageContent: vi.fn().mockResolvedValue(emptyList),
   getStatistic: vi.fn().mockResolvedValue({ data: null, error: null }),
   getProject: vi.fn().mockResolvedValue({ data: null, error: null }),
   getNewsArticle: vi.fn().mockResolvedValue({ data: null, error: null }),
   getPerson: vi.fn().mockResolvedValue({ data: null, error: null }),
   getPartner: vi.fn().mockResolvedValue({ data: null, error: null }),
+  getGeographicReachItem: vi.fn().mockResolvedValue({ data: null, error: null }),
+  getEvolutionTimelineItem: vi.fn().mockResolvedValue({ data: null, error: null }),
   getPageContent: vi.fn().mockResolvedValue({ data: null, error: null }),
   archiveStatistic: vi.fn().mockResolvedValue({ error: null }),
   archiveProject: vi.fn().mockResolvedValue({ error: null }),
   archiveNewsArticle: vi.fn().mockResolvedValue({ error: null }),
   archivePerson: vi.fn().mockResolvedValue({ error: null }),
   archivePartner: vi.fn().mockResolvedValue({ error: null }),
+  archiveGeographicReachItem: vi.fn().mockResolvedValue({ error: null }),
+  archiveEvolutionTimelineItem: vi.fn().mockResolvedValue({ error: null }),
   archivePageContent: vi.fn().mockResolvedValue({ error: null }),
   deleteStatistic: vi.fn().mockResolvedValue({ error: null }),
   deleteProject: vi.fn().mockResolvedValue({ error: null }),
   deleteNewsArticle: vi.fn().mockResolvedValue({ error: null }),
   deletePerson: vi.fn().mockResolvedValue({ error: null }),
   deletePartner: vi.fn().mockResolvedValue({ error: null }),
+  deleteGeographicReachItem: vi.fn().mockResolvedValue({ error: null }),
+  deleteEvolutionTimelineItem: vi.fn().mockResolvedValue({ error: null }),
+  createEvolutionTimelineItem: vi.fn().mockResolvedValue({ data: null, error: null }),
+  updateEvolutionTimelineItem: vi.fn().mockResolvedValue({ data: null, error: null }),
   deletePageContent: vi.fn().mockResolvedValue({ error: null }),
 }));
 
@@ -105,6 +117,8 @@ vi.mock('./shared/FormFeedback', () => ({
 }));
 
 import DashboardPage from './dashboard/DashboardPage';
+import EvolutionTimelineFormPage from './evolution-timeline/EvolutionTimelineFormPage';
+import EvolutionTimelineListPage from './evolution-timeline/EvolutionTimelineListPage';
 import NewsFormPage from './news/NewsFormPage';
 import NewsListPage from './news/NewsListPage';
 import PageContentFormPage from './page-content/PageContentFormPage';
@@ -198,6 +212,16 @@ describe('admin pages (unit)', () => {
   it('PartnerFormPage renders the create form heading', async () => {
     await renderPage(PartnerFormPage);
     expect(container.textContent).toContain('New Partner');
+  });
+
+  it('EvolutionTimelineListPage renders the timeline list shell', async () => {
+    await renderPage(EvolutionTimelineListPage);
+    expect(container.textContent).toContain('Evolution Timeline');
+  });
+
+  it('EvolutionTimelineFormPage renders the create form heading', async () => {
+    await renderPage(EvolutionTimelineFormPage);
+    expect(container.textContent).toContain('New Timeline Entry');
   });
 
   it('PageContentListPage renders the page content list shell', async () => {

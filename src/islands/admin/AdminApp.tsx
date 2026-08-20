@@ -27,6 +27,8 @@ const PartnersListPage = lazy(() => import('./partners/PartnersListPage'));
 const PartnerFormPage = lazy(() => import('./partners/PartnerFormPage'));
 const GeographicReachListPage = lazy(() => import('./geographic-reach/GeographicReachListPage'));
 const GeographicReachFormPage = lazy(() => import('./geographic-reach/GeographicReachFormPage'));
+const EvolutionTimelineListPage = lazy(() => import('./evolution-timeline/EvolutionTimelineListPage'));
+const EvolutionTimelineFormPage = lazy(() => import('./evolution-timeline/EvolutionTimelineFormPage'));
 const PageContentListPage = lazy(() => import('./page-content/PageContentListPage'));
 const PageContentFormPage = lazy(() => import('./page-content/PageContentFormPage'));
 
@@ -124,7 +126,7 @@ function UnauthorizedPage() {
         <button
           type="button"
           onClick={() => void signOut()}
-          className="mt-6 rounded-lg bg-lab-accent px-4 py-2 font-medium text-[#f8fafc] transition-colors hover:bg-primary-dark"
+          className="mt-6 rounded-lg bg-lab-accent px-4 py-2 font-medium text-lab-text transition-colors hover:bg-primary-dark"
         >
           Sign out
         </button>
@@ -174,6 +176,12 @@ function matchRoute(path: string, id: string | null): React.ReactNode {
       return <GeographicReachFormPage />;
     case '/geographic-reach/edit':
       return <GeographicReachFormPage id={id} />;
+    case '/evolution-timeline':
+      return <EvolutionTimelineListPage />;
+    case '/evolution-timeline/new':
+      return <EvolutionTimelineFormPage />;
+    case '/evolution-timeline/edit':
+      return <EvolutionTimelineFormPage id={id} />;
     case '/page-content':
       return <PageContentListPage />;
     case '/page-content/new':

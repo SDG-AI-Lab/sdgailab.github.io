@@ -15,6 +15,7 @@ const navItems = [
   { label: 'People', href: '#/people' },
   { label: 'Partners', href: '#/partners' },
   { label: 'Geographic Reach', href: '#/geographic-reach' },
+  { label: 'Evolution Timeline', href: '#/evolution-timeline' },
   { label: 'Page Content', href: '#/page-content' },
 ] as const;
 

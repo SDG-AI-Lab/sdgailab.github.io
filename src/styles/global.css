@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --lab-base: #22242A;
+  --lab-section: #2B2E36;
+  --lab-surface: #343843;
+  --lab-elevated: #3B404C;
+  --lab-text: #E4E6EB;
+  --lab-muted: #B8BEC8;
+  --lab-subtle: #8E96A3;
+  --lab-border: rgba(228, 230, 235, 0.16);
+  --lab-accent: #4C8DFF;
+  --lab-accent-soft: #7FA9FF;
+}
+
 @layer base {
   html {
     @media (prefers-reduced-motion: no-preference) {
@@ -33,8 +46,8 @@
   }
 
   .admin-cms option {
-    background-color: #343843;
-    color: #E4E6EB;
+    background-color: var(--lab-surface);
+    color: var(--lab-text);
   }
 
   .admin-cms input[type="checkbox"],
@@ -44,7 +57,7 @@
   }
 
   .admin-cms .w-md-editor {
-    border-color: rgba(228, 230, 235, 0.16) !important;
+    border-color: var(--lab-border) !important;
     box-shadow: none !important;
   }
   .container-narrow {
@@ -84,7 +97,7 @@
     border-radius: 9999px;
     border: 1px solid rgba(228, 230, 235, 0.18);
     background: rgba(228, 230, 235, 0.08);
-    color: #E4E6EB;
+    color: var(--lab-text);
     box-shadow: inset 0 1px 0 rgba(228, 230, 235, 0.12);
     white-space: nowrap;
   }
@@ -139,7 +152,7 @@
   .ui-badge--neutral {
     border-color: rgba(228, 230, 235, 0.18);
     background: rgba(228, 230, 235, 0.08);
-    color: #E4E6EB;
+    color: var(--lab-text);
   }
 }
 
@@ -149,23 +162,23 @@
 .admin-cms .w-md-editor-content,
 .admin-cms .w-md-editor-preview,
 .admin-cms .wmde-markdown {
-  background-color: #343843 !important;
-  color: #E4E6EB !important;
+  background-color: var(--lab-surface) !important;
+  color: var(--lab-text) !important;
 }
 
 .admin-cms .w-md-editor-toolbar svg {
-  color: #E4E6EB;
+  color: var(--lab-text);
 }
 
 .admin-cms .w-md-editor-text,
 .admin-cms .w-md-editor-text-pre,
 .admin-cms .w-md-editor-text-pre code {
-  color: #E4E6EB !important;
+  color: var(--lab-text) !important;
 }
 
 .admin-cms .w-md-editor-text-input {
-  background-color: #343843 !important;
-  color: #E4E6EB !important;
-  -webkit-text-fill-color: #E4E6EB !important;
-  caret-color: #E4E6EB !important;
+  background-color: var(--lab-surface) !important;
+  color: var(--lab-text) !important;
+  -webkit-text-fill-color: var(--lab-text) !important;
+  caret-color: var(--lab-text) !important;
 }

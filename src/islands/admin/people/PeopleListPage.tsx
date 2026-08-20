@@ -97,7 +97,7 @@ export default function PeopleListPage() {
           type="button"
           onClick={() => setFilter('all')}
           className={`px-3 py-1.5 rounded-md text-sm font-medium ${
-            filter === 'all' ? 'bg-lab-accent text-[#f8fafc]' : 'bg-lab-section text-lab-text hover:bg-lab-elevated'
+            filter === 'all' ? 'bg-lab-accent text-lab-text' : 'bg-lab-section text-lab-text hover:bg-lab-elevated'
           }`}
         >
           All
@@ -106,7 +106,7 @@ export default function PeopleListPage() {
           type="button"
           onClick={() => setFilter('team')}
           className={`px-3 py-1.5 rounded-md text-sm font-medium ${
-            filter === 'team' ? 'bg-lab-accent text-[#f8fafc]' : 'bg-lab-section text-lab-text hover:bg-lab-elevated'
+            filter === 'team' ? 'bg-lab-accent text-lab-text' : 'bg-lab-section text-lab-text hover:bg-lab-elevated'
           }`}
         >
           Team
@@ -115,7 +115,7 @@ export default function PeopleListPage() {
           type="button"
           onClick={() => setFilter('advisory_board')}
           className={`px-3 py-1.5 rounded-md text-sm font-medium ${
-            filter === 'advisory_board' ? 'bg-lab-accent text-[#f8fafc]' : 'bg-lab-section text-lab-text hover:bg-lab-elevated'
+            filter === 'advisory_board' ? 'bg-lab-accent text-lab-text' : 'bg-lab-section text-lab-text hover:bg-lab-elevated'
           }`}
         >
           Advisory Board

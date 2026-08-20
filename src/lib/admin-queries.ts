@@ -11,6 +11,7 @@ import type {
   Partner,
   PageContent,
   GeographicReachItem,
+  EvolutionTimelineItem,
 } from './types';
 
 export interface AdminResult<T> {
@@ -115,6 +116,15 @@ export interface GeographicReachInput {
   latitude?: number | null;
   longitude?: number | null;
   region?: string | null;
+  display_order: number;
+  status: PublishStatus;
+  published_at?: string | null;
+}
+
+export interface EvolutionTimelineInput {
+  period: string;
+  title: string;
+  body?: string | null;
   display_order: number;
   status: PublishStatus;
   published_at?: string | null;
@@ -446,6 +456,17 @@ function validateGeographicReachInput(input: GeographicReachInput): GeographicRe
   };
 }
 
+function validateEvolutionTimelineInput(input: EvolutionTimelineInput): EvolutionTimelineInput {
+  return {
+    period: assertNonEmptyString(input.period, 'Period'),
+    title: assertNonEmptyString(input.title, 'Title'),
+    body: normalizeOptionalString(input.body, 'Body'),
+    display_order: assertNonNegativeInteger(input.display_order, 'Display order'),
+    status: assertStatus(input.status),
+    published_at: assertOptionalIsoDateTime(input.published_at, 'Published at'),
+  };
+}
+
 function validatePageContentInput(input: PageContentInput): PageContentInput {
   return {
     page_slug: assertSectionSlug(input.page_slug, 'Page slug'),
@@ -629,6 +650,35 @@ export async function deleteGeographicReachItem(id: string): Promise<AdminResult
   return permanentlyDeleteRecord('geographic_reach', id);
 }
 
+export async function listEvolutionTimeline(): Promise<AdminListResult<EvolutionTimelineItem>> {
+  return listAll<EvolutionTimelineItem>('evolution_timeline', 'display_order', true);
+}
+
+export async function getEvolutionTimelineItem(id: string): Promise<AdminResult<EvolutionTimelineItem>> {
+  return getById<EvolutionTimelineItem>('evolution_timeline', id);
+}
+
+export async function createEvolutionTimelineItem(
+  input: EvolutionTimelineInput
+): Promise<AdminResult<EvolutionTimelineItem>> {
+  return createRecord<EvolutionTimelineItem, EvolutionTimelineInput>('evolution_timeline', input, validateEvolutionTimelineInput);
+}
+
+export async function updateEvolutionTimelineItem(
+  id: string,
+  input: EvolutionTimelineInput
+): Promise<AdminResult<EvolutionTimelineItem>> {
+  return updateRecord<EvolutionTimelineItem, EvolutionTimelineInput>('evolution_timeline', id, input, validateEvolutionTimelineInput);
+}
+
+export async function archiveEvolutionTimelineItem(id: string): Promise<AdminResult<{ id: string }>> {
+  return archiveRecord('evolution_timeline', id);
+}
+
+export async function deleteEvolutionTimelineItem(id: string): Promise<AdminResult<{ id: string }>> {
+  return permanentlyDeleteRecord('evolution_timeline', id);
+}
+
 export async function listProjects(): Promise<AdminListResult<Project>> {
   return listAll<Project>('projects', 'display_order', true);
 }
@@ -770,7 +820,7 @@ export async function deletePageContent(id: string): Promise<AdminResult<{ id: s
 
 export async function getDashboardCounts(): Promise<{
   data: Record<
-    'statistics' | 'projects' | 'news_articles' | 'people' | 'partners' | 'page_content',
+    'statistics' | 'projects' | 'news_articles' | 'people' | 'partners' | 'geographic_reach' | 'evolution_timeline' | 'page_content',
     ContentCounts
   >;
   error: string | null;
@@ -781,6 +831,8 @@ export async function getDashboardCounts(): Promise<{
     'news_articles',
     'people',
     'partners',
+    'geographic_reach',
+    'evolution_timeline',
     'page_content',
   ] as const;
   const result: Record<string, ContentCounts> = {};
@@ -789,7 +841,7 @@ export async function getDashboardCounts(): Promise<{
     if (error) {
       return {
         data: {} as Record<
-          'statistics' | 'projects' | 'news_articles' | 'people' | 'partners' | 'page_content',
+          'statistics' | 'projects' | 'news_articles' | 'people' | 'partners' | 'geographic_reach' | 'evolution_timeline' | 'page_content',
           ContentCounts
         >,
         error: error.message,
@@ -799,7 +851,7 @@ export async function getDashboardCounts(): Promise<{
   }
   return {
     data: result as Record<
-      'statistics' | 'projects' | 'news_articles' | 'people' | 'partners' | 'page_content',
+      'statistics' | 'projects' | 'news_articles' | 'people' | 'partners' | 'geographic_reach' | 'evolution_timeline' | 'page_content',
       ContentCounts
     >,
     error: null,

@@ -14,6 +14,9 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
       expect(source).toContain('credibilityMetrics');
       expect(source).toContain('track-record-heading');
       expect(source).toContain('FeaturedProjects');
+      expect(source).toContain('LatestActivity');
+      expect(source).toContain('GeographicReach');
+      expect(source).toContain('geographic-reach-heading');
     },
   },
   {
@@ -119,3 +122,4 @@ describe('Astro pages (unit source contracts)', () => {
     checks(readSource(path));
   });
 });
+
