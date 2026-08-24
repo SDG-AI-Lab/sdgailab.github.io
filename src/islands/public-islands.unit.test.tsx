@@ -75,7 +75,7 @@ describe('public islands (unit)', () => {
 
 
 
-  it('FeaturedProjects can limit homepage selected work display', async () => {
+  it('FeaturedProjects renders a scrollable two-row project showcase', async () => {
     queryMocks.getFeaturedProjects.mockResolvedValue({
       data: Array.from({ length: 5 }, (_, index) => ({
         id: `project-${index + 1}`,
@@ -89,15 +89,43 @@ describe('public islands (unit)', () => {
       })),
       error: null,
     });
+    queryMocks.getPublishedProjects.mockResolvedValue({
+      data: [],
+      error: null,
+    });
 
-    await render(<FeaturedProjects limit={3} />);
-    expect(container.textContent).toContain('Project 3');
-    expect(container.textContent).not.toContain('Project 4');
+    await render(<FeaturedProjects />);
+    expect(container.querySelector('.project-scroll-stage')).not.toBeNull();
+    expect(container.querySelectorAll('.project-scroll-row').length).toBe(2);
+    expect(container.textContent).toContain('Project 1');
+    expect(container.textContent).toContain('Project 5');
   });
 
   it('ProjectList renders an empty state when no projects exist', async () => {
     await render(<ProjectList />);
     expect(container.textContent).toContain('No published projects match these filters yet.');
+  });
+
+  it('ProjectList defaults to a mixed-size gallery view', async () => {
+    queryMocks.getPublishedProjects.mockResolvedValue({
+      data: Array.from({ length: 3 }, (_, index) => ({
+        id: `project-${index + 1}`,
+        title: `Project ${index + 1}`,
+        slug: `project-${index + 1}`,
+        project_status: 'active',
+        is_deployed: false,
+        image_url: null,
+        display_order: index + 1,
+        summary: `Project ${index + 1} summary`,
+      })),
+      error: null,
+    });
+
+    await render(<ProjectList />);
+    expect(container.querySelector('.project-showcase-grid')).not.toBeNull();
+    expect(container.querySelector('.project-showcase-card--xl')).not.toBeNull();
+    expect(container.textContent).toContain('Gallery');
+    expect(container.textContent).toContain('Cards');
   });
 
   it('NewsList renders a visitor-facing empty state when no news exists', async () => {

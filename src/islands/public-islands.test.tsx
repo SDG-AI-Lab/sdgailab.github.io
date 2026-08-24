@@ -122,11 +122,11 @@ describe('public islands', () => {
       ],
       error: null,
     });
+    getPublishedProjectsMock.mockResolvedValue({ data: [], error: null });
 
     await render(<FeaturedProjects />);
 
     expect(container.textContent).toContain('Forecasting Platform');
-    expect(container.textContent).toContain('Supports better planning.');
     expect(container.querySelector('a')?.getAttribute('href')).toContain(
       '/projects/detail/?slug=forecasting-platform'
     );

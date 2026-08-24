@@ -337,36 +337,35 @@ const heroSlides = [
     </section>
 
     <section
-      class="bg-lab-surface py-[clamp(70px,8vw,112px)]"
+      class="overflow-hidden bg-lab-base py-[clamp(80px,9vw,128px)]"
       aria-labelledby="portfolio-heading"
     >
-      <div class="mx-auto w-[min(100%-2rem,1120px)]">
-        <div class="mb-10 max-w-[760px]">
-          <!-- <span
-            class="mb-3.5 inline-flex rounded-full bg-lab-surface px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-lab-accent-soft"
-          >
-            Portfolio
-          </span> -->
-          <h2
-            id="portfolio-heading"
-            class="m-0 text-[clamp(2rem,3.2vw,3.05rem)] font-black leading-[1.08] tracking-[-0.04em] text-lab-text"
-          >
-            Explore our project portfolio
-          </h2>
-          <p class="mt-3.5 text-base font-semibold leading-7 text-lab-muted">
-            Browse real-world AI projects, practical approaches, and reusable
-            solutions developed with UNDP teams and partners.
-          </p>
-        </div>
-        <FeaturedProjects client:load limit={3} />
-        <div class="mt-[46px] flex justify-center">
-          <a
-            href={withBase('/projects')}
-            class="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-lab-accent px-5 py-3 text-sm font-extrabold text-lab-text no-underline shadow-[0_14px_30px_rgba(76,141,255,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-dark focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-lab-accent/40"
-          >
-            View all projects <span aria-hidden="true">&rarr;</span>
-          </a>
-        </div>
+      <div class="mx-auto mb-10 w-[min(100%-2rem,1120px)] max-w-[760px]">
+        <h2
+          id="portfolio-heading"
+          class="m-0 text-[clamp(2.2rem,3.8vw,3.6rem)] font-black leading-[1.02] tracking-[-0.045em] text-lab-text"
+        >
+          Explore our project portfolio
+        </h2>
+        <p class="mt-3.5 text-base font-semibold leading-7 text-lab-muted">
+          Browse real-world AI projects, practical approaches, and reusable
+          solutions developed with UNDP teams and partners.
+        </p>
+      </div>
+      <FeaturedProjects client:load />
+      <div
+        class="mx-auto mt-[46px] flex w-[min(100%-2rem,1120px)] flex-col justify-between gap-6 sm:flex-row sm:items-end"
+      >
+        <a
+          href={withBase('/projects')}
+          class="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-lab-accent px-5 py-3 text-sm font-extrabold text-lab-text no-underline shadow-[0_14px_30px_rgba(76,141,255,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-dark focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-lab-accent/40"
+        >
+          View all projects <span aria-hidden="true">&rarr;</span>
+        </a>
+        <p class="max-w-md text-sm font-semibold leading-6 text-lab-muted sm:text-right">
+          Practical AI and data solutions built with UNDP teams, governments
+          and partners.
+        </p>
       </div>
     </section>
 
