@@ -2,6 +2,7 @@
 import { withBase } from '../lib/url';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import FeaturedProjects from '../islands/FeaturedProjects';
+import HeroProjectSpotlight from '../islands/HeroProjectSpotlight';
 import PartnerLogos from '../islands/PartnerLogos';
 import GeographicReach from '../islands/GeographicReach';
 import LatestActivity from '../islands/LatestActivity';
@@ -27,6 +28,53 @@ const credibilityMetrics = [
     value: '15+',
   },
 ];
+
+const heroSlides = [
+  {
+    // eyebrow: 'A UNDP initiative',
+    title: 'We help UNDP teams turn complex challenges into AI solutions.',
+    summary:
+      'Identifying where AI can create meaningful value—drawing on development expertise, responsible AI principles, and global partnerships.',
+    primaryLabel: 'Request support',
+    primaryHref: '/contact',
+    secondaryLabel: 'Explore projects',
+    secondaryHref: '/projects',
+    signal: 'Practical AI support',
+  },
+  {
+    eyebrow: 'Project portfolio',
+    title: 'Go and check our projects.',
+    summary:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    primaryLabel: 'Explore projects',
+    primaryHref: '/projects',
+    secondaryLabel: 'View publications',
+    secondaryHref: '/resources',
+    signal: 'Check our projects',
+  },
+  {
+    eyebrow: 'Research and knowledge',
+    title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    summary:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    primaryLabel: 'Browse publications',
+    primaryHref: '/resources',
+    secondaryLabel: 'How we work',
+    secondaryHref: '/about',
+    signal: 'Evidence-led methods',
+  },
+  {
+    eyebrow: 'Partnerships and support',
+    title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    summary:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    primaryLabel: 'Start a conversation',
+    primaryHref: '/contact',
+    secondaryLabel: 'See services',
+    secondaryHref: '/services',
+    signal: 'Support pathways',
+  },
+];
 ---
 
 <BaseLayout
@@ -35,7 +83,7 @@ const credibilityMetrics = [
 >
   <main class="landing-home bg-lab-base text-lab-text">
     <section
-      class="landing-hero relative grid min-h-[560px] place-items-center overflow-hidden border-b border-lab-accent/20 bg-[radial-gradient(ellipse_at_50%_18%,rgba(76,141,255,0.26)_0%,rgba(76,141,255,0.10)_32%,rgba(34,36,42,0)_66%),linear-gradient(180deg,#2B2E36_0%,#22242A_72%,#22242A_100%)] max-[620px]:min-h-[520px]"
+      class="landing-hero is-intro-active relative overflow-hidden border-b border-lab-accent/20 bg-[radial-gradient(ellipse_at_50%_18%,rgba(76,141,255,0.26)_0%,rgba(76,141,255,0.10)_32%,rgba(34,36,42,0)_66%),linear-gradient(180deg,#2B2E36_0%,#22242A_72%,#22242A_100%)]"
       aria-labelledby="hero-heading"
     >
       <div class="pointer-events-none absolute inset-0" aria-hidden="true">
@@ -60,42 +108,105 @@ const credibilityMetrics = [
       </div>
 
       <div
-        class="relative z-10 mx-auto grid w-[min(100%-2rem,1120px)] max-w-[940px] justify-items-center px-4 py-[92px] pb-[110px] text-center"
+        class="hero-layout relative z-10 mx-auto grid w-[min(100%-2rem,1120px)] items-center gap-12 px-4 py-[clamp(72px,8vw,112px)] lg:min-h-[680px] lg:grid-cols-[1.08fr_0.92fr]"
       >
-        <h1
-          id="hero-heading"
-          class="max-w-[850px] text-[clamp(2.55rem,5.6vw,5rem)] font-black leading-[0.98] tracking-[-0.055em] text-lab-text max-[620px]:text-[clamp(2.35rem,14vw,3.4rem)]"
-        >
-          We help UNDP teams turn complex challenges into AI solutions.
-        </h1>
-        <p
-          class="mt-7 max-w-[730px] text-[clamp(1rem,1.25vw,1.15rem)] font-semibold leading-7 text-lab-muted"
-        >
-          Identifying where AI can create meaningful value&mdash;drawing on
-          development expertise, responsible AI principles, and global
-          partnerships.
-        </p>
         <div
-          class="mt-[34px] flex flex-wrap justify-center gap-4 max-[620px]:w-full"
-          aria-label="Homepage actions"
+          class="hero-slider w-full max-w-[760px] max-[1023px]:mx-auto max-[1023px]:text-center"
+          data-hero-slider
         >
-          <a
-            href={withBase('/contact')}
-            data-analytics-event="cta_click"
-            data-analytics-category="homepage"
-            data-analytics-label="Hero request support"
-            class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-lab-accent px-6 py-3 text-sm font-extrabold text-lab-text no-underline shadow-[0_14px_30px_rgba(76,141,255,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-dark focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-lab-accent/40 max-[620px]:w-full"
-          >
-            Request support <span aria-hidden="true">&rarr;</span>
-          </a>
-          <a
-            href={withBase('/projects')}
-            class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-lab-surface px-6 py-3 text-sm font-extrabold text-lab-text no-underline shadow-[0_12px_26px_rgba(16,29,53,0.1)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-lab-accent/40 max-[620px]:w-full"
-          >
-            Explore projects
-          </a>
+          <div class="hero-slide-frame grid">
+            {
+              heroSlides.map((slide, index) => (
+                <article
+                  class={`hero-slide col-start-1 row-start-1 flex flex-col justify-center ${index === 0 ? 'is-active' : ''}`}
+                  data-hero-slide
+                  aria-hidden={index === 0 ? 'false' : 'true'}
+                >
+                  <p class="mb-5 text-xs font-black uppercase tracking-[0.22em] text-lab-accent-soft">
+                    {slide.eyebrow}
+                  </p>
+                  <h1
+                    id={index === 0 ? 'hero-heading' : undefined}
+                    class="max-w-[850px] text-[clamp(2.15rem,4vw,3.65rem)] font-black leading-[1.04] tracking-[-0.05em] text-lab-text max-[620px]:text-[clamp(2rem,11vw,2.8rem)]"
+                  >
+                    {slide.title}
+                  </h1>
+                  <p class="mt-7 max-w-[730px] text-[clamp(1rem,1.25vw,1.15rem)] font-semibold leading-7 text-lab-muted max-[1023px]:mx-auto">
+                    {slide.summary}
+                  </p>
+                  <div
+                    class="mt-[34px] flex flex-wrap gap-4 max-[1023px]:justify-center max-[620px]:w-full"
+                    aria-label="Homepage actions"
+                  >
+                    <a
+                      href={withBase(slide.primaryHref)}
+                      data-analytics-event="cta_click"
+                      data-analytics-category="homepage"
+                      data-analytics-label={`Hero ${slide.primaryLabel}`}
+                      class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-lab-accent px-6 py-3 text-sm font-extrabold text-lab-text no-underline shadow-[0_14px_30px_rgba(76,141,255,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-dark focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-lab-accent/40 max-[620px]:w-full"
+                    >
+                      {slide.primaryLabel}{' '}
+                      <span aria-hidden="true">&rarr;</span>
+                    </a>
+                    <a
+                      href={withBase(slide.secondaryHref)}
+                      class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-lab-surface px-6 py-3 text-sm font-extrabold text-lab-text no-underline shadow-[0_12px_26px_rgba(16,29,53,0.1)] ring-1 ring-lab-border/70 transition hover:-translate-y-0.5 hover:ring-lab-accent/50 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-lab-accent/40 max-[620px]:w-full"
+                    >
+                      {slide.secondaryLabel}
+                    </a>
+                  </div>
+                </article>
+              ))
+            }
+          </div>
         </div>
+
+        <HeroProjectSpotlight client:load />
       </div>
+
+
+          <div
+            class="hero-controls flex flex-wrap items-center gap-3"
+            aria-label="Hero slide controls"
+          >
+            <button
+              class="hero-control-button"
+              type="button"
+              data-hero-prev
+              aria-label="Show previous hero message"
+            >
+              &larr;
+            </button>
+            <div
+              class="flex items-center gap-2"
+              role="tablist"
+              aria-label="Hero messages"
+            >
+              {
+                heroSlides.map((slide, index) => (
+                  <button
+                    class={`hero-dot ${index === 0 ? 'is-active' : ''}`}
+                    type="button"
+                    data-hero-dot={index}
+                    role="tab"
+                    aria-selected={index === 0 ? 'true' : 'false'}
+                    aria-label={`Show hero message ${index + 1}: ${slide.eyebrow}`}
+                  >
+                    <span class="sr-only">{slide.eyebrow}</span>
+                  </button>
+                ))
+              }
+            </div>
+            <button
+              class="hero-control-button"
+              type="button"
+              data-hero-next
+              aria-label="Show next hero message"
+            >
+              &rarr;
+            </button>
+          </div>
+        
     </section>
 
     <section
@@ -107,16 +218,10 @@ const credibilityMetrics = [
           <div>
             <h2
               id="track-record-heading"
-              class="mt-4 max-w-[620px] text-[clamp(2rem,3.6vw,3.35rem)] font-black leading-[1.04] tracking-[-0.05em] text-lab-text"
+              class="mt-4 max-w-[620px] text-[clamp(1.25rem,2.2vw,1.75rem)] font-black leading-[1.04] tracking-[-0.05em] text-lab-text"
             >
               A proven record in AI for development.
             </h2>
-            <p
-              class="mt-5 max-w-[640px] text-justify text-base font-semibold leading-7 text-lab-muted"
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
 
             <div
               class="mt-8 grid gap-x-8 gap-y-7 sm:grid-cols-2"
@@ -277,8 +382,11 @@ const credibilityMetrics = [
           >
             Discover the Lab's work and knowledge.
           </h2>
-          <p class="mt-3.5 text-justify text-base font-semibold leading-7 text-lab-muted">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <p
+            class="mt-3.5 text-justify text-base font-semibold leading-7 text-lab-muted"
+          >
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
         </div>
         <LatestActivity client:load />
@@ -326,12 +434,77 @@ const credibilityMetrics = [
   </main>
 </BaseLayout>
 
+<script is:inline>
+  (() => {
+    const slider = document.querySelector('[data-hero-slider]');
+    if (!slider) return;
+    const heroSection = slider.closest('.landing-hero');
 
+    const slides = Array.from(slider.querySelectorAll('[data-hero-slide]'));
+    const dots = Array.from(heroSection?.querySelectorAll('[data-hero-dot]') ?? []);
+    slider.classList.add('is-enhanced');
+    const prev = heroSection?.querySelector('[data-hero-prev]');
+    const next = heroSection?.querySelector('[data-hero-next]');
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    let activeIndex = 0;
+    const isPaused = reduceMotion;
+    let timer = null;
 
+    const showSlide = (nextIndex) => {
+      activeIndex = (nextIndex + slides.length) % slides.length;
+      slides.forEach((slide, index) => {
+        const isActive = index === activeIndex;
+        slide.classList.toggle('is-active', isActive);
+        slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      });
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('is-active', index === activeIndex);
+        dot.setAttribute(
+          'aria-selected',
+          index === activeIndex ? 'true' : 'false',
+        );
+      });
+      heroSection?.classList.toggle('is-intro-active', activeIndex === 0);
+      window.dispatchEvent(
+        new CustomEvent('hero-slide-change', {
+          detail: { index: activeIndex },
+        }),
+      );
+    };
 
+    const stop = () => {
+      if (timer) window.clearInterval(timer);
+      timer = null;
+    };
 
+    const start = () => {
+      stop();
+      if (!isPaused && slides.length > 1) {
+        timer = window.setInterval(() => showSlide(activeIndex + 1), 6500);
+      }
+    };
 
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const index = Number(dot.getAttribute('data-hero-dot'));
+        showSlide(index);
+        start();
+      });
+    });
 
+    prev?.addEventListener('click', () => {
+      showSlide(activeIndex - 1);
+      start();
+    });
 
+    next?.addEventListener('click', () => {
+      showSlide(activeIndex + 1);
+      start();
+    });
 
-
+    showSlide(0);
+    start();
+  })();
+</script>

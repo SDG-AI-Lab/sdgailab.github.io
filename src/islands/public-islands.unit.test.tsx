@@ -105,6 +105,44 @@ describe('public islands (unit)', () => {
     expect(container.textContent).toContain('News and publications are being updated.');
   });
 
+  it('NewsList filters news items by search term', async () => {
+    queryMocks.getPublishedNews.mockResolvedValue({
+      data: [
+        {
+          id: 'news-1',
+          title: 'Climate AI Update',
+          slug: 'climate-ai-update',
+          summary: 'Lorem ipsum dolor sit amet.',
+          featured_image_url: null,
+          author_name: 'Research Team',
+          publish_date: '2026-02-01',
+        },
+        {
+          id: 'news-2',
+          title: 'Public Finance Workshop',
+          slug: 'public-finance-workshop',
+          summary: 'Dolor sit amet.',
+          featured_image_url: null,
+          author_name: 'Finance Team',
+          publish_date: '2025-12-05',
+        },
+      ],
+      error: null,
+    });
+
+    await render(<NewsList />);
+
+    const searchInput = container.querySelector('input[type="search"]') as HTMLInputElement;
+    const inputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
+    await act(async () => {
+      inputValueSetter?.call(searchInput, 'climate');
+      searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+
+    expect(container.textContent).toContain('Climate AI Update');
+    expect(container.textContent).not.toContain('Public Finance Workshop');
+    expect(container.textContent).toContain('Showing 1 of 2 news items');
+  });
   it('PublicationsList renders publication cards when no live data exists', async () => {
     await render(<PublicationsList />);
     expect(container.textContent).toContain('Publications');
@@ -112,6 +150,44 @@ describe('public islands (unit)', () => {
     expect(container.textContent).toContain('From AI experiments to responsible development practice');
   });
 
+  it('PublicationsList filters publications by search term', async () => {
+    queryMocks.getPublishedNews.mockResolvedValue({
+      data: [
+        {
+          id: 'publication-1',
+          title: 'Climate AI Brief',
+          slug: 'climate-ai-brief',
+          summary: 'Lorem ipsum dolor sit amet.',
+          featured_image_url: null,
+          author_name: 'Research Team',
+          publish_date: '2026-01-15',
+        },
+        {
+          id: 'publication-2',
+          title: 'Public Finance Note',
+          slug: 'public-finance-note',
+          summary: 'Dolor sit amet.',
+          featured_image_url: null,
+          author_name: 'Finance Team',
+          publish_date: '2025-11-10',
+        },
+      ],
+      error: null,
+    });
+
+    await render(<PublicationsList />);
+
+    const searchInput = container.querySelector('input[type="search"]') as HTMLInputElement;
+    const inputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
+    await act(async () => {
+      inputValueSetter?.call(searchInput, 'climate');
+      searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+
+    expect(container.textContent).toContain('Climate AI Brief');
+    expect(container.textContent).not.toContain('Public Finance Note');
+    expect(container.textContent).toContain('Showing 1 of 2 publications');
+  });
   it('PeopleGrid renders the team empty state', async () => {
     await render(<PeopleGrid groupType="team" />);
     expect(container.textContent).toContain('No members listed yet.');

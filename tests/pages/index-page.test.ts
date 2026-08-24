@@ -8,7 +8,8 @@ describe('index page source', () => {
   it('composes the public homepage with the base layout and hero', () => {
     expect(source).toContain('BaseLayout');
     expect(source).toContain('landing-hero');
-    expect(source).toContain('We help UNDP teams turn complex challenges into AI solutions');
+    expect(source).toContain('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+    expect(source).toContain('Go and check our projects.');
   });
 
   it('hydrates the featured public islands', () => {
