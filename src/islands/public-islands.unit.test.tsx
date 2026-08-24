@@ -124,8 +124,7 @@ describe('public islands (unit)', () => {
     await render(<ProjectList />);
     expect(container.querySelector('.project-showcase-grid')).not.toBeNull();
     expect(container.querySelector('.project-showcase-card--xl')).not.toBeNull();
-    expect(container.textContent).toContain('Gallery');
-    expect(container.textContent).toContain('Cards');
+    expect(container.textContent).not.toContain('Cards');
   });
 
   it('NewsList renders a visitor-facing empty state when no news exists', async () => {
