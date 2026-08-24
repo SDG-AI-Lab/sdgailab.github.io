@@ -62,7 +62,7 @@ function LabValueVisual() {
   ];
 
   return (
-    <div className="grid h-full content-center gap-6">
+    <div className="grid h-full content-center gap-8">
       <div>
         <p className="text-xs font-black uppercase tracking-[0.22em] text-lab-accent-soft">Lorem ipsum</p>
         <h2 className="mt-2 text-2xl font-black tracking-[-0.04em] text-lab-text">Lorem ipsum dolor sit amet</h2>
@@ -71,46 +71,34 @@ function LabValueVisual() {
         </p>
       </div>
 
-      <div className="relative rounded-[1.75rem] border border-lab-border bg-lab-base/62 p-5">
-        <div className="absolute bottom-10 left-10 top-10 w-px bg-lab-accent/28" aria-hidden="true" />
-        <div className="relative grid gap-4">
+      <div className="relative pl-7">
+        <div className="absolute bottom-2 left-[0.55rem] top-2 w-px bg-lab-accent/35" aria-hidden="true" />
+        <div className="grid gap-5">
           {steps.map(([number, label]) => (
-            <article key={label} className="flex items-center gap-4 rounded-[1.25rem] border border-lab-border bg-lab-surface/82 p-4">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-lab-accent text-sm font-black text-lab-text shadow-[0_14px_30px_rgba(76,141,255,0.22)]">
+            <article key={label} className="relative grid gap-1 pl-8">
+              <span className="absolute left-[-0.05rem] top-1 flex h-5 w-5 items-center justify-center rounded-full bg-lab-accent text-[0.6rem] font-black text-lab-text shadow-[0_0_22px_rgba(76,141,255,0.28)]">
                 {number}
               </span>
-              <div>
-                <h3 className="font-black text-lab-text">{label}</h3>
-                <p className="mt-1 text-sm font-semibold leading-6 text-lab-muted">Lorem ipsum dolor sit amet.</p>
-              </div>
+              <h3 className="font-black text-lab-text">{label}</h3>
+              <p className="text-sm font-semibold leading-6 text-lab-muted">Lorem ipsum dolor sit amet.</p>
             </article>
           ))}
         </div>
-      </div>
-
-      <div className="flex flex-wrap gap-2">
-        {['Lorem', 'Ipsum', 'Dolor'].map((label) => (
-          <span key={label} className="rounded-full border border-lab-border bg-lab-surface/74 px-4 py-2 text-xs font-black uppercase tracking-[0.13em] text-lab-muted">
-            {label}
-          </span>
-        ))}
       </div>
     </div>
   );
 }
 function ResearchVisual() {
   return (
-    <div className="grid h-full content-center gap-5">
+    <div className="grid h-full content-center gap-7">
       <div>
         <p className="text-xs font-black uppercase tracking-[0.22em] text-lab-accent-soft">Lorem ipsum</p>
         <h2 className="mt-2 text-2xl font-black tracking-[-0.04em] text-lab-text">Lorem ipsum dolor sit amet</h2>
       </div>
-      <div className="grid gap-3">
+      <div className="divide-y divide-lab-border/70 border-y border-lab-border/70">
         {['Publications', 'Dolor sit amet', 'Consectetur elit'].map((label, index) => (
-          <div key={label} className="flex items-center gap-4 rounded-[1.25rem] border border-lab-border bg-lab-surface/82 p-4">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-lab-accent/16 text-sm font-black text-lab-accent-soft ring-1 ring-lab-accent/28">
-              0{index + 1}
-            </span>
+          <div key={label} className="grid grid-cols-[2.75rem_1fr] gap-4 py-4">
+            <span className="text-sm font-black text-lab-accent-soft">0{index + 1}</span>
             <div>
               <h3 className="font-black text-lab-text">{label}</h3>
               <p className="mt-1 text-sm font-semibold leading-6 text-lab-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -127,15 +115,15 @@ function ResearchVisual() {
 
 function SupportVisual() {
   return (
-    <div className="grid h-full content-center gap-5">
+    <div className="grid h-full content-center gap-7">
       <div>
         <p className="text-xs font-black uppercase tracking-[0.22em] text-lab-accent-soft">Lorem ipsum</p>
         <h2 className="mt-2 text-2xl font-black tracking-[-0.04em] text-lab-text">Lorem ipsum dolor sit amet</h2>
       </div>
-      <div className="grid gap-3">
+      <div className="grid gap-4">
         {['Lorem ipsum', 'Dolor sit amet', 'Consectetur elit'].map((label, index) => (
-          <div key={label} className="flex items-center gap-4 rounded-full border border-lab-border bg-lab-surface/82 px-4 py-3">
-            <span className="h-3 w-3 rounded-full bg-lab-accent shadow-[0_0_18px_rgba(76,141,255,0.34)]" />
+          <div key={label} className="flex items-center gap-4 border-b border-lab-border/70 pb-4 last:border-b-0">
+            <span className="h-2.5 w-2.5 rounded-full bg-lab-accent shadow-[0_0_18px_rgba(76,141,255,0.34)]" />
             <span className="text-sm font-black text-lab-text">{label}</span>
             <span className="ml-auto text-xs font-black uppercase tracking-[0.14em] text-lab-subtle">0{index + 1}</span>
           </div>
@@ -147,7 +135,6 @@ function SupportVisual() {
     </div>
   );
 }
-
 function ProjectVisual({ isActive }: { isActive: boolean }) {
   const [projects, setProjects] = useState<FeaturedProjectCard[]>([]);
   const [loading, setLoading] = useState(true);
@@ -242,10 +229,10 @@ export default function HeroProjectSpotlight() {
 
   return (
     <section
-      className="hero-visual-panel relative min-h-[470px] overflow-hidden rounded-[2rem] border border-lab-border bg-lab-section/74 p-5 shadow-[0_28px_80px_rgba(0,0,0,0.22)] backdrop-blur max-[1023px]:mx-auto max-[1023px]:w-full max-[1023px]:max-w-[680px] sm:p-6"
+      className="hero-visual-panel relative min-h-[470px] overflow-hidden p-2 max-[1023px]:mx-auto max-[1023px]:w-full max-[1023px]:max-w-[680px] sm:p-3"
       aria-label="Hero visual summary"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_0%,rgba(76,141,255,0.20),transparent_34%),radial-gradient(circle_at_78%_64%,rgba(127,169,255,0.12),transparent_30%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_28%_8%,rgba(76,141,255,0.16),transparent_34%),radial-gradient(circle_at_78%_64%,rgba(127,169,255,0.08),transparent_30%)]" />
       <div className="relative z-10 grid h-full min-h-[420px]">
         {panels.map((panel, index) => (
           <div

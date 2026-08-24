@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { getPublishedProjects } from '../lib/queries';
 import type { ProjectListItem } from '../lib/types';
-import ProjectCard from './components/ProjectCard';
 import ProjectShowcase from './components/ProjectShowcase';
 import { impactAreas } from '../data/sampleContent';
 
@@ -10,7 +9,6 @@ const ALL_YEARS = 'all';
 const ALL_COUNTRIES = 'all';
 const ALL_TECHNOLOGIES = 'all';
 type SortOrder = 'newest' | 'oldest' | 'default';
-type ViewMode = 'gallery' | 'cards';
 
 function getProjectYear(project: ProjectListItem) {
   return typeof project.project_year === 'number' ? project.project_year : null;
@@ -52,7 +50,6 @@ export default function ProjectList() {
   const [activeCountry, setActiveCountry] = useState<string>(ALL_COUNTRIES);
   const [activeTechnology, setActiveTechnology] = useState<string>(ALL_TECHNOLOGIES);
   const [sortOrder, setSortOrder] = useState<SortOrder>('newest');
-  const [viewMode, setViewMode] = useState<ViewMode>('gallery');
   const [searchQuery, setSearchQuery] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -209,39 +206,15 @@ export default function ProjectList() {
           <p className="text-sm font-bold text-lab-muted" aria-live="polite">
             Showing {filteredProjects.length} of {projects.length} projects
           </p>
-          <div className="flex flex-wrap items-center gap-4">
-            <div className="flex rounded-full border border-lab-border bg-lab-surface p-1" role="group" aria-label="Project layout">
-              <button
-                type="button"
-                onClick={() => setViewMode('gallery')}
-                aria-pressed={viewMode === 'gallery'}
-                className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                  viewMode === 'gallery' ? 'bg-lab-accent text-white shadow' : 'text-lab-muted hover:text-lab-accent-soft'
-                }`}
-              >
-                Gallery
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode('cards')}
-                aria-pressed={viewMode === 'cards'}
-                className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                  viewMode === 'cards' ? 'bg-lab-accent text-white shadow' : 'text-lab-muted hover:text-lab-accent-soft'
-                }`}
-              >
-                Cards
-              </button>
-            </div>
-            {hasActiveFilters && (
-              <button
-                type="button"
-                onClick={resetFilters}
-                className="text-sm font-black text-lab-accent-soft transition hover:text-primary-light"
-              >
-                Reset filters
-              </button>
-            )}
-          </div>
+          {hasActiveFilters && (
+            <button
+              type="button"
+              onClick={resetFilters}
+              className="text-sm font-black text-lab-accent-soft transition hover:text-primary-light"
+            >
+              Reset filters
+            </button>
+          )}
         </div>
 
         <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Project impact area filters">
@@ -286,12 +259,8 @@ export default function ProjectList() {
             Try another keyword, impact area, country, technology or year.
           </p>
         </div>
-      ) : viewMode === 'gallery' ? (
-        <ProjectShowcase projects={filteredProjects} />
       ) : (
-        <div className="mx-auto grid w-[min(100%-2rem,1120px)] grid-cols-1 gap-x-7 gap-y-9 md:grid-cols-2 lg:grid-cols-3">
-          {filteredProjects.map((project) => <ProjectCard key={project.id} project={project} />)}
-        </div>
+        <ProjectShowcase projects={filteredProjects} />
       )}
     </div>
   );
