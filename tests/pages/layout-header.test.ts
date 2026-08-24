@@ -25,6 +25,7 @@ describe('Header.astro source', () => {
     expect(source).not.toContain('serviceSubLinks');
     expect(source).not.toContain('aria-haspopup');
     expect(source).toContain("label: 'Publications'");
+    expect(source).toContain("label: 'News'");
     expect(source).toContain("label: 'Team'");
     expect(source).toContain("label: 'Contact'");
     expect(source).not.toContain('Header request support');
