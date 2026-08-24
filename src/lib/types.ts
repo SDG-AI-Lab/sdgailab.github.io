@@ -142,7 +142,7 @@ export interface PageContent {
 }
 
 export type StatisticCard = Pick<Statistic, "id" | "label" | "value" | "icon_name" | "display_order">;
-export type FeaturedProjectCard = Pick<Project, "id" | "title" | "slug" | "project_status" | "is_deployed" | "image_url" | "display_order" | "summary" | "deployment_status" | "sdgs" | "is_sample" | "is_featured" | "impact_area" | "timeline" | "project_year" | "best_fit" | "core_capabilities" | "tech_stack" | "implementation_countries" | "capabilities_involved">;
+export type FeaturedProjectCard = Pick<Project, "id" | "title" | "slug" | "project_status" | "is_deployed" | "image_url" | "display_order" | "summary" | "deployment_status" | "sdgs" | "is_sample" | "is_featured" | "impact_area" | "timeline" | "project_year" | "best_fit" | "core_capabilities" | "tech_stack" | "implementation_countries" | "capabilities_involved" | "video_url">;
 export type ProjectListItem = FeaturedProjectCard;
 export type NewsListItem = Pick<NewsArticle, "id" | "title" | "slug" | "summary" | "featured_image_url" | "author_name" | "publish_date">;
 export type PersonCard = Pick<Person, "id" | "name" | "role_title" | "photo_url" | "biography" | "display_order">;

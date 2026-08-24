@@ -311,7 +311,9 @@
       opacity 520ms ease,
       transform 520ms ease,
       visibility 0ms linear 0ms;
-  }.hero-control-button {
+  }
+
+  .hero-control-button {
     display: inline-flex;
     min-height: 2rem;
     align-items: center;
@@ -366,6 +368,136 @@
   }
 }
 
+
+.project-showcase-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  padding: 0 1rem;
+}
+
+.project-showcase-card {
+  position: relative;
+  display: block;
+  min-height: 17rem;
+  overflow: hidden;
+  border-radius: 1.15rem;
+  background: var(--lab-surface);
+  text-decoration: none;
+}
+
+.project-showcase-card__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding: 1.15rem 1.25rem 1.25rem;
+  background: linear-gradient(180deg, rgba(34, 36, 42, 0.02) 32%, rgba(34, 36, 42, 0.86) 100%);
+}
+
+@media (min-width: 768px) {
+  .project-showcase-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-auto-rows: minmax(11.5rem, 18vw);
+    gap: 0.55rem;
+    padding: 0 max(1rem, calc((100vw - 1200px) / 2));
+  }
+
+  .project-showcase-card {
+    min-height: 0;
+  }
+
+  .project-showcase-card--xl {
+    grid-column: span 8;
+    grid-row: span 2;
+  }
+
+  .project-showcase-card--tall {
+    grid-column: span 4;
+    grid-row: span 2;
+  }
+
+  .project-showcase-card--compact {
+    grid-column: span 4;
+    grid-row: span 2;
+  }
+
+  .project-showcase-card--wide {
+    grid-column: span 8;
+    grid-row: span 2;
+  }
+
+  .project-showcase-card--mid {
+    grid-column: span 6;
+    grid-row: span 2;
+  }
+}
+
+.project-scroll-stage {
+  overflow: hidden;
+  padding: 0.35rem 0 0.75rem;
+}
+
+.project-scroll-row {
+  display: flex;
+  width: max-content;
+  gap: 0.9rem;
+  will-change: transform;
+}
+
+.project-scroll-row + .project-scroll-row {
+  margin-top: 0.9rem;
+}
+
+.project-scroll-row--bottom {
+  margin-left: 4.5rem;
+}
+
+.project-scroll-card,
+.project-scroll-stage .project-showcase-card {
+  flex: 0 0 auto;
+  width: min(20.5rem, 78vw);
+  height: 13.75rem;
+  min-height: 13.75rem;
+  border-radius: 1.15rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+}
+
+.project-scroll-card--wide,
+.project-scroll-stage .project-scroll-card--wide {
+  width: min(24.5rem, 84vw);
+}
+
+.project-scroll-card--skeleton {
+  border-radius: 1.15rem;
+  background: var(--lab-section);
+}
+
+@media (min-width: 768px) {
+  .project-scroll-row--bottom {
+    margin-left: 7rem;
+  }
+
+  .project-scroll-card,
+  .project-scroll-stage .project-showcase-card {
+    width: 23rem;
+    height: 15.5rem;
+    min-height: 15.5rem;
+  }
+
+  .project-scroll-card--wide,
+  .project-scroll-stage .project-scroll-card--wide {
+    width: 27.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-scroll-row {
+    will-change: auto;
+    transform: none !important;
+  }
+}
 
 @keyframes hero-project-scroll {
   0% {

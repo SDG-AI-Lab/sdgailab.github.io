@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { getPublishedProjects } from '../lib/queries';
 import type { ProjectListItem } from '../lib/types';
 import ProjectCard from './components/ProjectCard';
+import ProjectShowcase from './components/ProjectShowcase';
 import { impactAreas } from '../data/sampleContent';
 
 const ALL_AREAS = 'all';
@@ -9,6 +10,7 @@ const ALL_YEARS = 'all';
 const ALL_COUNTRIES = 'all';
 const ALL_TECHNOLOGIES = 'all';
 type SortOrder = 'newest' | 'oldest' | 'default';
+type ViewMode = 'gallery' | 'cards';
 
 function getProjectYear(project: ProjectListItem) {
   return typeof project.project_year === 'number' ? project.project_year : null;
@@ -50,6 +52,7 @@ export default function ProjectList() {
   const [activeCountry, setActiveCountry] = useState<string>(ALL_COUNTRIES);
   const [activeTechnology, setActiveTechnology] = useState<string>(ALL_TECHNOLOGIES);
   const [sortOrder, setSortOrder] = useState<SortOrder>('newest');
+  const [viewMode, setViewMode] = useState<ViewMode>('gallery');
   const [searchQuery, setSearchQuery] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -122,10 +125,10 @@ export default function ProjectList() {
 
   return (
     <div>
-      {error && <p className="mb-5 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm font-semibold text-amber-900">Project information is currently being updated.</p>}
+      {error && <p className="mx-auto mb-5 w-[min(100%-2rem,1120px)] rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm font-semibold text-amber-900">Project information is currently being updated.</p>}
 
 
-      <div className="mb-8 rounded-3xl bg-lab-section/70 p-4 ring-1 ring-lab-border/70 sm:p-5">
+      <div className="mx-auto mb-8 w-[min(100%-2rem,1120px)] rounded-3xl bg-lab-section/70 p-4 ring-1 ring-lab-border/70 sm:p-5">
         <div className="grid gap-4 xl:grid-cols-[1.2fr_2fr] xl:items-end">
           <label className="block text-xs font-black uppercase tracking-[0.16em] text-lab-accent-soft">
             Search projects
@@ -206,15 +209,39 @@ export default function ProjectList() {
           <p className="text-sm font-bold text-lab-muted" aria-live="polite">
             Showing {filteredProjects.length} of {projects.length} projects
           </p>
-          {hasActiveFilters && (
-            <button
-              type="button"
-              onClick={resetFilters}
-              className="text-sm font-black text-lab-accent-soft transition hover:text-primary-light"
-            >
-              Reset filters
-            </button>
-          )}
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="flex rounded-full border border-lab-border bg-lab-surface p-1" role="group" aria-label="Project layout">
+              <button
+                type="button"
+                onClick={() => setViewMode('gallery')}
+                aria-pressed={viewMode === 'gallery'}
+                className={`rounded-full px-4 py-2 text-sm font-bold transition ${
+                  viewMode === 'gallery' ? 'bg-lab-accent text-white shadow' : 'text-lab-muted hover:text-lab-accent-soft'
+                }`}
+              >
+                Gallery
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('cards')}
+                aria-pressed={viewMode === 'cards'}
+                className={`rounded-full px-4 py-2 text-sm font-bold transition ${
+                  viewMode === 'cards' ? 'bg-lab-accent text-white shadow' : 'text-lab-muted hover:text-lab-accent-soft'
+                }`}
+              >
+                Cards
+              </button>
+            </div>
+            {hasActiveFilters && (
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="text-sm font-black text-lab-accent-soft transition hover:text-primary-light"
+              >
+                Reset filters
+              </button>
+            )}
+          </div>
         </div>
 
         <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Project impact area filters">
@@ -253,14 +280,16 @@ export default function ProjectList() {
       </div>
 
       {filteredProjects.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-lab-border bg-lab-section p-8 text-center">
+        <div className="mx-auto w-[min(100%-2rem,1120px)] rounded-2xl border border-dashed border-lab-border bg-lab-section p-8 text-center">
           <h3 className="text-lg font-black text-lab-text">No published projects match these filters yet.</h3>
           <p className="mx-auto mt-2 max-w-xl text-sm font-semibold leading-6 text-lab-muted">
             Try another keyword, impact area, country, technology or year.
           </p>
         </div>
+      ) : viewMode === 'gallery' ? (
+        <ProjectShowcase projects={filteredProjects} />
       ) : (
-        <div className="grid grid-cols-1 gap-x-7 gap-y-9 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto grid w-[min(100%-2rem,1120px)] grid-cols-1 gap-x-7 gap-y-9 md:grid-cols-2 lg:grid-cols-3">
           {filteredProjects.map((project) => <ProjectCard key={project.id} project={project} />)}
         </div>
       )}

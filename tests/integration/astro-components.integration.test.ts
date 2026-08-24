@@ -61,7 +61,7 @@ describe('Homepage v3 composition integration', () => {
 
   it('composes the current light homepage hero and portfolio sections', () => {
     expect(indexPage).toContain('We help UNDP teams turn complex challenges into AI solutions.');
-    expect(indexPage).toContain('<FeaturedProjects client:load limit={3} />');
+    expect(indexPage).toContain('<FeaturedProjects client:load />');
     expect(indexPage).toContain('<PartnerLogos client:load variant="marquee" />');
     expect(indexPage).toContain('Explore our project portfolio');
   });

@@ -4,7 +4,6 @@ import type { NewsListItem } from '../lib/types';
 import { withBase } from '../lib/url';
 
 const discoveryLinks = [
-  { label: 'Projects', href: '/projects', description: 'Lorem ipsum dolor sit amet.' },
   { label: 'Publications', href: '/resources', description: 'Lorem ipsum dolor sit amet.' },
   { label: 'News', href: '/news', description: 'Lorem ipsum dolor sit amet.' },
 ];
@@ -31,7 +30,7 @@ export default function LatestActivity() {
   return (
     <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
       <div>
-        <div className="grid gap-4 sm:grid-cols-3" aria-label="Content discovery routes">
+        <div className="grid gap-4 sm:grid-cols-2" aria-label="Content discovery routes">
           {discoveryLinks.map((link) => (
             <a
               key={link.href}
