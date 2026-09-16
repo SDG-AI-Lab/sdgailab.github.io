@@ -1,81 +1,386 @@
 ---
 import { withBase } from '../lib/url';
 import BaseLayout from '../components/layout/BaseLayout.astro';
+
+const outputItems = [
+  {
+    title: 'Academic papers',
+    status: 'Ongoing',
+    body: 'Domain expertise across digital transformation, resilience, and digital skills & entrepreneurship.',
+  },
+  {
+    title: 'Project briefs',
+    status: 'Ongoing',
+    body: 'Scoping documents produced ahead of each new engagement.',
+  },
+  {
+    title: 'White papers',
+    status: 'Ongoing',
+    body: 'Technical guidance on applying AI to public-sector problems.',
+  },
+  {
+    title: 'Datasets',
+    status: 'Ongoing',
+    body: 'Open data products generated as a by-product of applied projects.',
+  },
+  {
+    title: 'Terms of reference',
+    status: 'On request',
+    body: 'ToRs for partners procuring related technical work.',
+    request: true,
+  },
+  {
+    title: 'Partnership agreements',
+    status: 'Ongoing',
+    body: 'Formal collaboration frameworks with tech-sector and academic partners.',
+  },
+];
+
+const reportCovers = [
+  {
+    title: 'Innovation in Disaster Management',
+    subtitle: 'Leveraging Technology to Save More Lives',
+    meta: 'with OCHA',
+    code: '01',
+  },
+  {
+    title: "Évaluation de la maturité des systèmes d'alerte précoce à la sécheresse",
+    subtitle: 'Sud de Madagascar',
+    meta: 'June 2025',
+    code: '02',
+  },
+];
 ---
 
 <BaseLayout
-  title="Research and Knowledge - SDG AI Lab"
-  description="Research, methods, open knowledge and learning outputs from SDG AI Lab."
+  title="Research & Advisory - SDG AI Lab"
+  description="Key outputs from SDG AI Lab technical assessments, advisory work and partnership facilitation."
 >
-  <section class="section-padding bg-lab-surface">
-    <div class="container-narrow">
-      <p class="section-label">Research & knowledge</p>
-      <h1 class="mt-3 max-w-4xl text-3xl font-bold text-lab-text sm:text-5xl">
-        Evidence, methods and reusable learning for responsible AI in development
-      </h1>
-      <p class="mt-5 max-w-3xl text-lg leading-8 text-lab-muted">
-        This area is for the Lab's reports, briefs, blogs, methods, open-source documentation and lessons learned from applied AI, data and digital work.
-      </p>
-
-      <div class="mt-10 grid gap-8 border-y border-lab-border/70 py-8 md:grid-cols-2 lg:grid-cols-4">
-        {[
-          ['Reports and briefs', 'Short, usable knowledge products that explain findings, methods and implications.'],
-          ['Methods', 'Practical documentation on data readiness, responsible AI, evaluation and implementation choices.'],
-          ['Open-source docs', 'Repositories, model cards, data statements and implementation notes.'],
-          ['Blogs and learning notes', 'Updates that translate technical work into accessible learning for teams and partners.'],
-        ].map(([title, body]) => (
-          <article class="border-l-2 border-lab-accent/45 pl-5">
-            <h2 class="text-lg font-bold text-lab-text">{title}</h2>
-            <p class="mt-3 text-sm leading-6 text-lab-muted">{body}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section-padding bg-lab-section" aria-labelledby="research-standards-heading">
-    <div class="container-narrow grid gap-10 lg:grid-cols-[.85fr_1.15fr]">
-      <div>
-        <p class="section-label">Publication model</p>
-        <h2 id="research-standards-heading" class="mt-3 text-3xl font-bold text-lab-text sm:text-4xl">
-          What each knowledge output explains
-        </h2>
-        <p class="mt-4 leading-7 text-lab-muted">
-          Knowledge outputs help visitors understand what was learned, where it applies, what limitations exist and how the work connects to projects or services.
-        </p>
-      </div>
-      <div class="grid gap-x-8 gap-y-5 sm:grid-cols-2">
-        {[
-          'Purpose, audience and development context',
-          'Methods, assumptions and limitations',
-          'Related project or service line',
-          'Authors, collaborators, date and version',
-          'Responsible-use notes where relevant',
-          'Download, repository or next-step links',
-        ].map((item) => (
-          <div class="flex gap-3 border-t border-lab-border/70 pt-4">
-            <span class="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-primary"></span>
-            <p class="text-sm font-semibold text-lab-muted">{item}</p>
+  <div class="marina-research-page" id="main">
+    <section class="band" id="research">
+      <div class="wrap">
+        <div class="band-head reveal">
+          <span class="eyebrow" data-n="08">Research &amp; Advisory</span>
+          <h1>Key outputs from technical assessments, advisory work, and partnership facilitation.</h1>
+          <div class="report-covers" aria-label="Featured research reports">
+            {reportCovers.map((report) => (
+              <article class="report-cover">
+                <div class="report-cover-art" aria-hidden="true">
+                  <span>{report.code}</span>
+                </div>
+                <span class="report-cover-title">
+                  {report.title}<br /><em>{report.subtitle}</em> &middot; {report.meta}
+                </span>
+              </article>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
-  </section>
+        </div>
 
-  <section class="section-padding bg-lab-base text-lab-text">
-    <div class="container-narrow flex flex-col justify-between gap-6 md:flex-row md:items-center">
-      <div>
-        <p class="text-sm font-bold uppercase tracking-[0.18em] text-lab-accent-soft">Research outputs</p>
-        <h2 class="mt-3 text-3xl font-bold">Browse publications and updates.</h2>
+        <div class="output-grid">
+          {outputItems.map((item) => (
+            <article class="output-cell reveal">
+              <div class="output-head">
+                <h2>{item.title}</h2>
+                <span class:list={["output-status", { "is-request": item.request }]}>{item.status}</span>
+              </div>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
       </div>
-      <div class="flex flex-col gap-3 sm:flex-row">
-        <a href={withBase('/resources')} class="inline-flex min-h-12 items-center justify-center rounded-md bg-lab-accent px-6 py-3 text-sm font-bold text-white shadow transition hover:bg-primary-dark">
-          Browse publications
-        </a>
-        <a href={withBase('/news')} class="inline-flex min-h-12 items-center justify-center rounded-md border border-lab-border bg-lab-surface px-6 py-3 text-sm font-bold text-lab-accent-soft transition hover:border-lab-accent/50 hover:bg-lab-base">
-          Visit newsroom
-        </a>
+    </section>
+
+    <section class="cta-band" id="collaborate">
+      <div class="wrap reveal">
+        <span class="eyebrow" data-n="10">Partner with us</span>
+        <h2>Four ways to build with SDG AI Lab.</h2>
+        <p class="desc">Co-develop AI solutions &middot; Research &amp; policy advisory &middot; Build your team's capacity &middot; Access vetted tech talent &mdash; from prototype to deployment.</p>
+        <div class="cta-actions">
+          <a href={withBase('/contact')} class="btn btn-gradient btn-magnetic">Book a demo</a>
+          <a href="mailto:dina.akylbekova@undp.org" class="btn btn-ghost">dina.akylbekova@undp.org</a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
+
+  <style>
+    .marina-research-page {
+      --bg: #15181C;
+      --bg-raised: #1B1F24;
+      --bg-elevated: #21262C;
+      --border: #2C323A;
+      --border-soft: #24292F;
+      --text: #D9DDE2;
+      --text-dim: #8D96A1;
+      --text-mid: #B7BFC7;
+      --teal: #22D3B8;
+      --blue: #4C86FF;
+      --amber: #FFAA3D;
+      --display: 'Open Sans', sans-serif;
+      --body: 'Open Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    .marina-research-page *,
+    .marina-research-page *::before,
+    .marina-research-page *::after { box-sizing: border-box; }
+    .marina-research-page a { color: inherit; text-decoration: none; }
+    .marina-research-page section[id] { scroll-margin-top: 84px; }
+
+    .marina-research-page .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .marina-research-page .eyebrow {
+      font-family: var(--body);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-mid);
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .marina-research-page .eyebrow::before {
+      content: attr(data-n);
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--teal);
+    }
+
+    .marina-research-page h1,
+    .marina-research-page h2,
+    .marina-research-page h3,
+    .marina-research-page h4 {
+      font-family: var(--display);
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .marina-research-page .band {
+      padding: 150px 0 96px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .marina-research-page .band-head {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 60px;
+      margin-bottom: 72px;
+    }
+
+    .marina-research-page .band-head .eyebrow { grid-column: 1 / -1; }
+
+    .marina-research-page .band-head h1 {
+      font-size: clamp(2rem, 3.8vw, 3rem);
+      line-height: 1.05;
+      max-width: 760px;
+    }
+
+    .marina-research-page .report-covers {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-self: end;
+    }
+
+    .marina-research-page .report-cover {
+      width: 170px;
+      display: block;
+    }
+
+    .marina-research-page .report-cover-art {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: 10px;
+      border: 1px solid var(--border-soft);
+      background:
+        radial-gradient(circle at 72% 18%, rgba(76, 134, 255, .24), transparent 30%),
+        linear-gradient(145deg, rgba(34, 211, 184, .18), rgba(76, 134, 255, .16) 52%, rgba(255, 170, 61, .16)),
+        var(--bg-elevated);
+      display: grid;
+      place-items: end start;
+      padding: 18px;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .025);
+    }
+
+    .marina-research-page .report-cover-art span {
+      font-family: var(--display);
+      color: var(--text);
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .marina-research-page .report-cover-title {
+      display: block;
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    .marina-research-page .report-cover-title em {
+      color: var(--text-mid);
+      font-style: normal;
+    }
+
+    .marina-research-page .output-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .marina-research-page .output-cell {
+      padding: 22px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .02);
+      border: 1px solid var(--border-soft);
+      min-height: 175px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color .25s ease, transform .25s ease, background .25s ease;
+    }
+
+    .marina-research-page .output-cell:hover {
+      border-color: rgba(76, 134, 255, .42);
+      background: rgba(76, 134, 255, .04);
+      transform: translateY(-2px);
+    }
+
+    .marina-research-page .output-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .marina-research-page .output-head h2 {
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+
+    .marina-research-page .output-status {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      border-radius: 999px;
+      padding: 5px 10px;
+      background: rgba(34, 211, 184, .1);
+      color: var(--teal);
+      font-size: .72rem;
+      font-weight: 700;
+    }
+
+    .marina-research-page .output-status.is-request {
+      color: var(--amber);
+      background: rgba(255, 170, 61, .12);
+    }
+
+    .marina-research-page .output-cell p {
+      margin: 0;
+      color: var(--text-dim);
+      font-size: .92rem;
+      line-height: 1.55;
+    }
+
+    .marina-research-page .cta-band {
+      padding: 82px 0 96px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(76, 134, 255, .12), transparent 42%),
+        var(--bg);
+    }
+
+    .marina-research-page .cta-band .wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .marina-research-page .cta-band .eyebrow { justify-content: center; }
+
+    .marina-research-page .cta-band h2 {
+      font-size: clamp(2rem, 4.4vw, 4rem);
+      line-height: .98;
+      margin-top: 18px;
+      max-width: 860px;
+    }
+
+    .marina-research-page .desc {
+      color: var(--text-mid);
+      font-size: 1rem;
+      line-height: 1.75;
+      max-width: 720px;
+      margin: 24px auto 0;
+    }
+
+    .marina-research-page .cta-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .marina-research-page .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100px;
+      padding: 11px 22px;
+      border: 1px solid transparent;
+      font-weight: 650;
+      font-size: 0.88rem;
+      transition: box-shadow .2s ease, transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .marina-research-page .btn:hover { transform: translateY(-1px); }
+
+    .marina-research-page .btn-gradient {
+      background: linear-gradient(100deg, var(--teal), var(--blue) 70%, var(--amber));
+      color: #04141a;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, .08) inset, 0 8px 30px -8px rgba(34, 211, 184, .55);
+    }
+
+    .marina-research-page .btn-ghost {
+      border-color: var(--border);
+      background: transparent;
+      color: var(--text);
+    }
+
+    .marina-research-page .btn-ghost:hover {
+      border-color: var(--text-dim);
+      background: rgba(255, 255, 255, .03);
+    }
+
+    @media (max-width: 900px) {
+      .marina-research-page .band-head {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .marina-research-page .output-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .marina-research-page .wrap { padding: 0 20px; }
+      .marina-research-page .band { padding-top: 96px; }
+      .marina-research-page .output-grid { grid-template-columns: 1fr; }
+      .marina-research-page .report-cover { width: min(100%, 210px); }
+    }
+  </style>
 </BaseLayout>

@@ -142,10 +142,11 @@ export interface PageContent {
 }
 
 export type StatisticCard = Pick<Statistic, "id" | "label" | "value" | "icon_name" | "display_order">;
-export type FeaturedProjectCard = Pick<Project, "id" | "title" | "slug" | "project_status" | "is_deployed" | "image_url" | "display_order" | "summary" | "deployment_status" | "sdgs" | "is_sample" | "is_featured" | "impact_area" | "timeline" | "project_year" | "best_fit" | "core_capabilities" | "tech_stack" | "implementation_countries" | "capabilities_involved" | "video_url">;
+export type FeaturedProjectCard = Pick<Project, "id" | "title" | "slug" | "project_status" | "is_deployed" | "image_url" | "display_order" | "summary" | "deployment_status" | "sdgs" | "is_sample" | "is_featured" | "impact_area" | "timeline" | "project_year" | "best_fit" | "core_capabilities" | "tech_stack" | "implementation_countries" | "capabilities_involved" | "video_url" | "work_stream" | "project_category">;
 export type ProjectListItem = FeaturedProjectCard;
 export type NewsListItem = Pick<NewsArticle, "id" | "title" | "slug" | "summary" | "featured_image_url" | "author_name" | "publish_date">;
 export type PersonCard = Pick<Person, "id" | "name" | "role_title" | "photo_url" | "biography" | "display_order">;
 export type PartnerLogo = Pick<Partner, "id" | "name" | "logo_url" | "website_url" | "display_order">;
 export type GeographicReachCard = Pick<GeographicReachItem, "id" | "country_name" | "iso_alpha3" | "latitude" | "longitude" | "region" | "display_order">;
 export type EvolutionTimelineCard = Pick<EvolutionTimelineItem, "id" | "period" | "title" | "body" | "display_order">;
+

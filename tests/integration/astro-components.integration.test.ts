@@ -41,7 +41,7 @@ describe('Header.astro integration', () => {
   it('is mounted by BaseLayout for every public page', () => {
     expect(baseLayout).toContain('<Header />');
     expect(header).toContain('aria-label="Toggle navigation menu"');
-    expect(header).toContain("label: 'Our projects'");
+    expect(header).toContain("label: 'Our Work'");
   });
 });
 
@@ -51,19 +51,20 @@ describe('Footer.astro integration', () => {
 
   it('is mounted by BaseLayout with essential links and branding', () => {
     expect(baseLayout).toContain('<Footer />');
-    expect(footer).toContain('Explore');
-    expect(footer).toContain("label: 'Contact'");
+    expect(footer).toContain('<h4>Lab</h4>');
+    expect(footer).toContain('<h4>Work</h4>');
+    expect(footer).toContain('mailto:sdgailab@undp.org');
   });
 });
 
-describe('Homepage v3 composition integration', () => {
+describe('Homepage Marina composition integration', () => {
   const indexPage = readSource('src/pages/index.astro');
 
-  it('composes the current light homepage hero and portfolio sections', () => {
-    expect(indexPage).toContain('We help UNDP teams turn complex challenges into AI solutions.');
-    expect(indexPage).toContain('<FeaturedProjects client:load />');
+  it('composes the Marina homepage hero, impact, portfolio and partner sections', () => {
+    expect(indexPage).toContain('Digital technologies');
+    expect(indexPage).toContain('marina-spec-impact-grid');
+    expect(indexPage).toContain('marina-spec-work-gallery');
     expect(indexPage).toContain('<PartnerLogos client:load variant="marquee" />');
-    expect(indexPage).toContain('Explore our project portfolio');
   });
 });
 

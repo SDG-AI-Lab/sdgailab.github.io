@@ -1,159 +1,49 @@
 ---
 import { withBase } from '../lib/url';
 import BaseLayout from '../components/layout/BaseLayout.astro';
-import PageContent from '../islands/PageContent';
-import EvolutionTimeline from '../islands/EvolutionTimeline';
-
-const approachHighlights = [
-  'Formulating research questions and solution architecture, and matching the right expertise to each challenge',
-  'Assembling and coordinating in-house engineers, developers, designers, and vetted technical specialists',
-  'Structuring teams and workflows to support iterative testing and experimentation',
-  'Overseeing R&D to uphold rigorous, high-quality standards throughout',
-  'Delivering outputs as prototypes, technical architecture, reports, and presentations; built from the ground up or adapted from existing tools',
+const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
+const pillars = [
+  ['Built inside UNDP', 'Part of the BPPS Data, AI & Innovation Hub and the Sustainable Finance Hub, hosted under ICPSD in Istanbul.'],
+  ['Shipped, not piloted', 'Tools that country offices and national institutions run themselves — maintained, documented and handed over, not left behind.'],
+  ['For governments, by practitioners', 'A compact senior team of data scientists, engineers and GIS specialists working directly with country offices.'],
+  ['From pilot to mainstream', 'One product line at a time, then several running in parallel — a repeatable path from first use case to country-wide practice.'],
 ];
-
-const methodologySteps = ['Step 01', 'Step 02', 'Step 03', 'Step 04'];
+const timeline = [
+  { year:'2019–2020', era:'Foundations', image:'assets/gis-satellite.jpg', alt:'Early GIS piloting: satellite-based land and reef mapping', items:[['nlp','NLP','SDGs Docs Analysis'],['community','Community','Volunteer Data Scientists'],['gis','GIS','Coral Reefs Mapping']] },
+  { year:'2021', era:'Scaling Tools', items:[['gis','GIS','MSMEs Risk Exposure Map'],['nlp','NLP','Resilience CSR Activities Analysis'],['resilience','Resilience','GIS/NLP briefs']] },
+  { year:'2022', era:'Global Expansion', image:'assets/dsvi-georgia-map.jpg', alt:'Digital Social Vulnerability Index, first deployed in Georgia', items:[['resilience','Resilience','FTR4DRR Launch'],['gis','GIS','DSVI Launch'],['nlp','NLP','AI Knowledge Base, SupTech']] },
+  { year:'2023', era:'Diversification', items:[['gis','GIS','DSVI in 5 countries'],['nlp','NLP','AI for Tourism']] },
+  { year:'2024', era:'Consolidation', image:'assets/resilience-madagascar-dashboard.jpg', alt:'Madagascar Multihazard Early Warning System dashboard', items:[['nlp','NLP','Audit Tracking Tool (Fiji) · Public Finance Simplification (Pacific)'],['gis','GIS','DSVI Mainstreaming · Illegal Dumpsites Detection · Water Efficiency Calculations'],['resilience','Resilience','Madagascar DEWS · Tech4R Launch']] },
+  { year:'2025', era:'Innovation', image:'assets/proj-tech4r.jpg', alt:'Tech Volunteers for Resilience field work', items:[['nlp','NLP','Value Chain Chatbot'],['gis','GIS','Peace Index Map, DSVI'],['resilience','Resilience','Tech4R special initiative']] },
+  { year:'2026', era:'Mainstreaming', items:[['nlp','NLP','INFF Analysis tool · TMS chatbot'],['gis','GIS','Peace Index Map · DSVI · Land Use'],['resilience','Resilience','EWS']] },
+];
+const team = [
+  ['gokhan-dikmener.jpg','Gokhan Dikmener','Chief Technology Advisor'],['dina-akyibekova.jpg','Dina Akyibekova','Programme Specialist'],['cansu-ozgur.jpg','Cansu Ozgur','Programme Analyst'],['luka-ozay.jpg','Luka Ozay','Research Intern'],['ihsan-bilgin.jpg','Ihsan Bilgin','Research Intern'],['alper-dincer.jpg','Alper Dincer','GIS Analyst'],['salsabila-prasetya.jpg','Salsabila Prasetya','GIS Analyst'],['aykut-sevim.jpg','Aykut Sevim','Software Dev Specialist'],['jackson-onyango.jpg','Jackson Onyango','Full Stack Developer'],['josue-ushindi.jpg','Josue Ushindi','Full Stack Developer'],['muhammed-suleman.jpg','Muhammed Suleman','Data Scientist Fellow'],['mert-atay.jpg','Mert Atay','Data Science Analyst'],['ipek-beril-benli.jpg','Ipek Beril Benli','Programme Analyst'],['cristovao-cacombe.jpg','Cristovao Cacombe','Data Science Analyst'],['alamou-shola-mouhsine-daouda.jpg','Alamou Shola Mouhsine Daouda','Data Science Analyst'],['eda-nur-saruhan.jpg','Eda Nur Saruhan','Data Science Analyst'],
+];
 ---
-
-<BaseLayout
-  title="About - SDG AI Lab"
-  description="About SDG AI Lab, its mission, approach, evolution and evidence model."
->
-  <section class="section-padding bg-lab-surface">
-    <div class="container-narrow">
-      <h1 class="mt-3 max-w-4xl text-3xl font-bold text-lab-text sm:text-5xl">
-        About SDG AI Lab
-      </h1>
-      <div class="mt-6 max-w-5xl text-justify text-lg leading-8 text-lab-muted">
-        <PageContent
-          client:load
-          pageSlug="about"
-          sectionSlug="about-sdgailab"
-        />
-      </div>
-    </div>
-  </section>
-
-  <section
-    class="section-padding bg-lab-section"
-    aria-labelledby="approach-heading"
-  >
-    <div
-      class="container-narrow grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start"
-    >
-      <div>
-        <p class="section-label">Our approach</p>
-        <h2
-          id="approach-heading"
-          class="mt-3 text-3xl font-bold text-lab-text sm:text-4xl"
-        >
-          Problem-first, evidence-led and reusable
-        </h2>
-        <p class="mt-4 leading-7 text-lab-muted">
-          One-stop solution with agile, gig approach to AI research in
-          Sustainable Development.
-        </p>
-      </div>
-      <div class="grid gap-4">
-        {
-          approachHighlights.map((item, index) => (
-            <article class="flex gap-4 rounded-xl border border-lab-border bg-lab-surface p-5 shadow-sm">
-              <span class="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-lab-text">
-                {String(index + 1).padStart(2, '0')}
-              </span>
-              <p class="text-sm font-semibold leading-6 text-lab-muted">
-                {item}
-              </p>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-  <section
-    class="section-padding bg-lab-surface"
-    aria-labelledby="methodology-heading"
-  >
-    <div class="container-narrow">
-      <p class="section-label">Our Methodology</p>
-      <h2
-        id="methodology-heading"
-        class="mt-3 text-3xl font-bold text-lab-text sm:text-4xl"
-      >
-        From exploration to reusable development tools
-      </h2>
-      <p class="mt-4 max-w-3xl leading-7 text-lab-muted">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
-      </p>
-      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-        {
-          methodologySteps.map((step, index) => (
-            <article class="rounded-2xl border border-lab-border bg-lab-section p-6 shadow-sm transition hover:-translate-y-1 hover:border-lab-accent/40 hover:shadow-md">
-              <p class="text-xs font-black uppercase tracking-[0.18em] text-lab-accent-soft">
-                {String(index + 1).padStart(2, '0')}
-              </p>
-              <h3 class="mt-4 text-xl font-black text-lab-text">{step}</h3>
-              <p class="mt-3 text-sm font-semibold leading-6 text-lab-muted">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor.
-              </p>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section
-    class="section-padding bg-lab-surface"
-    aria-labelledby="evolution-heading"
-  >
-    <div class="container-narrow">
-      <div class="mb-10 max-w-3xl">
-        <p class="section-label">Lab evolution</p>
-        <h2
-          id="evolution-heading"
-          class="mt-3 text-3xl font-bold text-lab-text sm:text-4xl"
-        >
-          From foundations to mainstreaming
-        </h2>
-        <p class="mt-4 leading-7 text-lab-muted">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
-      </div>
-
-      <EvolutionTimeline client:load />
-    </div>
-  </section>
-
-  <section class="section-padding bg-lab-base text-lab-text">
-    <div
-      class="container-narrow rounded-2xl border border-lab-border bg-lab-surface p-6 shadow-[0_18px_50px_rgba(0,0,0,0.22)] sm:p-8"
-    >
-      <p
-        class="text-sm font-bold uppercase tracking-[0.18em] text-lab-accent-soft"
-      >
-        Continue exploring
-      </p>
-      <h2 class="mt-3 text-3xl font-bold sm:text-4xl">See the Lab's work</h2>
-      <!-- <p class="mt-4 max-w-3xl leading-7 text-lab-muted">
-        Browse the project portfolio and knowledge resources to see how methods,
-        evidence and reusable outputs are documented.
-      </p> -->
-      <div class="mt-7 flex flex-col gap-3 sm:flex-row">
-        <a
-          href={withBase('/projects')}
-          class="inline-flex min-h-12 items-center justify-center rounded-md bg-lab-accent px-6 py-3 text-sm font-bold text-white shadow transition hover:bg-primary-light"
-          >View projects</a
-        >
-        <a
-          href={withBase('/resources')}
-          class="inline-flex min-h-12 items-center justify-center rounded-md border border-lab-border bg-lab-section px-6 py-3 text-sm font-bold text-lab-accent-soft transition hover:border-lab-accent/50 hover:bg-lab-elevated"
-          >View publications</a
-        >
-      </div>
-    </div>
-  </section>
+<BaseLayout title="About — SDG AI Lab" description="Seven years of the SDG AI Lab — from first NLP and GIS pilots to a full AI, data and digital-skills practice inside UNDP.">
+  <main class="marina-about" id="main">
+    <section class="marina-about-band marina-about-intro"><div class="marina-live-wrap"><div class="marina-about-head reveal"><h1>Seven years of building<br />AI and data tools inside<br />government.</h1><p>A joint initiative of the UNDP BPPS Data, AI &amp; Innovation Hub and the Sustainable Finance Hub, hosted under ICPSD and based in Istanbul. Since 2019 the Lab has shipped GIS, NLP and digital-skills products that country offices and national institutions run themselves — not one-off pilots left behind after the mission ends.</p></div></div></section>
+    <section class="marina-about-band"><div class="marina-live-wrap"><div class="marina-about-head reveal"><h2>A small <span>senior team</span><br />with UNDP’s <span>network</span><br />behind it.</h2><p>We work the way a product team does — fast, focused, accountable — inside the world’s largest development network.</p></div><div class="marina-about-pillars">{pillars.map(([title,copy]) => <article class="marina-about-pillar reveal"><h3>{title}</h3><p>{copy}</p></article>)}</div></div></section>
+    <section class="marina-about-band" id="evolution"><div class="marina-live-wrap"><div class="marina-about-head reveal"><h2>From first pilots <span>to a</span><br />mainstreamed<br />practice.</h2><p>One product line at a time, then several running in parallel across country offices.</p></div><div class="marina-about-timeline"><div class="marina-about-timeline-scroll">{timeline.map((entry, index) => <article class="marina-about-timeline-row reveal" style={`--rd:${index * 70}ms`}><span class="year">{entry.year}</span><div class="card"><div class="card-head"><h3>{entry.era}</h3>{entry.image && <div class="thumb"><img src={marinaAsset(entry.image)} alt={entry.alt} loading="lazy" decoding="async" /></div>}</div><ul>{entry.items.map(([kind,label,copy]) => <li><span class={`tag ${kind}`}>{label}</span>{copy}</li>)}</ul></div></article>)}</div></div>
+      <details class="marina-about-team reveal"><summary><span>Built by the SDG AI Lab team</span><span class="avatars">{team.map(([file,name]) => <img src={marinaAsset(`assets/team/${file}`)} alt={name} loading="lazy" decoding="async" />)}</span><span class="toggle"><span class="closed">Show everyone ↓</span><span class="open">Hide ↑</span></span></summary><div class="roster">{team.map(([file,name,role]) => <article><img src={marinaAsset(`assets/team/${file}`)} alt="" loading="lazy" /><div><strong>{name}</strong><small>{role}</small></div></article>)}</div><a href={withBase('/team')}>Meet the full team →</a></details>
+    </div></section>
+    <section class="marina-about-band"><div class="marina-live-wrap"><h2 class="marina-about-figures-title reveal">The practice, <span>in figures.</span></h2><div class="marina-about-figures"><article class="reveal"><strong>7<span>+</span></strong><small>Years of practice</small></article><article class="reveal"><strong>23</strong><small>Products &amp; reports</small></article><article class="reveal"><strong>8</strong><small>Practice areas</small></article></div></div></section>
+    <section class="marina-about-band"><div class="marina-live-wrap"><div class="marina-about-cta reveal"><div><h2>Have a development challenge?</h2><p>Tell us what you’re trying to solve — we’ll tell you honestly whether we can help.</p></div><a class="marina-button marina-button--primary" href={withBase('/contact')}>Let’s talk</a></div></div></section>
+  </main>
+  <script>
+    const items = document.querySelectorAll('.marina-about .reveal');
+    if ('IntersectionObserver' in window) { const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }), { threshold:.1 }); items.forEach((item) => observer.observe(item)); } else items.forEach((item) => item.classList.add('is-visible'));
+  </script>
 </BaseLayout>
+<style>
+  .marina-about{background:#15181c;color:#d9dde2;overflow:hidden}.marina-about *{box-sizing:border-box}.marina-about-band{padding:56px 0;border-bottom:1px solid #24292f}.marina-about-intro{padding-top:132px}.marina-about .reveal{opacity:0;transform:translateY(28px) scale(.985);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);transition-delay:var(--rd,0ms)}.marina-about .reveal.is-visible{opacity:1;transform:none}
+  .marina-about-head{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:end;margin-bottom:72px}.marina-about-intro .marina-about-head{margin-bottom:0}.marina-about-head h1,.marina-about-head h2{margin:22px 0 0;background:linear-gradient(115deg,#fff 20%,#a8e6f5 55%,#26bde2 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;font-family:'Cabinet Grotesk','Inter',sans-serif;font-size:clamp(2.15rem,4vw,3.3rem);font-weight:700;line-height:1.06;letter-spacing:-.03em}.marina-about-intro h1{margin-top:0}.marina-about-head p{align-self:end;max-width:460px;margin:0;color:#b7bfc7;font-size:1.02rem;line-height:1.6}
+  .marina-about-pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.marina-about-pillar{padding:26px 24px;border:1px solid #24292f;border-radius:14px;background:#1b1f24;transition:border-color .18s ease,transform .18s ease}.marina-about-pillar:hover{transform:translateY(-2px);border-color:#2c323a}.marina-about-pillar h3{margin:0 0 10px;color:#d9dde2;font-size:.98rem}.marina-about-pillar p{margin:0;color:#a0a8b2;font-size:.85rem;line-height:1.6}
+  .marina-about-timeline{position:relative;margin-top:48px}.marina-about-timeline-scroll{display:flex;overflow-x:auto;padding:12px 4px 28px;scroll-snap-type:x proximity}.marina-about-timeline-scroll::before{content:'';position:absolute;left:0;right:0;top:34px;height:2px;border-radius:2px;background:linear-gradient(90deg,#0383ae,#1c61ac 55%,#6ec6e8);opacity:.45}.marina-about-timeline-scroll::-webkit-scrollbar{height:8px}.marina-about-timeline-scroll::-webkit-scrollbar-thumb{border-radius:8px;background:#24292f}.marina-about-timeline-row{position:relative;flex:0 0 280px;padding:34px 22px 0 0;scroll-snap-align:start}.marina-about-timeline-row:last-child{padding-right:4px}.marina-about-timeline-row::before{content:'';position:absolute;z-index:1;left:0;top:27px;width:16px;height:16px;border:3px solid #0383ae;border-radius:50%;background:#15181c}.marina-about-timeline-row .year{position:absolute;left:0;top:0;color:#d9dde2;font-family:'Cabinet Grotesk','Inter',sans-serif;font-size:1.28rem;font-weight:800}.marina-about-timeline-row .card{height:100%;padding:20px 22px;border:1px solid #24292f;border-radius:14px;background:#1b1f24;transition:border-color .2s ease,transform .2s ease}.marina-about-timeline-row .card:hover{border-color:#0383ae;transform:translateY(-3px)}.marina-about-timeline-row .card-head{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:16px}.marina-about-timeline-row h3{margin:0;color:#d9dde2;font-size:1.05rem}.marina-about-timeline-row .thumb{width:100%;height:110px;flex-shrink:0;overflow:hidden;margin-bottom:14px;border:1px solid #24292f;border-radius:12px}.marina-about-timeline-row .thumb img{width:100%;height:100%;object-fit:cover}.marina-about-timeline-row ul{display:flex;flex-direction:column;gap:11px;margin:0;padding:0;list-style:none}.marina-about-timeline-row li{display:flex;align-items:flex-start;gap:12px;color:#a0a8b2;font-size:.87rem;line-height:1.5}.marina-about-timeline-row .tag{flex-shrink:0;margin-top:2px;padding:3px 10px;border-radius:999px;font-size:.62rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase}.tag.nlp{background:rgba(3,131,174,.16);color:#7fd0ec}.tag.gis{background:rgba(28,97,172,.22);color:#9dbfe8}.tag.resilience{background:rgba(110,198,232,.12);color:#b2dff4}.tag.community{background:rgba(221,19,103,.16);color:#f291c0}
+  .marina-about-team{margin-top:44px;padding-top:32px;border-top:1px solid #24292f}.marina-about-team summary{display:flex;align-items:center;gap:20px;flex-wrap:wrap;color:#a0a8b2;font-size:.9rem;cursor:pointer;list-style:none}.marina-about-team summary::-webkit-details-marker{display:none}.marina-about-team .avatars{display:flex}.marina-about-team .avatars img{width:40px;height:40px;margin-left:-10px;border:2px solid #15181c;border-radius:50%;object-fit:cover}.marina-about-team .avatars img:first-child{margin-left:0}.marina-about-team .toggle,.marina-about-team>a{color:#0383ae}.marina-about-team .open,.marina-about-team[open] .closed{display:none}.marina-about-team[open] .open{display:inline}.marina-about-team .roster{display:grid;grid-template-columns:repeat(4,1fr);gap:18px 20px;margin-top:26px}.marina-about-team .roster article{display:flex;align-items:center;gap:12px}.marina-about-team .roster img{width:40px;height:40px;border:1px solid #24292f;border-radius:50%;object-fit:cover}.marina-about-team .roster strong,.marina-about-team .roster small{display:block}.marina-about-team .roster strong{font-size:.86rem}.marina-about-team .roster small{color:#a0a8b2;font-size:.76rem}.marina-about-team>a{display:inline-block;margin-top:22px;font-size:.9rem}
+  .marina-about-figures-title{margin:0;background:linear-gradient(115deg,#fff 20%,#a8e6f5 55%,#26bde2 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;font-family:'Cabinet Grotesk','Inter',sans-serif;font-size:clamp(2.15rem,4vw,3.3rem);line-height:1.06;letter-spacing:-.03em}.marina-about-figures-title span{color:inherit;background:none;-webkit-text-fill-color:inherit}.marina-about-figures{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:640px;margin-top:46px}.marina-about-figures article{padding:22px 18px;border:1px solid #24292f;border-radius:12px;background:#1b1f24;text-align:center}.marina-about-figures strong{display:block;background:linear-gradient(100deg,#26bde2 0%,#0383ae 58%,#1c61ac 100%);-webkit-background-clip:text;background-clip:text;color:#6ec6e8;-webkit-text-fill-color:transparent;font-family:'Cabinet Grotesk','Inter',sans-serif;font-size:2.1rem;line-height:1}.marina-about-figures strong span{color:inherit;-webkit-text-fill-color:inherit}.marina-about-figures small{display:block;margin-top:10px;color:#a0a8b2;font-size:.76rem}
+  .marina-about-cta{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;padding:44px 48px;border:1px solid #24292f;border-radius:18px;background:radial-gradient(900px 300px at 85% -40%,rgba(3,131,174,.22),transparent 60%),#1b1f24}.marina-about-cta h2{margin:0 0 8px;color:#d9dde2;font-family:'Cabinet Grotesk','Inter',sans-serif;font-size:clamp(1.5rem,2.6vw,2rem)}.marina-about-cta p{margin:0;color:#a0a8b2;font-size:.95rem}
+  @media(max-width:980px){.marina-about-pillars{grid-template-columns:repeat(2,1fr)}}@media(max-width:900px){.marina-about-team .roster{grid-template-columns:repeat(2,1fr)}}@media(max-width:800px){.marina-about-head{grid-template-columns:1fr;gap:26px}}@media(max-width:680px){.marina-about-timeline-scroll{flex-direction:column;overflow:visible;gap:26px;padding-top:8px}.marina-about-timeline-scroll::before,.marina-about-timeline-row::before{display:none}.marina-about-timeline-row{width:100%;flex-basis:auto;padding:0}.marina-about-timeline-row .year{position:static;display:block;margin-bottom:12px}.marina-about-timeline-row .card{height:auto}.marina-about-timeline-row .card-head{flex-direction:column;align-items:flex-start}.marina-about-team .avatars img{width:26px;height:26px;margin-left:-8px}}@media(max-width:560px){.marina-about-pillars,.marina-about-figures,.marina-about-team .roster{grid-template-columns:1fr}.marina-about-cta{padding:30px 24px}}
+  @media(prefers-reduced-motion:reduce){.marina-about .reveal{opacity:1;transform:none;transition:none}}
+</style>

@@ -6,17 +6,19 @@ test.describe('Public site', () => {
 
     await expect(page.getByRole('navigation', { name: 'Main navigation' })).toBeVisible();
     await expect(
-      page.getByRole('heading', { name: /We help UNDP teams turn complex challenges/i })
+      page.getByRole('heading', { name: /Digital technologies for the Sustainable Development Goals/i })
     ).toBeVisible();
-    await expect(page.getByRole('link', { name: /Request support/i }).first()).toBeVisible();
+    await expect(page.getByRole('link', { name: /How we work/i }).first()).toBeVisible();
   });
 
   test('projects page is reachable from the homepage', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('link', { name: 'Projects', exact: true }).first().click();
+    await page.getByRole('link', { name: 'Our Work', exact: true }).first().click();
 
     await expect(page).toHaveURL(/\/projects\/?/);
-    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /Product portfolio/i })
+    ).toBeVisible();
   });
 });
 
@@ -36,4 +38,9 @@ test.describe('Admin shell', () => {
     await expect(page.locator('#admin-root astro-island')).toBeAttached();
   });
 });
+
+
+
+
+
 

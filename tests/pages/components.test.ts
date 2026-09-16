@@ -37,8 +37,10 @@ describe('Astro layout and section components', () => {
   it('Footer includes essential links and branding', () => {
     const source = readSource('src/components/layout/Footer.astro');
     expect(source).toContain('<footer');
-    expect(source).toContain('Explore');
-    expect(source).toContain("label: 'Contact'");
+    expect(source).toContain('<h4>Lab</h4>');
+    expect(source).toContain('<h4>Work</h4>');
+    expect(source).toContain('SDG AI Lab on LinkedIn');
+    expect(source).toContain('SDG AI Lab on GitHub');
   });
 
   it('ParticlesHero respects reduced motion and renders a hero slot', () => {
