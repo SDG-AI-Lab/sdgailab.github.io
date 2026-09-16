@@ -5,24 +5,24 @@ import { describe, expect, it } from 'vitest';
 describe('index page source', () => {
   const source = readFileSync(resolve(process.cwd(), 'src/pages/index.astro'), 'utf8');
 
-  it('composes the public homepage with the base layout and hero', () => {
+  it('composes the public homepage with the base layout and Marina hero', () => {
     expect(source).toContain('BaseLayout');
-    expect(source).toContain('landing-hero');
-    expect(source).toContain('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
-    expect(source).toContain('Go and check our projects.');
+    expect(source).toContain('marina-live-hero');
+    expect(source).toContain('Digital technologies');
+    expect(source).toContain('marina-live-title-sustainable">Sustainable');
+    expect(source).toContain('marina-live-title-goals">Development Goals.');
   });
 
-  it('hydrates the featured public islands', () => {
-    expect(source).toContain('FeaturedProjects');
-    expect(source).toContain('PartnerLogos');
-    expect(source).toContain('variant="marquee"');
-    expect(source).not.toContain('limit={8}');
+  it('includes the supplied work gallery, impact indicators, and partner marks', () => {
+    expect(source).toContain('partnerLogos');
+    expect(source).toContain('marina-live-gallery');
+    expect(source).toContain('marina-live-partner-marks');
+    expect(source).toContain('impactStats');
   });
 
-  it('includes accessible CTA links to projects and contact', () => {
+  it('keeps the supplied hero accessible and links to the working-method page', () => {
     expect(source).not.toContain("withBase('/solutions')");
-    expect(source).toContain("withBase('/projects')");
-    expect(source).toContain("withBase('/contact')");
-    expect(source).toContain('focus-visible:');
+    expect(source).toContain("withBase('/how-we-work')");
+    expect(source).toContain('aria-labelledby="home-hero-heading"');
   });
 });

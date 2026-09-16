@@ -14,12 +14,13 @@ describe('Public Astro pages', () => {
     expect(source).toContain('client:load');
   });
 
-  it('projects index composes the ProjectList island', () => {
+  it('projects index composes the CMS-driven portfolio island', () => {
     const source = readSource('src/pages/projects/index.astro');
     expect(source).toContain('BaseLayout');
-    expect(source).toContain('ProjectList');
+    expect(source).toContain('PortfolioGrid');
     expect(source).toContain('client:load');
-    expect(source).not.toContain("Featured initiative: Tech4R");
+    expect(source).toContain('23 products, seven years of delivery.');
+    expect(source).not.toContain('Featured initiative: Tech4R');
   });
 
   it('tech4r page presents the featured resilience initiative', () => {
@@ -30,22 +31,25 @@ describe('Public Astro pages', () => {
     expect(source).toContain('https://tech4r.org/');
   });
 
-  it('team page composes the PeopleGrid island', () => {
+  it('team page follows the Marina team layout', () => {
     const source = readSource('src/pages/team.astro');
-    expect(source).toContain('PeopleGrid');
-    expect(source).toContain('groupType="team"');
+    expect(source).toContain('marina-team-page');
+    expect(source).toContain('Six working groups, one lab.');
+    expect(source).toContain('Coordination · Research &amp; Advisory');
   });
 
-  it('contact page includes accessible mailto contact details', () => {
+  it('contact page uses Marina mailto request form', () => {
     const source = readSource('src/pages/contact.astro');
-    expect(source).toContain('mailto:sdgailab@undp.org');
-    expect(source).toContain('aria-hidden="true"');
+    expect(source).toContain('mailto:dina.akylbekova@undp.org');
+    expect(source).toContain('nothing is stored on this site');
   });
 
-  it('about page uses the shared base layout', () => {
+  it('about page uses the shared base layout and Marina about structure', () => {
     const source = readSource('src/pages/about.astro');
     expect(source).toContain('BaseLayout');
-    expect(source).toContain('<h1');
+    expect(source).toContain('marina-about');
+    expect(source).toContain('Seven years of building');
+    expect(source).toContain('AI and data tools inside');
   });
 
   it('volunteer page uses the shared base layout', () => {
@@ -79,24 +83,21 @@ describe('Public Astro pages', () => {
     expect(source).toContain('withBase');
   });
 
-
-
   it('services page exposes requestable support pathways', () => {
     const source = readSource('src/pages/services.astro');
     expect(source).toContain('BaseLayout');
-    expect(source).toContain('Discover Our Services');
-    expect(source).toContain('serviceSuites');
-    expect(source).toContain('from-lab-accent to-primary-light');
-    expect(source).toContain('Ready to scope a request?');
+    expect(source).toContain('What a partner can commission from the Lab.');
+    expect(source).toContain('offer-grid');
+    expect(source).toContain('Artificial Intelligence');
+    expect(source).toContain('Agile, aligned with UNDP practice, enhanced by AI.');
   });
 
-  it('about page includes Cansu-aligned approach and methodology sections', () => {
+  it('about page includes Marina evolution, team, figures, and CTA sections', () => {
     const source = readSource('src/pages/about.astro');
-    expect(source).toContain('How we work');
-    expect(source).toContain('An agile, end-to-end approach to applied AI research for sustainable development.');
-    expect(source).toContain('Formulating research questions and solution architecture');
-    expect(source).toContain('Our Methodology');
-    expect(source).toContain('From exploration to reusable development tools');
+    expect(source).toContain('marina-about-timeline');
+    expect(source).toContain('marina-about-team');
+    expect(source).toContain('The practice,');
+    expect(source).toContain('Have a development challenge?');
   });
 
   it('publications page is reserved for publication content only', () => {
@@ -109,11 +110,11 @@ describe('Public Astro pages', () => {
     expect(source).not.toContain("withBase('/projects')");
   });
 
-  it('research page exposes research and knowledge content', () => {
+  it('research page exposes research and advisory content', () => {
     const source = readSource('src/pages/research.astro');
-    expect(source).toContain('Research & knowledge');
-    expect(source).toContain('reports, briefs, blogs');
-    expect(source).toContain("withBase('/resources')");
+    expect(source).toContain('Research &amp; Advisory');
+    expect(source).toContain('Key outputs from technical assessments');
+    expect(source).toContain('marina-research-page');
   });
 
   it('capacity building page exposes learning pathways, not volunteer-only content', () => {
@@ -123,5 +124,12 @@ describe('Public Astro pages', () => {
     expect(source).toContain("withBase('/volunteer')");
   });
 
-
+  it('programmes page follows Marina’s three-cohort layout', () => {
+    const source = readSource('src/pages/programmes.astro');
+    expect(source).toContain('Where digital skills training actually lands.');
+    expect(source).toContain('prog-ftl.jpg');
+    expect(source).toContain('prog-innovation-campus-ad.jpg');
+    expect(source).toContain('prog-gamedev.jpg');
+    expect(source).toContain("withBase('/projects')");
+  });
 });

@@ -1,312 +1,51 @@
 ---
 import { withBase } from '../lib/url';
 import BaseLayout from '../components/layout/BaseLayout.astro';
-import { labServiceLines } from '../data/sampleContent';
-
-const serviceSuites = [
-  {
-    ...labServiceLines[0],
-    accent: 'from-lab-accent to-primary-light',
-    border: 'border-lab-accent/45',
-    text: 'text-lab-accent-soft',
-    icon: 'code',
-    promise:
-      'Design and build practical digital products from prototype to deployment.',
-    items: [
-      'Custom digital applications',
-      'AI/ML prototypes and tools',
-      'Interactive dashboards and web platforms',
-      'Data pipelines and workflow automation',
-      'Deployment, maintenance and handover support',
-    ],
-  },
-  {
-    ...labServiceLines[1],
-    accent: 'from-lab-accent to-primary-light',
-    border: 'border-lab-accent/45',
-    text: 'text-lab-accent-soft',
-    icon: 'research',
-    promise:
-      'Turn emerging technology questions into evidence, methods and reusable knowledge that UNDP units and government partners can act on.',
-    items: [
-      'Frontier technology research',
-      'Use-case analysis and feasibility reviews',
-      'Datasets, briefs and technical notes',
-      'Responsible AI methods and safeguards',
-      'Open-source documentation and learning material',
-    ],
-  },
-  {
-    ...labServiceLines[2],
-    accent: 'from-lab-accent to-primary-light',
-    border: 'border-lab-accent/45',
-    text: 'text-lab-accent-soft',
-    icon: 'advisory',
-    promise:
-      'Give UNDP units, governments and ministries targeted technical guidance for turning evidence into working, responsible solutions.',
-    items: [
-      'Technical advisory and architecture review',
-      'AI, GIS and data-system guidance',
-      'Terms of reference drafting or review',
-      'Data readiness and risk assessment',
-      'Implementation planning and quality assurance',
-    ],
-  },
-  {
-    ...labServiceLines[3],
-    accent: 'from-lab-accent to-primary-light',
-    border: 'border-lab-accent/45',
-    text: 'text-lab-accent-soft',
-    icon: 'training',
-    promise:
-      'Strengthen practical AI, data and digital skills for the people who will own a solution after direct Lab involvement ends.',
-    items: [
-      'Capacity-building programmes',
-      'Hands-on bootcamps and workshops',
-      'Mentorship and fellowship support',
-      'Learning pathways for government officials, UNDP staff and community volunteers',
-      'Volunteer and community learning pathways',
-    ],
-  },
-  {
-    ...labServiceLines[4],
-    accent: 'from-lab-accent to-primary-light',
-    border: 'border-lab-accent/45',
-    text: 'text-lab-accent-soft',
-    icon: 'network',
-    promise:
-      "Connect development needs with the right technical partners, institutions and members of the Lab's wider network.",
-    items: [
-      'Partner mapping and collaboration design',
-      'Technology-sector engagement',
-      'Joint project scoping and coordination',
-      'Clear pathways for teams to reuse, adapt or scale existing Lab work',
-      'Pathways for reuse, adoption and scale',
-    ],
-  },
+const offers = [
+  { title:'Artificial Intelligence', icon:'brain', items:['Machine Learning solutions','LLM finetuning, prompt engineering, RAG, adapters','Agentic AI systems & multi-agent architectures','Sentiment analysis'] },
+  { title:'Geospatial Solutions', icon:'map', items:['GeoAI services','GIS mapping platforms','Maps generation'] },
+  { title:'Data Science Solutions', icon:'chart', items:['Custom data visualization dashboards','Power BI dashboards','Data collection, cleaning and processing'] },
+  { title:'Web & Mobile Applications', icon:'screen', items:['Web platform development','Power Platform solutions','Chatbots & agents','Mobile apps'] },
+  { title:'AI Solutions for Skills', icon:'cap', items:['Digital Solutions for SDGs (DS4SDGs) MOOC','AI job-matching solutions','Mentorship & career coaching','Gamification of skills development'] },
+  { title:'Research & Advisory', icon:'search', items:['Academic research & insights','Methodology & framework development','Technical ToRs & scoping documents','Review of digital technologies','AI audit'] },
+  { title:'Community', icon:'people', items:['SDG AI Lab Fellowship','Volunteer management','Volunteer Data Scientists','Tech4R community'] },
+  { title:'Domain Expertise', icon:'layers', items:['Resilience','FinTech / SupTech','Tourism','Entrepreneurship','Low-code / no-code'] },
 ];
-
-function getServiceId(title: string) {
-  if (title === 'Training') return 'training';
-  if (title === 'Partnerships') return 'partnership';
-  return title.toLowerCase();
-}
-
-const requestSteps = [
-  ['Context', 'Country, team, institution, users and development challenge.'],
-  ['Need', 'The decision, process, service or product that needs support.'],
-  [
-    'Readiness',
-    'Available data, constraints, risks, timeline and existing systems.',
-  ],
-  [
-    'Pathway',
-    'Advisory, prototype, research, training, partnership or handover support.',
-  ],
+const approaches = [
+  ['Agile software development','Short, iterative builds tested against the conditions a government system actually runs in — patchy connectivity, incomplete records, non-technical end users.'],
+  ['Aligned with UNDP best practices',"Every deployment fits inside UNDP's standards for data, procurement, and partner handover, so the counterpart team can actually run it once we're gone."],
+  ['Enhanced by AI','Agentic AI and machine learning applied where they remove real friction for the institutions we build with.'],
 ];
 ---
-
-<BaseLayout
-  title="Services - SDG AI Lab"
-  description="Requestable advisory, prototyping, research, training and collaboration services from SDG AI Lab."
->
-  <section class="section-padding bg-lab-base text-lab-text">
-    <div class="container-narrow">
-      <h1
-        class="mt-3 max-w-4xl text-4xl font-extrabold tracking-tight sm:text-5xl"
-      >
-        Discover Our Services
-      </h1>
-      <p class="mt-5 max-w-3xl text-justify text-lg leading-8 text-lab-muted">
-        SDG AI Lab delivers AI solutions and provides research, advisory,
-        training and collaboration support to UNDP units, governments and
-        development partners. The Lab builds custom digital solutions from the
-        ground up or adapts existing tools to meet specific needs.
-      </p>
-    </div>
-  </section>
-
-  <section
-    class="section-padding bg-lab-surface text-lab-text"
-    aria-labelledby="suite-heading"
-  >
-    <div class="container-narrow">
-      <!-- <div class="mb-20">
-        <div>
-          <h2 id="suite-heading" class="mt-3 text-3xl font-bold sm:text-4xl">
-            Choose the support pathway that fits the work
-          </h2>
-        </div>
-      </div> -->
-
-      <div class="grid gap-x-7 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
-        {
-          serviceSuites.map((service, index) => (
-            <article
-              id={getServiceId(service.title)}
-              class={`scroll-mt-28 flex h-full flex-col rounded-3xl border-2 ${service.border} bg-lab-surface text-lab-text shadow-[0_14px_34px_rgba(16,29,53,0.08)]`}
-            >
-              <div class="relative px-6 pb-5 pt-12 text-center">
-                <div
-                  class={`absolute left-1/2 top-0 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-br ${service.accent} shadow-lg shadow-[0_14px_30px_rgba(76,141,255,0.22)]`}
-                  aria-hidden="true"
-                >
-                  {service.icon === 'code' && (
-                    <svg
-                      class="h-9 w-9 text-white"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path d="m16 18 6-6-6-6" />
-                      <path d="m8 6-6 6 6 6" />
-                      <path d="m14.5 4-5 16" />
-                    </svg>
-                  )}
-                  {service.icon === 'research' && (
-                    <svg
-                      class="h-9 w-9 text-white"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <circle cx="11" cy="11" r="7" />
-                      <path d="m20 20-3.5-3.5" />
-                      <path d="M8 11h6M11 8v6" />
-                    </svg>
-                  )}
-                  {service.icon === 'advisory' && (
-                    <svg
-                      class="h-9 w-9 text-white"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path d="M12 3 3 8l9 5 9-5-9-5Z" />
-                      <path d="M3 14l9 5 9-5" />
-                      <path d="M3 11l9 5 9-5" />
-                    </svg>
-                  )}
-                  {service.icon === 'training' && (
-                    <svg
-                      class="h-9 w-9 text-white"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path d="M22 10 12 5 2 10l10 5 10-5Z" />
-                      <path d="M6 12v5c3 2 9 2 12 0v-5" />
-                    </svg>
-                  )}
-                  {service.icon === 'network' && (
-                    <svg
-                      class="h-9 w-9 text-white"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <circle cx="6" cy="12" r="3" />
-                      <circle cx="18" cy="6" r="3" />
-                      <circle cx="18" cy="18" r="3" />
-                      <path d="m8.6 10.5 6.8-3" />
-                      <path d="m8.6 13.5 6.8 3" />
-                    </svg>
-                  )}
-                </div>
-                <span class={`text-xs font-extrabold ${service.text}`}>
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <h3
-                  class={`mt-2 text-xl font-extrabold uppercase leading-tight ${service.text}`}
-                >
-                  {service.title === 'Training'
-                    ? 'Capacity Building'
-                    : service.title}
-                </h3>
-                <p class="mt-4 text-sm font-semibold leading-6 text-lab-muted">
-                  {service.promise}
-                </p>
-              </div>
-              <div class="mx-5 mb-5 flex-1 rounded-2xl border border-lab-border bg-lab-section p-5">
-                <ul class="space-y-3 text-sm leading-6 text-lab-muted">
-                  {service.items.map((item) => (
-                    <li class="flex gap-3">
-                      <span
-                        class={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-br ${service.accent}`}
-                        aria-hidden="true"
-                      />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-
-      <!-- <div
-        class="mt-10 rounded-2xl border border-lab-border bg-lab-section p-6 text-center text-lab-muted"
-      >
-        Responsible data and AI governance is treated as a layer across all
-        services &mdash; from scoping and design to delivery, publication and
-        reuse.
-      </div> -->
-    </div>
-  </section>
-
-  <!-- <section
-    class="section-padding bg-lab-section"
-    aria-labelledby="request-heading"
-  >
-    <div class="container-narrow grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
-      <div>
-        <p class="section-label">How to request support</p>
-        <h2
-          id="request-heading"
-          class="mt-3 text-3xl font-bold text-lab-text sm:text-4xl"
-        >
-          Start with the problem, users and decision context
-        </h2>
-      </div>
-      <div class="grid gap-4 sm:grid-cols-2">
-        {
-          requestSteps.map(([title, body]) => (
-            <article class="rounded-xl border border-lab-border bg-lab-surface p-5 shadow-sm">
-              <h3 class="font-bold text-lab-text">{title}</h3>
-              <p class="mt-3 text-sm leading-6 text-lab-muted">{body}</p>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section> -->
-
-  <section class="section-padding bg-lab-section text-lab-text">
-    <div
-      class="container-narrow flex flex-col justify-between gap-6 md:flex-row md:items-center"
-    >
-      <div>
-        <p
-          class="text-sm font-bold uppercase tracking-[0.18em] text-lab-accent-soft"
-        >
-          Ready to scope a request?
-        </p>
-        <h2 class="mt-3 text-3xl font-bold">
-          Send the Lab enough context to route the request.
-        </h2>
-      </div>
-      <a
-        href={withBase('/contact')}
-        class="inline-flex min-h-12 items-center justify-center rounded-md bg-lab-accent px-6 py-3 text-sm font-bold text-white shadow transition hover:bg-primary-dark"
-      >
-        Contact the Lab
-      </a>
-    </div>
-  </section>
+<BaseLayout title="Services — SDG AI Lab" description="Eight practice areas from AI development to volunteer talent, mixed and matched per engagement.">
+  <main class="marina-services" id="main">
+    <section class="band services-band" id="services"><div class="marina-live-wrap">
+      <div class="band-head reveal"><h1>What a partner can commission from the Lab.</h1><p>Eight practice areas, from AI development to volunteer talent — mixed and matched per engagement.</p></div>
+      <div class="offer-grid">{offers.map((offer,index) => <article class="offer-card reveal" style={`--rd:${Math.min(index*70,420)}ms`}><div class="offer-icon" aria-hidden="true">
+        {offer.icon==='brain'&&<svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0-2 2.8V10a3 3 0 0 0 0 5.9v1.3A3 3 0 0 0 9 20v1a3 3 0 0 0 6 0v-1a3 3 0 0 0 2-2.8v-1.3a3 3 0 0 0 0-5.9V8.8a3 3 0 0 0-2-2.8V5a3 3 0 0 0-3-3Z"/><path d="M9 9h.01M15 9h.01M9 15h.01M15 15h.01"/></svg>}
+        {offer.icon==='map'&&<svg viewBox="0 0 24 24"><path d="M9 20l-6-3V4l6 3 6-3 6 3v13l-6-3-6 3z"/><path d="M9 4v13M15 7v13"/></svg>}
+        {offer.icon==='chart'&&<svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>}
+        {offer.icon==='screen'&&<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M9 21h6M12 17v4"/></svg>}
+        {offer.icon==='cap'&&<svg viewBox="0 0 24 24"><path d="M22 10L12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></svg>}
+        {offer.icon==='search'&&<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>}
+        {offer.icon==='people'&&<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>}
+        {offer.icon==='layers'&&<svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>}
+      </div><h2>{offer.title}</h2><ul>{offer.items.map(item=><li>{item}</li>)}</ul></article>)}</div>
+    </div></section>
+    <section class="band" id="approach"><div class="marina-live-wrap">
+      <div class="band-head reveal"><h2>Agile, aligned with UNDP practice, enhanced by AI.</h2><p>Every engagement runs the same way, whether it's a two-week diagnostic or a year-long build: short cycles, work reviewed inside the counterpart institution as it happens, and a handover the team can actually operate without us.</p></div>
+      <div class="approach-grid">{approaches.map(([title,copy],index)=><article class="approach-cell reveal" style={`--rd:${index*70}ms`}><span>{String(index+1).padStart(2,'0')}</span><h3>{title}</h3><p>{copy}</p></article>)}</div>
+      <p class="work-crosslink reveal">Have a challenge in mind? <a href={withBase('/contact')}>Let's talk →</a></p>
+    </div></section>
+  </main>
+  <style>
+    .marina-services{--bg:#15181c;--raised:#1b1f24;--elevated:#21262c;--border:#2c323a;--soft:#24292f;--text:#d9dde2;--dim:#a0a8b2;--mid:#b7bfc7;--faint:#666f79;--teal:#0383ae;--blue:#1c61ac;--amber:#6ec6e8;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow:hidden}.marina-services *{box-sizing:border-box}.marina-services .band{padding:56px 0;border-bottom:1px solid var(--soft)}.marina-services .services-band{padding-top:150px}.marina-services .band-head{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;margin-bottom:72px}.marina-services .band-head h1,.marina-services .band-head h2{margin:0;background:linear-gradient(115deg,#fff 20%,#a8e6f5 55%,#26bde2 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;font-family:'Cabinet Grotesk','Inter',sans-serif;font-size:clamp(2.15rem,4vw,3.3rem);font-weight:700;line-height:1.06;letter-spacing:-.03em}.marina-services .band-head p{align-self:end;max-width:460px;margin:0;color:var(--mid);font-size:1.02rem;line-height:1.6}.marina-services .reveal{opacity:0;transform:translateY(28px) scale(.985);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);transition-delay:var(--rd,0ms)}.marina-services .reveal.is-visible{opacity:1;transform:none}
+    .offer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:46px}.offer-card{display:flex;flex-direction:column;padding:22px 20px 20px;border:1px solid var(--soft);border-radius:12px;background:var(--raised);transition:border-color .18s ease,transform .18s ease}.offer-card:hover{border-color:var(--border);transform:translateY(-2px)}.offer-icon{display:flex;align-items:center;justify-content:center;width:32px;height:32px;margin-bottom:14px;color:var(--teal)}.offer-icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.offer-card h2{margin:0 0 14px;color:var(--text);font-family:'Inter',sans-serif;font-size:.9rem;font-weight:700}.offer-card ul{display:flex;flex-direction:column;gap:9px;margin:0;padding:0;list-style:none}.offer-card li{position:relative;padding-left:14px;color:var(--dim);font-size:.82rem;line-height:1.45}.offer-card li::before{content:'';position:absolute;left:0;top:7px;width:4px;height:4px;border-radius:50%;background:var(--faint)}
+    .approach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:56px}.approach-cell{padding-top:24px;border-top:1px solid var(--soft);transition:border-color .25s ease}.approach-cell:hover{border-top-color:var(--teal)}.approach-cell>span{display:block;margin-bottom:22px;color:var(--faint);font-size:.72rem;font-weight:700;letter-spacing:.04em;transition:color .25s ease}.approach-cell:hover>span{color:var(--teal)}.approach-cell h3{margin:0 0 14px;color:var(--text);font-family:'Cabinet Grotesk','Inter',sans-serif;font-size:1.18rem;line-height:1.3;letter-spacing:-.01em}.approach-cell p{margin:0;color:var(--dim);font-size:.94rem;line-height:1.6}.work-crosslink{margin:56px 0 0;color:var(--mid);font-size:1rem}.work-crosslink a{color:var(--text);text-decoration:none;transition:color .15s ease}.work-crosslink a:hover{color:var(--teal)}
+    @media(max-width:980px){.offer-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:800px){.marina-services .band-head{grid-template-columns:1fr;gap:26px}.approach-grid{grid-template-columns:1fr;gap:44px}}@media(max-width:560px){.offer-grid{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){.marina-services .reveal{opacity:1;transform:none;transition:none}}
+  </style>
+  <script>
+    const items=document.querySelectorAll('.marina-services .reveal');
+    if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(!entry.isIntersecting)return;entry.target.classList.add('is-visible');observer.unobserve(entry.target)}),{threshold:.12});items.forEach(item=>observer.observe(item))}else items.forEach(item=>item.classList.add('is-visible'));
+  </script>
 </BaseLayout>

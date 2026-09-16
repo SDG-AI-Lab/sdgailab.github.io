@@ -1,69 +1,49 @@
 ---
 import { withBase } from '../../lib/url';
-import logo from '../../../assets/img/sdg-ai-lab-logo.png';
-import icpsdLogo from '../../../assets/img/ICPSD-logo-navbar.png';
-import undpLogo from '../../../assets/img/UNDP_logo.svg';
-
 const pathname = Astro.url.pathname;
 const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') || '';
 
 const navLinks = [
   { href: withBase('/'), label: 'Home' },
-  { href: withBase('/about'), label: 'How we work' },
-  { href: withBase('/projects'), label: 'Our projects' },
-  { href: withBase('/services'), label: 'Our services' },
-  { href: withBase('/resources'), label: 'Publications' },
-  { href: withBase('/news'), label: 'News' },
-  { href: withBase('/team'), label: 'Team' },
-  { href: withBase('/contact'), label: 'Contact' },
-  { href: withBase('/volunteer'), label: 'Become a Volunteer' },
+  { href: withBase('/about'), label: 'About' },
+  { href: withBase('/focus-areas'), label: 'Areas of Expertise' },
+  { href: withBase('/services'), label: 'Services' },
+  { href: withBase('/projects'), label: 'Our Work', activePath: withBase('/projects') },
+  { href: withBase('/research'), label: 'Research' },
 ];
 
-const desktopNavLinks = navLinks.filter((link) => link.label !== 'Home' && link.label !== 'Become a Volunteer');
+const mobileLinks = [
+  ...navLinks,
+  { href: withBase('/contact'), label: "Let's talk" },
+];
 
-
-function isActive(href: string): boolean {
+function isActive(link: { href: string; activePath?: string }): boolean {
+  const href = link.activePath ?? link.href;
+  const cleanHref = href.split('#')[0];
   const rootHref = base + '/' || '/';
-  if (href === rootHref || (base && href === base)) {
+  if (cleanHref === rootHref || (base && cleanHref === base)) {
     return pathname === rootHref || pathname === base || pathname === '/';
   }
-  return pathname === href || pathname.startsWith(href + '/');
+  return pathname === cleanHref || pathname.startsWith(cleanHref + '/');
 }
 ---
 
-<header class="sticky top-0 z-50 border-b border-lab-border bg-lab-base/95 text-lab-text backdrop-blur-xl">
-  <nav
-    aria-label="Main navigation"
-    class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8"
-  >
-    <a href={withBase('/')} class="flex shrink-0 items-center gap-2 text-lab-text">
-      <img
-        src={logo.src}
-        width={logo.width}
-        height={logo.height}
-        alt="SDG AI Lab"
-        class="h-10 w-auto rounded-sm"
-        decoding="async"
-      />
-      <span>
-        <span class="block text-sm font-black leading-tight text-lab-text xl:text-base">SDG AI Lab</span>
-        <span class="hidden text-[10px] font-bold uppercase tracking-wider text-lab-muted xl:block">A UNDP initiative</span>
-      </span>
-    </a>
+<header class="marina-header">
+  <nav aria-label="Main navigation" class="marina-wrap marina-nav">
+    <div class="marina-nav-brand-group">
+      <img src="https://sdg-dark.netlify.app/assets/undp-logo.png" alt="UNDP" class="marina-nav-partner-logo marina-nav-undp" decoding="async" />
+      <a href={withBase('/')} class="marina-nav-logo" aria-label="SDG AI Lab homepage"><img src="https://sdg-dark.netlify.app/logo-white.png" alt="SDG AI Lab" decoding="async" /></a>
+      <img src="https://sdg-dark.netlify.app/assets/icpsd-logo.png" alt="ICPSD" class="marina-nav-partner-logo" decoding="async" />
+    </div>
 
-    <ul class="hidden items-center gap-2 lg:flex">
+    <ul class="marina-nav-links" role="list">
       {
-        desktopNavLinks.map((link) => (
+        navLinks.map((link) => (
           <li>
             <a
               href={link.href}
-              class:list={[
-                'block rounded-full px-3 py-2 text-xs font-bold transition-colors xl:text-sm',
-                isActive(link.href)
-                  ? 'bg-lab-accent text-lab-text shadow-sm'
-                  : 'text-lab-muted hover:bg-lab-surface/55 hover:text-lab-accent-soft',
-              ]}
-              aria-current={isActive(link.href) ? 'page' : undefined}
+              class:list={['marina-nav-link', { 'is-section-active': link.label === 'Our Work' && pathname.startsWith(withBase('/programmes')) }]}
+              aria-current={isActive(link) ? 'page' : undefined}
             >
               {link.label}
             </a>
@@ -71,50 +51,43 @@ function isActive(href: string): boolean {
         ))
       }
     </ul>
-    <div class="hidden shrink-0 items-center gap-3 lg:flex" aria-label="Institutional logos">
-      <img src={icpsdLogo.src} width={icpsdLogo.width} height={icpsdLogo.height} alt="ICPSD" class="h-9 w-auto object-contain" decoding="async" />
-      <img src={undpLogo.src} width={undpLogo.width} height={undpLogo.height} alt="UNDP" class="h-10 w-auto object-contain" decoding="async" />
+
+    <div class="marina-nav-cta">
+      <a href={withBase('/contact')} class="marina-button marina-button--primary marina-button--small">
+        Let&rsquo;s talk
+      </a>
     </div>
 
     <button
       type="button"
       id="mobile-menu-toggle"
-      class="inline-flex items-center justify-center rounded p-2 text-lab-text hover:bg-lab-surface/60 hover:text-lab-accent-soft lg:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-lab-accent focus-visible:ring-offset-2 focus-visible:ring-offset-lab-base"
+      class="marina-mobile-toggle"
       aria-expanded="false"
       aria-controls="mobile-menu"
       aria-label="Toggle navigation menu"
     >
-      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-        <path class="menu-icon" stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+        <path class="menu-icon" stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16"></path>
         <path class="close-icon hidden" stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
       </svg>
     </button>
   </nav>
 
-  <div id="mobile-menu" class="hidden border-t border-lab-border bg-lab-surface lg:hidden">
-    <ul class="container-narrow space-y-1 py-3">
+  <div id="mobile-menu" class="marina-mobile-menu">
+    <ul class="marina-wrap" role="list">
       {
-        navLinks.map((link) => (
+        mobileLinks.map((link) => (
           <li>
             <a
               href={link.href}
-              class:list={[
-                'block rounded px-3 py-2 text-sm font-bold transition-colors',
-                isActive(link.href)
-                  ? 'bg-lab-accent text-lab-text'
-                  : 'text-lab-muted hover:bg-lab-surface/60 hover:text-lab-accent-soft',
-              ]}
-              aria-current={isActive(link.href) ? 'page' : undefined}
+              class="marina-mobile-link"
+              aria-current={isActive(link) ? 'page' : undefined}
             >
               {link.label}
             </a>
           </li>
         ))
       }
-      <li class="flex items-center gap-3 px-3 pt-2" aria-label="Institutional logos">
-        <img src={icpsdLogo.src} width={icpsdLogo.width} height={icpsdLogo.height} alt="ICPSD" class="h-9 w-auto object-contain" decoding="async" />
-        <img src={undpLogo.src} width={undpLogo.width} height={undpLogo.height} alt="UNDP" class="h-10 w-auto object-contain" decoding="async" />
-      </li>
     </ul>
   </div>
 </header>
@@ -131,15 +104,14 @@ function isActive(href: string): boolean {
 
     function closeMenu() {
       toggleButton.setAttribute('aria-expanded', 'false');
-      menuPanel.classList.add('hidden');
+      menuPanel.classList.remove('is-open');
       menuIcon?.classList.remove('hidden');
       closeIcon?.classList.add('hidden');
-      toggleButton.focus();
     }
 
     function openMenu() {
       toggleButton.setAttribute('aria-expanded', 'true');
-      menuPanel.classList.remove('hidden');
+      menuPanel.classList.add('is-open');
       menuIcon?.classList.add('hidden');
       closeIcon?.classList.remove('hidden');
       const firstLink = menuPanel.querySelector('a');
@@ -152,6 +124,12 @@ function isActive(href: string): boolean {
       else openMenu();
     });
 
+    menuPanel.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        if (toggleButton.getAttribute('aria-expanded') === 'true') closeMenu();
+      });
+    });
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && toggleButton.getAttribute('aria-expanded') === 'true') {
         closeMenu();
@@ -159,7 +137,5 @@ function isActive(href: string): boolean {
     });
   }
 </script>
-
-
 
 

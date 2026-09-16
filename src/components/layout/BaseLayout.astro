@@ -21,29 +21,6 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
 const socialImage = new URL(withBase(image), Astro.site ?? Astro.url.origin);
 const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '';
 const siteOrigin = Astro.site ?? Astro.url.origin;
-const openSansFontCss = `
-@font-face {
-  font-family: 'Open Sans';
-  src: url('${withBase('/fonts/OpenSans-Regular.woff2')}') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Open Sans';
-  src: url('${withBase('/fonts/OpenSans-SemiBold.woff2')}') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Open Sans';
-  src: url('${withBase('/fonts/OpenSans-Bold.woff2')}') format('woff2');
-  font-weight: 700 900;
-  font-style: normal;
-  font-display: swap;
-}
-`;
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -73,9 +50,9 @@ const contentSecurityPolicy = [
   "form-action 'self'",
   "img-src 'self' data: https:",
   "media-src 'self' https: blob:",
-  "font-src 'self' data:",
+  "font-src 'self' data: https://fonts.gstatic.com https://cdn.fontshare.com",
   "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com",
-  "style-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com",
   "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com https://region1.google-analytics.com https://*.ingest.sentry.io https://*.sentry.io",
   "frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com",
   "manifest-src 'self'",
@@ -94,8 +71,12 @@ const contentSecurityPolicy = [
     <meta http-equiv="Content-Security-Policy" content={contentSecurityPolicy} />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="canonical" href={canonicalUrl} />
-    <meta name="theme-color" content="#22242A" />
-    <style is:inline set:html={openSansFontCss}></style>
+    <meta name="theme-color" content="#15181C" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Long+Cang&display=swap" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="SDG AI Lab" />

@@ -21,6 +21,8 @@ const { authState, emptyList, emptyCounts } = vi.hoisted(() => ({
       news_articles: { total: 0, draft: 0, published: 0, archived: 0 },
       people: { total: 0, draft: 0, published: 0, archived: 0 },
       partners: { total: 0, draft: 0, published: 0, archived: 0 },
+      geographic_reach: { total: 0, draft: 0, published: 0, archived: 0 },
+      evolution_timeline: { total: 0, draft: 0, published: 0, archived: 0 },
       page_content: { total: 0, draft: 0, published: 0, archived: 0 },
     },
     error: null as string | null,
@@ -129,3 +131,4 @@ describe('AdminApp (integration)', () => {
     expect(container.textContent).toContain('News');
   });
 });
+

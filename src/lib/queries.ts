@@ -36,7 +36,7 @@ export async function getFeaturedProjects(): Promise<{
   if (!isSupabaseConfigured) return { data: [], error: null };
 
   const projectCardSelect =
-    'id, title, slug, project_status, is_deployed, is_featured, image_url, display_order, summary, deployment_status, impact_area, timeline, project_year, best_fit, core_capabilities, tech_stack, implementation_countries, capabilities_involved, sdgs, video_url';
+    'id, title, slug, project_status, is_deployed, is_featured, image_url, display_order, summary, deployment_status, impact_area, timeline, project_year, best_fit, core_capabilities, tech_stack, implementation_countries, capabilities_involved, sdgs, video_url, work_stream, project_category';
 
   const { data, error } = await getSupabase()
     .from('projects')
@@ -65,7 +65,7 @@ export async function getPublishedProjects(): Promise<{
   if (!isSupabaseConfigured) return { data: [], error: null };
   const { data, error } = await getSupabase()
     .from('projects')
-    .select('id, title, slug, project_status, is_deployed, is_featured, image_url, display_order, summary, deployment_status, impact_area, timeline, project_year, best_fit, core_capabilities, tech_stack, implementation_countries, capabilities_involved, sdgs')
+    .select('id, title, slug, project_status, is_deployed, is_featured, image_url, display_order, summary, deployment_status, impact_area, timeline, project_year, best_fit, core_capabilities, tech_stack, implementation_countries, capabilities_involved, sdgs, work_stream, project_category')
     .eq('status', 'published')
     .order('display_order', { ascending: true });
 
@@ -203,3 +203,4 @@ export async function getPageContent(
   if (error) return { data: null, error: error.message };
   return { data: data as PageContent | null, error: null };
 }
+

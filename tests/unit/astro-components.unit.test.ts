@@ -30,12 +30,14 @@ describe('Header.astro (unit)', () => {
     expect(source).toContain('aria-expanded');
   });
 
-  it('links to primary public sections', () => {
-    expect(source).toContain("label: 'Our projects'");
-    expect(source).toContain("label: 'Our services'");
-    expect(source).toContain("label: 'Publications'");
+  it('links to Marina primary public sections', () => {
+    expect(source).toContain("label: 'About'");
+    expect(source).toContain("label: 'How we work'");
+    expect(source).toContain("label: 'Focus areas'");
     expect(source).toContain("label: 'Team'");
-    expect(source).toContain("label: 'Contact'");
+    expect(source).toContain("label: 'Our Work'");
+    expect(source).toContain("label: 'Research'");
+    expect(source).toContain("label: \"Let's talk\"");
   });
 });
 
@@ -44,15 +46,15 @@ describe('Footer.astro (unit)', () => {
 
   it('declares essential links and connect sections', () => {
     expect(source).toContain('<footer');
-    expect(source).toContain('Explore');
-    expect(source).toContain("label: 'Services'");
-    expect(source).toContain('https://www.linkedin.com/company/sdgailab');
+    expect(source).toContain('<h4>Lab</h4>');
+    expect(source).toContain('<h4>Work</h4>');
+    expect(source).toContain('Research &amp; Advisory');
     expect(source).toContain('mailto:sdgailab@undp.org');
   });
 
   it('renders the current-year copyright notice', () => {
     expect(source).toContain('currentYear');
-    expect(source).toContain('All rights reserved');
+    expect(source).toContain('UNDP SDG AI LAB');
   });
 });
 

@@ -11,12 +11,11 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
     path: 'src/pages/index.astro',
     checks: (source) => {
       expect(source).toContain('BaseLayout');
-      expect(source).toContain('credibilityMetrics');
-      expect(source).toContain('track-record-heading');
-      expect(source).toContain('FeaturedProjects');
-      expect(source).toContain('LatestActivity');
-      expect(source).toContain('GeographicReach');
-      expect(source).toContain('geographic-reach-heading');
+      expect(source).toContain('marina-live-hero');
+      expect(source).toContain('Digital technologies');
+      expect(source).toContain('impactStats');
+      expect(source).toContain('partnerLogos');
+      expect(source).toContain('marina-live-gallery');
     },
   },
   {
@@ -31,21 +30,25 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
     path: 'src/pages/about.astro',
     checks: (source) => {
       expect(source).toContain('BaseLayout');
-      expect(source).toContain('<h1');
+      expect(source).toContain('marina-about');
+      expect(source).toContain('Seven years of building');
+      expect(source).toContain('marina-about-timeline');
+      expect(source).toContain('The practice,');
     },
   },
   {
     path: 'src/pages/contact.astro',
     checks: (source) => {
-      expect(source).toContain('mailto:sdgailab@undp.org');
+      expect(source).toContain('mailto:dina.akylbekova@undp.org');
       expect(source).toContain('BaseLayout');
     },
   },
   {
     path: 'src/pages/team.astro',
     checks: (source) => {
-      expect(source).toContain('PeopleGrid');
-      expect(source).toContain('groupType="team"');
+      expect(source).toContain('marina-team-page');
+      expect(source).toContain('Six working groups, one lab.');
+      expect(source).toContain('Coordination · Research &amp; Advisory');
     },
   },
   {
@@ -78,8 +81,9 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
   {
     path: 'src/pages/projects/index.astro',
     checks: (source) => {
-      expect(source).toContain('ProjectList');
+      expect(source).toContain('PortfolioGrid');
       expect(source).toContain('client:load');
+      expect(source).toContain('23 products, seven years of delivery.');
     },
   },
   {
@@ -122,4 +126,3 @@ describe('Astro pages (unit source contracts)', () => {
     checks(readSource(path));
   });
 });
-
