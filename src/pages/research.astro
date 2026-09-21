@@ -1,386 +1,128 @@
 ---
-import { withBase } from '../lib/url';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 
-const outputItems = [
-  {
-    title: 'Academic papers',
-    status: 'Ongoing',
-    body: 'Domain expertise across digital transformation, resilience, and digital skills & entrepreneurship.',
-  },
-  {
-    title: 'Project briefs',
-    status: 'Ongoing',
-    body: 'Scoping documents produced ahead of each new engagement.',
-  },
-  {
-    title: 'White papers',
-    status: 'Ongoing',
-    body: 'Technical guidance on applying AI to public-sector problems.',
-  },
-  {
-    title: 'Datasets',
-    status: 'Ongoing',
-    body: 'Open data products generated as a by-product of applied projects.',
-  },
-  {
-    title: 'Terms of reference',
-    status: 'On request',
-    body: 'ToRs for partners procuring related technical work.',
-    request: true,
-  },
-  {
-    title: 'Partnership agreements',
-    status: 'Ongoing',
-    body: 'Formal collaboration frameworks with tech-sector and academic partners.',
-  },
+const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
+
+const filters = [
+  { id: 'all', label: 'All outputs' },
+  { id: 'papers', label: 'Academic papers' },
+  { id: 'briefs', label: 'Project briefs' },
+  { id: 'whitepapers', label: 'White papers' },
+  { id: 'datasets', label: 'Datasets' },
 ];
 
-const reportCovers = [
-  {
-    title: 'Innovation in Disaster Management',
-    subtitle: 'Leveraging Technology to Save More Lives',
-    meta: 'with OCHA',
-    code: '01',
-  },
-  {
-    title: "Évaluation de la maturité des systèmes d'alerte précoce à la sécheresse",
-    subtitle: 'Sud de Madagascar',
-    meta: 'June 2025',
-    code: '02',
-  },
+const outputs = [
+  { type: 'papers', title: 'Academic papers', cover: ['Academic', 'papers'], glow: 'rgba(38, 189, 226, .35)', description: 'Domain expertise across digital transformation, resilience, and digital skills & entrepreneurship.' },
+  { type: 'briefs', title: 'Project briefs', cover: ['Project', 'briefs'], glow: 'rgba(86, 192, 43, .35)', description: 'Scoping documents produced ahead of each new engagement.' },
+  { type: 'whitepapers', title: 'White papers', cover: ['White', 'papers'], glow: 'rgba(253, 157, 36, .35)', description: 'Technical guidance on applying AI to public-sector problems.' },
+  { type: 'datasets', title: 'Datasets', cover: ['Datasets'], glow: 'rgba(221, 19, 103, .35)', description: 'Open data products generated as a by-product of applied projects.' },
 ];
 ---
 
-<BaseLayout
-  title="Research & Advisory - SDG AI Lab"
-  description="Key outputs from SDG AI Lab technical assessments, advisory work and partnership facilitation."
->
-  <div class="marina-research-page" id="main">
-    <section class="band" id="research">
-      <div class="wrap">
-        <div class="band-head reveal">
-          <span class="eyebrow" data-n="08">Research &amp; Advisory</span>
-          <h1>Key outputs from technical assessments, advisory work, and partnership facilitation.</h1>
+<BaseLayout title="Research & Advisory - SDG AI Lab" description="Key outputs from SDG AI Lab technical assessments, advisory work and partnership facilitation.">
+  <main class="marina-research" id="main">
+    <section class="research-band" aria-labelledby="research-heading">
+      <div class="marina-live-wrap">
+        <div class="research-heading reveal">
+          <h1 id="research-heading">Key outputs <span>from technical assessments, advisory work, and partnership facilitation.</span></h1>
           <div class="report-covers" aria-label="Featured research reports">
-            {reportCovers.map((report) => (
-              <article class="report-cover">
-                <div class="report-cover-art" aria-hidden="true">
-                  <span>{report.code}</span>
-                </div>
-                <span class="report-cover-title">
-                  {report.title}<br /><em>{report.subtitle}</em> &middot; {report.meta}
-                </span>
-              </article>
-            ))}
+            <article class="report-cover">
+              <img src={marinaAsset('assets/report-disaster-innovation.jpg')} alt="Innovation in Disaster Management: Leveraging Technology to Save More Lives — UNDP and OCHA" decoding="async" />
+              <span class="report-cover-title">Innovation in Disaster Management<br /><em>Leveraging Technology to Save More Lives</em> · with OCHA</span>
+            </article>
+            <article class="report-cover">
+              <img src={marinaAsset('assets/report-madagascar-drought.jpg')} alt="Évaluation de la maturité des systèmes d'alerte précoce à la sécheresse dans the south of Madagascar, June 2025" decoding="async" />
+              <span class="report-cover-title">Évaluation de la maturité des systèmes d'alerte précoce à la sécheresse<br /><em>Sud de Madagascar</em> · June 2025</span>
+            </article>
           </div>
         </div>
 
-        <div class="output-grid">
-          {outputItems.map((item) => (
-            <article class="output-cell reveal">
-              <div class="output-head">
-                <h2>{item.title}</h2>
-                <span class:list={["output-status", { "is-request": item.request }]}>{item.status}</span>
-              </div>
-              <p>{item.body}</p>
+        <div class="research-toolbar reveal" role="group" aria-label="Filter by output type">
+          {filters.map((filter, index) => <button type="button" class:list={['research-filter', { active: index === 0 }]} data-research-filter={filter.id} aria-pressed={index === 0 ? 'true' : 'false'}>{filter.label}</button>)}
+        </div>
+
+        <div class="output-grid" aria-live="polite">
+          {outputs.map((output) => (
+            <article class="output-card reveal" data-research-output={output.type}>
+              <div class="output-cover" style={`--cover-glow:${output.glow}`}><span>{output.cover.map((line, index) => <>{index > 0 && <br />}{line}</>)}</span></div>
+              <div class="output-head"><h2>{output.title}</h2><span>Ongoing</span></div>
+              <p>{output.description}</p>
             </article>
           ))}
         </div>
+        <p class="research-empty" hidden>No outputs are available in this category yet.</p>
       </div>
     </section>
+  </main>
 
-    <section class="cta-band" id="collaborate">
-      <div class="wrap reveal">
-        <span class="eyebrow" data-n="10">Partner with us</span>
-        <h2>Four ways to build with SDG AI Lab.</h2>
-        <p class="desc">Co-develop AI solutions &middot; Research &amp; policy advisory &middot; Build your team's capacity &middot; Access vetted tech talent &mdash; from prototype to deployment.</p>
-        <div class="cta-actions">
-          <a href={withBase('/contact')} class="btn btn-gradient btn-magnetic">Book a demo</a>
-          <a href="mailto:dina.akylbekova@undp.org" class="btn btn-ghost">dina.akylbekova@undp.org</a>
-        </div>
-      </div>
-    </section>
-  </div>
+  <script>
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.research-filter');
+    const outputCards = document.querySelectorAll<HTMLElement>('.output-card');
+    const emptyMessage = document.querySelector<HTMLElement>('.research-empty');
+    const reveals = document.querySelectorAll<HTMLElement>('.marina-research .reveal');
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      reveals.forEach((element) => observer.observe(element));
+    } else {
+      reveals.forEach((element) => element.classList.add('is-visible'));
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const selected = button.dataset.researchFilter ?? 'all';
+        let visible = 0;
+        filterButtons.forEach((item) => {
+          const active = item === button;
+          item.classList.toggle('active', active);
+          item.setAttribute('aria-pressed', String(active));
+        });
+        outputCards.forEach((card) => {
+          const matches = selected === 'all' || card.dataset.researchOutput === selected;
+          card.hidden = !matches;
+          if (matches) visible += 1;
+        });
+        if (emptyMessage) emptyMessage.hidden = visible > 0;
+      });
+    });
+  </script>
 
   <style>
-    .marina-research-page {
-      --bg: #15181C;
-      --bg-raised: #1B1F24;
-      --bg-elevated: #21262C;
-      --border: #2C323A;
-      --border-soft: #24292F;
-      --text: #D9DDE2;
-      --text-dim: #8D96A1;
-      --text-mid: #B7BFC7;
-      --teal: #22D3B8;
-      --blue: #4C86FF;
-      --amber: #FFAA3D;
-      --display: 'Open Sans', sans-serif;
-      --body: 'Open Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--body);
-      line-height: 1.5;
-      overflow-x: hidden;
-    }
-
-    .marina-research-page *,
-    .marina-research-page *::before,
-    .marina-research-page *::after { box-sizing: border-box; }
-    .marina-research-page a { color: inherit; text-decoration: none; }
-    .marina-research-page section[id] { scroll-margin-top: 84px; }
-
-    .marina-research-page .wrap {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-
-    .marina-research-page .eyebrow {
-      font-family: var(--body);
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--text-mid);
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-    }
-
-    .marina-research-page .eyebrow::before {
-      content: attr(data-n);
-      font-family: var(--display);
-      font-weight: 600;
-      font-size: 0.88rem;
-      color: var(--teal);
-    }
-
-    .marina-research-page h1,
-    .marina-research-page h2,
-    .marina-research-page h3,
-    .marina-research-page h4 {
-      font-family: var(--display);
-      font-weight: 700;
-      letter-spacing: -0.015em;
-      color: var(--text);
-      margin: 0;
-    }
-
-    .marina-research-page .band {
-      padding: 150px 0 96px;
-      border-bottom: 1px solid var(--border-soft);
-    }
-
-    .marina-research-page .band-head {
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 60px;
-      margin-bottom: 72px;
-    }
-
-    .marina-research-page .band-head .eyebrow { grid-column: 1 / -1; }
-
-    .marina-research-page .band-head h1 {
-      font-size: clamp(2rem, 3.8vw, 3rem);
-      line-height: 1.05;
-      max-width: 760px;
-    }
-
-    .marina-research-page .report-covers {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      align-self: end;
-    }
-
-    .marina-research-page .report-cover {
-      width: 170px;
-      display: block;
-    }
-
-    .marina-research-page .report-cover-art {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      border-radius: 10px;
-      border: 1px solid var(--border-soft);
-      background:
-        radial-gradient(circle at 72% 18%, rgba(76, 134, 255, .24), transparent 30%),
-        linear-gradient(145deg, rgba(34, 211, 184, .18), rgba(76, 134, 255, .16) 52%, rgba(255, 170, 61, .16)),
-        var(--bg-elevated);
-      display: grid;
-      place-items: end start;
-      padding: 18px;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .025);
-    }
-
-    .marina-research-page .report-cover-art span {
-      font-family: var(--display);
-      color: var(--text);
-      font-size: 2.5rem;
-      font-weight: 700;
-      line-height: 1;
-    }
-
-    .marina-research-page .report-cover-title {
-      display: block;
-      margin-top: 12px;
-      font-size: 0.8rem;
-      color: var(--text-dim);
-      line-height: 1.4;
-    }
-
-    .marina-research-page .report-cover-title em {
-      color: var(--text-mid);
-      font-style: normal;
-    }
-
-    .marina-research-page .output-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .marina-research-page .output-cell {
-      padding: 22px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, .02);
-      border: 1px solid var(--border-soft);
-      min-height: 175px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: border-color .25s ease, transform .25s ease, background .25s ease;
-    }
-
-    .marina-research-page .output-cell:hover {
-      border-color: rgba(76, 134, 255, .42);
-      background: rgba(76, 134, 255, .04);
-      transform: translateY(-2px);
-    }
-
-    .marina-research-page .output-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .marina-research-page .output-head h2 {
-      font-size: 1rem;
-      line-height: 1.25;
-    }
-
-    .marina-research-page .output-status {
-      display: inline-flex;
-      align-items: center;
-      white-space: nowrap;
-      border-radius: 999px;
-      padding: 5px 10px;
-      background: rgba(34, 211, 184, .1);
-      color: var(--teal);
-      font-size: .72rem;
-      font-weight: 700;
-    }
-
-    .marina-research-page .output-status.is-request {
-      color: var(--amber);
-      background: rgba(255, 170, 61, .12);
-    }
-
-    .marina-research-page .output-cell p {
-      margin: 0;
-      color: var(--text-dim);
-      font-size: .92rem;
-      line-height: 1.55;
-    }
-
-    .marina-research-page .cta-band {
-      padding: 82px 0 96px;
-      text-align: center;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(76, 134, 255, .12), transparent 42%),
-        var(--bg);
-    }
-
-    .marina-research-page .cta-band .wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .marina-research-page .cta-band .eyebrow { justify-content: center; }
-
-    .marina-research-page .cta-band h2 {
-      font-size: clamp(2rem, 4.4vw, 4rem);
-      line-height: .98;
-      margin-top: 18px;
-      max-width: 860px;
-    }
-
-    .marina-research-page .desc {
-      color: var(--text-mid);
-      font-size: 1rem;
-      line-height: 1.75;
-      max-width: 720px;
-      margin: 24px auto 0;
-    }
-
-    .marina-research-page .cta-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 30px;
-    }
-
-    .marina-research-page .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 100px;
-      padding: 11px 22px;
-      border: 1px solid transparent;
-      font-weight: 650;
-      font-size: 0.88rem;
-      transition: box-shadow .2s ease, transform .2s ease, background .2s ease, border-color .2s ease;
-    }
-
-    .marina-research-page .btn:hover { transform: translateY(-1px); }
-
-    .marina-research-page .btn-gradient {
-      background: linear-gradient(100deg, var(--teal), var(--blue) 70%, var(--amber));
-      color: #04141a;
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, .08) inset, 0 8px 30px -8px rgba(34, 211, 184, .55);
-    }
-
-    .marina-research-page .btn-ghost {
-      border-color: var(--border);
-      background: transparent;
-      color: var(--text);
-    }
-
-    .marina-research-page .btn-ghost:hover {
-      border-color: var(--text-dim);
-      background: rgba(255, 255, 255, .03);
-    }
-
-    @media (max-width: 900px) {
-      .marina-research-page .band-head {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
-
-      .marina-research-page .output-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 640px) {
-      .marina-research-page .wrap { padding: 0 20px; }
-      .marina-research-page .band { padding-top: 96px; }
-      .marina-research-page .output-grid { grid-template-columns: 1fr; }
-      .marina-research-page .report-cover { width: min(100%, 210px); }
-    }
+    .marina-research { background: #15181c; color: #d9dde2; font-family: 'Inter', sans-serif; min-height: 100vh; }
+    .marina-research *, .marina-research *::before, .marina-research *::after { box-sizing: border-box; }
+    .research-band { padding: 126px 0 396px; background: radial-gradient(650px 440px at 2% 28%, rgba(221, 157, 36, .055), transparent 68%), #15181c; }
+    .research-heading { display: grid; grid-template-columns: .9fr 1.1fr; column-gap: 60px; align-items: end; }
+    .research-heading h1 { max-width: 510px; margin: 0; font-family: 'Cabinet Grotesk', sans-serif; font-size: clamp(2.15rem, 4vw, 3.3rem); font-weight: 700; line-height: 1.06; letter-spacing: -.03em; background: linear-gradient(115deg, #fff 20%, #a8e6f5 55%, #26bde2 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+    .report-covers { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-end; }
+    .report-cover { display: block; width: 170px; }
+    .report-cover img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 10px; border: 1px solid #24292f; }
+    .report-cover-title { display: block; margin-top: 12px; color: #a0a8b2; font-size: .8rem; line-height: 1.4; }
+    .report-cover-title em { color: #b7bfc7; font-style: normal; }
+    .research-toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin: 66px 0 28px; }
+    .research-filter { appearance: none; border: 1px solid #24292f; border-radius: 100px; background: #1b1f24; color: #a0a8b2; cursor: pointer; font: 600 .82rem 'Inter', sans-serif; padding: 8px 16px; transition: color .15s ease, border-color .15s ease, background .15s ease; }
+    .research-filter:hover { border-color: #666f79; color: #d9dde2; }
+    .research-filter.active { color: #0383ae; border-color: #0383ae; background: rgba(3, 131, 174, .12); }
+    .output-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .output-card { display: flex; flex-direction: column; min-width: 0; padding: 24px 22px; border: 1px solid #24292f; border-radius: 14px; background: #1b1f24; transition: border-color .2s ease, transform .2s ease; }
+    .output-card:hover { border-color: #2c323a; transform: translateY(-3px); }
+    .output-cover { display: flex; align-items: flex-end; aspect-ratio: 16 / 9; margin-bottom: 22px; overflow: hidden; padding: 16px; border: 1px solid #24292f; border-radius: 12px; background: radial-gradient(120% 90% at 85% -10%, var(--cover-glow), transparent 60%), repeating-linear-gradient(135deg, rgba(255, 255, 255, .03) 0 2px, transparent 2px 26px), #21262c; }
+    .output-cover span { color: #d9dde2; font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.1; }
+    .output-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .output-head h2 { margin: 0; color: #d9dde2; font-family: 'Cabinet Grotesk', sans-serif; font-size: .98rem; font-weight: 700; letter-spacing: -.01em; }
+    .output-head span { flex-shrink: 0; border-radius: 100px; background: rgba(3, 131, 174, .12); color: #0383ae; font: 600 .66rem 'Inter', sans-serif; letter-spacing: .03em; padding: 4px 10px; text-transform: uppercase; }
+    .output-card p { margin: 10px 0 0; color: #a0a8b2; font-size: .86rem; line-height: 1.55; }
+    .research-empty { margin: 24px 0 0; color: #a0a8b2; }
+    .reveal { opacity: 0; transform: translateY(28px) scale(.985); transition: opacity .9s cubic-bezier(.16, 1, .3, 1), transform .9s cubic-bezier(.16, 1, .3, 1); }
+    .reveal.is-visible { opacity: 1; transform: none; }
+    @media (max-width: 900px) { .research-band { padding-bottom: 160px; } .research-heading { grid-template-columns: 1fr; row-gap: 38px; } .output-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .research-band { padding-top: 106px; padding-bottom: 88px; } .report-cover { width: min(100%, 170px); } .research-toolbar { margin-top: 42px; } .output-grid { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .output-card { transition: none; } }
   </style>
 </BaseLayout>

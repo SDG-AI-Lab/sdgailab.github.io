@@ -112,9 +112,11 @@ describe('Public Astro pages', () => {
 
   it('research page exposes research and advisory content', () => {
     const source = readSource('src/pages/research.astro');
-    expect(source).toContain('Research &amp; Advisory');
-    expect(source).toContain('Key outputs from technical assessments');
-    expect(source).toContain('marina-research-page');
+    expect(source).toContain('Research & Advisory - SDG AI Lab');
+    expect(source).toContain('Key outputs <span>from technical assessments');
+    expect(source).toContain('marina-research');
+    expect(source).toContain('report-disaster-innovation.jpg');
+    expect(source).toContain('data-research-filter');
   });
 
   it('capacity building page exposes learning pathways, not volunteer-only content', () => {
