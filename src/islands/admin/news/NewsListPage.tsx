@@ -1,15 +1,35 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ContentTable, type Column } from '../shared/ContentTable';
 import { ConfirmDialog } from '../shared/ConfirmDialog';
 import { listNewsArticles, archiveNewsArticle, deleteNewsArticle } from '../../../lib/admin-queries';
 import { useToast } from '../layout/Toast';
 import type { NewsArticle } from '../../../lib/types';
 
+function matchesSearch(article: NewsArticle, query: string): boolean {
+  const q = query.trim().toLowerCase();
+  if (!q) return true;
+
+  const haystack = [
+    article.title,
+    article.slug,
+    article.author_name,
+    article.summary,
+    article.status,
+    article.publish_date,
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  return haystack.includes(q);
+}
+
 export default function NewsListPage() {
   const { showToast } = useToast();
   const [data, setData] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
   const [confirmState, setConfirmState] = useState<{ isOpen: boolean; itemId: string | null }>({
     isOpen: false,
     itemId: null,
@@ -42,6 +62,11 @@ export default function NewsListPage() {
   useEffect(() => {
     fetchList();
   }, []);
+
+  const filteredData = useMemo(
+    () => data.filter((article) => matchesSearch(article, search)),
+    [data, search]
+  );
 
   const onEdit = (id: string) => {
     window.location.hash = `#/news/edit/${id}`;
@@ -83,9 +108,22 @@ export default function NewsListPage() {
   return (
     <div>
       <h1 className="text-2xl font-semibold text-lab-text mb-6">News Articles</h1>
+      <div className="mb-4">
+        <label htmlFor="news-search" className="sr-only">
+          Search news articles
+        </label>
+        <input
+          id="news-search"
+          type="search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search by title, author, slug, status…"
+          className="w-full max-w-md rounded-md border border-lab-border bg-lab-surface px-3 py-2 text-sm text-lab-text placeholder:text-lab-subtle focus:outline-none focus:ring-2 focus:ring-lab-accent focus:border-lab-accent"
+        />
+      </div>
       <ContentTable
         columns={columns}
-        data={data}
+        data={filteredData}
         loading={loading}
         error={error}
         onEdit={onEdit}

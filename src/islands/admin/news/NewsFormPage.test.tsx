@@ -191,6 +191,8 @@ describe('NewsFormPage', () => {
       root.render(<NewsFormPage />);
     });
 
+    expect(container.querySelector('a[href="#/news"]')?.textContent).toContain('Back to news');
+
     const titleInput = container.querySelector('input[type="text"]') as HTMLInputElement;
     const slugInput = container.querySelector('input[aria-label="Slug"]') as HTMLInputElement;
     const body = container.querySelector('textarea[aria-label="Body *"]') as HTMLTextAreaElement;

@@ -1,6 +1,7 @@
 ---
 import { withBase } from '../lib/url';
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import PartnerLogos from '../islands/PartnerLogos';
 
 const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
 const galleryTiles = [
@@ -45,29 +46,6 @@ const impactStats = [
   { value: 90, suffix: '%', label: 'Innovation Campus employment rate' },
   { value: 5000, label: 'Youth trained in Game Dev Bootcamps' },
   { value: 5, label: 'Countries mapped by DSVI' },
-];
-const partnerLogos = [
-  { src: 'undp_logo.png', alt: 'UNDP', className: 'undp-mark' },
-  { src: 'samsung_logo.png', alt: 'Samsung' },
-  { src: 'hp_logo.png', alt: 'HP' },
-  { src: 'assets/gef-logo.png', alt: 'GEF' },
-  {
-    src: 'assets/un-technology-bank-logo.png',
-    alt: 'UN Technology Bank for LDCs',
-  },
-  { src: 'assets/ocha-logo.png', alt: 'OCHA' },
-  { src: 'assets/ppmi-logo.png', alt: 'PPMI' },
-  { src: 'assets/unv-logo.png', alt: 'UN Volunteers' },
-  {
-    src: 'assets/connecting-business-initiative-logo.svg',
-    alt: 'Connecting Business Initiative',
-  },
-  { src: 'assets/bilkent-logo.png', alt: 'Bilkent University' },
-  { src: 'assets/koc-logo.png', alt: 'Koç University' },
-  { src: 'assets/istanbul-university-logo.png', alt: 'Istanbul University' },
-  { src: 'assets/koica-candidate.png', alt: 'KOICA' },
-  { src: 'assets/partner-rings-globe.png', alt: 'Partner organization' },
-  { src: 'assets/partner-geodesic-sphere.png', alt: 'Partner organization' },
 ];
 ---
 
@@ -196,18 +174,9 @@ const partnerLogos = [
       <div class="marina-live-wrap">
         <h2 id="partners-heading" class="reveal">
           Who we <span>build with.</span>
-        </h2><div class="marina-live-partner-marks reveal">
-          {
-            partnerLogos.map((logo) => (
-              <img
-                src={marinaAsset(logo.src)}
-                alt={logo.alt}
-                class={logo.className}
-                loading="lazy"
-                decoding="async"
-              />
-            ))
-          }
+        </h2>
+        <div class="reveal">
+          <PartnerLogos client:load variant="home" />
         </div>
       </div>
     </section>

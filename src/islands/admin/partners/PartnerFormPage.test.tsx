@@ -149,6 +149,8 @@ describe('PartnerFormPage', () => {
       root.render(<PartnerFormPage />);
     });
 
+    expect(container.querySelector('a[href="#/partners"]')?.textContent).toContain('Back to partners');
+
     const nameInput = Array.from(container.querySelectorAll('input[type="text"], input[type="url"]'))[0] as HTMLInputElement;
     const websiteInput = container.querySelector('input[type="url"]') as HTMLInputElement;
     const form = container.querySelector('form') as HTMLFormElement;

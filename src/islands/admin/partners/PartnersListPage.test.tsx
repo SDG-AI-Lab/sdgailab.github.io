@@ -49,6 +49,14 @@ async function flushEffects() {
   });
 }
 
+function setInputValue(input: HTMLInputElement, value: string) {
+  const proto = Object.getPrototypeOf(input);
+  const descriptor = Object.getOwnPropertyDescriptor(proto, 'value');
+  descriptor?.set?.call(input, value);
+  input.dispatchEvent(new Event('input', { bubbles: true }));
+  input.dispatchEvent(new Event('change', { bubbles: true }));
+}
+
 describe('PartnersListPage', () => {
   let container: HTMLDivElement;
   let root: Root;
@@ -58,7 +66,10 @@ describe('PartnersListPage', () => {
     vi.clearAllMocks();
     latestTableProps = null;
     listPartnersMock.mockResolvedValue({
-      data: [{ id: 'partner-1', name: 'UNDP', logo_url: null, website_url: 'https://undp.org', status: 'draft', display_order: 1 }],
+      data: [
+        { id: 'partner-1', name: 'UNDP', logo_url: null, website_url: 'https://undp.org', status: 'draft', display_order: 1 },
+        { id: 'partner-2', name: 'Samsung', logo_url: null, website_url: 'https://samsung.com', status: 'published', display_order: 2 },
+      ],
       error: null,
     });
     archivePartnerMock.mockResolvedValue({ error: null });
@@ -81,7 +92,23 @@ describe('PartnersListPage', () => {
     await flushEffects();
 
     expect(listPartnersMock).toHaveBeenCalled();
+    expect(latestTableProps.data).toHaveLength(2);
+  });
+
+  it('filters partners by search query', async () => {
+    await act(async () => {
+      root.render(<PartnersListPage />);
+    });
+    await flushEffects();
+
+    const searchInput = container.querySelector('#partners-search') as HTMLInputElement;
+    await act(async () => {
+      setInputValue(searchInput, 'samsung');
+    });
+    await flushEffects();
+
     expect(latestTableProps.data).toHaveLength(1);
+    expect(latestTableProps.data[0].name).toBe('Samsung');
   });
 
   it('archives a partner', async () => {

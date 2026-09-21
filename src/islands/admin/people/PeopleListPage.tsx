@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { ContentTable, type Column } from '../shared/ContentTable';
 import { ConfirmDialog } from '../shared/ConfirmDialog';
 import { listPeople, archivePerson, deletePerson } from '../../../lib/admin-queries';
@@ -7,12 +7,33 @@ import type { Person } from '../../../lib/types';
 
 type Filter = 'all' | 'team' | 'advisory_board';
 
+function matchesSearch(person: Person, query: string): boolean {
+  const q = query.trim().toLowerCase();
+  if (!q) return true;
+
+  const groupLabel = person.group_type === 'team' ? 'team' : 'advisory board';
+  const haystack = [
+    person.name,
+    person.role_title,
+    person.biography,
+    person.status,
+    person.group_type,
+    groupLabel,
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  return haystack.includes(q);
+}
+
 export default function PeopleListPage() {
   const { showToast } = useToast();
   const [data, setData] = useState<Person[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<Filter>('all');
+  const [search, setSearch] = useState('');
   const [confirmState, setConfirmState] = useState<{ isOpen: boolean; itemId: string | null }>({
     isOpen: false,
     itemId: null,
@@ -47,10 +68,11 @@ export default function PeopleListPage() {
     fetchList();
   }, [fetchList]);
 
-  const filteredData =
-    filter === 'all'
-      ? data
-      : data.filter((p) => p.group_type === filter);
+  const filteredData = useMemo(() => {
+    const byGroup =
+      filter === 'all' ? data : data.filter((person) => person.group_type === filter);
+    return byGroup.filter((person) => matchesSearch(person, search));
+  }, [data, filter, search]);
 
   const onEdit = (id: string) => {
     window.location.hash = `#/people/edit/${id}`;
@@ -92,34 +114,49 @@ export default function PeopleListPage() {
   return (
     <div>
       <h1 className="text-2xl font-semibold text-lab-text mb-6">People</h1>
-      <div className="flex gap-2 mb-4">
-        <button
-          type="button"
-          onClick={() => setFilter('all')}
-          className={`px-3 py-1.5 rounded-md text-sm font-medium ${
-            filter === 'all' ? 'bg-lab-accent text-lab-text' : 'bg-lab-section text-lab-text hover:bg-lab-elevated'
-          }`}
-        >
-          All
-        </button>
-        <button
-          type="button"
-          onClick={() => setFilter('team')}
-          className={`px-3 py-1.5 rounded-md text-sm font-medium ${
-            filter === 'team' ? 'bg-lab-accent text-lab-text' : 'bg-lab-section text-lab-text hover:bg-lab-elevated'
-          }`}
-        >
-          Team
-        </button>
-        <button
-          type="button"
-          onClick={() => setFilter('advisory_board')}
-          className={`px-3 py-1.5 rounded-md text-sm font-medium ${
-            filter === 'advisory_board' ? 'bg-lab-accent text-lab-text' : 'bg-lab-section text-lab-text hover:bg-lab-elevated'
-          }`}
-        >
-          Advisory Board
-        </button>
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => setFilter('all')}
+            className={`px-3 py-1.5 rounded-md text-sm font-medium ${
+              filter === 'all' ? 'bg-lab-accent text-lab-text' : 'bg-lab-section text-lab-text hover:bg-lab-elevated'
+            }`}
+          >
+            All
+          </button>
+          <button
+            type="button"
+            onClick={() => setFilter('team')}
+            className={`px-3 py-1.5 rounded-md text-sm font-medium ${
+              filter === 'team' ? 'bg-lab-accent text-lab-text' : 'bg-lab-section text-lab-text hover:bg-lab-elevated'
+            }`}
+          >
+            Team
+          </button>
+          <button
+            type="button"
+            onClick={() => setFilter('advisory_board')}
+            className={`px-3 py-1.5 rounded-md text-sm font-medium ${
+              filter === 'advisory_board' ? 'bg-lab-accent text-lab-text' : 'bg-lab-section text-lab-text hover:bg-lab-elevated'
+            }`}
+          >
+            Advisory Board
+          </button>
+        </div>
+        <div className="w-full sm:max-w-md">
+          <label htmlFor="people-search" className="sr-only">
+            Search people
+          </label>
+          <input
+            id="people-search"
+            type="search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search by name, role, status…"
+            className="w-full rounded-md border border-lab-border bg-lab-surface px-3 py-2 text-sm text-lab-text placeholder:text-lab-subtle focus:outline-none focus:ring-2 focus:ring-lab-accent focus:border-lab-accent"
+          />
+        </div>
       </div>
       <ContentTable
         columns={columns}

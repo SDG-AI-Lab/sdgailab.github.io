@@ -272,4 +272,87 @@ describe('AuthProvider', () => {
 
     expect(subscriptionUnsubscribeMock).toHaveBeenCalled();
   });
+
+  it('keeps editor access mounted across TOKEN_REFRESHED', async () => {
+    getSessionMock.mockResolvedValue({
+      data: {
+        session: {
+          user: { email: 'editor@example.org' },
+        },
+      },
+    });
+    getAuthorizedAdminMock.mockResolvedValue({
+      email: 'editor@example.org',
+      role: 'editor',
+    });
+
+    await act(async () => {
+      root.render(
+        <AuthProvider>
+          <Harness />
+        </AuthProvider>
+      );
+    });
+    await flushEffects();
+
+    getAuthorizedAdminMock.mockClear();
+
+    await act(async () => {
+      authStateChangeCallback?.('TOKEN_REFRESHED', {
+        user: { email: 'editor@example.org' },
+      });
+    });
+    await flushEffects();
+
+    const node = container.querySelector('[data-testid="auth-state"]');
+    expect(node?.getAttribute('data-loading')).toBe('false');
+    expect(node?.getAttribute('data-is-editor')).toBe('true');
+    expect(node?.getAttribute('data-admin-email')).toBe('editor@example.org');
+    expect(getAuthorizedAdminMock).not.toHaveBeenCalled();
+  });
+
+  it('does not flip loading when SIGNED_IN repeats for the same editor', async () => {
+    getSessionMock.mockResolvedValue({
+      data: {
+        session: {
+          user: { email: 'editor@example.org' },
+        },
+      },
+    });
+    getAuthorizedAdminMock.mockResolvedValue({
+      email: 'editor@example.org',
+      role: 'editor',
+    });
+
+    await act(async () => {
+      root.render(
+        <AuthProvider>
+          <Harness />
+        </AuthProvider>
+      );
+    });
+    await flushEffects();
+
+    let sawLoadingTrue = false;
+    const observer = new MutationObserver(() => {
+      const node = container.querySelector('[data-testid="auth-state"]');
+      if (node?.getAttribute('data-loading') === 'true') {
+        sawLoadingTrue = true;
+      }
+    });
+    observer.observe(container, { attributes: true, subtree: true, childList: true });
+
+    await act(async () => {
+      authStateChangeCallback?.('SIGNED_IN', {
+        user: { email: 'editor@example.org' },
+      });
+    });
+    await flushEffects();
+    observer.disconnect();
+
+    const node = container.querySelector('[data-testid="auth-state"]');
+    expect(sawLoadingTrue).toBe(false);
+    expect(node?.getAttribute('data-loading')).toBe('false');
+    expect(node?.getAttribute('data-is-editor')).toBe('true');
+  });
 });

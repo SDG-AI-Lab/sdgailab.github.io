@@ -62,9 +62,9 @@ describe('Homepage Marina composition integration', () => {
 
   it('composes the Marina homepage hero, impact, portfolio and partner sections', () => {
     expect(indexPage).toContain('Digital technologies');
-    expect(indexPage).toContain('marina-spec-impact-grid');
-    expect(indexPage).toContain('marina-spec-work-gallery');
-    expect(indexPage).toContain('<PartnerLogos client:load variant="marquee" />');
+    expect(indexPage).toContain('marina-live-impact');
+    expect(indexPage).toContain('marina-live-gallery');
+    expect(indexPage).toContain('<PartnerLogos client:load variant="home" />');
   });
 });
 

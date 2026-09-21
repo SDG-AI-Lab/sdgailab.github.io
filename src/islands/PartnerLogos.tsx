@@ -5,7 +5,7 @@ import { samplePartners } from '../data/sampleContent';
 
 interface PartnerLogosProps {
   limit?: number;
-  variant?: 'grid' | 'marquee' | 'strip';
+  variant?: 'grid' | 'marquee' | 'strip' | 'home';
 }
 
 const cardClasses =
@@ -85,6 +85,50 @@ export default function PartnerLogos({ limit, variant = 'grid' }: PartnerLogosPr
   }, []);
 
   const visiblePartners = limit ? partners.slice(0, limit) : partners;
+
+  if (variant === 'home') {
+    return (
+      <div>
+        {error && (
+          <p className="sr-only">
+            Live partner data is unavailable; showing a representative partner list.
+          </p>
+        )}
+        <div className="marina-live-partner-marks" aria-label="Partners and network">
+          {visiblePartners.map((partner) => {
+            const markClass = /undp/i.test(partner.name) ? 'undp-mark' : undefined;
+            const image = partner.logo_url ? (
+              <img
+                src={partner.logo_url}
+                alt={partner.name}
+                className={markClass}
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <span className="text-sm font-medium text-lab-muted">{partner.name}</span>
+            );
+
+            if (!partner.website_url) {
+              return <span key={partner.id}>{image}</span>;
+            }
+
+            return (
+              <a
+                key={partner.id}
+                href={partner.website_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={partner.name}
+              >
+                {image}
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
 
   if (variant === 'marquee') {
     const scrollingPartners = [...visiblePartners, ...visiblePartners];

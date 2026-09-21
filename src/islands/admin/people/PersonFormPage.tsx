@@ -125,6 +125,13 @@ export default function PersonFormPage({ id }: PersonFormPageProps) {
 
   return (
     <div>
+      <a
+        href="#/people"
+        className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-lab-muted hover:text-lab-accent-soft"
+      >
+        <span aria-hidden="true">&larr;</span>
+        Back to people
+      </a>
       <h1 className="text-2xl font-semibold text-lab-text mb-6">
         {id ? 'Edit Person' : 'New Person'}
       </h1>

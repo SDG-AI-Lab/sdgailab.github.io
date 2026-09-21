@@ -52,6 +52,14 @@ async function flushEffects() {
   });
 }
 
+function setInputValue(input: HTMLInputElement, value: string) {
+  const proto = Object.getPrototypeOf(input);
+  const descriptor = Object.getOwnPropertyDescriptor(proto, 'value');
+  descriptor?.set?.call(input, value);
+  input.dispatchEvent(new Event('input', { bubbles: true }));
+  input.dispatchEvent(new Event('change', { bubbles: true }));
+}
+
 describe('ProjectsListPage', () => {
   let container: HTMLDivElement;
   let root: Root;
@@ -62,7 +70,30 @@ describe('ProjectsListPage', () => {
     latestTableProps = null;
     latestDialogProps = null;
     listProjectsMock.mockResolvedValue({
-      data: [{ id: 'project-1', title: 'Project', project_status: 'active', is_featured: false, is_deployed: true, status: 'draft', display_order: 1 }],
+      data: [
+        {
+          id: 'project-1',
+          title: 'Digital Social Vulnerability Index',
+          slug: 'dsvi',
+          project_status: 'active',
+          is_featured: false,
+          is_deployed: true,
+          status: 'published',
+          display_order: 1,
+          implementation_countries: ['Lebanon'],
+        },
+        {
+          id: 'project-2',
+          title: 'Tech Volunteers for Resilience',
+          slug: 'tech4r',
+          project_status: 'completed',
+          is_featured: true,
+          is_deployed: false,
+          status: 'draft',
+          display_order: 2,
+          implementation_countries: ['Turkey'],
+        },
+      ],
       error: null,
     });
     archiveProjectMock.mockResolvedValue({ error: null });
@@ -87,7 +118,25 @@ describe('ProjectsListPage', () => {
     await flushEffects();
 
     expect(listProjectsMock).toHaveBeenCalled();
+    expect(latestTableProps.data).toHaveLength(2);
+  });
+
+  it('filters projects by search query', async () => {
+    await act(async () => {
+      root.render(<ProjectsListPage />);
+    });
+    await flushEffects();
+
+    const searchInput = container.querySelector('#projects-search') as HTMLInputElement;
+    expect(searchInput).toBeTruthy();
+
+    await act(async () => {
+      setInputValue(searchInput, 'lebanon');
+    });
+    await flushEffects();
+
     expect(latestTableProps.data).toHaveLength(1);
+    expect(latestTableProps.data[0].title).toBe('Digital Social Vulnerability Index');
   });
 
   it('archives a project and refreshes the list', async () => {

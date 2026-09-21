@@ -114,6 +114,13 @@ export default function PartnerFormPage({ id }: PartnerFormPageProps) {
 
   return (
     <div>
+      <a
+        href="#/partners"
+        className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-lab-muted hover:text-lab-accent-soft"
+      >
+        <span aria-hidden="true">&larr;</span>
+        Back to partners
+      </a>
       <h1 className="text-2xl font-semibold text-lab-text mb-6">
         {id ? 'Edit Partner' : 'New Partner'}
       </h1>

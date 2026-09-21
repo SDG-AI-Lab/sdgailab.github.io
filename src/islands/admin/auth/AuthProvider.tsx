@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import type { Session, User } from '@supabase/supabase-js';
 import {
   clearAuthorizedAdminCache,
@@ -28,6 +28,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
   const [authorizationError, setAuthorizationError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const adminUserRef = useRef(adminUser);
+  adminUserRef.current = adminUser;
 
   const signOut = useCallback(async () => {
     await getSupabaseAuth().auth.signOut();
@@ -41,11 +43,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const applySession = useCallback(async (s: Session | null) => {
     setSession(s);
     setUser(s?.user ?? null);
-    setAdminUser(null);
-    setAuthorizationError(null);
 
     if (!s) {
       clearAuthorizedAdminCache();
+      setAdminUser(null);
+      setAuthorizationError(null);
       setLoading(false);
       return;
     }
@@ -53,22 +55,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const normalizedEmail = normalizeAdminEmail(s.user.email ?? '');
     if (!normalizedEmail) {
       clearAuthorizedAdminCache();
+      setAdminUser(null);
       setAuthorizationError('This account does not have a valid email address.');
       setLoading(false);
       return;
     }
 
+    // Keep the current editor gate mounted while re-verifying the same identity.
+    // Clearing adminUser here remounts CMS pages and reloads lists on tab focus.
     try {
       const actor = await getAuthorizedAdmin(true);
       if (actor.email !== normalizedEmail) {
         clearAuthorizedAdminCache();
+        setAdminUser(null);
         setAuthorizationError('This account is not approved for editor access.');
         setLoading(false);
         return;
       }
       setAdminUser(actor);
+      setAuthorizationError(null);
     } catch (error) {
       logAppError('admin.auth.verify_editor', error);
+      setAdminUser(null);
       setAuthorizationError(error instanceof Error ? error.message : 'Unable to verify editor access.');
       setLoading(false);
       return;
@@ -87,12 +95,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return;
       }
       if (event === 'SIGNED_IN' && s) {
-        setLoading(true);
+        const email = normalizeAdminEmail(s.user.email ?? '');
+        const alreadyAuthorized = Boolean(email && adminUserRef.current?.email === email);
+        if (!alreadyAuthorized) {
+          setLoading(true);
+        }
         void applySession(s);
       } else if (event === 'SIGNED_OUT' || (event === 'TOKEN_REFRESHED' && !s)) {
         void applySession(null);
       } else if (event === 'TOKEN_REFRESHED' && s) {
-        void applySession(s);
+        // Token refresh does not change identity — update session quietly.
+        setSession(s);
+        setUser(s.user ?? null);
       }
     });
 
