@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ContentTable, type Column } from '../shared/ContentTable';
 import { ConfirmDialog } from '../shared/ConfirmDialog';
 import { listProjects, archiveProject, deleteProject } from '../../../lib/admin-queries';
@@ -22,11 +22,34 @@ function ProjectStatusBadge({ status }: { status: ProjectStatus }) {
   );
 }
 
+function matchesSearch(project: Project, query: string): boolean {
+  const q = query.trim().toLowerCase();
+  if (!q) return true;
+
+  const haystack = [
+    project.title,
+    project.slug,
+    project.project_status,
+    project.status,
+    project.work_stream,
+    project.project_category,
+    project.impact_area,
+    project.summary,
+    ...(project.implementation_countries ?? []),
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  return haystack.includes(q);
+}
+
 export default function ProjectsListPage() {
   const { showToast } = useToast();
   const [data, setData] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
   const [confirmState, setConfirmState] = useState<{ isOpen: boolean; itemId: string | null }>({
     isOpen: false,
     itemId: null,
@@ -68,6 +91,11 @@ export default function ProjectsListPage() {
     fetchList();
   }, []);
 
+  const filteredData = useMemo(
+    () => data.filter((project) => matchesSearch(project, search)),
+    [data, search]
+  );
+
   const onEdit = (id: string) => {
     window.location.hash = `#/projects/edit/${id}`;
   };
@@ -108,9 +136,22 @@ export default function ProjectsListPage() {
   return (
     <div>
       <h1 className="text-2xl font-semibold text-lab-text mb-6">Projects</h1>
+      <div className="mb-4">
+        <label htmlFor="projects-search" className="sr-only">
+          Search projects
+        </label>
+        <input
+          id="projects-search"
+          type="search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search by title, slug, status, country…"
+          className="w-full max-w-md rounded-md border border-lab-border bg-lab-surface px-3 py-2 text-sm text-lab-text placeholder:text-lab-subtle focus:outline-none focus:ring-2 focus:ring-lab-accent focus:border-lab-accent"
+        />
+      </div>
       <ContentTable
         columns={columns}
-        data={data}
+        data={filteredData}
         loading={loading}
         error={error}
         onEdit={onEdit}

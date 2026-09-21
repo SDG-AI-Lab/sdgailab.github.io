@@ -50,6 +50,14 @@ async function flushEffects() {
   });
 }
 
+function setInputValue(input: HTMLInputElement, value: string) {
+  const proto = Object.getPrototypeOf(input);
+  const descriptor = Object.getOwnPropertyDescriptor(proto, 'value');
+  descriptor?.set?.call(input, value);
+  input.dispatchEvent(new Event('input', { bubbles: true }));
+  input.dispatchEvent(new Event('change', { bubbles: true }));
+}
+
 describe('PeopleListPage', () => {
   let container: HTMLDivElement;
   let root: Root;
@@ -97,6 +105,22 @@ describe('PeopleListPage', () => {
 
     expect(latestTableProps.data).toHaveLength(1);
     expect(latestTableProps.data[0].id).toBe('person-1');
+  });
+
+  it('filters people by search query', async () => {
+    await act(async () => {
+      root.render(<PeopleListPage />);
+    });
+    await flushEffects();
+
+    const searchInput = container.querySelector('#people-search') as HTMLInputElement;
+    await act(async () => {
+      setInputValue(searchInput, 'engineer');
+    });
+    await flushEffects();
+
+    expect(latestTableProps.data).toHaveLength(1);
+    expect(latestTableProps.data[0].name).toBe('Grace');
   });
 
   it('archives a person', async () => {

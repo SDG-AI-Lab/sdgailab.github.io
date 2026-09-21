@@ -49,6 +49,14 @@ async function flushEffects() {
   });
 }
 
+function setInputValue(input: HTMLInputElement, value: string) {
+  const proto = Object.getPrototypeOf(input);
+  const descriptor = Object.getOwnPropertyDescriptor(proto, 'value');
+  descriptor?.set?.call(input, value);
+  input.dispatchEvent(new Event('input', { bubbles: true }));
+  input.dispatchEvent(new Event('change', { bubbles: true }));
+}
+
 describe('NewsListPage', () => {
   let container: HTMLDivElement;
   let root: Root;
@@ -58,7 +66,10 @@ describe('NewsListPage', () => {
     vi.clearAllMocks();
     latestTableProps = null;
     listNewsArticlesMock.mockResolvedValue({
-      data: [{ id: 'news-1', title: 'Article', author_name: 'Author', publish_date: '2026-07-15', status: 'draft' }],
+      data: [
+        { id: 'news-1', title: 'Climate Article', slug: 'climate', author_name: 'Ada', publish_date: '2026-07-15', status: 'draft' },
+        { id: 'news-2', title: 'Resilience Update', slug: 'resilience', author_name: 'Grace', publish_date: '2026-08-01', status: 'published' },
+      ],
       error: null,
     });
     archiveNewsArticleMock.mockResolvedValue({ error: null });
@@ -81,7 +92,23 @@ describe('NewsListPage', () => {
     await flushEffects();
 
     expect(listNewsArticlesMock).toHaveBeenCalled();
+    expect(latestTableProps.data).toHaveLength(2);
+  });
+
+  it('filters articles by search query', async () => {
+    await act(async () => {
+      root.render(<NewsListPage />);
+    });
+    await flushEffects();
+
+    const searchInput = container.querySelector('#news-search') as HTMLInputElement;
+    await act(async () => {
+      setInputValue(searchInput, 'grace');
+    });
+    await flushEffects();
+
     expect(latestTableProps.data).toHaveLength(1);
+    expect(latestTableProps.data[0].title).toBe('Resilience Update');
   });
 
   it('archives an article', async () => {

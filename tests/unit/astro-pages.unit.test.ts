@@ -14,7 +14,7 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
       expect(source).toContain('marina-live-hero');
       expect(source).toContain('Digital technologies');
       expect(source).toContain('impactStats');
-      expect(source).toContain('partnerLogos');
+      expect(source).toContain('PartnerLogos');
       expect(source).toContain('marina-live-gallery');
     },
   },
@@ -83,7 +83,8 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
     checks: (source) => {
       expect(source).toContain('PortfolioGrid');
       expect(source).toContain('client:load');
-      expect(source).toContain('23 products, seven years of delivery.');
+      expect(source).not.toContain('23 products, seven years of delivery.');
+      expect(source).toContain('signature programmes');
     },
   },
   {

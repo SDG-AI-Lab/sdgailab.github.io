@@ -188,6 +188,8 @@ describe('ProjectFormPage', () => {
       root.render(<ProjectFormPage />);
     });
 
+    expect(container.querySelector('a[href="#/projects"]')?.textContent).toContain('Back to projects');
+
     const titleInput = container.querySelector('input[type="text"]') as HTMLInputElement;
     const slugInput = container.querySelector('input[aria-label="Slug"]') as HTMLInputElement;
     const description = container.querySelector('textarea[aria-label="Description *"]') as HTMLTextAreaElement;

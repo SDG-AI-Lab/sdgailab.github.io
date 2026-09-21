@@ -122,6 +122,19 @@ export default function PortfolioGrid() {
 
   return (
     <>
+      <div className="band-head reveal">
+        <h1>
+          {loading
+            ? 'Products, seven years of delivery.'
+            : `${cards.length} ${cards.length === 1 ? 'product' : 'products'}, seven years of delivery.`}
+        </h1>
+        <p className="desc">
+          Explore a range of projects addressing real-world challenges across different focus areas.
+          Each case highlights the problem, the solution delivered, and where it runs. Filter by focus
+          area or status, then open a card to explore the full story.
+        </p>
+      </div>
+
       <div className="portfolio-toolbar reveal">
         <div className="proj-filters" role="group" aria-label="Filter by focus area">
           <button type="button" className={`proj-filter ${workstreamFilter === 'all' ? 'active' : ''}`} onClick={() => setWorkstreamFilter('all')}>All focus areas</button>

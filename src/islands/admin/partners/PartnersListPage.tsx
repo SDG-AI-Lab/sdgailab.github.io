@@ -1,15 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ContentTable, type Column } from '../shared/ContentTable';
 import { ConfirmDialog } from '../shared/ConfirmDialog';
 import { listPartners, archivePartner, deletePartner } from '../../../lib/admin-queries';
 import { useToast } from '../layout/Toast';
 import type { Partner } from '../../../lib/types';
 
+function matchesSearch(partner: Partner, query: string): boolean {
+  const q = query.trim().toLowerCase();
+  if (!q) return true;
+
+  const haystack = [partner.name, partner.website_url, partner.status]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  return haystack.includes(q);
+}
+
 export default function PartnersListPage() {
   const { showToast } = useToast();
   const [data, setData] = useState<Partner[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
   const [confirmState, setConfirmState] = useState<{ isOpen: boolean; itemId: string | null }>({
     isOpen: false,
     itemId: null,
@@ -61,6 +74,11 @@ export default function PartnersListPage() {
     fetchList();
   }, []);
 
+  const filteredData = useMemo(
+    () => data.filter((partner) => matchesSearch(partner, search)),
+    [data, search]
+  );
+
   const onEdit = (id: string) => {
     window.location.hash = `#/partners/edit/${id}`;
   };
@@ -101,9 +119,22 @@ export default function PartnersListPage() {
   return (
     <div>
       <h1 className="text-2xl font-semibold text-lab-text mb-6">Partners</h1>
+      <div className="mb-4">
+        <label htmlFor="partners-search" className="sr-only">
+          Search partners
+        </label>
+        <input
+          id="partners-search"
+          type="search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search by name, website, status…"
+          className="w-full max-w-md rounded-md border border-lab-border bg-lab-surface px-3 py-2 text-sm text-lab-text placeholder:text-lab-subtle focus:outline-none focus:ring-2 focus:ring-lab-accent focus:border-lab-accent"
+        />
+      </div>
       <ContentTable
         columns={columns}
-        data={data}
+        data={filteredData}
         loading={loading}
         error={error}
         onEdit={onEdit}

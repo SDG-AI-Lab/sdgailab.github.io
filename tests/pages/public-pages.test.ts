@@ -19,7 +19,8 @@ describe('Public Astro pages', () => {
     expect(source).toContain('BaseLayout');
     expect(source).toContain('PortfolioGrid');
     expect(source).toContain('client:load');
-    expect(source).toContain('23 products, seven years of delivery.');
+    expect(source).not.toContain('23 products, seven years of delivery.');
+    expect(source).toContain('signature programmes');
     expect(source).not.toContain('Featured initiative: Tech4R');
   });
 

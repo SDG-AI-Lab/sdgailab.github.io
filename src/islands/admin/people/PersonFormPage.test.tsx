@@ -154,6 +154,8 @@ describe('PersonFormPage', () => {
       root.render(<PersonFormPage />);
     });
 
+    expect(container.querySelector('a[href="#/people"]')?.textContent).toContain('Back to people');
+
     const form = container.querySelector('form') as HTMLFormElement;
 
     await act(async () => {
