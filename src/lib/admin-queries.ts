@@ -7,6 +7,8 @@ import type {
   Statistic,
   Project,
   NewsArticle,
+  Publication,
+  PublicationType,
   Person,
   Partner,
   PageContent,
@@ -90,6 +92,22 @@ export interface NewsArticleInput {
   published_at?: string | null;
 }
 
+export interface PublicationInput {
+  title: string;
+  slug: string;
+  publication_type: PublicationType;
+  authors?: string | null;
+  publication_date?: string | null;
+  date_label?: string | null;
+  publisher?: string | null;
+  summary: string;
+  source_url: string;
+  cover_image_url?: string | null;
+  display_order: number;
+  status: PublishStatus;
+  published_at?: string | null;
+}
+
 export interface PersonInput {
   name: string;
   role_title: string;
@@ -145,6 +163,7 @@ const VALID_STATUSES: PublishStatus[] = ['draft', 'published', 'archived'];
 const VALID_PROJECT_STATUSES: ProjectStatus[] = ['active', 'completed', 'under_development', 'on_hold'];
 const VALID_DEPLOYMENT_STATUSES = ['live', 'prototype', 'internal'] as const;
 const VALID_PEOPLE_GROUPS: PeopleGroup[] = ['team', 'advisory_board'];
+const VALID_PUBLICATION_TYPES: PublicationType[] = ['report', 'brief_white_paper', 'academic_paper', 'dataset'];
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const SECTION_PATTERN = /^[a-z0-9]+(?:-[a-z0-9_]+)*$/;
 const MUTATION_WINDOW_MS = 5 * 60 * 1000;
@@ -297,6 +316,13 @@ function assertPeopleGroup(value: unknown): PeopleGroup {
   return value as PeopleGroup;
 }
 
+function assertPublicationType(value: unknown): PublicationType {
+  if (typeof value !== 'string' || !VALID_PUBLICATION_TYPES.includes(value as PublicationType)) {
+    throw new Error('Publication type is invalid.');
+  }
+  return value as PublicationType;
+}
+
 function assertSlug(value: unknown, field: string): string {
   const slug = assertNonEmptyString(value, field).toLowerCase();
   if (!SLUG_PATTERN.test(slug)) {
@@ -414,6 +440,25 @@ function validateNewsArticleInput(input: NewsArticleInput): NewsArticleInput {
     featured_image_url: assertOptionalHttpUrl(input.featured_image_url, 'Featured image URL'),
     author_name: normalizeOptionalString(input.author_name, 'Author name'),
     publish_date: assertIsoDate(input.publish_date, 'Publish date'),
+    status: assertStatus(input.status),
+    published_at: assertOptionalIsoDateTime(input.published_at, 'Published at'),
+  };
+}
+
+function validatePublicationInput(input: PublicationInput): PublicationInput {
+  const publicationDate = normalizeOptionalString(input.publication_date, 'Publication date');
+  return {
+    title: assertNonEmptyString(input.title, 'Title'),
+    slug: assertSlug(input.slug, 'Slug'),
+    publication_type: assertPublicationType(input.publication_type),
+    authors: normalizeOptionalString(input.authors, 'Authors'),
+    publication_date: publicationDate ? assertIsoDate(publicationDate, 'Publication date') : null,
+    date_label: normalizeOptionalString(input.date_label, 'Date label'),
+    publisher: normalizeOptionalString(input.publisher, 'Publisher'),
+    summary: assertNonEmptyString(input.summary, 'Summary'),
+    source_url: assertNonEmptyString(assertOptionalHttpUrl(input.source_url, 'Source URL'), 'Source URL'),
+    cover_image_url: assertOptionalHttpUrl(input.cover_image_url, 'Cover image URL'),
+    display_order: assertNonNegativeInteger(input.display_order, 'Display order'),
     status: assertStatus(input.status),
     published_at: assertOptionalIsoDateTime(input.published_at, 'Published at'),
   };
@@ -735,6 +780,30 @@ export async function deleteNewsArticle(id: string): Promise<AdminResult<{ id: s
   return permanentlyDeleteRecord('news_articles', id);
 }
 
+export async function listPublications(): Promise<AdminListResult<Publication>> {
+  return listAll<Publication>('publications', 'publication_date', false);
+}
+
+export async function getPublication(id: string): Promise<AdminResult<Publication>> {
+  return getById<Publication>('publications', id);
+}
+
+export async function createPublication(input: PublicationInput): Promise<AdminResult<Publication>> {
+  return createRecord<Publication, PublicationInput>('publications', input, validatePublicationInput);
+}
+
+export async function updatePublication(id: string, input: PublicationInput): Promise<AdminResult<Publication>> {
+  return updateRecord<Publication, PublicationInput>('publications', id, input, validatePublicationInput);
+}
+
+export async function archivePublication(id: string): Promise<AdminResult<{ id: string }>> {
+  return archiveRecord('publications', id);
+}
+
+export async function deletePublication(id: string): Promise<AdminResult<{ id: string }>> {
+  return permanentlyDeleteRecord('publications', id);
+}
+
 export async function listPeople(): Promise<AdminListResult<Person>> {
   return listAll<Person>('people', 'display_order', true);
 }
@@ -820,7 +889,7 @@ export async function deletePageContent(id: string): Promise<AdminResult<{ id: s
 
 export async function getDashboardCounts(): Promise<{
   data: Record<
-    'statistics' | 'projects' | 'news_articles' | 'people' | 'partners' | 'geographic_reach' | 'evolution_timeline' | 'page_content',
+    'statistics' | 'projects' | 'news_articles' | 'publications' | 'people' | 'partners' | 'geographic_reach' | 'evolution_timeline' | 'page_content',
     ContentCounts
   >;
   error: string | null;
@@ -829,6 +898,7 @@ export async function getDashboardCounts(): Promise<{
     'statistics',
     'projects',
     'news_articles',
+    'publications',
     'people',
     'partners',
     'geographic_reach',
@@ -841,7 +911,7 @@ export async function getDashboardCounts(): Promise<{
     if (error) {
       return {
         data: {} as Record<
-          'statistics' | 'projects' | 'news_articles' | 'people' | 'partners' | 'geographic_reach' | 'evolution_timeline' | 'page_content',
+          'statistics' | 'projects' | 'news_articles' | 'publications' | 'people' | 'partners' | 'geographic_reach' | 'evolution_timeline' | 'page_content',
           ContentCounts
         >,
         error: error.message,
@@ -851,7 +921,7 @@ export async function getDashboardCounts(): Promise<{
   }
   return {
     data: result as Record<
-      'statistics' | 'projects' | 'news_articles' | 'people' | 'partners' | 'geographic_reach' | 'evolution_timeline' | 'page_content',
+      'statistics' | 'projects' | 'news_articles' | 'publications' | 'people' | 'partners' | 'geographic_reach' | 'evolution_timeline' | 'page_content',
       ContentCounts
     >,
     error: null,

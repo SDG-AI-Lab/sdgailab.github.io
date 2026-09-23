@@ -12,6 +12,7 @@ const navItems = [
   { label: 'Statistics', href: '#/statistics' },
   { label: 'Projects', href: '#/projects' },
   { label: 'News', href: '#/news' },
+  { label: 'Publications', href: '#/publications' },
   { label: 'People', href: '#/people' },
   { label: 'Partners', href: '#/partners' },
   { label: 'Geographic Reach', href: '#/geographic-reach' },

@@ -6,6 +6,7 @@ import type {
   Project,
   NewsListItem,
   NewsArticle,
+  PublicationListItem,
   PersonCard,
   PartnerLogo,
   GeographicReachCard,
@@ -102,6 +103,22 @@ export async function getPublishedNews(): Promise<{
 
   if (error) return { data: [], error: error.message };
   return { data: data as NewsListItem[], error: null };
+}
+
+export async function getPublishedPublications(): Promise<{
+  data: PublicationListItem[];
+  error: string | null;
+}> {
+  if (!isSupabaseConfigured) return { data: [], error: null };
+  const { data, error } = await getSupabase()
+    .from('publications')
+    .select('id, title, slug, publication_type, authors, publication_date, date_label, publisher, summary, source_url, cover_image_url, display_order')
+    .eq('status', 'published')
+    .order('publication_date', { ascending: false, nullsFirst: false })
+    .order('display_order', { ascending: true });
+
+  if (error) return { data: [], error: error.message };
+  return { data: data as PublicationListItem[], error: null };
 }
 
 export async function getNewsArticleBySlug(slug: string): Promise<{

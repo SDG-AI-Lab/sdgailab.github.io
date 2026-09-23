@@ -1,22 +1,6 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
-
-const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
-
-const filters = [
-  { id: 'all', label: 'All outputs' },
-  { id: 'papers', label: 'Academic papers' },
-  { id: 'briefs', label: 'Project briefs' },
-  { id: 'whitepapers', label: 'White papers' },
-  { id: 'datasets', label: 'Datasets' },
-];
-
-const outputs = [
-  { type: 'papers', title: 'Academic papers', cover: ['Academic', 'papers'], glow: 'rgba(38, 189, 226, .35)', description: 'Domain expertise across digital transformation, resilience, and digital skills & entrepreneurship.' },
-  { type: 'briefs', title: 'Project briefs', cover: ['Project', 'briefs'], glow: 'rgba(86, 192, 43, .35)', description: 'Scoping documents produced ahead of each new engagement.' },
-  { type: 'whitepapers', title: 'White papers', cover: ['White', 'papers'], glow: 'rgba(253, 157, 36, .35)', description: 'Technical guidance on applying AI to public-sector problems.' },
-  { type: 'datasets', title: 'Datasets', cover: ['Datasets'], glow: 'rgba(221, 19, 103, .35)', description: 'Open data products generated as a by-product of applied projects.' },
-];
+import ResearchOutputs from '../islands/ResearchOutputs';
 ---
 
 <BaseLayout title="Research & Advisory - SDG AI Lab" description="Key outputs from SDG AI Lab technical assessments, advisory work and partnership facilitation.">
@@ -24,41 +8,16 @@ const outputs = [
     <section class="research-band" aria-labelledby="research-heading">
       <div class="marina-live-wrap">
         <div class="research-heading reveal">
-          <h1 id="research-heading">Key outputs <span>from technical assessments, advisory work, and partnership facilitation.</span></h1>
-          <div class="report-covers" aria-label="Featured research reports">
-            <article class="report-cover">
-              <img src={marinaAsset('assets/report-disaster-innovation.jpg')} alt="Innovation in Disaster Management: Leveraging Technology to Save More Lives — UNDP and OCHA" decoding="async" />
-              <span class="report-cover-title">Innovation in Disaster Management<br /><em>Leveraging Technology to Save More Lives</em> · with OCHA</span>
-            </article>
-            <article class="report-cover">
-              <img src={marinaAsset('assets/report-madagascar-drought.jpg')} alt="Évaluation de la maturité des systèmes d'alerte précoce à la sécheresse dans the south of Madagascar, June 2025" decoding="async" />
-              <span class="report-cover-title">Évaluation de la maturité des systèmes d'alerte précoce à la sécheresse<br /><em>Sud de Madagascar</em> · June 2025</span>
-            </article>
-          </div>
+          <h1 id="research-heading">Key outputs from technical assessments, advisory work, and partnership facilitation.</h1>
+          <p class="research-intro">Explore the Lab&rsquo;s outputs across technical assessments, advisory work, and partnership facilitation. Filter by format to focus on the materials most relevant to your work.</p>
         </div>
 
-        <div class="research-toolbar reveal" role="group" aria-label="Filter by output type">
-          {filters.map((filter, index) => <button type="button" class:list={['research-filter', { active: index === 0 }]} data-research-filter={filter.id} aria-pressed={index === 0 ? 'true' : 'false'}>{filter.label}</button>)}
-        </div>
-
-        <div class="output-grid" aria-live="polite">
-          {outputs.map((output) => (
-            <article class="output-card reveal" data-research-output={output.type}>
-              <div class="output-cover" style={`--cover-glow:${output.glow}`}><span>{output.cover.map((line, index) => <>{index > 0 && <br />}{line}</>)}</span></div>
-              <div class="output-head"><h2>{output.title}</h2><span>Ongoing</span></div>
-              <p>{output.description}</p>
-            </article>
-          ))}
-        </div>
-        <p class="research-empty" hidden>No outputs are available in this category yet.</p>
+        <ResearchOutputs client:load />
       </div>
     </section>
   </main>
 
   <script>
-    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.research-filter');
-    const outputCards = document.querySelectorAll<HTMLElement>('.output-card');
-    const emptyMessage = document.querySelector<HTMLElement>('.research-empty');
     const reveals = document.querySelectorAll<HTMLElement>('.marina-research .reveal');
 
     if ('IntersectionObserver' in window) {
@@ -75,54 +34,41 @@ const outputs = [
       reveals.forEach((element) => element.classList.add('is-visible'));
     }
 
-    filterButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const selected = button.dataset.researchFilter ?? 'all';
-        let visible = 0;
-        filterButtons.forEach((item) => {
-          const active = item === button;
-          item.classList.toggle('active', active);
-          item.setAttribute('aria-pressed', String(active));
-        });
-        outputCards.forEach((card) => {
-          const matches = selected === 'all' || card.dataset.researchOutput === selected;
-          card.hidden = !matches;
-          if (matches) visible += 1;
-        });
-        if (emptyMessage) emptyMessage.hidden = visible > 0;
-      });
-    });
   </script>
 
-  <style>
+  <style is:global>
     .marina-research { background: #15181c; color: #d9dde2; font-family: 'Inter', sans-serif; min-height: 100vh; }
     .marina-research *, .marina-research *::before, .marina-research *::after { box-sizing: border-box; }
-    .research-band { padding: 126px 0 396px; background: radial-gradient(650px 440px at 2% 28%, rgba(221, 157, 36, .055), transparent 68%), #15181c; }
+    .research-band { padding: 150px 0 396px; background: radial-gradient(650px 440px at 2% 28%, rgba(221, 157, 36, .055), transparent 68%), #15181c; }
     .research-heading { display: grid; grid-template-columns: .9fr 1.1fr; column-gap: 60px; align-items: end; }
     .research-heading h1 { max-width: 510px; margin: 0; font-family: 'Cabinet Grotesk', sans-serif; font-size: clamp(2.15rem, 4vw, 3.3rem); font-weight: 700; line-height: 1.06; letter-spacing: -.03em; background: linear-gradient(115deg, #fff 20%, #a8e6f5 55%, #26bde2 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
-    .report-covers { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-end; }
-    .report-cover { display: block; width: 170px; }
-    .report-cover img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 10px; border: 1px solid #24292f; }
-    .report-cover-title { display: block; margin-top: 12px; color: #a0a8b2; font-size: .8rem; line-height: 1.4; }
-    .report-cover-title em { color: #b7bfc7; font-style: normal; }
-    .research-toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin: 66px 0 28px; }
+    .research-intro { align-self: end; max-width: 460px; margin: 0; color: #b7bfc7; font-size: 1.02rem; line-height: 1.6; }
+    .research-toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin: 72px 0 36px; }
     .research-filter { appearance: none; border: 1px solid #24292f; border-radius: 100px; background: #1b1f24; color: #a0a8b2; cursor: pointer; font: 600 .82rem 'Inter', sans-serif; padding: 8px 16px; transition: color .15s ease, border-color .15s ease, background .15s ease; }
     .research-filter:hover { border-color: #666f79; color: #d9dde2; }
     .research-filter.active { color: #0383ae; border-color: #0383ae; background: rgba(3, 131, 174, .12); }
     .output-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .output-card { display: flex; flex-direction: column; min-width: 0; padding: 24px 22px; border: 1px solid #24292f; border-radius: 14px; background: #1b1f24; transition: border-color .2s ease, transform .2s ease; }
+    .output-card { display: flex; flex-direction: column; min-width: 0; padding: 0; border: 1px solid #24292f; border-radius: 14px; background: #1b1f24; transition: border-color .2s ease, transform .2s ease; overflow: hidden; }
     .output-card:hover { border-color: #2c323a; transform: translateY(-3px); }
-    .output-cover { display: flex; align-items: flex-end; aspect-ratio: 16 / 9; margin-bottom: 22px; overflow: hidden; padding: 16px; border: 1px solid #24292f; border-radius: 12px; background: radial-gradient(120% 90% at 85% -10%, var(--cover-glow), transparent 60%), repeating-linear-gradient(135deg, rgba(255, 255, 255, .03) 0 2px, transparent 2px 26px), #21262c; }
+    .output-link { display: flex; flex-direction: column; height: 100%; padding: 18px; color: inherit; text-decoration: none; }
+    .output-cover { display: flex; align-items: flex-end; aspect-ratio: 16 / 9; margin-bottom: 18px; overflow: hidden; padding: 16px; border: 1px solid #24292f; border-radius: 10px; background: radial-gradient(120% 90% at 85% -10%, var(--cover-glow), transparent 60%), repeating-linear-gradient(135deg, rgba(255, 255, 255, .03) 0 2px, transparent 2px 26px), #21262c; }
+    .output-cover--report { --cover-glow: rgba(253, 157, 36, .35); }
+    .output-cover--brief_white_paper { --cover-glow: rgba(86, 192, 43, .35); }
+    .output-cover--academic_paper { --cover-glow: rgba(38, 189, 226, .35); }
+    .output-cover--dataset { --cover-glow: rgba(221, 19, 103, .35); }
+    .output-cover img { width: 100%; height: 100%; margin: -16px; object-fit: cover; }
     .output-cover span { color: #d9dde2; font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.1; }
-    .output-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-    .output-head h2 { margin: 0; color: #d9dde2; font-family: 'Cabinet Grotesk', sans-serif; font-size: .98rem; font-weight: 700; letter-spacing: -.01em; }
-    .output-head span { flex-shrink: 0; border-radius: 100px; background: rgba(3, 131, 174, .12); color: #0383ae; font: 600 .66rem 'Inter', sans-serif; letter-spacing: .03em; padding: 4px 10px; text-transform: uppercase; }
+    .output-meta { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; color: #0383ae; font: 600 .68rem 'Inter', sans-serif; letter-spacing: .03em; text-transform: uppercase; }
+    .output-meta span + span::before { content: '·'; margin-right: 5px; color: #666f79; }
+    .output-card h2 { margin: 0; color: #d9dde2; font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.12rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.15; }
     .output-card p { margin: 10px 0 0; color: #a0a8b2; font-size: .86rem; line-height: 1.55; }
-    .research-empty { margin: 24px 0 0; color: #a0a8b2; }
+    .output-more { display: inline-flex; margin-top: auto; padding-top: 18px; color: #a0a8b2; font: 600 .78rem 'Inter', sans-serif; }
+    .output-link:hover .output-more { color: #26bde2; }
+    .research-empty, .research-status { margin: 0 0 24px; color: #a0a8b2; }
     .reveal { opacity: 0; transform: translateY(28px) scale(.985); transition: opacity .9s cubic-bezier(.16, 1, .3, 1), transform .9s cubic-bezier(.16, 1, .3, 1); }
     .reveal.is-visible { opacity: 1; transform: none; }
     @media (max-width: 900px) { .research-band { padding-bottom: 160px; } .research-heading { grid-template-columns: 1fr; row-gap: 38px; } .output-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) { .research-band { padding-top: 106px; padding-bottom: 88px; } .report-cover { width: min(100%, 170px); } .research-toolbar { margin-top: 42px; } .output-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) { .research-band { padding-top: 106px; padding-bottom: 88px; } .research-toolbar { margin-top: 42px; } .output-grid { grid-template-columns: 1fr; } }
     @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .output-card { transition: none; } }
   </style>
 </BaseLayout>
