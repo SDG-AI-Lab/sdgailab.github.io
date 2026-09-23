@@ -8,6 +8,12 @@ export type ProjectStatus =
 
 export type PeopleGroup = "team" | "advisory_board";
 
+export type PublicationType =
+  | "report"
+  | "brief_white_paper"
+  | "academic_paper"
+  | "dataset";
+
 export interface Statistic {
   id: string;
   label: string;
@@ -71,6 +77,25 @@ export interface NewsArticle {
   featured_image_url: string | null;
   author_name: string | null;
   publish_date: string;
+  status: PublishStatus;
+  published_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Publication {
+  id: string;
+  title: string;
+  slug: string;
+  publication_type: PublicationType;
+  authors: string | null;
+  publication_date: string | null;
+  date_label: string | null;
+  publisher: string | null;
+  summary: string;
+  source_url: string;
+  cover_image_url: string | null;
+  display_order: number;
   status: PublishStatus;
   published_at: string | null;
   created_at: string;
@@ -145,6 +170,7 @@ export type StatisticCard = Pick<Statistic, "id" | "label" | "value" | "icon_nam
 export type FeaturedProjectCard = Pick<Project, "id" | "title" | "slug" | "project_status" | "is_deployed" | "image_url" | "display_order" | "summary" | "deployment_status" | "sdgs" | "is_sample" | "is_featured" | "impact_area" | "timeline" | "project_year" | "best_fit" | "core_capabilities" | "tech_stack" | "implementation_countries" | "capabilities_involved" | "video_url" | "work_stream" | "project_category">;
 export type ProjectListItem = FeaturedProjectCard;
 export type NewsListItem = Pick<NewsArticle, "id" | "title" | "slug" | "summary" | "featured_image_url" | "author_name" | "publish_date">;
+export type PublicationListItem = Pick<Publication, "id" | "title" | "slug" | "publication_type" | "authors" | "publication_date" | "date_label" | "publisher" | "summary" | "source_url" | "cover_image_url" | "display_order">;
 export type PersonCard = Pick<Person, "id" | "name" | "role_title" | "photo_url" | "biography" | "display_order">;
 export type PartnerLogo = Pick<Partner, "id" | "name" | "logo_url" | "website_url" | "display_order">;
 export type GeographicReachCard = Pick<GeographicReachItem, "id" | "country_name" | "iso_alpha3" | "latitude" | "longitude" | "region" | "display_order">;

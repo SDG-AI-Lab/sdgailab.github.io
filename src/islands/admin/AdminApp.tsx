@@ -21,6 +21,8 @@ const ProjectsListPage = lazy(() => import('./projects/ProjectsListPage'));
 const ProjectFormPage = lazy(() => import('./projects/ProjectFormPage'));
 const NewsListPage = lazy(() => import('./news/NewsListPage'));
 const NewsFormPage = lazy(() => import('./news/NewsFormPage'));
+const PublicationsListPage = lazy(() => import('./publications/PublicationsListPage'));
+const PublicationFormPage = lazy(() => import('./publications/PublicationFormPage'));
 const PeopleListPage = lazy(() => import('./people/PeopleListPage'));
 const PersonFormPage = lazy(() => import('./people/PersonFormPage'));
 const PartnersListPage = lazy(() => import('./partners/PartnersListPage'));
@@ -158,6 +160,12 @@ function matchRoute(path: string, id: string | null): React.ReactNode {
       return <NewsFormPage />;
     case '/news/edit':
       return <NewsFormPage id={id} />;
+    case '/publications':
+      return <PublicationsListPage />;
+    case '/publications/new':
+      return <PublicationFormPage />;
+    case '/publications/edit':
+      return <PublicationFormPage id={id} />;
     case '/people':
       return <PeopleListPage />;
     case '/people/new':

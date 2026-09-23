@@ -195,6 +195,7 @@ describe('admin-queries', () => {
       .mockReturnValueOnce(createListBuilder([{ status: 'draft' }, { status: 'published' }]))
       .mockReturnValueOnce(createListBuilder([{ status: 'published' }]))
       .mockReturnValueOnce(createListBuilder([{ status: 'archived' }, { status: 'archived' }]))
+      .mockReturnValueOnce(createListBuilder([{ status: 'published' }, { status: 'draft' }]))
       .mockReturnValueOnce(createListBuilder([]))
       .mockReturnValueOnce(createListBuilder([{ status: 'draft' }, { status: 'draft' }]))
       .mockReturnValueOnce(createListBuilder([{ status: 'published' }, { status: 'published' }, { status: 'archived' }]))
@@ -207,6 +208,7 @@ describe('admin-queries', () => {
     expect(result.data.statistics).toEqual({ total: 2, draft: 1, published: 1, archived: 0 });
     expect(result.data.projects).toEqual({ total: 1, draft: 0, published: 1, archived: 0 });
     expect(result.data.news_articles).toEqual({ total: 2, draft: 0, published: 0, archived: 2 });
+    expect(result.data.publications).toEqual({ total: 2, draft: 1, published: 1, archived: 0 });
     expect(result.data.people).toEqual({ total: 0, draft: 0, published: 0, archived: 0 });
     expect(result.data.partners).toEqual({ total: 2, draft: 2, published: 0, archived: 0 });
     expect(result.data.geographic_reach).toEqual({ total: 3, draft: 0, published: 2, archived: 1 });

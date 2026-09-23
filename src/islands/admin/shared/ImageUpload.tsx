@@ -3,7 +3,7 @@ import { uploadImage, deleteImage, replaceImage } from '../../../lib/storage';
 
 export interface ImageUploadProps {
   value: string | null;
-  folder: 'projects' | 'news' | 'people' | 'partners';
+  folder: 'projects' | 'news' | 'publications' | 'people' | 'partners';
   onChange: (url: string | null) => void;
   label?: string;
 }

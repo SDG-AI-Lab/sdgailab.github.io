@@ -5,6 +5,7 @@ type ContentKey =
   | "statistics"
   | "projects"
   | "news_articles"
+  | "publications"
   | "people"
   | "partners"
   | "geographic_reach"
@@ -19,6 +20,7 @@ const CARD_CONFIG: {
   { key: "statistics", label: "Statistics", slug: "statistics" },
   { key: "projects", label: "Projects", slug: "projects" },
   { key: "news_articles", label: "News Articles", slug: "news" },
+  { key: "publications", label: "Publications", slug: "publications" },
   { key: "people", label: "People", slug: "people" },
   { key: "partners", label: "Partners", slug: "partners" },
   { key: "geographic_reach", label: "Geographic Reach", slug: "geographic-reach" },

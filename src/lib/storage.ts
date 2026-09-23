@@ -20,7 +20,7 @@ const MAX_IMAGE_FILE_SIZE = 5 * 1024 * 1024;
 const MAX_VIDEO_FILE_SIZE = 100 * 1024 * 1024;
 const PUBLIC_ASSETS_BUCKET = 'public-assets';
 
-type ImageFolder = 'projects' | 'news' | 'people' | 'partners';
+type ImageFolder = 'projects' | 'news' | 'publications' | 'people' | 'partners';
 type VideoFolder = 'projects';
 
 function protectedStorageAction<T>(key: string, action: () => Promise<T>): Promise<T> {

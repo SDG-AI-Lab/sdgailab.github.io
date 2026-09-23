@@ -120,9 +120,10 @@
   .marina-live-partners h2 { margin-bottom: 44px; color: var(--lab-text); font-family: 'Cabinet Grotesk', 'Inter', sans-serif; font-size: clamp(2rem, 3.4vw, 2.7rem); line-height: 1.18; }
   .marina-live-partners h2 span { color: #6ec6e8; }
   .marina-live-partner-marks { display: flex; align-items: center; gap: 28px 34px; flex-wrap: wrap; }
-  .marina-live-partner-marks a { display: inline-flex; align-items: center; color: inherit; text-decoration: none; }
-  .marina-live-partner-marks img { width: auto; max-width: 135px; height: 42px; object-fit: contain; }
-  .marina-live-partner-marks .undp-mark { height: 58px; }
+  /* A fixed logo window standardizes the visual rhythm without distorting partner marks. */
+  .marina-live-partner-marks > a,
+  .marina-live-partner-marks > span { display: inline-flex; align-items: center; justify-content: center; width: 132px; height: 52px; color: inherit; text-decoration: none; }
+  .marina-live-partner-marks img { display: block; width: 100%; height: 100%; max-width: none; max-height: none; object-fit: contain; }
 
   @media (max-width: 860px) { .marina-live-impact { grid-template-columns: repeat(2, minmax(0, 1fr)); } .marina-live-impact-item:nth-child(2) { border-right: 0; } .marina-live-impact-item:nth-child(-n+2) { border-bottom: 1px solid #24292f; } }
   @media (max-width: 640px) { .marina-live-wrap { padding-inline: 20px; } .marina-live-hero { padding-top: 118px; } .marina-live-work-tile { flex-basis: 70vw; } .marina-live-mission p { padding-left: 0; } .marina-live-mission p::before { display: none; } .marina-live-impact { grid-template-columns: 1fr; } .marina-live-impact-item, .marina-live-impact-item:nth-child(2) { margin: 0; padding: 24px 0 28px; border-right: 0; border-bottom: 1px solid #24292f; } .marina-live-impact-item:last-child { border-bottom: 0; } }

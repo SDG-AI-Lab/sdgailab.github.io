@@ -84,7 +84,9 @@ export default function PartnerLogos({ limit, variant = 'grid' }: PartnerLogosPr
     });
   }, []);
 
-  const visiblePartners = limit ? partners.slice(0, limit) : partners;
+  const withoutUndp =
+    variant === 'home' ? partners.filter((partner) => !/undp/i.test(partner.name)) : partners;
+  const visiblePartners = limit ? withoutUndp.slice(0, limit) : withoutUndp;
 
   if (variant === 'home') {
     return (
@@ -96,12 +98,10 @@ export default function PartnerLogos({ limit, variant = 'grid' }: PartnerLogosPr
         )}
         <div className="marina-live-partner-marks" aria-label="Partners and network">
           {visiblePartners.map((partner) => {
-            const markClass = /undp/i.test(partner.name) ? 'undp-mark' : undefined;
             const image = partner.logo_url ? (
               <img
                 src={partner.logo_url}
                 alt={partner.name}
-                className={markClass}
                 loading="lazy"
                 decoding="async"
               />
