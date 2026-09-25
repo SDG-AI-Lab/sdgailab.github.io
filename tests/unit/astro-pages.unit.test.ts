@@ -47,7 +47,8 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
     path: 'src/pages/team.astro',
     checks: (source) => {
       expect(source).toContain('marina-team-page');
-      expect(source).toContain('Six working groups, one lab.');
+      expect(source).toContain('Six working groups');
+      expect(source).toContain('person-avatar');
       expect(source).toContain('Coordination · Research &amp; Advisory');
     },
   },

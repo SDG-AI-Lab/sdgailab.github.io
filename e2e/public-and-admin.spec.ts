@@ -13,7 +13,7 @@ test.describe('Public site', () => {
 
   test('projects page is reachable from the homepage', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('link', { name: 'Our Work', exact: true }).first().click();
+    await page.getByRole('link', { name: 'Solutions', exact: true }).first().click();
 
     await expect(page).toHaveURL(/\/projects\/?/);
     await expect(

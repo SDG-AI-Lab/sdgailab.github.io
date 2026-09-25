@@ -17,12 +17,14 @@ WHERE status = 'published'
     'Digital projects',
     'Learners',
     'Knowledge products',
-    'Online UN Volunteers'
+    'Online UN Volunteers',
+    'Countries reached'
   );
 
 INSERT INTO statistics (label, value, icon_name, display_order, status, published_at)
 VALUES
   ('Digital projects', '50+', 'projects', 1, 'published', now()),
-  ('Learners', '3000+', 'learners', 2, 'published', now()),
+  ('Learners', '3,000+', 'learners', 2, 'published', now()),
   ('Knowledge products', '15', 'knowledge', 3, 'published', now()),
-  ('Online UN Volunteers', '3500+', 'volunteers', 4, 'published', now());
+  ('Online UN Volunteers', '3,500+', 'volunteers', 4, 'published', now()),
+  ('Countries reached', '25', 'countries', 5, 'published', now());

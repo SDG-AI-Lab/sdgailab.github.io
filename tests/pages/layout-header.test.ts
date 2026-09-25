@@ -19,13 +19,14 @@ describe('Header.astro source', () => {
   });
 
   it('links to Marina primary public sections without service subnavigation', () => {
-    expect(source).toContain("label: 'Home'");
+    expect(source).not.toContain("label: 'Home'");
     expect(source).toContain("label: 'About'");
-    expect(source).toContain("label: 'Areas of Expertise'");
+    expect(source).toContain("label: 'Expertise'");
     expect(source).toContain("label: 'Services'");
-    expect(source).toContain("label: 'Our Work'");
+    expect(source).toContain("label: 'Solutions'");
     expect(source).toContain("label: 'Research'");
-    expect(source).toContain("label: \"Let's talk\"");
+    expect(source).toContain("label: 'Contact'");
+    expect(source).toContain('aria-label="SDG AI Lab homepage"');
     expect(source).not.toContain('serviceSubLinks');
     expect(source).not.toContain('aria-haspopup');
     expect(source).not.toContain('Header request support');

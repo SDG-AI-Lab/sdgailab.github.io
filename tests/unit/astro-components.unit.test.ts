@@ -35,9 +35,9 @@ describe('Header.astro (unit)', () => {
     expect(source).toContain("label: 'How we work'");
     expect(source).toContain("label: 'Focus areas'");
     expect(source).toContain("label: 'Team'");
-    expect(source).toContain("label: 'Our Work'");
+    expect(source).toContain("label: 'Solutions'");
     expect(source).toContain("label: 'Research'");
-    expect(source).toContain("label: \"Let's talk\"");
+    expect(source).toContain("label: 'Contact'");
   });
 });
 
