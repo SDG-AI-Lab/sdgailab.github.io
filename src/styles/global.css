@@ -3,131 +3,664 @@
 @tailwind utilities;
 
 :root {
-  --lab-base: #15181C;
-  --lab-section: #1B1F24;
-  --lab-surface: #21262C;
-  --lab-elevated: #2C323A;
-  --lab-text: #D9DDE2;
-  --lab-muted: #B7BFC7;
-  --lab-subtle: #8D96A1;
+  --lab-base: #15181c;
+  --lab-section: #1b1f24;
+  --lab-surface: #21262c;
+  --lab-elevated: #2c323a;
+  --lab-text: #d9dde2;
+  --lab-muted: #b7bfc7;
+  --lab-subtle: #8d96a1;
   --lab-border: rgba(217, 221, 226, 0.16);
-  --lab-border-soft: rgba(217, 221, 226, 0.10);
-  --lab-accent: #1C61AC;
-  --lab-accent-soft: #6EC6E8;
-  --lab-teal: #0383AE;
-  --lab-light-blue: #6EC6E8;
-  --lab-amber: #6EC6E8;
+  --lab-border-soft: rgba(217, 221, 226, 0.1);
+  --lab-accent: #1c61ac;
+  --lab-accent-soft: #6ec6e8;
+  --lab-teal: #0383ae;
+  --lab-light-blue: #6ec6e8;
+  --lab-amber: #6ec6e8;
   --lab-glow-blue: rgba(28, 97, 172, 0.09);
   --lab-glow-teal: rgba(3, 131, 174, 0.09);
-  --wheel-red: #E5243B;
-  --wheel-orange: #FD6925;
-  --wheel-gold: #DDA63A;
-  --wheel-yellow: #FCC30B;
-  --wheel-lime: #56C02B;
-  --wheel-green: #4C9F38;
-  --wheel-teal: #26BDE2;
-  --wheel-blue: #0A97D9;
-  --wheel-navy: #19486A;
-  --wheel-magenta: #A21942;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --wheel-red: #e5243b;
+  --wheel-orange: #fd6925;
+  --wheel-gold: #dda63a;
+  --wheel-yellow: #fcc30b;
+  --wheel-lime: #56c02b;
+  --wheel-green: #4c9f38;
+  --wheel-teal: #26bde2;
+  --wheel-blue: #0a97d9;
+  --wheel-navy: #19486a;
+  --wheel-magenta: #a21942;
+  --font-sans:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-display: 'Cabinet Grotesk', 'Inter', sans-serif;
 }
 
 @layer components {
-  .marina-site-footer { position: relative; padding: 80px 0 40px; border-top: 0; background: #15181c; color: #d9dde2; }
-  .marina-site-footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--wheel-red), var(--wheel-orange), var(--wheel-yellow), var(--wheel-lime), var(--wheel-teal), var(--wheel-blue), var(--wheel-navy)); opacity: .85; }
-  .marina-site-footer .marina-footer-top { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 40px; padding-bottom: 60px; border-bottom: 1px solid #24292f; }
-  .marina-site-footer .marina-footer-logo { width: auto; height: 46px; }
-  .marina-site-footer .marina-footer-brand p { max-width: 330px; margin-top: 18px; color: #a0a8b2; font-size: .9rem; line-height: 1.55; }
-  .marina-footer-partner-row { display: flex; align-items: center; gap: 18px; margin-top: 30px; }
-  .marina-footer-partner-row img { width: auto; height: 36px; object-fit: contain; }
-  .marina-footer-partner-row img.undp { height: 44px; }
-  .marina-site-footer .marina-footer-col h4 { margin-bottom: 20px; color: #666f79; font-family: 'Inter', sans-serif; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-  .marina-site-footer .marina-footer-col ul { display: grid; gap: 0px; margin: 0; padding: 0; list-style: none; }
-  .marina-site-footer .marina-footer-col a { color: #a0a8b2; font-size: .88rem; text-decoration: none; transition: color .15s ease; }
-  .marina-site-footer .marina-footer-col a:hover { color: #d9dde2; }
-  .marina-site-footer .marina-footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 28px; color: #666f79; font-size: .78rem; }
-  .marina-footer-social { display: flex; align-items: center; gap: 12px; }
-  .marina-footer-social a { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid #2c323a; border-radius: 9px; color: #a0a8b2; }
-  .marina-footer-social a:hover { color: #d9dde2; border-color: #666f79; }
-  .marina-footer-social svg { width: 16px; height: 16px; }
-  @media (max-width: 800px) { .marina-site-footer .marina-footer-top { grid-template-columns: 1fr 1fr; gap: 44px 28px; } .marina-site-footer .marina-footer-brand { grid-column: 1 / -1; } }
-  @media (max-width: 520px) { .marina-site-footer .marina-footer-top { grid-template-columns: 1fr; } .marina-site-footer .marina-footer-brand { grid-column: auto; } .marina-site-footer .marina-footer-bottom { align-items: flex-start; flex-direction: column; } }
+  .marina-site-footer {
+    position: relative;
+    padding: 80px 0 40px;
+    border-top: 0;
+    background: #15181c;
+    color: #d9dde2;
+  }
+  .marina-site-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(
+      90deg,
+      var(--wheel-red),
+      var(--wheel-orange),
+      var(--wheel-yellow),
+      var(--wheel-lime),
+      var(--wheel-teal),
+      var(--wheel-blue),
+      var(--wheel-navy)
+    );
+    opacity: 0.85;
+  }
+  .marina-site-footer .marina-footer-top {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 40px 72px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #24292f;
+  }
+  .marina-site-footer .marina-footer-col h4 {
+    margin-bottom: 20px;
+    color: #666f79;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .marina-site-footer .marina-footer-col ul {
+    display: grid;
+    gap: 0px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .marina-site-footer .marina-footer-col a {
+    color: #a0a8b2;
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .marina-site-footer .marina-footer-col a:hover {
+    color: #d9dde2;
+  }
+  .marina-site-footer .marina-footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: 28px;
+    padding-right: 72px;
+    color: #666f79;
+    font-size: 0.86rem;
+  }
+  .marina-footer-social {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .marina-footer-social span {
+    font-size: 0.92rem;
+  }
+  .marina-footer-social a {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid #2c323a;
+    border-radius: 12px;
+    color: #a0a8b2;
+  }
+  .marina-footer-social a:hover {
+    color: #d9dde2;
+    border-color: #666f79;
+  }
+  .marina-footer-social svg {
+    width: 22px;
+    height: 22px;
+  }
+  @media (max-width: 520px) {
+    .marina-site-footer .marina-footer-top {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .marina-site-footer .marina-footer-bottom {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
 }
 
 /* Marina live homepage — source of truth supplied 2026-09-15. */
 @layer components {
-  .marina-live-home { background: var(--lab-base); color: var(--lab-text); overflow: hidden; }
-  .marina-live-wrap { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: 40px; }
-  .marina-live-home .reveal { opacity: 0; transform: translateY(28px) scale(.985); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
-  .marina-live-home .reveal.is-visible { opacity: 1; transform: none; }
+  .marina-live-home {
+    background: var(--lab-base);
+    color: var(--lab-text);
+    overflow: hidden;
+  }
+  .marina-live-wrap {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 40px;
+  }
+  .marina-live-home .reveal {
+    opacity: 0;
+    transform: translateY(28px) scale(0.985);
+    transition:
+      opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .marina-live-home .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
 
-  .marina-live-hero { --mx: 20%; --my: 10%; position: relative; padding-top: 148px; overflow: hidden; }
-  .marina-live-hero::before { content: ''; position: absolute; inset: -15% -15% 0; pointer-events: none; background: radial-gradient(760px 500px at 10% 6%, var(--lab-glow-teal), transparent 65%), radial-gradient(880px 560px at 90% 10%, var(--lab-glow-blue), transparent 65%); }
-  .marina-live-hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(420px 420px at var(--mx) var(--my), rgba(3,131,174,.10), transparent 70%); }
-  .marina-live-hero-blob { position: absolute; left: 50%; top: -420px; width: 1100px; height: 1100px; pointer-events: none; transform: translateX(-50%); border-radius: 42% 58% 63% 37% / 45% 40% 60% 55%; background: radial-gradient(closest-side, rgba(3,131,174,.11), rgba(28,97,172,.08) 55%, transparent 75%); animation: marina-live-blob 26s ease-in-out infinite; }
-  @keyframes marina-live-blob { 50% { transform: translateX(-48%) translateY(22px) rotate(8deg) scale(1.04); border-radius: 58% 42% 39% 61% / 52% 62% 38% 48%; } }
-  .marina-live-hero-grid { position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size: 76px 76px; mask-image: radial-gradient(1000px 640px at 50% -10%, #000 25%, transparent 78%); }
-  .marina-live-hero-orb { position: absolute; right: -120px; top: -110px; width: 600px; height: 600px; border-radius: 50%; opacity: .55; pointer-events: none; filter: blur(6px); background: radial-gradient(circle at 32% 28%, rgba(38,189,226,.65), transparent 55%), radial-gradient(circle at 68% 38%, rgba(10,151,217,.55), transparent 52%), radial-gradient(circle at 55% 72%, rgba(86,192,43,.4), transparent 58%), radial-gradient(circle at 25% 68%, rgba(252,195,11,.28), transparent 50%); animation: marina-live-orb 50s ease-in-out infinite alternate; }
-  @keyframes marina-live-orb { to { transform: rotate(10deg) scale(1.04); } }
-  .marina-live-wheel-shade { position: absolute; right: -130px; top: -130px; width: 620px; height: 360px; pointer-events: none; background: linear-gradient(180deg, rgba(21,24,28,.98), rgba(21,24,28,.55) 38%, transparent 72%); }
-  .marina-live-hero .marina-live-wrap { position: relative; z-index: 2; }
-  .marina-live-hero-top { max-width: 900px; }
-  .marina-live-hero h1 { margin: 0 0 22px; color: var(--lab-text); font-family: 'Cabinet Grotesk', 'Inter', sans-serif; font-size: clamp(2.6rem, 5.6vw, 5.1rem); font-weight: 700; line-height: .98; letter-spacing: -.03em; }
-  .marina-live-hero h1 .weak { color: #a0a8b2; font-weight: 400; }
-  .marina-live-hero h1 .grad { background: linear-gradient(120deg, var(--lab-teal), var(--lab-accent)); background-clip: text; -webkit-background-clip: text; color: transparent; filter: drop-shadow(0 0 36px rgba(3,131,174,.28)); }
-  .marina-live-hero-sub { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; flex-wrap: wrap; margin-bottom: 44px; }
-  .marina-live-hero-sub .lede { max-width: 480px; color: #b7bfc7; font-size: 1.06rem; line-height: 1.55; }
-  .marina-live-watch-link { display: flex; align-items: center; gap: 14px; color: #a0a8b2; font-size: .9rem; white-space: nowrap; transition: color .15s ease; }
-  .marina-live-watch-link:hover { color: var(--lab-text); }
-  .marina-live-watch-link .ring { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid #2c323a; border-radius: 50%; transition: border-color .15s ease, transform .25s ease; }
-  .marina-live-watch-link:hover .ring { border-color: var(--lab-teal); transform: translateY(2px); }
-  .marina-live-watch-link svg { width: 11px; height: 11px; }
+  .marina-live-hero {
+    --mx: 20%;
+    --my: 10%;
+    position: relative;
+    padding-top: 148px;
+    overflow: hidden;
+  }
+  .marina-live-hero::before {
+    content: '';
+    position: absolute;
+    inset: -15% -15% 0;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        760px 500px at 10% 6%,
+        var(--lab-glow-teal),
+        transparent 65%
+      ),
+      radial-gradient(
+        880px 560px at 90% 10%,
+        var(--lab-glow-blue),
+        transparent 65%
+      );
+  }
+  .marina-live-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      420px 420px at var(--mx) var(--my),
+      rgba(3, 131, 174, 0.1),
+      transparent 70%
+    );
+  }
+  .marina-live-hero-blob {
+    position: absolute;
+    left: 50%;
+    top: -420px;
+    width: 1100px;
+    height: 1100px;
+    pointer-events: none;
+    transform: translateX(-50%);
+    border-radius: 42% 58% 63% 37% / 45% 40% 60% 55%;
+    background: radial-gradient(
+      closest-side,
+      rgba(3, 131, 174, 0.11),
+      rgba(28, 97, 172, 0.08) 55%,
+      transparent 75%
+    );
+    animation: marina-live-blob 26s ease-in-out infinite;
+  }
+  @keyframes marina-live-blob {
+    50% {
+      transform: translateX(-48%) translateY(22px) rotate(8deg) scale(1.04);
+      border-radius: 58% 42% 39% 61% / 52% 62% 38% 48%;
+    }
+  }
+  .marina-live-hero-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 76px 76px;
+    mask-image: radial-gradient(
+      1000px 640px at 50% -10%,
+      #000 25%,
+      transparent 78%
+    );
+  }
+  .marina-live-hero-orb {
+    position: absolute;
+    right: -120px;
+    top: -110px;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    opacity: 0.55;
+    pointer-events: none;
+    filter: blur(6px);
+    background:
+      radial-gradient(
+        circle at 32% 28%,
+        rgba(38, 189, 226, 0.65),
+        transparent 55%
+      ),
+      radial-gradient(
+        circle at 68% 38%,
+        rgba(10, 151, 217, 0.55),
+        transparent 52%
+      ),
+      radial-gradient(
+        circle at 55% 72%,
+        rgba(86, 192, 43, 0.4),
+        transparent 58%
+      ),
+      radial-gradient(
+        circle at 25% 68%,
+        rgba(252, 195, 11, 0.28),
+        transparent 50%
+      );
+    animation: marina-live-orb 50s ease-in-out infinite alternate;
+  }
+  @keyframes marina-live-orb {
+    to {
+      transform: rotate(10deg) scale(1.04);
+    }
+  }
+  .marina-live-wheel-shade {
+    position: absolute;
+    right: -130px;
+    top: -130px;
+    width: 620px;
+    height: 360px;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(21, 24, 28, 0.98),
+      rgba(21, 24, 28, 0.55) 38%,
+      transparent 72%
+    );
+  }
+  .marina-live-hero .marina-live-wrap {
+    position: relative;
+    z-index: 2;
+  }
+  .marina-live-hero-top {
+    max-width: 900px;
+  }
+  .marina-live-hero h1 {
+    margin: 0 0 22px;
+    color: var(--lab-text);
+    font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
+    font-size: clamp(2.6rem, 5.6vw, 5.1rem);
+    font-weight: 700;
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+  }
+  .marina-live-hero h1 .weak {
+    color: #a0a8b2;
+    font-weight: 400;
+  }
+  .marina-live-hero h1 .grad {
+    background: linear-gradient(120deg, var(--lab-teal), var(--lab-accent));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 36px rgba(3, 131, 174, 0.28));
+  }
+  .marina-live-hero-sub {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 44px;
+  }
+  .marina-live-hero-sub .lede {
+    max-width: 480px;
+    color: #b7bfc7;
+    font-size: 1.06rem;
+    line-height: 1.55;
+  }
+  .marina-live-watch-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #a0a8b2;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    transition: color 0.15s ease;
+  }
+  .marina-live-watch-link:hover {
+    color: var(--lab-text);
+  }
+  .marina-live-watch-link .ring {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid #2c323a;
+    border-radius: 50%;
+    transition:
+      border-color 0.15s ease,
+      transform 0.25s ease;
+  }
+  .marina-live-watch-link:hover .ring {
+    border-color: var(--lab-teal);
+    transform: translateY(2px);
+  }
+  .marina-live-watch-link svg {
+    width: 11px;
+    height: 11px;
+  }
 
-  .marina-live-gallery { position: relative; margin-bottom: 16px; mask-image: linear-gradient(90deg, transparent, #000 5%, #000 92%, transparent); }
-  .marina-live-gallery-inner { display: flex; overflow: hidden; }
-  .marina-live-gallery-track { display: flex; flex-shrink: 0; gap: 28px; padding: 4px 14px 10px 0; animation: marina-live-gallery 42s linear infinite; }
-  .marina-live-gallery:hover .marina-live-gallery-track { animation-play-state: paused; }
-  @keyframes marina-live-gallery { to { transform: translateX(calc(-100% - 28px)); } }
-  .marina-live-work-tile { flex: 0 0 250px; }
-  .marina-live-work-art { position: relative; overflow: hidden; aspect-ratio: 4 / 3; border: 1px solid #24292f; border-radius: 16px; background: #1b1f24; }
-  .marina-live-work-art::before { content: ''; position: absolute; inset: 0; z-index: 2; background: linear-gradient(180deg, transparent 45%, rgba(10,13,16,.55)); }
-  .marina-live-work-art::after { content: ''; position: absolute; inset: 0; background: var(--tile-c); mix-blend-mode: color; opacity: .5; transition: opacity .3s ease; }
-  .marina-live-work-art img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
-  .marina-live-work-tile:hover img { transform: scale(1.045); }
-  .marina-live-work-tile:hover .marina-live-work-art::after { opacity: .62; }
-  .marina-live-work-caption { display: flex; flex-direction: column; gap: 5px; margin-top: 14px; padding: 18px 2px 0; border-top: 1px solid #24292f; font-size: .86rem; }
-  .marina-live-work-caption small { color: #666f79; font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
-  .marina-live-hero-note { max-width: 760px; padding: 20px 0 44px; border-bottom: 1px solid #24292f; color: #b7bfc7; font-size: 1.02rem; line-height: 1.5; }
-  .marina-live-hero-note strong { color: var(--lab-text); font-weight: 600; }
+  .marina-live-gallery {
+    position: relative;
+    margin-bottom: 16px;
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 5%,
+      #000 92%,
+      transparent
+    );
+  }
+  .marina-live-gallery-inner {
+    display: flex;
+    overflow: hidden;
+  }
+  .marina-live-gallery-track {
+    display: flex;
+    flex-shrink: 0;
+    gap: 28px;
+    padding: 4px 14px 10px 0;
+    animation: marina-live-gallery 42s linear infinite;
+  }
+  .marina-live-gallery:hover .marina-live-gallery-track {
+    animation-play-state: paused;
+  }
+  @keyframes marina-live-gallery {
+    to {
+      transform: translateX(calc(-100% - 28px));
+    }
+  }
+  .marina-live-work-tile {
+    flex: 0 0 250px;
+  }
+  .marina-live-work-art {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border: 1px solid #24292f;
+    border-radius: 16px;
+    background: #1b1f24;
+  }
+  .marina-live-work-art::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(
+      180deg,
+      transparent 45%,
+      rgba(10, 13, 16, 0.55)
+    );
+  }
+  .marina-live-work-art::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--tile-c);
+    mix-blend-mode: color;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+  .marina-live-work-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .marina-live-work-tile:hover img {
+    transform: scale(1.045);
+  }
+  .marina-live-work-tile:hover .marina-live-work-art::after {
+    opacity: 0.62;
+  }
+  .marina-live-work-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 14px;
+    padding: 18px 2px 0;
+    border-top: 1px solid #24292f;
+    font-size: 0.86rem;
+  }
+  .marina-live-work-caption small {
+    color: #666f79;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .marina-live-hero-note {
+    max-width: 760px;
+    padding: 20px 0 44px;
+    border-bottom: 1px solid #24292f;
+    color: #b7bfc7;
+    font-size: 1.02rem;
+    line-height: 1.5;
+  }
+  .marina-live-hero-note strong {
+    color: var(--lab-text);
+    font-weight: 600;
+  }
 
-  .marina-live-mission { padding: 56px 0; border-bottom: 1px solid #24292f; }
-  .marina-live-mission p { position: relative; max-width: 880px; padding-left: 32px; color: var(--lab-text); font-family: 'Cabinet Grotesk', 'Inter', sans-serif; font-size: clamp(2.3rem, 4.8vw, 4.1rem); font-weight: 500; line-height: 1.12; letter-spacing: -.03em; }
-  .marina-live-mission p::before { content: ''; position: absolute; left: 0; top: .15em; bottom: .15em; width: 3px; border-radius: 3px; background: linear-gradient(180deg, var(--lab-teal), var(--lab-accent)); }
-  .marina-live-mission strong { color: var(--lab-teal); font-weight: 600; }
-  .marina-live-band { padding: 56px 0; border-bottom: 1px solid #24292f; }
-  .marina-live-impact { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid #24292f; }
-  .marina-live-impact-item { display: flex; flex-direction: column; gap: 8px; padding: 28px 32px 36px 0; margin-right: 32px; border-right: 1px solid #24292f; }
-  .marina-live-impact-item:last-child { margin-right: 0; border-right: 0; }
-  .marina-live-impact-item::before { content: ''; width: 28px; height: 3px; margin-bottom: 14px; border-radius: 3px; background: var(--lab-teal); }
-  .marina-live-impact-item:nth-child(2)::before { background: #fcc30b; }
-  .marina-live-impact-item:nth-child(3)::before { background: #56c02b; }
-  .marina-live-impact-item:nth-child(4)::before { background: #fd6925; }
-  .marina-live-impact-item .number { color: var(--lab-text); font-size: clamp(2rem, 2.9vw, 2.5rem); font-weight: 800; line-height: 1; }
-  .marina-live-impact-item:nth-child(1) .number { color: #0a97d9; } .marina-live-impact-item:nth-child(2) .number { color: #fcc30b; } .marina-live-impact-item:nth-child(3) .number { color: #56c02b; } .marina-live-impact-item:nth-child(4) .number { color: #fd6925; }
-  .marina-live-impact-item .label { max-width: 160px; color: #a0a8b2; font-size: .84rem; line-height: 1.4; }
-  .marina-live-partners { padding-block: 72px 90px; }
-  .marina-live-partners h2 { margin-bottom: 44px; color: var(--lab-text); font-family: 'Cabinet Grotesk', 'Inter', sans-serif; font-size: clamp(2rem, 3.4vw, 2.7rem); line-height: 1.18; }
-  .marina-live-partners h2 span { color: #6ec6e8; }
-  .marina-live-partner-marks { display: flex; align-items: center; gap: 28px 34px; flex-wrap: wrap; }
+  .marina-live-mission {
+    padding: 56px 0;
+    border-bottom: 1px solid #24292f;
+  }
+  .marina-live-mission p {
+    position: relative;
+    max-width: 880px;
+    padding-left: 32px;
+    color: var(--lab-text);
+    font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
+    font-size: clamp(2.3rem, 4.8vw, 4.1rem);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+  }
+  .marina-live-mission p::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.15em;
+    bottom: 0.15em;
+    width: 3px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, var(--lab-teal), var(--lab-accent));
+  }
+  .marina-live-mission strong {
+    color: var(--lab-teal);
+    font-weight: 600;
+  }
+  .marina-live-band {
+    padding: 56px 0;
+    border-bottom: 1px solid #24292f;
+  }
+  .marina-live-impact {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-block: 1px solid #24292f;
+  }
+  .marina-live-impact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 28px 32px 36px 0;
+    margin-right: 32px;
+    border-right: 1px solid #24292f;
+  }
+  .marina-live-impact-item:last-child {
+    margin-right: 0;
+    border-right: 0;
+  }
+  .marina-live-impact-item::before {
+    content: '';
+    width: 28px;
+    height: 3px;
+    margin-bottom: 14px;
+    border-radius: 3px;
+    background: var(--lab-teal);
+  }
+  .marina-live-impact-item:nth-child(2)::before {
+    background: #fcc30b;
+  }
+  .marina-live-impact-item:nth-child(3)::before {
+    background: #56c02b;
+  }
+  .marina-live-impact-item:nth-child(4)::before {
+    background: #fd6925;
+  }
+  .marina-live-impact-item .number {
+    color: var(--lab-text);
+    font-size: clamp(2rem, 2.9vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1;
+  }
+  .marina-live-impact-item:nth-child(1) .number {
+    color: #0a97d9;
+  }
+  .marina-live-impact-item:nth-child(2) .number {
+    color: #fcc30b;
+  }
+  .marina-live-impact-item:nth-child(3) .number {
+    color: #56c02b;
+  }
+  .marina-live-impact-item:nth-child(4) .number {
+    color: #fd6925;
+  }
+  .marina-live-impact-item .label {
+    max-width: 160px;
+    color: #a0a8b2;
+    font-size: 0.84rem;
+    line-height: 1.4;
+  }
+  .marina-live-impact-reach {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 20px 0 4px;
+    border-top: 1px solid #24292f;
+    color: #a0a8b2;
+    font-size: 0.92rem;
+  }
+  .marina-live-impact-reach strong {
+    color: #d9dde2;
+    font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
+    font-size: 1.35rem;
+  }
+  .marina-live-partners {
+    padding-block: 72px 90px;
+  }
+  .marina-live-partners h2 {
+    margin-bottom: 44px;
+    color: var(--lab-text);
+    font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
+    font-size: clamp(2rem, 3.4vw, 2.7rem);
+    line-height: 1.18;
+  }
+  .marina-live-partners h2 span {
+    color: #6ec6e8;
+  }
+  .marina-live-partner-marks {
+    display: flex;
+    align-items: center;
+    gap: 28px 34px;
+    flex-wrap: wrap;
+  }
   /* A fixed logo window standardizes the visual rhythm without distorting partner marks. */
   .marina-live-partner-marks > a,
-  .marina-live-partner-marks > span { display: inline-flex; align-items: center; justify-content: center; width: 132px; height: 52px; color: inherit; text-decoration: none; }
-  .marina-live-partner-marks img { display: block; width: 100%; height: 100%; max-width: none; max-height: none; object-fit: contain; }
+  .marina-live-partner-marks > span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 132px;
+    height: 52px;
+    color: inherit;
+    text-decoration: none;
+  }
+  .marina-live-partner-marks img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+  }
 
-  @media (max-width: 860px) { .marina-live-impact { grid-template-columns: repeat(2, minmax(0, 1fr)); } .marina-live-impact-item:nth-child(2) { border-right: 0; } .marina-live-impact-item:nth-child(-n+2) { border-bottom: 1px solid #24292f; } }
-  @media (max-width: 640px) { .marina-live-wrap { padding-inline: 20px; } .marina-live-hero { padding-top: 118px; } .marina-live-work-tile { flex-basis: 70vw; } .marina-live-mission p { padding-left: 0; } .marina-live-mission p::before { display: none; } .marina-live-impact { grid-template-columns: 1fr; } .marina-live-impact-item, .marina-live-impact-item:nth-child(2) { margin: 0; padding: 24px 0 28px; border-right: 0; border-bottom: 1px solid #24292f; } .marina-live-impact-item:last-child { border-bottom: 0; } }
-  @media (prefers-reduced-motion: reduce) { .marina-live-home .reveal { opacity: 1; transform: none; transition: none; } .marina-live-hero-blob, .marina-live-hero-orb, .marina-live-gallery-track { animation: none; } }
+  @media (max-width: 860px) {
+    .marina-live-impact {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .marina-live-impact-item:nth-child(2) {
+      border-right: 0;
+    }
+    .marina-live-impact-item:nth-child(-n + 2) {
+      border-bottom: 1px solid #24292f;
+    }
+  }
+  @media (max-width: 640px) {
+    .marina-live-wrap {
+      padding-inline: 20px;
+    }
+    .marina-live-hero {
+      padding-top: 118px;
+    }
+    .marina-live-work-tile {
+      flex-basis: 70vw;
+    }
+    .marina-live-mission p {
+      padding-left: 0;
+    }
+    .marina-live-mission p::before {
+      display: none;
+    }
+    .marina-live-impact {
+      grid-template-columns: 1fr;
+    }
+    .marina-live-impact-item,
+    .marina-live-impact-item:nth-child(2) {
+      margin: 0;
+      padding: 24px 0 28px;
+      border-right: 0;
+      border-bottom: 1px solid #24292f;
+    }
+    .marina-live-impact-item:last-child {
+      border-bottom: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marina-live-home .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .marina-live-hero-blob,
+    .marina-live-hero-orb,
+    .marina-live-gallery-track {
+      animation: none;
+    }
+  }
 
   /* Exact home-page details from Marina's supplied visual reference. */
   .marina-live-hero-badge {
@@ -141,17 +674,25 @@
     font-size: clamp(1.6rem, 1.85vw, 1.875rem);
     font-weight: 400;
     line-height: 1;
-    letter-spacing: .025em;
+    letter-spacing: 0.025em;
     transform: rotate(2.5deg);
-    text-shadow: 0 0 24px rgba(252, 195, 11, .18);
+    text-shadow: 0 0 24px rgba(252, 195, 11, 0.18);
   }
   .marina-live-hero h1 .grad {
-    background-image: linear-gradient(108deg, #26bde2 0%, #0a97d9 42%, #0383ae 70%, #56c02b 112%);
+    background-image: linear-gradient(
+      108deg,
+      #26bde2 0%,
+      #0a97d9 42%,
+      #0383ae 70%,
+      #56c02b 112%
+    );
   }
-  .marina-live-hero .marina-live-title-line { display: block; }
+  .marina-live-hero .marina-live-title-line {
+    display: block;
+  }
   .marina-live-hero h1 {
     font-size: clamp(2.6rem, 5.6vw, 5.1rem);
-    line-height: .98;
+    line-height: 0.98;
   }
   .marina-live-hero .marina-live-title-sustainable {
     background-image: linear-gradient(105deg, #26bde2, #0383ae);
@@ -160,12 +701,19 @@
     background-image: linear-gradient(105deg, #0383ae, #1c61ac 55%, #56c02b);
   }
   @media (min-width: 900px) {
-    .marina-live-hero .marina-live-title-line { white-space: nowrap; }
+    .marina-live-hero .marina-live-title-line {
+      white-space: nowrap;
+    }
   }
   .marina-live-mission strong {
-    padding-inline: .08em;
+    padding-inline: 0.08em;
     color: var(--lab-text);
-    background: linear-gradient(transparent 56%, rgba(252, 195, 11, .58) 56%, rgba(252, 195, 11, .58) 94%, transparent 94%);
+    background: linear-gradient(
+      transparent 56%,
+      rgba(252, 195, 11, 0.58) 56%,
+      rgba(252, 195, 11, 0.58) 94%,
+      transparent 94%
+    );
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
   }
@@ -180,19 +728,38 @@
     height: 44px;
     border: 1px solid #2c323a;
     border-radius: 50%;
-    background: rgba(27, 31, 36, .9);
+    background: rgba(27, 31, 36, 0.9);
     color: #a0a8b2;
     opacity: 0;
     pointer-events: none;
     transform: translateY(10px);
-    transition: opacity .2s ease, transform .2s ease, border-color .2s ease, color .2s ease;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
     backdrop-filter: blur(12px);
   }
-  .marina-live-to-top.is-visible { opacity: 1; pointer-events: auto; transform: none; }
-  .marina-live-to-top:hover { border-color: var(--lab-teal); color: var(--lab-text); }
-  .marina-live-to-top svg { width: 18px; height: 18px; }
+  .marina-live-to-top.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+  .marina-live-to-top:hover {
+    border-color: var(--lab-teal);
+    color: var(--lab-text);
+  }
+  .marina-live-to-top svg {
+    width: 18px;
+    height: 18px;
+  }
   @media (max-width: 640px) {
-    .marina-live-hero-badge { top: -2.9rem; left: auto; right: 0; font-size: 1.25rem; }
+    .marina-live-hero-badge {
+      top: -2.9rem;
+      left: auto;
+      right: 0;
+      font-size: 1.25rem;
+    }
   }
 }
 
@@ -208,7 +775,12 @@
     font-family: var(--font-sans);
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-semibold leading-tight;
     font-family: var(--font-display);
   }
@@ -254,14 +826,16 @@
     }
   }
 
-  .admin-cms input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+  .admin-cms
+    input:not([type='checkbox']):not([type='radio']):not([type='file']),
   .admin-cms textarea:not(.w-md-editor-text-input),
   .admin-cms select {
     @apply border-lab-border bg-lab-base text-lab-text placeholder:text-lab-subtle shadow-sm;
     color-scheme: dark;
   }
 
-  .admin-cms input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus,
+  .admin-cms
+    input:not([type='checkbox']):not([type='radio']):not([type='file']):focus,
   .admin-cms textarea:not(.w-md-editor-text-input):focus,
   .admin-cms select:focus {
     @apply border-lab-accent outline-none ring-2 ring-lab-accent/30;
@@ -272,8 +846,8 @@
     color: var(--lab-text);
   }
 
-  .admin-cms input[type="checkbox"],
-  .admin-cms input[type="radio"] {
+  .admin-cms input[type='checkbox'],
+  .admin-cms input[type='radio'] {
     @apply border-lab-border bg-lab-base text-lab-accent;
     color-scheme: dark;
   }
@@ -358,18 +932,42 @@
     word-break: break-word;
   }
 
-  .prose-content h1 { @apply text-3xl font-bold mb-6 mt-8; }
-  .prose-content h2 { @apply text-2xl font-bold mb-4 mt-6; }
-  .prose-content h3 { @apply text-xl font-semibold mb-3 mt-5; }
-  .prose-content p { @apply mb-4 leading-relaxed; }
-  .prose-content ul { @apply mb-4 ml-6 list-disc; }
-  .prose-content ol { @apply mb-4 ml-6 list-decimal; }
-  .prose-content li { @apply mb-1; }
-  .prose-content a { @apply text-lab-accent underline hover:text-lab-accent-soft; }
-  .prose-content blockquote { @apply my-4 border-l-4 border-lab-accent pl-4 italic text-lab-muted; }
-  .prose-content code { @apply rounded bg-lab-surface px-1 py-0.5 text-sm text-lab-text; }
-  .prose-content pre { @apply my-4 overflow-x-auto rounded bg-lab-surface p-4 text-lab-text; }
-  .prose-content img { @apply max-w-full h-auto rounded my-4; }
+  .prose-content h1 {
+    @apply text-3xl font-bold mb-6 mt-8;
+  }
+  .prose-content h2 {
+    @apply text-2xl font-bold mb-4 mt-6;
+  }
+  .prose-content h3 {
+    @apply text-xl font-semibold mb-3 mt-5;
+  }
+  .prose-content p {
+    @apply mb-4 leading-relaxed;
+  }
+  .prose-content ul {
+    @apply mb-4 ml-6 list-disc;
+  }
+  .prose-content ol {
+    @apply mb-4 ml-6 list-decimal;
+  }
+  .prose-content li {
+    @apply mb-1;
+  }
+  .prose-content a {
+    @apply text-lab-accent underline hover:text-lab-accent-soft;
+  }
+  .prose-content blockquote {
+    @apply my-4 border-l-4 border-lab-accent pl-4 italic text-lab-muted;
+  }
+  .prose-content code {
+    @apply rounded bg-lab-surface px-1 py-0.5 text-sm text-lab-text;
+  }
+  .prose-content pre {
+    @apply my-4 overflow-x-auto rounded bg-lab-surface p-4 text-lab-text;
+  }
+  .prose-content img {
+    @apply max-w-full h-auto rounded my-4;
+  }
   .ui-badge {
     display: inline-flex;
     align-items: center;
@@ -406,27 +1004,27 @@
   .ui-badge--deployment-live {
     border-color: rgba(76, 141, 255, 0.42);
     background: rgba(76, 141, 255, 0.16);
-    color: #B8D4FF;
+    color: #b8d4ff;
   }
 
   .ui-badge--under-development,
   .ui-badge--deployment-prototype {
     border-color: rgba(245, 158, 11, 0.42);
     background: rgba(245, 158, 11, 0.14);
-    color: #FCD34D;
+    color: #fcd34d;
   }
 
   .ui-badge--on-hold,
   .ui-badge--deployment-internal {
     border-color: rgba(228, 230, 235, 0.22);
-    background: rgba(228, 230, 235, 0.10);
-    color: #CBD5E1;
+    background: rgba(228, 230, 235, 0.1);
+    color: #cbd5e1;
   }
 
   .ui-badge--impact {
     border-color: rgba(127, 169, 255, 0.42);
     background: rgba(127, 169, 255, 0.14);
-    color: #B8D4FF;
+    color: #b8d4ff;
   }
 
   .ui-badge--neutral {
@@ -464,7 +1062,7 @@
 }
 
 @layer components {
-.landing-hero.is-intro-active .hero-slider {
+  .landing-hero.is-intro-active .hero-slider {
     position: relative;
     z-index: 3;
     max-width: min(100%, 980px);
@@ -473,13 +1071,12 @@
     text-align: center;
   }
 
-
-.landing-hero.is-intro-active .hero-slide > div,
+  .landing-hero.is-intro-active .hero-slide > div,
   .landing-hero.is-intro-active .hero-controls {
     justify-content: center;
   }
 
-.hero-slide-frame {
+  .hero-slide-frame {
     align-items: stretch;
   }
 
@@ -514,7 +1111,13 @@
   }
 
   .hero-project-window {
-    mask-image: linear-gradient(to bottom, transparent 0, black 2.25rem, black calc(100% - 2.25rem), transparent 100%);
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      black 2.25rem,
+      black calc(100% - 2.25rem),
+      transparent 100%
+    );
   }
 
   .hero-project-track {
@@ -531,7 +1134,6 @@
     isolation: isolate;
   }
 
-  
   .hero-visual-slide {
     opacity: 0;
     pointer-events: none;
@@ -579,7 +1181,7 @@
 
   .hero-control-button:hover {
     border-color: rgba(127, 169, 255, 0.38);
-    background: rgba(76, 141, 255, 0.10);
+    background: rgba(76, 141, 255, 0.1);
     color: var(--lab-text);
     transform: translateY(-1px);
   }
@@ -594,7 +1196,7 @@
     height: 0.55rem;
     width: 0.55rem;
     border-radius: 9999px;
-    border: 1px solid rgba(127, 169, 255, 0.30);
+    border: 1px solid rgba(127, 169, 255, 0.3);
     background: rgba(228, 230, 235, 0.16);
     transition:
       width 180ms ease,
@@ -604,11 +1206,10 @@
 
   .hero-dot.is-active {
     width: 1.45rem;
-    border-color: rgba(127, 169, 255, 0.60);
+    border-color: rgba(127, 169, 255, 0.6);
     background: rgba(76, 141, 255, 0.86);
   }
 }
-
 
 .project-showcase-grid {
   display: grid;
@@ -634,7 +1235,11 @@
   flex-direction: column;
   justify-content: end;
   padding: 1.15rem 1.25rem 1.25rem;
-  background: linear-gradient(180deg, rgba(34, 36, 42, 0.02) 32%, rgba(34, 36, 42, 0.86) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(34, 36, 42, 0.02) 32%,
+    rgba(34, 36, 42, 0.86) 100%
+  );
 }
 
 @media (min-width: 768px) {
@@ -771,13 +1376,19 @@
   }
 }
 
-
-
 @layer components {
   .marina-home {
     background:
-      radial-gradient(circle at 12% 8%, rgba(34, 211, 184, 0.07), transparent 26rem),
-      radial-gradient(circle at 84% 10%, rgba(76, 134, 255, 0.07), transparent 28rem),
+      radial-gradient(
+        circle at 12% 8%,
+        rgba(34, 211, 184, 0.07),
+        transparent 26rem
+      ),
+      radial-gradient(
+        circle at 84% 10%,
+        rgba(76, 134, 255, 0.07),
+        transparent 28rem
+      ),
       var(--lab-base);
   }
 
@@ -801,8 +1412,16 @@
     border-bottom: 1px solid var(--lab-border-soft);
     background:
       linear-gradient(120deg, rgba(21, 24, 28, 0.96), rgba(27, 31, 36, 0.94)),
-      radial-gradient(circle at 72% 18%, rgba(34, 211, 184, 0.11), transparent 22rem),
-      radial-gradient(circle at 22% 18%, rgba(76, 134, 255, 0.10), transparent 26rem);
+      radial-gradient(
+        circle at 72% 18%,
+        rgba(34, 211, 184, 0.11),
+        transparent 22rem
+      ),
+      radial-gradient(
+        circle at 22% 18%,
+        rgba(76, 134, 255, 0.1),
+        transparent 26rem
+      );
   }
 
   .marina-hero::before {
@@ -864,7 +1483,11 @@
     padding: 0.82rem 1.18rem;
     font-weight: 900;
     text-decoration: none;
-    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      background 180ms ease,
+      color 180ms ease;
   }
 
   .marina-button:hover {
@@ -1094,7 +1717,9 @@
     padding: 1.4rem 1.25rem;
     color: var(--lab-text);
     text-decoration: none;
-    transition: background 180ms ease, transform 180ms ease;
+    transition:
+      background 180ms ease,
+      transform 180ms ease;
   }
 
   .marina-service-link:hover {
@@ -1142,7 +1767,11 @@
     padding: clamp(1.4rem, 3vw, 2rem);
     border: 1px solid var(--lab-border-soft);
     border-radius: 1.35rem;
-    background: linear-gradient(135deg, rgba(76, 134, 255, 0.16), rgba(34, 211, 184, 0.06));
+    background: linear-gradient(
+      135deg,
+      rgba(76, 134, 255, 0.16),
+      rgba(34, 211, 184, 0.06)
+    );
     box-shadow: 0 22px 70px rgba(0, 0, 0, 0.2);
   }
 
@@ -1155,8 +1784,12 @@
   }
 
   @keyframes marina-marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
   }
 
   @media (max-width: 900px) {
@@ -1189,20 +1822,20 @@
 
 @layer components {
   .marina-spec-home {
-    --bg: #15181C;
-    --bg-raised: #1B1F24;
-    --bg-elevated: #21262C;
-    --border: #2C323A;
-    --border-soft: #24292F;
-    --text: #D9DDE2;
-    --text-dim: #8D96A1;
-    --text-mid: #B7BFC7;
-    --text-faint: #666F79;
-    --teal: #22D3B8;
-    --blue: #4C86FF;
-    --amber: #FFAA3D;
-    --glow-teal: rgba(34, 211, 184, .09);
-    --glow-blue: rgba(76, 134, 255, .09);
+    --bg: #15181c;
+    --bg-raised: #1b1f24;
+    --bg-elevated: #21262c;
+    --border: #2c323a;
+    --border-soft: #24292f;
+    --text: #d9dde2;
+    --text-dim: #8d96a1;
+    --text-mid: #b7bfc7;
+    --text-faint: #666f79;
+    --teal: #22d3b8;
+    --blue: #4c86ff;
+    --amber: #ffaa3d;
+    --glow-teal: rgba(34, 211, 184, 0.09);
+    --glow-blue: rgba(76, 134, 255, 0.09);
     background: var(--bg);
     color: var(--text);
     overflow-x: hidden;
@@ -1235,11 +1868,16 @@
   }
 
   .marina-spec-home .grad {
-    background: linear-gradient(100deg, var(--teal) 0%, var(--blue) 65%, var(--amber) 100%);
+    background: linear-gradient(
+      100deg,
+      var(--teal) 0%,
+      var(--blue) 65%,
+      var(--amber) 100%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    filter: drop-shadow(0 0 36px rgba(34, 211, 184, .28));
+    filter: drop-shadow(0 0 36px rgba(34, 211, 184, 0.28));
   }
 
   .marina-spec-hero {
@@ -1267,7 +1905,11 @@
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background: radial-gradient(420px 420px at var(--mx) var(--my), rgba(34, 211, 184, .10), transparent 70%);
+    background: radial-gradient(
+      420px 420px at var(--mx) var(--my),
+      rgba(34, 211, 184, 0.1),
+      transparent 70%
+    );
   }
 
   .marina-spec-hero-blob {
@@ -1279,13 +1921,19 @@
     left: 50%;
     top: -420px;
     transform: translateX(-50%);
-    background: radial-gradient(closest-side, rgba(34, 211, 184, .11), rgba(76, 134, 255, .08) 55%, transparent 75%);
+    background: radial-gradient(
+      closest-side,
+      rgba(34, 211, 184, 0.11),
+      rgba(76, 134, 255, 0.08) 55%,
+      transparent 75%
+    );
     border-radius: 42% 58% 63% 37% / 45% 40% 60% 55%;
     animation: marina-spec-blob-drift 26s ease-in-out infinite;
   }
 
   @keyframes marina-spec-blob-drift {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateX(-50%) translateY(0) rotate(0deg) scale(1);
       border-radius: 42% 58% 63% 37% / 45% 40% 60% 55%;
     }
@@ -1301,10 +1949,14 @@
     z-index: 0;
     pointer-events: none;
     background-image:
-      linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px);
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 76px 76px;
-    mask-image: radial-gradient(1000px 640px at 50% -10%, #000 25%, transparent 78%);
+    mask-image: radial-gradient(
+      1000px 640px at 50% -10%,
+      #000 25%,
+      transparent 78%
+    );
   }
 
   .marina-spec-sdg-wheel {
@@ -1316,15 +1968,37 @@
     width: 540px;
     height: 540px;
     border-radius: 50%;
-    opacity: .16;
+    opacity: 0.16;
     pointer-events: none;
-    background: conic-gradient(#E5243B 0deg calc(var(--seg)*1), #DDA63A calc(var(--seg)*1) calc(var(--seg)*2), #4C9F38 calc(var(--seg)*2) calc(var(--seg)*3), #C5192D calc(var(--seg)*3) calc(var(--seg)*4), #FF3A21 calc(var(--seg)*4) calc(var(--seg)*5), #26BDE2 calc(var(--seg)*5) calc(var(--seg)*6), #FCC30B calc(var(--seg)*6) calc(var(--seg)*7), #A21942 calc(var(--seg)*7) calc(var(--seg)*8), #FD6925 calc(var(--seg)*8) calc(var(--seg)*9), #DD1367 calc(var(--seg)*9) calc(var(--seg)*10), #FD9D24 calc(var(--seg)*10) calc(var(--seg)*11), #BF8B2E calc(var(--seg)*11) calc(var(--seg)*12), #3F7E44 calc(var(--seg)*12) calc(var(--seg)*13), #0A97D9 calc(var(--seg)*13) calc(var(--seg)*14), #56C02B calc(var(--seg)*14) calc(var(--seg)*15), #00689D calc(var(--seg)*15) calc(var(--seg)*16), #19486A calc(var(--seg)*16) 360deg);
+    background: conic-gradient(
+      #e5243b 0deg calc(var(--seg) * 1),
+      #dda63a calc(var(--seg) * 1) calc(var(--seg) * 2),
+      #4c9f38 calc(var(--seg) * 2) calc(var(--seg) * 3),
+      #c5192d calc(var(--seg) * 3) calc(var(--seg) * 4),
+      #ff3a21 calc(var(--seg) * 4) calc(var(--seg) * 5),
+      #26bde2 calc(var(--seg) * 5) calc(var(--seg) * 6),
+      #fcc30b calc(var(--seg) * 6) calc(var(--seg) * 7),
+      #a21942 calc(var(--seg) * 7) calc(var(--seg) * 8),
+      #fd6925 calc(var(--seg) * 8) calc(var(--seg) * 9),
+      #dd1367 calc(var(--seg) * 9) calc(var(--seg) * 10),
+      #fd9d24 calc(var(--seg) * 10) calc(var(--seg) * 11),
+      #bf8b2e calc(var(--seg) * 11) calc(var(--seg) * 12),
+      #3f7e44 calc(var(--seg) * 12) calc(var(--seg) * 13),
+      #0a97d9 calc(var(--seg) * 13) calc(var(--seg) * 14),
+      #56c02b calc(var(--seg) * 14) calc(var(--seg) * 15),
+      #00689d calc(var(--seg) * 15) calc(var(--seg) * 16),
+      #19486a calc(var(--seg) * 16) 360deg
+    );
     -webkit-mask: radial-gradient(circle, transparent 34%, #000 35%);
     mask: radial-gradient(circle, transparent 34%, #000 35%);
     animation: marina-spec-wheel-spin 120s linear infinite;
   }
 
-  @keyframes marina-spec-wheel-spin { to { transform: rotate(360deg); } }
+  @keyframes marina-spec-wheel-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
 
   .marina-spec-orbit {
     position: absolute;
@@ -1353,8 +2027,16 @@
     animation: marina-spec-ring-spin-rev 70s linear infinite;
   }
 
-  @keyframes marina-spec-ring-spin { to { transform: rotate(360deg); } }
-  @keyframes marina-spec-ring-spin-rev { to { transform: rotate(-360deg); } }
+  @keyframes marina-spec-ring-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes marina-spec-ring-spin-rev {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
 
   .marina-spec-hero-top {
     max-width: 900px;
@@ -1403,7 +2085,7 @@
     font-size: 0.9rem;
     font-weight: 650;
     white-space: nowrap;
-    transition: color .15s ease;
+    transition: color 0.15s ease;
   }
 
   .marina-spec-watch-link:hover {
@@ -1417,7 +2099,9 @@
     border-radius: 50%;
     display: grid;
     place-items: center;
-    transition: border-color .15s ease, transform .25s ease;
+    transition:
+      border-color 0.15s ease,
+      transform 0.25s ease;
   }
 
   .marina-spec-watch-link:hover .ring {
@@ -1434,7 +2118,13 @@
     position: relative;
     z-index: 2;
     margin-bottom: 16px;
-    mask-image: linear-gradient(90deg, transparent, #000 5%, #000 92%, transparent);
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 5%,
+      #000 92%,
+      transparent
+    );
   }
 
   .marina-spec-work-gallery-inner {
@@ -1455,8 +2145,12 @@
   }
 
   @keyframes marina-spec-gallery-scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(calc(-100% - 28px)); }
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - 28px));
+    }
   }
 
   .marina-spec-work-tile {
@@ -1477,9 +2171,17 @@
     width: 100%;
     height: 100%;
     background:
-      radial-gradient(circle at 78% 20%, rgba(255, 255, 255, .18), transparent 18%),
-      linear-gradient(135deg, color-mix(in srgb, var(--tile-c) 60%, #101318), #101318 68%);
-    transition: transform .6s ease;
+      radial-gradient(
+        circle at 78% 20%,
+        rgba(255, 255, 255, 0.18),
+        transparent 18%
+      ),
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--tile-c) 60%, #101318),
+        #101318 68%
+      );
+    transition: transform 0.6s ease;
   }
 
   .marina-spec-work-tile:hover .marina-spec-work-tile-placeholder {
@@ -1493,7 +2195,7 @@
     background: var(--tile-c, var(--teal));
     mix-blend-mode: color;
     opacity: 0.42;
-    transition: opacity .3s ease;
+    transition: opacity 0.3s ease;
   }
 
   .marina-spec-work-tile:hover .marina-spec-work-tile-art::after {
@@ -1505,7 +2207,11 @@
     position: absolute;
     inset: 0;
     z-index: 2;
-    background: linear-gradient(180deg, rgba(10, 13, 16, 0) 45%, rgba(10, 13, 16, 0.55) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(10, 13, 16, 0) 45%,
+      rgba(10, 13, 16, 0.55) 100%
+    );
   }
 
   .marina-spec-work-tile-cap {
@@ -1520,7 +2226,7 @@
 
   .marina-spec-work-tile-cap .name {
     color: var(--text);
-    transition: color .15s ease;
+    transition: color 0.15s ease;
   }
 
   .marina-spec-work-tile:hover .marina-spec-work-tile-cap .name {
@@ -1634,11 +2340,17 @@
     border-radius: 3px;
   }
 
-  .marina-spec-impact-item:nth-child(5n+1)::before,
-  .marina-spec-impact-item:nth-child(5n+4)::before { background: var(--teal); }
-  .marina-spec-impact-item:nth-child(5n+2)::before,
-  .marina-spec-impact-item:nth-child(5n+5)::before { background: var(--amber); }
-  .marina-spec-impact-item:nth-child(5n+3)::before { background: var(--blue); }
+  .marina-spec-impact-item:nth-child(5n + 1)::before,
+  .marina-spec-impact-item:nth-child(5n + 4)::before {
+    background: var(--teal);
+  }
+  .marina-spec-impact-item:nth-child(5n + 2)::before,
+  .marina-spec-impact-item:nth-child(5n + 5)::before {
+    background: var(--amber);
+  }
+  .marina-spec-impact-item:nth-child(5n + 3)::before {
+    background: var(--blue);
+  }
 
   .marina-spec-impact-item:last-child {
     border-right: none;
@@ -1706,8 +2418,16 @@
     inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(680px 340px at 50% 0%, rgba(34, 211, 184, .07), transparent 70%),
-      radial-gradient(480px 280px at 85% 30%, rgba(76, 134, 255, .05), transparent 70%);
+      radial-gradient(
+        680px 340px at 50% 0%,
+        rgba(34, 211, 184, 0.07),
+        transparent 70%
+      ),
+      radial-gradient(
+        480px 280px at 85% 30%,
+        rgba(76, 134, 255, 0.05),
+        transparent 70%
+      );
   }
 
   .marina-spec-cta-band .marina-spec-wrap {
@@ -1752,7 +2472,11 @@
     padding: 11px 22px;
     font-size: 0.88rem;
     font-weight: 800;
-    transition: box-shadow .2s ease, transform .2s ease, background .2s ease, border-color .2s ease;
+    transition:
+      box-shadow 0.2s ease,
+      transform 0.2s ease,
+      background 0.2s ease,
+      border-color 0.2s ease;
   }
 
   .marina-spec-btn:hover {
@@ -1760,9 +2484,16 @@
   }
 
   .marina-spec-btn-gradient {
-    background: linear-gradient(100deg, var(--teal), var(--blue) 70%, var(--amber));
+    background: linear-gradient(
+      100deg,
+      var(--teal),
+      var(--blue) 70%,
+      var(--amber)
+    );
     color: #04141a;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, .08) inset, 0 8px 30px -8px rgba(34, 211, 184, .55);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+      0 8px 30px -8px rgba(34, 211, 184, 0.55);
   }
 
   .marina-spec-btn-ghost {
@@ -1773,11 +2504,13 @@
 
   .marina-spec-btn-ghost:hover {
     border-color: var(--text-dim);
-    background: rgba(255, 255, 255, .03);
+    background: rgba(255, 255, 255, 0.03);
   }
 
   @media (max-width: 1180px) {
-    .marina-spec-orbit { display: none; }
+    .marina-spec-orbit {
+      display: none;
+    }
   }
 
   @media (max-width: 860px) {
@@ -1843,36 +2576,22 @@
 @layer components {
   .marina-site-footer {
     padding: 80px 0 40px;
-    background: #15181C;
-    color: #D9DDE2;
+    background: #15181c;
+    color: #d9dde2;
     border-top: 0;
   }
 
   .marina-footer-top {
     display: grid;
-    grid-template-columns: 1.4fr repeat(3, 1fr);
-    gap: 40px;
-    padding-bottom: 60px;
-    border-bottom: 1px solid #24292F;
-  }
-
-  .marina-footer-brand p {
-    max-width: 280px;
-    margin-top: 16px;
-    color: #8D96A1;
-    font-size: 0.9rem;
-    line-height: 1.55;
-  }
-
-  .marina-footer-logo {
-    height: 52px;
-    width: auto;
-    margin-bottom: 22px;
+    grid-template-columns: repeat(2, max-content);
+    gap: 40px 72px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #24292f;
   }
 
   .marina-footer-col h4 {
     margin-bottom: 18px;
-    color: #666F79;
+    color: #666f79;
     font-size: 0.68rem;
     font-weight: 800;
     letter-spacing: 0.06em;
@@ -1884,15 +2603,15 @@
   }
 
   .marina-footer-col a {
-    color: #8D96A1;
+    color: #8d96a1;
     font-size: 0.9rem;
     font-weight: 650;
     text-decoration: none;
-    transition: color .15s ease;
+    transition: color 0.15s ease;
   }
 
   .marina-footer-col a:hover {
-    color: #D9DDE2;
+    color: #d9dde2;
   }
 
   .marina-footer-bottom {
@@ -1906,7 +2625,7 @@
 
   .marina-footer-bottom p,
   .marina-footer-offices {
-    color: #666F79;
+    color: #666f79;
     font-size: 0.72rem;
     font-weight: 800;
     letter-spacing: 0.02em;
@@ -1918,19 +2637,13 @@
     flex-wrap: wrap;
   }
 
-  @media (max-width: 900px) {
-    .marina-footer-top {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
   @media (max-width: 560px) {
     .marina-footer-top {
       grid-template-columns: 1fr;
+      gap: 32px;
     }
   }
 }
-
 
 @layer components {
   /* Marina design-system primitives: use these before creating page-specific styles. */
@@ -2040,7 +2753,7 @@
     text-decoration: none;
     cursor: pointer;
     will-change: transform;
-    transition: all .15s ease;
+    transition: all 0.15s ease;
   }
 
   .marina-button:hover {
@@ -2051,8 +2764,10 @@
     background: linear-gradient(120deg, #26bde2, #0383ae 50%, #1c61ac);
     color: #04141a;
     font-weight: 700;
-    box-shadow: 0 10px 28px -12px rgba(3, 131, 174, .9);
-    transition: box-shadow .3s ease, transform .25s cubic-bezier(.2, .8, .2, 1);
+    box-shadow: 0 10px 28px -12px rgba(3, 131, 174, 0.9);
+    transition:
+      box-shadow 0.3s ease,
+      transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
   .marina-button--secondary {
@@ -2074,7 +2789,11 @@
   .marina-card {
     border: 1px solid var(--lab-border-soft);
     border-radius: 1.35rem;
-    background: linear-gradient(180deg, rgba(44, 50, 58, 0.72), rgba(33, 38, 44, 0.56));
+    background: linear-gradient(
+      180deg,
+      rgba(44, 50, 58, 0.72),
+      rgba(33, 38, 44, 0.56)
+    );
     box-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
   }
 
@@ -2088,7 +2807,13 @@
     overflow: hidden;
     border: 1px solid var(--lab-border-soft);
     border-radius: 1.35rem;
-    background: radial-gradient(circle at 20% 10%, rgba(34, 211, 184, 0.12), transparent 36%), var(--lab-surface);
+    background:
+      radial-gradient(
+        circle at 20% 10%,
+        rgba(34, 211, 184, 0.12),
+        transparent 36%
+      ),
+      var(--lab-surface);
   }
 
   .marina-cta-panel {
@@ -2098,7 +2823,11 @@
     gap: 1.5rem;
     border: 1px solid var(--lab-border-soft);
     border-radius: 1.35rem;
-    background: linear-gradient(110deg, rgba(44, 50, 58, 0.95), rgba(33, 38, 44, 0.86));
+    background: linear-gradient(
+      110deg,
+      rgba(44, 50, 58, 0.95),
+      rgba(33, 38, 44, 0.86)
+    );
     padding: clamp(1.25rem, 3vw, 2rem);
     box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
   }
@@ -2359,7 +3088,10 @@
     border-right: 1px solid var(--about-hairline);
     border-bottom: 1px solid var(--about-hairline);
     background: rgba(217, 221, 226, 0.015);
-    transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+    transition:
+      background 180ms ease,
+      border-color 180ms ease,
+      transform 180ms ease;
   }
 
   .marina-offer-card:hover {

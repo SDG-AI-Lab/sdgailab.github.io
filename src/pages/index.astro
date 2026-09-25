@@ -1,5 +1,4 @@
 ---
-import { withBase } from '../lib/url';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import PartnerLogos from '../islands/PartnerLogos';
 
@@ -42,10 +41,10 @@ const galleryTiles = [
   },
 ];
 const impactStats = [
-  { value: 2087, label: 'People trained via Frontier Tech Leaders' },
-  { value: 90, suffix: '%', label: 'Innovation Campus employment rate' },
-  { value: 5000, label: 'Youth trained in Game Dev Bootcamps' },
-  { value: 5, label: 'Countries mapped by DSVI' },
+  { value: 50, suffix: '+', label: 'Digital Projects' },
+  { value: 3000, suffix: '+', label: 'Learners' },
+  { value: 15, label: 'Knowledge Products' },
+  { value: 3500, suffix: '+', label: 'Online UN Volunteers' },
 ];
 ---
 
@@ -84,15 +83,7 @@ const impactStats = [
             The SDG AI Lab helps UNDP units and development partners turn
             emerging technologies into practical solutions for real-world
             development challenges.
-          </p><a
-            class="marina-live-watch-link"
-            href={withBase('/services#approach')}
-            ><span class="ring" aria-hidden="true"
-              ><svg viewBox="0 0 10 12" fill="none"
-                ><path d="M1 1L9 6L1 11V1Z" fill="currentColor"></path></svg
-              ></span
-            >How we work</a
-          >
+          </p>
         </div>
         <div
           class="marina-live-gallery reveal"
@@ -164,6 +155,7 @@ const impactStats = [
               </article>
             ))
           }
+          <p class="marina-live-impact-reach">Across <strong>25</strong> countries</p>
         </div>
       </div>
     </section>

@@ -41,7 +41,7 @@ describe('Header.astro integration', () => {
   it('is mounted by BaseLayout for every public page', () => {
     expect(baseLayout).toContain('<Header />');
     expect(header).toContain('aria-label="Toggle navigation menu"');
-    expect(header).toContain("label: 'Our Work'");
+    expect(header).toContain("label: 'Solutions'");
   });
 });
 
@@ -49,11 +49,12 @@ describe('Footer.astro integration', () => {
   const footer = readSource('src/components/layout/Footer.astro');
   const baseLayout = readSource('src/components/layout/BaseLayout.astro');
 
-  it('is mounted by BaseLayout with essential links and branding', () => {
+  it('is mounted by BaseLayout with essential links', () => {
     expect(baseLayout).toContain('<Footer />');
     expect(footer).toContain('<h4>Lab</h4>');
     expect(footer).toContain('<h4>Work</h4>');
-    expect(footer).toContain('mailto:sdgailab@undp.org');
+    expect(footer).toContain('© {currentYear} SDG AI Lab');
+    expect(footer).not.toContain('marina-footer-brand');
   });
 });
 

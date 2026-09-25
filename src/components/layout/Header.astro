@@ -4,17 +4,16 @@ const pathname = Astro.url.pathname;
 const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') || '';
 
 const navLinks = [
-  { href: withBase('/'), label: 'Home' },
   { href: withBase('/about'), label: 'About' },
-  { href: withBase('/focus-areas'), label: 'Areas of Expertise' },
+  { href: withBase('/focus-areas'), label: 'Expertise' },
   { href: withBase('/services'), label: 'Services' },
-  { href: withBase('/projects'), label: 'Our Work', activePath: withBase('/projects') },
+  { href: withBase('/projects'), label: 'Solutions', activePath: withBase('/projects') },
   { href: withBase('/research'), label: 'Research' },
 ];
 
 const mobileLinks = [
   ...navLinks,
-  { href: withBase('/contact'), label: "Let's talk" },
+  { href: withBase('/contact'), label: 'Contact' },
 ];
 
 function isActive(link: { href: string; activePath?: string }): boolean {
@@ -42,7 +41,7 @@ function isActive(link: { href: string; activePath?: string }): boolean {
           <li>
             <a
               href={link.href}
-              class:list={['marina-nav-link', { 'is-section-active': link.label === 'Our Work' && pathname.startsWith(withBase('/programmes')) }]}
+              class:list={['marina-nav-link', { 'is-section-active': link.label === 'Solutions' && pathname.startsWith(withBase('/programmes')) }]}
               aria-current={isActive(link) ? 'page' : undefined}
             >
               {link.label}
@@ -54,7 +53,7 @@ function isActive(link: { href: string; activePath?: string }): boolean {
 
     <div class="marina-nav-cta">
       <a href={withBase('/contact')} class="marina-button marina-button--primary marina-button--small">
-        Let&rsquo;s talk
+        Contact
       </a>
     </div>
 

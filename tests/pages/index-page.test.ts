@@ -22,9 +22,10 @@ describe('index page source', () => {
     expect(source).toContain('impactStats');
   });
 
-  it('keeps the supplied hero accessible and links to the working-method page', () => {
+  it('keeps the supplied hero accessible without a how-we-work CTA', () => {
     expect(source).not.toContain("withBase('/solutions')");
-    expect(source).toContain("withBase('/services#approach')");
+    expect(source).not.toContain('How we work');
+    expect(source).not.toContain('marina-live-watch-link');
     expect(source).toContain('aria-labelledby="home-hero-heading"');
   });
 });

@@ -35,7 +35,8 @@ describe('Public Astro pages', () => {
   it('team page follows the Marina team layout', () => {
     const source = readSource('src/pages/team.astro');
     expect(source).toContain('marina-team-page');
-    expect(source).toContain('Six working groups, one lab.');
+    expect(source).toContain('Six working groups');
+    expect(source).toContain('person-avatar');
     expect(source).toContain('Coordination · Research &amp; Advisory');
   });
 

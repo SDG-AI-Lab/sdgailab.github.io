@@ -6,9 +6,10 @@
 -- =============================================================================
 INSERT INTO statistics (label, value, icon_name, display_order, status, published_at) VALUES
   ('Digital projects', '50+', 'projects', 1, 'published', now()),
-  ('Learners', '3000+', 'learners', 2, 'published', now()),
+  ('Learners', '3,000+', 'learners', 2, 'published', now()),
   ('Knowledge products', '15', 'knowledge', 3, 'published', now()),
-  ('Online UN Volunteers', '3500+', 'volunteers', 4, 'published', now());
+  ('Online UN Volunteers', '3,500+', 'volunteers', 4, 'published', now()),
+  ('Countries reached', '25', 'countries', 5, 'published', now());
 -- =============================================================================
 -- Projects (10 rows) - first 3 is_featured=true, all project_status='active', is_deployed=false
 -- =============================================================================
