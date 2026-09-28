@@ -9,6 +9,12 @@
 | `migrations/003_secure_editor_access.sql` | Allowlist-gated editor access (replaces broad authenticated policies) |
 | `migrations/004_project_portfolio_metadata.sql` | Extra project portfolio columns |
 | `migrations/005_admin_users_management_model.sql` | Documents allowlist ops model (no client writes) |
+| `migrations/006_project_content_template_fields.sql` | Structured public project-detail fields |
+| `migrations/007_project_portfolio_workbook_fields.sql` | Workbook-backed portfolio fields |
+| `migrations/008_geographic_reach.sql` | Geographic reach content |
+| `migrations/009_contact_submissions.sql` | Contact submissions and notification workflow |
+| `migrations/010_evolution_timeline.sql` | Institutional evolution timeline content |
+| `migrations/011_publications.sql` | Publications content |
 
 ## Verification
 
@@ -22,8 +28,22 @@
 | `seed.sql` | Sample CMS content for development |
 | `team_members.sql` | Upsert team into `people` table |
 | `demo_day_projects.sql` | Demo project data |
+| `project_portfolio_bulk_import.sql` | Upserts the approved 23-project portfolio workbook into public projects |
 
 Seeds can be re-run; migrations should be applied once per environment (idempotent where noted).
+
+## Definitive project portfolio import
+
+Run `migrations/004_project_portfolio_metadata.sql`,
+`migrations/006_project_content_template_fields.sql`, and
+`migrations/007_project_portfolio_workbook_fields.sql` first. Then run
+`project_portfolio_bulk_import.sql` in the Supabase SQL Editor.
+
+The import is idempotent: it matches records by slug, normalized title, and the
+established PFS legacy slug, then updates the matching project or inserts a new
+one. It preserves existing CMS-managed card images and existing video URLs when
+the workbook has no media link. It does not archive projects that are absent
+from the workbook.
 
 ## Contact form email notifications
 
