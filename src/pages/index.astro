@@ -54,6 +54,21 @@ const impactStats = [
 >
   <div class="marina-live-home">
     <section class="marina-live-hero" aria-labelledby="home-hero-heading">
+      <video
+        class="marina-live-hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+      >
+        <source src="/media/hero-gradient.mp4" type="video/mp4" />
+      </video>
+      <div class="marina-live-hero-video-overlay" aria-hidden="true"></div>
+      <!--
+        Original CSS-art background retained as a fallback reference. Do not remove
+        until the video treatment is approved.
       <div class="marina-live-hero-blob" aria-hidden="true"></div><div
         class="marina-live-hero-grid"
         aria-hidden="true"
@@ -63,10 +78,11 @@ const impactStats = [
         aria-hidden="true"
       >
       </div>
+      -->
       <div class="marina-live-wrap">
-        <p class="marina-live-hero-badge" aria-hidden="true">
+        <!-- <p class="marina-live-hero-badge" aria-hidden="true">
           We build for impact
-        </p>
+        </p> -->
         <div class="marina-live-hero-top">
           <h1 id="home-hero-heading">
             <span class="marina-live-title-line">Digital technologies</span
@@ -155,7 +171,9 @@ const impactStats = [
               </article>
             ))
           }
-          <p class="marina-live-impact-reach">Across <strong>25</strong> countries</p>
+          <p class="marina-live-impact-reach">
+            Across <strong>25</strong> countries
+          </p>
         </div>
       </div>
     </section>
