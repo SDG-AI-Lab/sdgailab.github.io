@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import PartnerLogos from '../islands/PartnerLogos';
+import { withBase } from '../lib/url';
 
 const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
 const galleryTiles = [
@@ -63,7 +64,7 @@ const impactStats = [
         preload="metadata"
         aria-hidden="true"
       >
-        <source src="/media/hero-gradient.mp4" type="video/mp4" />
+        <source src={withBase('/media/hero-gradient.mp4')} type="video/mp4" />
       </video>
       <div class="marina-live-hero-video-overlay" aria-hidden="true"></div>
       <!--
