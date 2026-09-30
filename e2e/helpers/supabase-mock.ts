@@ -8,6 +8,7 @@ type TableName =
   | 'statistics'
   | 'projects'
   | 'news_articles'
+  | 'publications'
   | 'people'
   | 'partners'
   | 'page_content';
@@ -16,6 +17,7 @@ export interface MockState {
   allowlistedEmails: Set<string>;
   projects: Record<string, unknown>[];
   news: Record<string, unknown>[];
+  publications: Record<string, unknown>[];
   uploadedPaths: string[];
   sessionEmail: string | null;
 }
@@ -25,6 +27,7 @@ export function createMockState(options?: { allowEditor?: boolean }): MockState 
     allowlistedEmails: new Set(options?.allowEditor === false ? [] : [EDITOR_EMAIL]),
     projects: [],
     news: [],
+    publications: [],
     uploadedPaths: [],
     sessionEmail: null,
   };
@@ -88,6 +91,7 @@ export async function seedAuthSession(
 function getCollection(state: MockState, table: TableName) {
   if (table === 'projects') return state.projects;
   if (table === 'news_articles') return state.news;
+  if (table === 'publications') return state.publications;
   return [];
 }
 
@@ -224,7 +228,7 @@ export async function installSupabaseMock(
       return;
     }
 
-    if (method === 'POST' && (table === 'projects' || table === 'news_articles')) {
+    if (method === 'POST' && (table === 'projects' || table === 'news_articles' || table === 'publications')) {
       const payload = route.request().postDataJSON() as Record<string, unknown>;
       const row = {
         id: `${table}-${collection.length + 1}`,

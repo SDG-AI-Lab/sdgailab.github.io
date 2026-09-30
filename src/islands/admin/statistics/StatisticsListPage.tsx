@@ -8,6 +8,8 @@ import type { Statistic } from '../../../lib/types';
 export default function StatisticsListPage() {
   const { showToast } = useToast();
   const [data, setData] = useState<Statistic[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [confirmState, setConfirmState] = useState<{ isOpen: boolean; itemId: string | null }>({
@@ -23,11 +25,12 @@ export default function StatisticsListPage() {
     { label: 'Order', accessor: 'display_order' },
   ];
 
-  const fetchList = async () => {
+  const fetchList = async (pageNum = page) => {
     setLoading(true);
     setError(null);
-    const { data: result, error: err } = await listStatistics();
+    const { data: result, error: err, hasMore: more } = await listStatistics({ page: pageNum });
     setLoading(false);
+    setHasMore(more);
     if (err) {
       setError(err);
       setData([]);
@@ -37,8 +40,8 @@ export default function StatisticsListPage() {
   };
 
   useEffect(() => {
-    fetchList();
-  }, []);
+    void fetchList(page);
+  }, [page]);
 
   const onEdit = (id: string) => {
     window.location.hash = `#/statistics/edit/${id}`;
@@ -88,8 +91,11 @@ export default function StatisticsListPage() {
         onEdit={onEdit}
         onArchive={onArchive}
         onDelete={onDelete}
-        onRetry={fetchList}
+        onRetry={() => void fetchList(page)}
         addNewHref="#/statistics/new"
+        page={page}
+        hasMore={hasMore}
+        onPageChange={setPage}
       />
       <ConfirmDialog
         isOpen={confirmState.isOpen}

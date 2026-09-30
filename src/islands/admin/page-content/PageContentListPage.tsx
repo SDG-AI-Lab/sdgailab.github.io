@@ -8,6 +8,8 @@ import type { PageContent } from '../../../lib/types';
 export default function PageContentListPage() {
   const { showToast } = useToast();
   const [data, setData] = useState<PageContent[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [confirmState, setConfirmState] = useState<{ isOpen: boolean; itemId: string | null }>({
@@ -22,11 +24,12 @@ export default function PageContentListPage() {
     { label: 'Status', accessor: 'status' },
   ];
 
-  const fetchList = async () => {
+  const fetchList = async (pageNum = page) => {
     setLoading(true);
     setError(null);
-    const { data: result, error: err } = await listPageContent();
+    const { data: result, error: err, hasMore: more } = await listPageContent({ page: pageNum });
     setLoading(false);
+    setHasMore(more);
     if (err) {
       setError(err);
       setData([]);
@@ -36,8 +39,8 @@ export default function PageContentListPage() {
   };
 
   useEffect(() => {
-    fetchList();
-  }, []);
+    void fetchList(page);
+  }, [page]);
 
   const onEdit = (id: string) => {
     window.location.hash = `#/page-content/edit/${id}`;
@@ -87,8 +90,11 @@ export default function PageContentListPage() {
         onEdit={onEdit}
         onArchive={onArchive}
         onDelete={onDelete}
-        onRetry={fetchList}
+        onRetry={() => void fetchList(page)}
         addNewHref="#/page-content/new"
+        page={page}
+        hasMore={hasMore}
+        onPageChange={setPage}
       />
       <ConfirmDialog
         isOpen={confirmState.isOpen}

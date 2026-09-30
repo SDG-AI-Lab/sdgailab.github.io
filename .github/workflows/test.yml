@@ -36,6 +36,9 @@ jobs:
       - name: Astro and TypeScript check
         run: npm run check
 
+      - name: ESLint
+        run: npm run lint
+
       - name: Dependency audit (critical)
         run: npm run audit:ci
 

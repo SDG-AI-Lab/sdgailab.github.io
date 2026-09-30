@@ -66,6 +66,9 @@ describe('StatisticsListPage', () => {
     listStatisticsMock.mockResolvedValue({
       data: [{ id: 'stat-1', label: 'Projects', value: '12', status: 'draft', display_order: 1 }],
       error: null,
+      page: 1,
+      pageSize: 50,
+      hasMore: false,
     });
     archiveStatisticMock.mockResolvedValue({ error: null });
     deleteStatisticMock.mockResolvedValue({ error: null });

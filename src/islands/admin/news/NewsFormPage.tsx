@@ -88,7 +88,7 @@ export default function NewsFormPage({ id }: NewsFormPageProps) {
       status: values.status,
     };
     if (!id) {
-      const { data, error } = await createNewsArticle(input);
+      const { error } = await createNewsArticle(input);
       setLoading(false);
       if (error) {
         setFeedback({ message: error, type: 'error' });

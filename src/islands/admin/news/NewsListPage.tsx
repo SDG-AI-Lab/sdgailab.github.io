@@ -27,6 +27,8 @@ function matchesSearch(article: NewsArticle, query: string): boolean {
 export default function NewsListPage() {
   const { showToast } = useToast();
   const [data, setData] = useState<NewsArticle[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState('');
@@ -46,11 +48,12 @@ export default function NewsListPage() {
     { label: 'Status', accessor: 'status' },
   ];
 
-  const fetchList = async () => {
+  const fetchList = async (pageNum = page) => {
     setLoading(true);
     setError(null);
-    const { data: result, error: err } = await listNewsArticles();
+    const { data: result, error: err, hasMore: more } = await listNewsArticles({ page: pageNum });
     setLoading(false);
+    setHasMore(more);
     if (err) {
       setError(err);
       setData([]);
@@ -60,8 +63,8 @@ export default function NewsListPage() {
   };
 
   useEffect(() => {
-    fetchList();
-  }, []);
+    void fetchList(page);
+  }, [page]);
 
   const filteredData = useMemo(
     () => data.filter((article) => matchesSearch(article, search)),
@@ -129,8 +132,11 @@ export default function NewsListPage() {
         onEdit={onEdit}
         onArchive={onArchive}
         onDelete={onDelete}
-        onRetry={fetchList}
+        onRetry={() => void fetchList(page)}
         addNewHref="#/news/new"
+        page={page}
+        hasMore={hasMore}
+        onPageChange={setPage}
       />
       <ConfirmDialog
         isOpen={confirmState.isOpen}

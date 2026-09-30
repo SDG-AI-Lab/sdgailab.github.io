@@ -2,9 +2,29 @@ import * as Sentry from '@sentry/react';
 
 export type ObservabilitySurface = 'admin' | 'public';
 
+type LogLevel = 'error' | 'warn' | 'info' | 'debug';
+
 const SENSITIVE_KEY_PATTERN = /email|token|password|authorization|cookie|secret|key|refresh/i;
+const LOG_LEVEL_RANK: Record<LogLevel, number> = {
+  error: 0,
+  warn: 1,
+  info: 2,
+  debug: 3,
+};
 
 let initialized = false;
+
+function getConfiguredLogLevel(): LogLevel {
+  const raw = import.meta.env.PUBLIC_LOG_LEVEL?.trim().toLowerCase();
+  if (raw === 'error' || raw === 'warn' || raw === 'info' || raw === 'debug') {
+    return raw;
+  }
+  return import.meta.env.DEV ? 'warn' : 'error';
+}
+
+function shouldLogToConsole(level: LogLevel): boolean {
+  return LOG_LEVEL_RANK[level] <= LOG_LEVEL_RANK[getConfiguredLogLevel()];
+}
 
 function getDsn(): string | undefined {
   const dsn = import.meta.env.PUBLIC_SENTRY_DSN;
@@ -87,7 +107,7 @@ export function logAppError(
     error instanceof Error ? error : new Error(typeof error === 'string' ? error : 'Unknown error');
   const scrubbedContext = scrubContext(context);
 
-  if (import.meta.env.DEV) {
+  if (import.meta.env.DEV && shouldLogToConsole('error')) {
     console.error(`[${action}]`, normalizedError.message, scrubbedContext ?? {});
   }
 
@@ -104,6 +124,13 @@ export function logAppError(
   });
 }
 
+function toConsoleLogLevel(level: Sentry.SeverityLevel): LogLevel {
+  if (level === 'fatal' || level === 'error') return 'error';
+  if (level === 'warning') return 'warn';
+  if (level === 'debug') return 'debug';
+  return 'info';
+}
+
 export function logAppMessage(
   action: string,
   message: string,
@@ -112,7 +139,7 @@ export function logAppMessage(
 ): void {
   const scrubbedContext = scrubContext(context);
 
-  if (import.meta.env.DEV) {
+  if (import.meta.env.DEV && shouldLogToConsole(toConsoleLogLevel(level))) {
     console.warn(`[${action}]`, message, scrubbedContext ?? {});
   }
 

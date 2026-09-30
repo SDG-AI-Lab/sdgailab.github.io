@@ -13,15 +13,21 @@ const { authState, emptyList, emptyCounts } = vi.hoisted(() => ({
     authorizationError: null as string | null,
     signOut: vi.fn(),
   },
-  emptyList: { data: [] as unknown[], error: null as string | null },
+  emptyList: {
+    data: [] as unknown[],
+    error: null as string | null,
+    page: 1,
+    pageSize: 50,
+    hasMore: false,
+  },
   emptyCounts: {
     data: {
       statistics: { total: 0, draft: 0, published: 0, archived: 0 },
       projects: { total: 0, draft: 0, published: 0, archived: 0 },
       news_articles: { total: 0, draft: 0, published: 0, archived: 0 },
+      publications: { total: 0, draft: 0, published: 0, archived: 0 },
       people: { total: 0, draft: 0, published: 0, archived: 0 },
       partners: { total: 0, draft: 0, published: 0, archived: 0 },
-      geographic_reach: { total: 0, draft: 0, published: 0, archived: 0 },
       evolution_timeline: { total: 0, draft: 0, published: 0, archived: 0 },
       page_content: { total: 0, draft: 0, published: 0, archived: 0 },
     },

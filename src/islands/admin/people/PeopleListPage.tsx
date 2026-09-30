@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ContentTable, type Column } from '../shared/ContentTable';
 import { ConfirmDialog } from '../shared/ConfirmDialog';
 import { listPeople, archivePerson, deletePerson } from '../../../lib/admin-queries';
@@ -30,6 +30,8 @@ function matchesSearch(person: Person, query: string): boolean {
 export default function PeopleListPage() {
   const { showToast } = useToast();
   const [data, setData] = useState<Person[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<Filter>('all');
@@ -51,22 +53,23 @@ export default function PeopleListPage() {
     { label: 'Order', accessor: 'display_order' },
   ];
 
-  const fetchList = useCallback(async () => {
+  const fetchList = async (pageNum = page) => {
     setLoading(true);
     setError(null);
-    const { data: result, error: err } = await listPeople();
+    const { data: result, error: err, hasMore: more } = await listPeople({ page: pageNum });
     setLoading(false);
+    setHasMore(more);
     if (err) {
       setError(err);
       setData([]);
     } else {
       setData(result ?? []);
     }
-  }, []);
+  };
 
   useEffect(() => {
-    fetchList();
-  }, [fetchList]);
+    void fetchList(page);
+  }, [page]);
 
   const filteredData = useMemo(() => {
     const byGroup =
@@ -166,8 +169,11 @@ export default function PeopleListPage() {
         onEdit={onEdit}
         onArchive={onArchive}
         onDelete={onDelete}
-        onRetry={fetchList}
+        onRetry={() => void fetchList(page)}
         addNewHref="#/people/new"
+        page={page}
+        hasMore={hasMore}
+        onPageChange={setPage}
       />
       <ConfirmDialog
         isOpen={confirmState.isOpen}

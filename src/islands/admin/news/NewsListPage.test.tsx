@@ -71,6 +71,9 @@ describe('NewsListPage', () => {
         { id: 'news-2', title: 'Resilience Update', slug: 'resilience', author_name: 'Grace', publish_date: '2026-08-01', status: 'published' },
       ],
       error: null,
+      page: 1,
+      pageSize: 50,
+      hasMore: false,
     });
     archiveNewsArticleMock.mockResolvedValue({ error: null });
     deleteNewsArticleMock.mockResolvedValue({ error: null });

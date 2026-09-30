@@ -47,6 +47,8 @@ function matchesSearch(project: Project, query: string): boolean {
 export default function ProjectsListPage() {
   const { showToast } = useToast();
   const [data, setData] = useState<Project[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState('');
@@ -74,11 +76,12 @@ export default function ProjectsListPage() {
     { label: 'Order', accessor: 'display_order' },
   ];
 
-  const fetchList = async () => {
+  const fetchList = async (pageNum = page) => {
     setLoading(true);
     setError(null);
-    const { data: result, error: err } = await listProjects();
+    const { data: result, error: err, hasMore: more } = await listProjects({ page: pageNum });
     setLoading(false);
+    setHasMore(more);
     if (err) {
       setError(err);
       setData([]);
@@ -88,8 +91,8 @@ export default function ProjectsListPage() {
   };
 
   useEffect(() => {
-    fetchList();
-  }, []);
+    void fetchList(page);
+  }, [page]);
 
   const filteredData = useMemo(
     () => data.filter((project) => matchesSearch(project, search)),
@@ -157,8 +160,11 @@ export default function ProjectsListPage() {
         onEdit={onEdit}
         onArchive={onArchive}
         onDelete={onDelete}
-        onRetry={fetchList}
+        onRetry={() => void fetchList(page)}
         addNewHref="#/projects/new"
+        page={page}
+        hasMore={hasMore}
+        onPageChange={setPage}
       />
       <ConfirmDialog
         isOpen={confirmState.isOpen}

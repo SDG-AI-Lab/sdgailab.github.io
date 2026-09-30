@@ -72,7 +72,7 @@ export default function PageContentFormPage({ id }: PageContentFormPageProps) {
       status: values.status,
     };
     if (!id) {
-      const { data, error } = await createPageContent(input);
+      const { error } = await createPageContent(input);
       setLoading(false);
       if (error) {
         setFeedback({ message: error, type: 'error' });

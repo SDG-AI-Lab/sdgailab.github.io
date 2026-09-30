@@ -1,4 +1,10 @@
 import { runProtectedAdminAction } from './admin-security';
+import {
+  ADMIN_LIST_MAX_PAGE_SIZE,
+  ADMIN_LIST_PAGE_SIZE,
+  normalizePageOptions,
+  type ListPageOptions,
+} from './pagination';
 import { getSupabaseAuth } from './supabase-auth';
 import type {
   PublishStatus,
@@ -12,7 +18,6 @@ import type {
   Person,
   Partner,
   PageContent,
-  GeographicReachItem,
   EvolutionTimelineItem,
 } from './types';
 
@@ -24,6 +29,9 @@ export interface AdminResult<T> {
 export interface AdminListResult<T> {
   data: T[];
   error: string | null;
+  page: number;
+  pageSize: number;
+  hasMore: boolean;
 }
 
 export interface ContentCounts {
@@ -128,17 +136,6 @@ export interface PartnerInput {
   published_at?: string | null;
 }
 
-export interface GeographicReachInput {
-  country_name: string;
-  iso_alpha3?: string | null;
-  latitude?: number | null;
-  longitude?: number | null;
-  region?: string | null;
-  display_order: number;
-  status: PublishStatus;
-  published_at?: string | null;
-}
-
 export interface EvolutionTimelineInput {
   period: string;
   title: string;
@@ -235,26 +232,6 @@ function normalizeOptionalPositiveInteger(value: unknown, field: string): number
     throw new Error(`${field} must be a non-negative integer.`);
   }
   return numberValue;
-}
-
-
-function normalizeOptionalNumber(value: unknown, field: string): number | null {
-  if (value == null || value === '') return null;
-  const numberValue = typeof value === 'number' ? value : Number(value);
-  if (!Number.isFinite(numberValue)) {
-    throw new Error(`${field} must be a number.`);
-  }
-  return numberValue;
-}
-
-function normalizeOptionalIsoAlpha3(value: unknown): string | null {
-  const normalized = normalizeOptionalString(value, 'ISO Alpha-3');
-  if (!normalized) return null;
-  const code = normalized.toUpperCase();
-  if (!/^[A-Z]{3}$/.test(code)) {
-    throw new Error('ISO Alpha-3 must use exactly three letters.');
-  }
-  return code;
 }
 
 function assertStatus(value: unknown): PublishStatus {
@@ -488,19 +465,6 @@ function validatePartnerInput(input: PartnerInput): PartnerInput {
   };
 }
 
-function validateGeographicReachInput(input: GeographicReachInput): GeographicReachInput {
-  return {
-    country_name: assertNonEmptyString(input.country_name, 'Country name'),
-    iso_alpha3: normalizeOptionalIsoAlpha3(input.iso_alpha3),
-    latitude: normalizeOptionalNumber(input.latitude, 'Latitude'),
-    longitude: normalizeOptionalNumber(input.longitude, 'Longitude'),
-    region: normalizeOptionalString(input.region, 'Region'),
-    display_order: assertNonNegativeInteger(input.display_order, 'Display order'),
-    status: assertStatus(input.status),
-    published_at: assertOptionalIsoDateTime(input.published_at, 'Published at'),
-  };
-}
-
 function validateEvolutionTimelineInput(input: EvolutionTimelineInput): EvolutionTimelineInput {
   return {
     period: assertNonEmptyString(input.period, 'Period'),
@@ -525,14 +489,32 @@ function validatePageContentInput(input: PageContentInput): PageContentInput {
 async function listAll<T>(
   table: string,
   orderBy: string,
-  ascending: boolean
+  ascending: boolean,
+  options?: ListPageOptions
 ): Promise<AdminListResult<T>> {
+  const { page, pageSize, from } = normalizePageOptions(options, {
+    pageSize: ADMIN_LIST_PAGE_SIZE,
+    maxPageSize: ADMIN_LIST_MAX_PAGE_SIZE,
+  });
   const { data, error } = await getSupabaseAuth()
     .from(table)
     .select('*')
-    .order(orderBy, { ascending });
-  if (error) return { data: [], error: error.message };
-  return { data: (data ?? []) as T[], error: null };
+    .order(orderBy, { ascending })
+    .range(from, from + pageSize); // pageSize + 1 rows to detect hasMore
+
+  if (error) {
+    return { data: [], error: error.message, page, pageSize, hasMore: false };
+  }
+
+  const rows = (data ?? []) as T[];
+  const hasMore = rows.length > pageSize;
+  return {
+    data: hasMore ? rows.slice(0, pageSize) : rows,
+    error: null,
+    page,
+    pageSize,
+    hasMore,
+  };
 }
 
 async function getById<T>(table: string, id: string): Promise<AdminResult<T>> {
@@ -637,8 +619,8 @@ function toContentCounts(rows: { status: PublishStatus }[]): ContentCounts {
   return { total, draft, published, archived };
 }
 
-export async function listStatistics(): Promise<AdminListResult<Statistic>> {
-  return listAll<Statistic>('statistics', 'display_order', true);
+export async function listStatistics(options?: ListPageOptions): Promise<AdminListResult<Statistic>> {
+  return listAll<Statistic>('statistics', 'display_order', true, options);
 }
 
 export async function getStatistic(id: string): Promise<AdminResult<Statistic>> {
@@ -666,37 +648,10 @@ export async function deleteStatistic(id: string): Promise<AdminResult<{ id: str
   return permanentlyDeleteRecord('statistics', id);
 }
 
-export async function listGeographicReach(): Promise<AdminListResult<GeographicReachItem>> {
-  return listAll<GeographicReachItem>('geographic_reach', 'display_order', true);
-}
-
-export async function getGeographicReachItem(id: string): Promise<AdminResult<GeographicReachItem>> {
-  return getById<GeographicReachItem>('geographic_reach', id);
-}
-
-export async function createGeographicReachItem(
-  input: GeographicReachInput
-): Promise<AdminResult<GeographicReachItem>> {
-  return createRecord<GeographicReachItem, GeographicReachInput>('geographic_reach', input, validateGeographicReachInput);
-}
-
-export async function updateGeographicReachItem(
-  id: string,
-  input: GeographicReachInput
-): Promise<AdminResult<GeographicReachItem>> {
-  return updateRecord<GeographicReachItem, GeographicReachInput>('geographic_reach', id, input, validateGeographicReachInput);
-}
-
-export async function archiveGeographicReachItem(id: string): Promise<AdminResult<{ id: string }>> {
-  return archiveRecord('geographic_reach', id);
-}
-
-export async function deleteGeographicReachItem(id: string): Promise<AdminResult<{ id: string }>> {
-  return permanentlyDeleteRecord('geographic_reach', id);
-}
-
-export async function listEvolutionTimeline(): Promise<AdminListResult<EvolutionTimelineItem>> {
-  return listAll<EvolutionTimelineItem>('evolution_timeline', 'display_order', true);
+export async function listEvolutionTimeline(
+  options?: ListPageOptions
+): Promise<AdminListResult<EvolutionTimelineItem>> {
+  return listAll<EvolutionTimelineItem>('evolution_timeline', 'display_order', true, options);
 }
 
 export async function getEvolutionTimelineItem(id: string): Promise<AdminResult<EvolutionTimelineItem>> {
@@ -724,8 +679,8 @@ export async function deleteEvolutionTimelineItem(id: string): Promise<AdminResu
   return permanentlyDeleteRecord('evolution_timeline', id);
 }
 
-export async function listProjects(): Promise<AdminListResult<Project>> {
-  return listAll<Project>('projects', 'display_order', true);
+export async function listProjects(options?: ListPageOptions): Promise<AdminListResult<Project>> {
+  return listAll<Project>('projects', 'display_order', true, options);
 }
 
 export async function getProject(id: string): Promise<AdminResult<Project>> {
@@ -751,8 +706,10 @@ export async function deleteProject(id: string): Promise<AdminResult<{ id: strin
   return permanentlyDeleteRecord('projects', id);
 }
 
-export async function listNewsArticles(): Promise<AdminListResult<NewsArticle>> {
-  return listAll<NewsArticle>('news_articles', 'publish_date', false);
+export async function listNewsArticles(
+  options?: ListPageOptions
+): Promise<AdminListResult<NewsArticle>> {
+  return listAll<NewsArticle>('news_articles', 'publish_date', false, options);
 }
 
 export async function getNewsArticle(id: string): Promise<AdminResult<NewsArticle>> {
@@ -780,8 +737,10 @@ export async function deleteNewsArticle(id: string): Promise<AdminResult<{ id: s
   return permanentlyDeleteRecord('news_articles', id);
 }
 
-export async function listPublications(): Promise<AdminListResult<Publication>> {
-  return listAll<Publication>('publications', 'publication_date', false);
+export async function listPublications(
+  options?: ListPageOptions
+): Promise<AdminListResult<Publication>> {
+  return listAll<Publication>('publications', 'publication_date', false, options);
 }
 
 export async function getPublication(id: string): Promise<AdminResult<Publication>> {
@@ -804,8 +763,8 @@ export async function deletePublication(id: string): Promise<AdminResult<{ id: s
   return permanentlyDeleteRecord('publications', id);
 }
 
-export async function listPeople(): Promise<AdminListResult<Person>> {
-  return listAll<Person>('people', 'display_order', true);
+export async function listPeople(options?: ListPageOptions): Promise<AdminListResult<Person>> {
+  return listAll<Person>('people', 'display_order', true, options);
 }
 
 export async function getPerson(id: string): Promise<AdminResult<Person>> {
@@ -831,8 +790,8 @@ export async function deletePerson(id: string): Promise<AdminResult<{ id: string
   return permanentlyDeleteRecord('people', id);
 }
 
-export async function listPartners(): Promise<AdminListResult<Partner>> {
-  return listAll<Partner>('partners', 'display_order', true);
+export async function listPartners(options?: ListPageOptions): Promise<AdminListResult<Partner>> {
+  return listAll<Partner>('partners', 'display_order', true, options);
 }
 
 export async function getPartner(id: string): Promise<AdminResult<Partner>> {
@@ -858,8 +817,10 @@ export async function deletePartner(id: string): Promise<AdminResult<{ id: strin
   return permanentlyDeleteRecord('partners', id);
 }
 
-export async function listPageContent(): Promise<AdminListResult<PageContent>> {
-  return listAll<PageContent>('page_content', 'page_slug', true);
+export async function listPageContent(
+  options?: ListPageOptions
+): Promise<AdminListResult<PageContent>> {
+  return listAll<PageContent>('page_content', 'page_slug', true, options);
 }
 
 export async function getPageContentById(id: string): Promise<AdminResult<PageContent>> {
@@ -887,11 +848,18 @@ export async function deletePageContent(id: string): Promise<AdminResult<{ id: s
   return permanentlyDeleteRecord('page_content', id);
 }
 
+type DashboardTable =
+  | 'statistics'
+  | 'projects'
+  | 'news_articles'
+  | 'publications'
+  | 'people'
+  | 'partners'
+  | 'evolution_timeline'
+  | 'page_content';
+
 export async function getDashboardCounts(): Promise<{
-  data: Record<
-    'statistics' | 'projects' | 'news_articles' | 'publications' | 'people' | 'partners' | 'geographic_reach' | 'evolution_timeline' | 'page_content',
-    ContentCounts
-  >;
+  data: Record<DashboardTable, ContentCounts>;
   error: string | null;
 }> {
   const tables = [
@@ -901,29 +869,22 @@ export async function getDashboardCounts(): Promise<{
     'publications',
     'people',
     'partners',
-    'geographic_reach',
     'evolution_timeline',
     'page_content',
-  ] as const;
+  ] as const satisfies readonly DashboardTable[];
   const result: Record<string, ContentCounts> = {};
   for (const table of tables) {
     const { data, error } = await getSupabaseAuth().from(table).select('status');
     if (error) {
       return {
-        data: {} as Record<
-          'statistics' | 'projects' | 'news_articles' | 'publications' | 'people' | 'partners' | 'geographic_reach' | 'evolution_timeline' | 'page_content',
-          ContentCounts
-        >,
+        data: {} as Record<DashboardTable, ContentCounts>,
         error: error.message,
       };
     }
     result[table] = toContentCounts((data ?? []) as { status: PublishStatus }[]);
   }
   return {
-    data: result as Record<
-      'statistics' | 'projects' | 'news_articles' | 'publications' | 'people' | 'partners' | 'geographic_reach' | 'evolution_timeline' | 'page_content',
-      ContentCounts
-    >,
+    data: result as Record<DashboardTable, ContentCounts>,
     error: null,
   };
 }

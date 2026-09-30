@@ -37,7 +37,7 @@ describe('Public Astro pages', () => {
     expect(source).toContain('marina-team-page');
     expect(source).toContain('Six working groups');
     expect(source).toContain('person-avatar');
-    expect(source).toContain('Coordination · Research &amp; Advisory');
+    expect(source).toContain('Coordination · Research & Advisory');
   });
 
   it('contact page uses Marina mailto request form', () => {
@@ -98,7 +98,7 @@ describe('Public Astro pages', () => {
     const source = readSource('src/pages/about.astro');
     expect(source).toContain('marina-about-timeline');
     expect(source).toContain('marina-about-team');
-    expect(source).toContain('The practice,');
+    expect(source).toContain('marina-about-pillars');
     expect(source).toContain('Have a development challenge?');
   });
 
@@ -119,6 +119,19 @@ describe('Public Astro pages', () => {
     expect(source).toContain('marina-research');
     expect(source).toContain('research-intro');
     expect(source).toContain('ResearchOutputs');
+  });
+
+  it('focus-areas page exposes Marina expertise domains', () => {
+    const source = readSource('src/pages/focus-areas.astro');
+    expect(source).toContain('marina-focus-page');
+    expect(source).toContain('Our areas of expertise');
+    expect(source).toContain('Natural Language Processing');
+    expect(source).toContain('GIS / Remote Sensing');
+  });
+
+  it('how-we-work page remains a published public route', () => {
+    const source = readSource('src/pages/how-we-work.astro');
+    expect(source).toContain('BaseLayout');
   });
 
   it('capacity building page exposes learning pathways, not volunteer-only content', () => {

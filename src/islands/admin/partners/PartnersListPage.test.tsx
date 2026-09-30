@@ -71,6 +71,9 @@ describe('PartnersListPage', () => {
         { id: 'partner-2', name: 'Samsung', logo_url: null, website_url: 'https://samsung.com', status: 'published', display_order: 2 },
       ],
       error: null,
+      page: 1,
+      pageSize: 50,
+      hasMore: false,
     });
     archivePartnerMock.mockResolvedValue({ error: null });
     deletePartnerMock.mockResolvedValue({ error: null });

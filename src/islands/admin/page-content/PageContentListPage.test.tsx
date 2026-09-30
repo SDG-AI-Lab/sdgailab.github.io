@@ -60,6 +60,9 @@ describe('PageContentListPage', () => {
     listPageContentMock.mockResolvedValue({
       data: [{ id: 'content-1', page_slug: 'about', section_slug: 'hero', status: 'draft' }],
       error: null,
+      page: 1,
+      pageSize: 50,
+      hasMore: false,
     });
     archivePageContentMock.mockResolvedValue({ error: null });
     deletePageContentMock.mockResolvedValue({ error: null });

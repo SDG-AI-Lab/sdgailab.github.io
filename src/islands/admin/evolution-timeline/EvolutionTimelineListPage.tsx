@@ -12,6 +12,8 @@ import type { EvolutionTimelineItem } from '../../../lib/types';
 export default function EvolutionTimelineListPage() {
   const { showToast } = useToast();
   const [data, setData] = useState<EvolutionTimelineItem[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [confirmState, setConfirmState] = useState<{ isOpen: boolean; itemId: string | null }>({
@@ -27,11 +29,12 @@ export default function EvolutionTimelineListPage() {
     { label: 'Order', accessor: 'display_order' },
   ];
 
-  const fetchList = async () => {
+  const fetchList = async (pageNum = page) => {
     setLoading(true);
     setError(null);
-    const { data: result, error: err } = await listEvolutionTimeline();
+    const { data: result, error: err, hasMore: more } = await listEvolutionTimeline({ page: pageNum });
     setLoading(false);
+    setHasMore(more);
     if (err) {
       setError(err);
       setData([]);
@@ -41,8 +44,8 @@ export default function EvolutionTimelineListPage() {
   };
 
   useEffect(() => {
-    fetchList();
-  }, []);
+    void fetchList(page);
+  }, [page]);
 
   const onEdit = (id: string) => {
     window.location.hash = `#/evolution-timeline/edit/${id}`;
@@ -91,9 +94,12 @@ export default function EvolutionTimelineListPage() {
         onEdit={onEdit}
         onArchive={onArchive}
         onDelete={onDelete}
-        onRetry={fetchList}
+        onRetry={() => void fetchList(page)}
         addNewHref="#/evolution-timeline/new"
         addNewLabel="Add Timeline Entry"
+        page={page}
+        hasMore={hasMore}
+        onPageChange={setPage}
       />
       <ConfirmDialog
         isOpen={confirmState.isOpen}

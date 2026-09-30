@@ -170,7 +170,7 @@ export default function PortfolioGrid() {
               <div className="card-meta">
                 {project.label} &middot; {project.yearLabel} &middot; {(project.implementation_countries ?? []).join(', ') || 'Global'}
               </div>
-              <h3>{project.title}</h3>
+              <h2>{project.title}</h2>
               <p>{project.summaryLabel}</p>
               <div className="card-more">
                 Open project page
