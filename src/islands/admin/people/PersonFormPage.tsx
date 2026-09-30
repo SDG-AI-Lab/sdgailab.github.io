@@ -92,7 +92,7 @@ export default function PersonFormPage({ id }: PersonFormPageProps) {
       status: values.status,
     };
     if (!id) {
-      const { data, error } = await createPerson(input);
+      const { error } = await createPerson(input);
       setLoading(false);
       if (error) {
         setFeedback({ message: error, type: 'error' });

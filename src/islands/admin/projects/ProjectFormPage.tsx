@@ -233,7 +233,7 @@ export default function ProjectFormPage({ id }: ProjectFormPageProps) {
       status: values.status,
     };
     if (!id) {
-      const { data, error } = await createProject(input);
+      const { error } = await createProject(input);
       setLoading(false);
       if (error) {
         setFeedback({ message: error, type: 'error' });

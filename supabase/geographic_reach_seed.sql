@@ -1,6 +1,6 @@
--- Seed CMS-managed geographic reach entries extracted and cleaned from UNDP Project Portfolio.xlsx.
--- Run after supabase/migrations/008_geographic_reach.sql.
--- This is an initial CMS population script; editors can revise the list in the admin panel.
+-- OBSOLETE: Do not run after migrations/012_drop_geographic_reach.sql.
+-- Historical seed for CMS-managed geographic reach (table removed from the app).
+-- Originally: run after supabase/migrations/008_geographic_reach.sql.
 
 insert into public.geographic_reach (country_name, iso_alpha3, latitude, longitude, display_order, status, published_at)
 values

@@ -6,12 +6,38 @@ Operational guide for the SDG AI Lab CMS database and storage. Complete this dur
 
 | Asset | Location | Recovery impact |
 |-------|----------|-----------------|
-| CMS content | Postgres (`statistics`, `projects`, `news_articles`, `people`, `partners`, `page_content`) | Site content missing or stale |
+| CMS content | Postgres (`statistics`, `projects`, `news_articles`, `publications`, `people`, `partners`, `page_content`, `evolution_timeline`) | Site content missing or stale |
+| Contact enquiries (PII) | Postgres (`contact_submissions`) | Lost enquiry history; see `docs/contact-form/pii-retention.md` |
 | Editor allowlist | Postgres (`admin_users`) | Editors locked out or unauthorized access |
-| Uploaded images | Storage bucket `public-assets` | Broken image URLs on public site |
+| Uploaded images / video | Storage bucket `public-assets` | Broken media URLs on public site |
 | Auth users | Supabase Auth | Editors cannot sign in |
 
 The static site on GitHub Pages is rebuilt from git; **Supabase is the source of truth for live CMS data**.
+
+## Recovery objectives (operators)
+
+Document and confirm with the hosting owner before production cutover:
+
+| Objective | Target | Notes |
+|-----------|--------|-------|
+| **RPO** (max data loss) | ≤ 24h on Free; ≤ PITR window on Pro | Free tier relies on last manual export |
+| **RTO** (time to restore CMS) | ≤ 4h for content restore from export/PITR | Includes re-apply migrations `001`–`012` if new project |
+
+## Backup verification checklist (sign-off)
+
+Complete once per environment (staging, then production). Keep evidence outside git (ticket / ops wiki).
+
+| # | Check | Staging | Production | Evidence |
+|---|-------|---------|------------|----------|
+| 1 | Plan confirmed (Free / Pro) and backup UI location recorded | ☐ | ☐ | |
+| 2 | Automated daily backups **or** documented manual export cadence | ☐ | ☐ | |
+| 3 | PITR enabled (Pro+) **or** N/A with accepted risk on Free | ☐ | ☐ | |
+| 4 | Latest successful backup / export timestamp recorded | ☐ | ☐ | |
+| 5 | Storage `public-assets` archive or accepted risk noted | ☐ | ☐ | |
+| 6 | Staging restore drill completed (date + owner) | ☐ | ☐ | |
+| 7 | Migrations applied through `012_drop_geographic_reach.sql` | ☐ | ☐ | |
+
+**Last verified:** _YYYY-MM-DD_ · **Owner:** _name_ · **Environment:** _staging|production_
 
 ## Backup options (by Supabase plan)
 
@@ -52,7 +78,7 @@ Run before:
 
 Steps:
 
-1. Note current migration level applied in Supabase (001–005)
+1. Note current migration level applied in Supabase (`001`–`012`)
 2. Export or confirm a recent automated backup exists
 3. Save output of `supabase/verify_c1_hardening.sql`
 4. Record active `admin_users` emails (no secrets):
@@ -96,18 +122,18 @@ User must also exist in `Authentication -> Users`.
 ### Full project disaster
 
 1. Create new Supabase project (or restore from platform backup per Supabase support docs)
-2. Apply migrations in order: `001` → `002` → `003` → `004` → `005`
+2. Apply migrations in order: `001` → `012` (see `supabase/README.md`)
 3. Create `public-assets` bucket (public read)
 4. Restore data from logical backup or PITR export
 5. Reconfigure Auth redirect URLs per `docs/supabase-c1-staging-signoff.md`
-6. Re-add GitHub Actions secrets (`PUBLIC_SUPABASE_URL`, `PUBLIC_SUPABASE_ANON_KEY`)
+6. Re-add GitHub Actions secrets (`PUBLIC_SUPABASE_URL`, `PUBLIC_SUPABASE_ANON_KEY`, optional `PUBLIC_SENTRY_*`)
 7. Run full C1 verification and smoke tests
 
 ## Retention and access
 
 - Limit service-role key holders to the smallest operator set
 - Never commit backups containing user emails + secrets to git
-- Define retention (e.g. 30–90 days) per organizational policy
+- Contact PII retention: **90 days** — see `docs/contact-form/pii-retention.md` and `supabase/contact_submissions_purge.sql`
 - Assign an owner for quarterly restore drills on staging
 
 ## Related docs
@@ -115,3 +141,5 @@ User must also exist in `Authentication -> Users`.
 - [supabase-c1-staging-signoff.md](./supabase-c1-staging-signoff.md) — C1 verification workflow
 - [supabase-hardening-runbook.md](./supabase-hardening-runbook.md) — policy and auth steps
 - [production-cutover-checklist.md](./production-cutover-checklist.md) — C2 backup gate
+- [contact-form/pii-retention.md](./contact-form/pii-retention.md) — enquiry PII retention
+- [deployment-runtime.md](./deployment-runtime.md) — Pages vs optional Docker preview

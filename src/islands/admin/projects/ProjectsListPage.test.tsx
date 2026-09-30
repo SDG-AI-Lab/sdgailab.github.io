@@ -95,6 +95,9 @@ describe('ProjectsListPage', () => {
         },
       ],
       error: null,
+      page: 1,
+      pageSize: 50,
+      hasMore: false,
     });
     archiveProjectMock.mockResolvedValue({ error: null });
     deleteProjectMock.mockResolvedValue({ error: null });

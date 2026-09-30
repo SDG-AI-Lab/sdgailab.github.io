@@ -5,7 +5,13 @@ import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const { emptyList, emptyCounts } = vi.hoisted(() => ({
-  emptyList: { data: [] as unknown[], error: null as string | null },
+  emptyList: {
+    data: [] as unknown[],
+    error: null as string | null,
+    page: 1,
+    pageSize: 50,
+    hasMore: false,
+  },
   emptyCounts: {
     data: {
       statistics: { total: 0, draft: 0, published: 0, archived: 0 },
@@ -14,7 +20,6 @@ const { emptyList, emptyCounts } = vi.hoisted(() => ({
       publications: { total: 0, draft: 0, published: 0, archived: 0 },
       people: { total: 0, draft: 0, published: 0, archived: 0 },
       partners: { total: 0, draft: 0, published: 0, archived: 0 },
-      geographic_reach: { total: 0, draft: 0, published: 0, archived: 0 },
       evolution_timeline: { total: 0, draft: 0, published: 0, archived: 0 },
       page_content: { total: 0, draft: 0, published: 0, archived: 0 },
     },
@@ -30,7 +35,6 @@ vi.mock('../../lib/admin-queries', () => ({
   listPublications: vi.fn().mockResolvedValue(emptyList),
   listPeople: vi.fn().mockResolvedValue(emptyList),
   listPartners: vi.fn().mockResolvedValue(emptyList),
-  listGeographicReach: vi.fn().mockResolvedValue(emptyList),
   listEvolutionTimeline: vi.fn().mockResolvedValue(emptyList),
   listPageContent: vi.fn().mockResolvedValue(emptyList),
   getStatistic: vi.fn().mockResolvedValue({ data: null, error: null }),
@@ -39,7 +43,6 @@ vi.mock('../../lib/admin-queries', () => ({
   getPublication: vi.fn().mockResolvedValue({ data: null, error: null }),
   getPerson: vi.fn().mockResolvedValue({ data: null, error: null }),
   getPartner: vi.fn().mockResolvedValue({ data: null, error: null }),
-  getGeographicReachItem: vi.fn().mockResolvedValue({ data: null, error: null }),
   getEvolutionTimelineItem: vi.fn().mockResolvedValue({ data: null, error: null }),
   getPageContent: vi.fn().mockResolvedValue({ data: null, error: null }),
   archiveStatistic: vi.fn().mockResolvedValue({ error: null }),
@@ -48,7 +51,6 @@ vi.mock('../../lib/admin-queries', () => ({
   archivePublication: vi.fn().mockResolvedValue({ error: null }),
   archivePerson: vi.fn().mockResolvedValue({ error: null }),
   archivePartner: vi.fn().mockResolvedValue({ error: null }),
-  archiveGeographicReachItem: vi.fn().mockResolvedValue({ error: null }),
   archiveEvolutionTimelineItem: vi.fn().mockResolvedValue({ error: null }),
   archivePageContent: vi.fn().mockResolvedValue({ error: null }),
   deleteStatistic: vi.fn().mockResolvedValue({ error: null }),
@@ -57,10 +59,11 @@ vi.mock('../../lib/admin-queries', () => ({
   deletePublication: vi.fn().mockResolvedValue({ error: null }),
   deletePerson: vi.fn().mockResolvedValue({ error: null }),
   deletePartner: vi.fn().mockResolvedValue({ error: null }),
-  deleteGeographicReachItem: vi.fn().mockResolvedValue({ error: null }),
   deleteEvolutionTimelineItem: vi.fn().mockResolvedValue({ error: null }),
   createEvolutionTimelineItem: vi.fn().mockResolvedValue({ data: null, error: null }),
   updateEvolutionTimelineItem: vi.fn().mockResolvedValue({ data: null, error: null }),
+  createPublication: vi.fn().mockResolvedValue({ data: null, error: null }),
+  updatePublication: vi.fn().mockResolvedValue({ data: null, error: null }),
   deletePageContent: vi.fn().mockResolvedValue({ error: null }),
 }));
 
@@ -134,6 +137,8 @@ import PeopleListPage from './people/PeopleListPage';
 import PersonFormPage from './people/PersonFormPage';
 import ProjectFormPage from './projects/ProjectFormPage';
 import ProjectsListPage from './projects/ProjectsListPage';
+import PublicationFormPage from './publications/PublicationFormPage';
+import PublicationsListPage from './publications/PublicationsListPage';
 import StatisticFormPage from './statistics/StatisticFormPage';
 import StatisticsListPage from './statistics/StatisticsListPage';
 
@@ -237,5 +242,15 @@ describe('admin pages (unit)', () => {
   it('PageContentFormPage renders the create form heading', async () => {
     await renderPage(PageContentFormPage);
     expect(container.textContent).toContain('New Page Content');
+  });
+
+  it('PublicationsListPage renders the publications list shell', async () => {
+    await renderPage(PublicationsListPage);
+    expect(container.textContent).toContain('Research publications');
+  });
+
+  it('PublicationFormPage renders the create form heading', async () => {
+    await renderPage(PublicationFormPage);
+    expect(container.textContent).toContain('New publication');
   });
 });

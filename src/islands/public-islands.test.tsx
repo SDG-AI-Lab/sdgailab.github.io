@@ -10,6 +10,7 @@ import PageContent from './PageContent';
 import PartnerLogos from './PartnerLogos';
 import PeopleGrid from './PeopleGrid';
 import ProjectList from './ProjectList';
+import PublicationsList from './PublicationsList';
 import StatsCards from './StatsCards';
 import { expectAccessible } from '../test/axe';
 
@@ -341,6 +342,74 @@ describe('public islands', () => {
     await render(<StatsCards />);
 
     await expectAccessible(container);
+  });
+
+  it('FeaturedProjects has no detectable accessibility violations', async () => {
+    getFeaturedProjectsMock.mockResolvedValue({
+      data: [
+        {
+          id: 'fp-1',
+          title: 'Accessible Featured Project',
+          slug: 'accessible-featured',
+          project_status: 'active',
+          is_deployed: true,
+          image_url: null,
+          display_order: 1,
+          summary: 'Summary',
+          work_stream: 'GIS',
+          project_year: 2024,
+          implementation_countries: ['Kenya'],
+        },
+      ],
+      error: null,
+    });
+    getPublishedProjectsMock.mockResolvedValue({ data: [], error: null });
+
+    await render(<FeaturedProjects />);
+    await expectAccessible(container);
+  });
+
+  it('PublicationsList filters live news-backed publications by search', async () => {
+    getPublishedNewsMock.mockResolvedValue({
+      data: [
+        {
+          id: 'n1',
+          title: 'Climate Brief',
+          slug: 'climate-brief',
+          publish_date: '2024-01-01',
+          author_name: 'Ada',
+          summary: 'Climate summary',
+          featured_image_url: null,
+        },
+        {
+          id: 'n2',
+          title: 'Skills Dataset',
+          slug: 'skills-dataset',
+          publish_date: '2025-06-01',
+          author_name: 'Grace',
+          summary: 'Dataset summary',
+          featured_image_url: null,
+        },
+      ],
+      error: null,
+    });
+
+    await render(<PublicationsList />);
+    expect(container.textContent).toContain('Climate Brief');
+    expect(container.textContent).toContain('Skills Dataset');
+
+    const search = container.querySelector('input[type="search"], input[placeholder*="Search" i]') as HTMLInputElement;
+    expect(search).not.toBeNull();
+
+    await act(async () => {
+      const proto = HTMLInputElement.prototype;
+      Object.getOwnPropertyDescriptor(proto, 'value')?.set?.call(search, 'dataset');
+      search.dispatchEvent(new Event('input', { bubbles: true }));
+      search.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+
+    expect(container.textContent).toContain('Skills Dataset');
+    expect(container.textContent).not.toContain('Climate Brief');
   });
 });
 

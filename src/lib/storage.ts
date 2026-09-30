@@ -124,10 +124,15 @@ export async function replaceImage(
   oldUrl: string | null,
   newFile: File
 ): Promise<{ url: string | null; error: string | null }> {
-  if (oldUrl) {
+  // Upload first so a failed upload does not delete the existing asset.
+  const uploaded = await uploadImage(folder, newFile);
+  if (uploaded.error || !uploaded.url) {
+    return uploaded;
+  }
+  if (oldUrl && isPublicAssetsUrl(oldUrl) && oldUrl !== uploaded.url) {
     await deleteImage(oldUrl);
   }
-  return uploadImage(folder, newFile);
+  return uploaded;
 }
 
 export async function uploadVideo(
@@ -148,10 +153,15 @@ export async function replaceVideo(
   oldUrl: string | null,
   newFile: File
 ): Promise<{ url: string | null; error: string | null }> {
-  if (oldUrl && isPublicAssetsUrl(oldUrl)) {
+  // Upload first so a failed upload does not delete the existing asset.
+  const uploaded = await uploadVideo(folder, newFile);
+  if (uploaded.error || !uploaded.url) {
+    return uploaded;
+  }
+  if (oldUrl && isPublicAssetsUrl(oldUrl) && oldUrl !== uploaded.url) {
     await deleteVideo(oldUrl);
   }
-  return uploadVideo(folder, newFile);
+  return uploaded;
 }
 
 

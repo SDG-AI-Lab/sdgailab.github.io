@@ -72,6 +72,9 @@ describe('PeopleListPage', () => {
         { id: 'person-2', name: 'Grace', role_title: 'Engineer', group_type: 'team', status: 'published', display_order: 2 },
       ],
       error: null,
+      page: 1,
+      pageSize: 50,
+      hasMore: false,
     });
     archivePersonMock.mockResolvedValue({ error: null });
     deletePersonMock.mockResolvedValue({ error: null });

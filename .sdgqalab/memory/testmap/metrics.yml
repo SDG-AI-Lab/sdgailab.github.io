@@ -318,3 +318,39 @@ snapshots:
         security_gaps: 0
         accessibility_gaps: 0
         test_count: 304
+
+  - date: "2026-09-28T18:43"
+    layers:
+      frontend:
+        total_source_files: 98
+        unit_file_coverage_pct: 80.6
+        integration_file_coverage_pct: 70.4
+        line_coverage_pct: 71.15
+        e2e_gaps: 8
+        security_gaps: 2
+        accessibility_gaps: 8
+        test_count: 335
+
+  - date: "2026-09-28T20:59"
+    layers:
+      frontend:
+        total_source_files: 95
+        unit_file_coverage_pct: 76.8
+        integration_file_coverage_pct: 89.5
+        line_coverage_pct: 90.29
+        e2e_gaps: 0
+        security_gaps: 1
+        accessibility_gaps: 2
+        test_count: 383
+
+  - date: "2026-09-28T21:27"
+    layers:
+      frontend:
+        total_source_files: 95
+        unit_file_coverage_pct: 82.1
+        integration_file_coverage_pct: 93.7
+        line_coverage_pct: 91.43
+        e2e_gaps: 0
+        security_gaps: 0
+        accessibility_gaps: 0
+        test_count: 400

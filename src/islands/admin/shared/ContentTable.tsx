@@ -18,6 +18,9 @@ export interface ContentTableProps<T extends { id: string; status: string }> {
   onRetry?: () => void;
   addNewHref: string;
   addNewLabel?: string;
+  page?: number;
+  hasMore?: boolean;
+  onPageChange?: (page: number) => void;
 }
 
 function getCellContent<T>(item: T, accessor: Column<T>['accessor']): React.ReactNode {
@@ -39,6 +42,9 @@ export function ContentTable<T extends { id: string; status: string }>({
   onRetry,
   addNewHref,
   addNewLabel = 'Add New',
+  page = 1,
+  hasMore = false,
+  onPageChange,
 }: ContentTableProps<T>) {
   const hasStatus = columns.some((c) => c.accessor === 'status');
   const allColumns: Column<T>[] = hasStatus
@@ -192,6 +198,27 @@ export function ContentTable<T extends { id: string; status: string }>({
           ))}
         </tbody>
       </table>
+      {onPageChange && (page > 1 || hasMore) && (
+        <div className="mt-4 flex items-center justify-between gap-3 text-sm text-lab-muted">
+          <button
+            type="button"
+            disabled={page <= 1}
+            onClick={() => onPageChange(page - 1)}
+            className="rounded-md px-3 py-1.5 ring-1 ring-lab-border disabled:opacity-40 hover:enabled:bg-lab-elevated"
+          >
+            Previous
+          </button>
+          <span aria-live="polite">Page {page}</span>
+          <button
+            type="button"
+            disabled={!hasMore}
+            onClick={() => onPageChange(page + 1)}
+            className="rounded-md px-3 py-1.5 ring-1 ring-lab-border disabled:opacity-40 hover:enabled:bg-lab-elevated"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 }

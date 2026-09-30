@@ -1,11 +1,49 @@
 // @ts-nocheck
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.98.0';
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-};
+const DEFAULT_ALLOWED_ORIGINS = [
+  'http://localhost:4321',
+  'http://127.0.0.1:4321',
+  'https://sdgailab.org',
+  'https://www.sdgailab.org',
+  'https://sdg-ai-lab.github.io',
+];
+
+function parseAllowedOrigins() {
+  const fromEnv = (Deno.env.get('CONTACT_ALLOWED_ORIGINS') ?? '')
+    .split(',')
+    .map((value) => value.trim())
+    .filter(Boolean);
+  return fromEnv.length > 0 ? fromEnv : DEFAULT_ALLOWED_ORIGINS;
+}
+
+function isOriginAllowed(origin) {
+  if (!origin) return false;
+  const allowed = parseAllowedOrigins();
+  if (allowed.includes(origin)) return true;
+  return origin.startsWith('https://sdg-ai-lab.github.io');
+}
+
+function resolveCorsOrigin(req) {
+  const origin = req.headers.get('Origin');
+  if (origin && isOriginAllowed(origin)) {
+    return origin;
+  }
+  return null;
+}
+
+function corsHeadersFor(req) {
+  const headers = {
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    Vary: 'Origin',
+  };
+  const allowedOrigin = resolveCorsOrigin(req);
+  if (allowedOrigin) {
+    headers['Access-Control-Allow-Origin'] = allowedOrigin;
+  }
+  return headers;
+}
 
 type ContactPayload = {
   name?: string;
@@ -17,12 +55,22 @@ type ContactPayload = {
   website?: string;
 };
 
-function jsonResponse(body: Record<string, unknown>, status = 200) {
+function jsonResponse(req, body, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    headers: { ...corsHeadersFor(req), 'Content-Type': 'application/json' },
   });
 }
+
+function rejectDisallowedOrigin(req) {
+  const origin = req.headers.get('Origin');
+  if (origin && !isOriginAllowed(origin)) {
+    return jsonResponse(req, { error: 'Origin not allowed.' }, 403);
+  }
+  return null;
+}
+
+
 
 function clean(value: unknown) {
   return typeof value === 'string' ? value.trim() : '';
@@ -59,18 +107,21 @@ function buildEmailHtml(input: Required<Pick<ContactPayload, 'name' | 'email' | 
 }
 
 Deno.serve(async (req) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
-  if (req.method !== 'POST') return jsonResponse({ error: 'Method not allowed' }, 405);
+  const originRejection = rejectDisallowedOrigin(req);
+  if (originRejection) return originRejection;
+
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeadersFor(req) });
+  if (req.method !== 'POST') return jsonResponse(req, { error: 'Method not allowed' }, 405);
 
   let payload: ContactPayload;
   try {
     payload = await req.json();
   } catch {
-    return jsonResponse({ error: 'Invalid JSON payload' }, 400);
+    return jsonResponse(req, { error: 'Invalid JSON payload' }, 400);
   }
 
   if (clean(payload.website)) {
-    return jsonResponse({ ok: true });
+    return jsonResponse(req, { ok: true });
   }
 
   const name = clean(payload.name);
@@ -82,25 +133,25 @@ Deno.serve(async (req) => {
   const user_agent = req.headers.get('user-agent') ?? '';
 
   if (!name || !email || !organization || !message) {
-    return jsonResponse({ error: 'Name, email, organization and message are required.' }, 400);
+    return jsonResponse(req, { error: 'Name, email, organization and message are required.' }, 400);
   }
 
   if (!isValidEmail(email)) {
-    return jsonResponse({ error: 'Please provide a valid email address.' }, 400);
+    return jsonResponse(req, { error: 'Please provide a valid email address.' }, 400);
   }
 
   if (message.length > 5000) {
-    return jsonResponse({ error: 'Message is too long. Please keep it under 5000 characters.' }, 400);
+    return jsonResponse(req, { error: 'Message is too long. Please keep it under 5000 characters.' }, 400);
   }
 
   const supabaseUrl = Deno.env.get('SUPABASE_URL');
   const serviceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
   const emailWebhookUrl = Deno.env.get('CONTACT_EMAIL_WEBHOOK_URL');
   const emailWebhookSecret = Deno.env.get('CONTACT_EMAIL_WEBHOOK_SECRET') ?? '';
-  const notificationTo = Deno.env.get('CONTACT_NOTIFICATION_TO') ?? 'josueuzj9@gmail.com';
+  const notificationTo = Deno.env.get('CONTACT_NOTIFICATION_TO')?.trim() ?? '';
 
   if (!supabaseUrl || !serviceRoleKey) {
-    return jsonResponse({ error: 'Contact service is not configured.' }, 500);
+    return jsonResponse(req, { error: 'Contact service is not configured.' }, 500);
   }
 
   const supabase = createClient(supabaseUrl, serviceRoleKey, {
@@ -114,16 +165,19 @@ Deno.serve(async (req) => {
     .single();
 
   if (insertError) {
-    return jsonResponse({ error: 'Could not save the request. Please try again.' }, 500);
+    return jsonResponse(req, { error: 'Could not save the request. Please try again.' }, 500);
   }
 
-  if (!emailWebhookUrl) {
+  if (!emailWebhookUrl || !notificationTo) {
+    const missing = !emailWebhookUrl
+      ? 'CONTACT_EMAIL_WEBHOOK_URL is not configured.'
+      : 'CONTACT_NOTIFICATION_TO is not configured.';
     await supabase
       .from('contact_submissions')
-      .update({ notification_error: 'CONTACT_EMAIL_WEBHOOK_URL is not configured.' })
+      .update({ notification_error: missing })
       .eq('id', submission.id);
 
-    return jsonResponse({
+    return jsonResponse(req, {
       ok: true,
       notification_sent: false,
       warning: 'Submission saved, but email notification is not configured yet.',
@@ -160,7 +214,7 @@ Deno.serve(async (req) => {
       .update({ notification_error: emailBody.slice(0, 1000) })
       .eq('id', submission.id);
 
-    return jsonResponse({
+    return jsonResponse(req, {
       ok: true,
       notification_sent: false,
       warning: 'Submission saved, but email notification failed.',
@@ -172,5 +226,5 @@ Deno.serve(async (req) => {
     .update({ notification_sent: true, notification_error: null })
     .eq('id', submission.id);
 
-  return jsonResponse({ ok: true, notification_sent: true });
+  return jsonResponse(req, { ok: true, notification_sent: true });
 });

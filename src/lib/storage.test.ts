@@ -129,7 +129,7 @@ describe('storage', () => {
     expect(runProtectedAdminActionMock).not.toHaveBeenCalled();
   });
 
-  it('replaces a managed video by deleting first and uploading second', async () => {
+  it('replaces a managed video by uploading first then deleting the old asset', async () => {
     vi.spyOn(Date, 'now').mockReturnValue(333444);
     const file = new File(['video'], 'new demo.webm', { type: 'video/webm' });
 
@@ -140,8 +140,11 @@ describe('storage', () => {
     );
 
     expect(result.error).toBeNull();
-    expect(bucketMock.remove).toHaveBeenCalledWith(['projects/videos/old-demo.mp4']);
     expect(bucketMock.upload).toHaveBeenCalledWith('projects/videos/333444-new-demo.webm', file);
+    expect(bucketMock.remove).toHaveBeenCalledWith(['projects/videos/old-demo.mp4']);
+    expect(bucketMock.upload.mock.invocationCallOrder[0]).toBeLessThan(
+      bucketMock.remove.mock.invocationCallOrder[0]
+    );
   });
 
   it('extracts a storage path and removes the old image', async () => {
@@ -164,7 +167,7 @@ describe('storage', () => {
     expect(runProtectedAdminActionMock).not.toHaveBeenCalled();
   });
 
-  it('replaces an existing image by deleting first and uploading second', async () => {
+  it('replaces an existing image by uploading first then deleting the old asset', async () => {
     vi.spyOn(Date, 'now').mockReturnValue(987654);
     const file = new File(['abc'], 'new logo.svg', { type: 'image/svg+xml' });
 
@@ -175,8 +178,25 @@ describe('storage', () => {
     );
 
     expect(result.error).toBeNull();
-    expect(bucketMock.remove).toHaveBeenCalledWith(['partners/old-logo.svg']);
     expect(bucketMock.upload).toHaveBeenCalledWith('partners/987654-new-logo.svg', file);
+    expect(bucketMock.remove).toHaveBeenCalledWith(['partners/old-logo.svg']);
+    expect(bucketMock.upload.mock.invocationCallOrder[0]).toBeLessThan(
+      bucketMock.remove.mock.invocationCallOrder[0]
+    );
+  });
+
+  it('keeps the old image when replacement upload fails', async () => {
+    bucketMock.upload.mockResolvedValue({ error: { message: 'quota exceeded' } });
+    const file = new File(['abc'], 'new logo.png', { type: 'image/png' });
+
+    const result = await replaceImage(
+      'partners',
+      'https://example.com/storage/v1/object/public/public-assets/partners/old-logo.png',
+      file
+    );
+
+    expect(result).toEqual({ url: null, error: 'quota exceeded' });
+    expect(bucketMock.remove).not.toHaveBeenCalled();
   });
 });
 

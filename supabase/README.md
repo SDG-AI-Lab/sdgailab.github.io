@@ -11,10 +11,11 @@
 | `migrations/005_admin_users_management_model.sql` | Documents allowlist ops model (no client writes) |
 | `migrations/006_project_content_template_fields.sql` | Structured public project-detail fields |
 | `migrations/007_project_portfolio_workbook_fields.sql` | Workbook-backed portfolio fields |
-| `migrations/008_geographic_reach.sql` | Geographic reach content |
+| `migrations/008_geographic_reach.sql` | Geographic reach content (historical create; superseded by 012) |
 | `migrations/009_contact_submissions.sql` | Contact submissions and notification workflow |
 | `migrations/010_evolution_timeline.sql` | Institutional evolution timeline content |
 | `migrations/011_publications.sql` | Publications content |
+| `migrations/012_drop_geographic_reach.sql` | Drops unused `geographic_reach` table after app unwiring |
 
 ## Verification
 
@@ -25,6 +26,7 @@
 
 | File | Purpose |
 |------|---------|
+| `geographic_reach_seed.sql` | Obsolete seed for dropped `geographic_reach` table (do not run after migration 012) |
 | `seed.sql` | Sample CMS content for development |
 | `team_members.sql` | Upsert team into `people` table |
 | `demo_day_projects.sql` | Demo project data |

@@ -11,7 +11,7 @@ This note tracks how the website design borrows practical patterns from leading 
 | Searchable/filterable project directories | Project index supports search, impact area, year, geography, technology and sorting. |
 | Publications and knowledge outputs are surfaced as first-class content | Homepage discovery section links directly to publications/resources and latest activity. |
 | Latest activity gives evidence that the institution is active | Homepage includes a latest activity panel populated from published CMS news items. |
-| Data visualization supports impact storytelling | Homepage includes a CMS-driven impact section combining statistics with the geographic reach map and country list. |
+| Data visualization supports impact storytelling | Homepage includes a CMS-driven impact section combining published statistics with institutional narrative. |
 | Research/work areas organize complex portfolios | Homepage expertise areas group work into six domains for faster scanning. |
 
 ## Design-first rule

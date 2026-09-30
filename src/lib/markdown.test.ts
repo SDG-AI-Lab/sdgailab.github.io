@@ -1,3 +1,4 @@
+/** @vitest-environment jsdom */
 import { describe, expect, it } from 'vitest';
 
 import { renderMarkdown } from './markdown';
@@ -29,5 +30,12 @@ describe('renderMarkdown', () => {
     const html = await renderMarkdown('![safe image](data:image/png;base64,AAAA)');
 
     expect(html).toContain('src="data:image/png;base64,AAAA"');
+  });
+
+  it('does not emit executable raw html tags from untrusted markdown', async () => {
+    const html = await renderMarkdown('<img src=x onerror=alert(1)><script>alert(1)</script>');
+
+    expect(html).not.toMatch(/<img\b/i);
+    expect(html).not.toMatch(/<script\b/i);
   });
 });

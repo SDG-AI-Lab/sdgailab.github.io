@@ -50,15 +50,35 @@ export default function NewsList() {
   const [articles, setArticles] = useState<NewsListItem[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    getPublishedNews().then(({ data, error: err }) => {
+    getPublishedNews({ page: 1 }).then(({ data, error: err, hasMore: more }) => {
       if (err) setError(err);
       setArticles(data);
+      setHasMore(more);
+      setPage(1);
       setLoading(false);
     });
   }, []);
+
+  const loadMore = () => {
+    const nextPage = page + 1;
+    setLoadingMore(true);
+    getPublishedNews({ page: nextPage }).then(({ data, error: err, hasMore: more }) => {
+      setLoadingMore(false);
+      if (err) {
+        setError(err);
+        return;
+      }
+      setArticles((prev) => [...prev, ...data]);
+      setPage(nextPage);
+      setHasMore(more);
+    });
+  };
 
   const normalizedSearchTerm = searchTerm.trim().toLowerCase();
   const filteredArticles = useMemo(() => {
@@ -144,11 +164,25 @@ export default function NewsList() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {filteredArticles.map((article) => (
-                <NewsCard key={article.id} article={article} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {filteredArticles.map((article) => (
+                  <NewsCard key={article.id} article={article} />
+                ))}
+              </div>
+              {!normalizedSearchTerm && hasMore && (
+                <div className="mt-8 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={loadMore}
+                    disabled={loadingMore}
+                    className="rounded-full border border-lab-border bg-lab-section px-6 py-3 text-sm font-bold text-lab-text transition hover:border-lab-accent disabled:opacity-50"
+                  >
+                    {loadingMore ? 'Loading…' : 'Load more news'}
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </>
       )}

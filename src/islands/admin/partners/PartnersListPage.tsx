@@ -20,6 +20,8 @@ function matchesSearch(partner: Partner, query: string): boolean {
 export default function PartnersListPage() {
   const { showToast } = useToast();
   const [data, setData] = useState<Partner[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState('');
@@ -57,11 +59,12 @@ export default function PartnersListPage() {
     { label: 'Order', accessor: 'display_order' },
   ];
 
-  const fetchList = async () => {
+  const fetchList = async (pageNum = page) => {
     setLoading(true);
     setError(null);
-    const { data: result, error: err } = await listPartners();
+    const { data: result, error: err, hasMore: more } = await listPartners({ page: pageNum });
     setLoading(false);
+    setHasMore(more);
     if (err) {
       setError(err);
       setData([]);
@@ -71,8 +74,8 @@ export default function PartnersListPage() {
   };
 
   useEffect(() => {
-    fetchList();
-  }, []);
+    void fetchList(page);
+  }, [page]);
 
   const filteredData = useMemo(
     () => data.filter((partner) => matchesSearch(partner, search)),
@@ -140,8 +143,11 @@ export default function PartnersListPage() {
         onEdit={onEdit}
         onArchive={onArchive}
         onDelete={onDelete}
-        onRetry={fetchList}
+        onRetry={() => void fetchList(page)}
         addNewHref="#/partners/new"
+        page={page}
+        hasMore={hasMore}
+        onPageChange={setPage}
       />
       <ConfirmDialog
         isOpen={confirmState.isOpen}

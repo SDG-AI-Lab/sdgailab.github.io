@@ -25,6 +25,8 @@ function matchesSearch(publication: Publication, query: string): boolean {
 export default function PublicationsListPage() {
   const { showToast } = useToast();
   const [data, setData] = useState<Publication[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState('');
@@ -38,11 +40,12 @@ export default function PublicationsListPage() {
     { label: 'Status', accessor: 'status' },
   ];
 
-  const fetchList = async () => {
+  const fetchList = async (pageNum = page) => {
     setLoading(true);
     setError(null);
-    const { data: result, error: listError } = await listPublications();
+    const { data: result, error: listError, hasMore: more } = await listPublications({ page: pageNum });
     setLoading(false);
+    setHasMore(more);
     if (listError) {
       setError(listError);
       setData([]);
@@ -51,7 +54,7 @@ export default function PublicationsListPage() {
     }
   };
 
-  useEffect(() => { void fetchList(); }, []);
+  useEffect(() => { void fetchList(page); }, [page]);
 
   const filteredData = useMemo(() => data.filter((publication) => matchesSearch(publication, search)), [data, search]);
 
@@ -88,8 +91,11 @@ export default function PublicationsListPage() {
           else { showToast('Publication archived', 'success'); void fetchList(); }
         }}
         onDelete={(id) => setConfirmState({ isOpen: true, itemId: id })}
-        onRetry={fetchList}
+        onRetry={() => void fetchList(page)}
         addNewHref="#/publications/new"
+        page={page}
+        hasMore={hasMore}
+        onPageChange={setPage}
       />
       <ConfirmDialog isOpen={confirmState.isOpen} title="Delete publication" message="This will permanently delete this publication. This action cannot be undone." onConfirm={confirmDelete} onCancel={() => setConfirmState({ isOpen: false, itemId: null })} loading={deleteLoading} />
     </div>

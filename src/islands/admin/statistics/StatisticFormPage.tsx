@@ -72,7 +72,7 @@ export default function StatisticFormPage({ id }: StatisticFormPageProps) {
       status: values.status,
     };
     if (!id) {
-      const { data, error } = await createStatistic(input);
+      const { error } = await createStatistic(input);
       setLoading(false);
       if (error) {
         setFeedback({ message: error, type: 'error' });

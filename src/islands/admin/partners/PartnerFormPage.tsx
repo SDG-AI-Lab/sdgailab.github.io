@@ -81,7 +81,7 @@ export default function PartnerFormPage({ id }: PartnerFormPageProps) {
       status: values.status,
     };
     if (!id) {
-      const { data, error } = await createPartner(input);
+      const { error } = await createPartner(input);
       setLoading(false);
       if (error) {
         setFeedback({ message: error, type: 'error' });

@@ -2,6 +2,8 @@
 
 Official website — harnessing AI for sustainable development. A UNDP initiative.
 
+Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). Release history: [CHANGELOG.md](CHANGELOG.md).
+
 ## Overview
 
 This is a dynamic content site that displays statistics, projects, news, team members, partners, and page content — all managed in Supabase. Non-technical editors use the admin panel at `/admin` to update content with immediate effect (no redeploy required). The site is built as a static Astro output with client-side hydration for dynamic sections.
@@ -89,7 +91,10 @@ If you already ran the earlier migrations before editor allowlisting was added, 
 | `npm run build` | Production build to `dist/` |
 | `npm run preview` | Preview production build locally |
 | `npm run format` | Prettier formatting |
+| `npm run lint` | ESLint (TypeScript, React, Astro) |
 | `npm run check` | TypeScript + Astro diagnostics |
+| `npm run test` | Vitest unit/integration tests |
+| `npm run test:e2e` | Playwright end-to-end tests |
 
 ## Project Structure
 
@@ -115,6 +120,7 @@ Deployment is automated via GitHub Actions when pushing to the `new-version` bra
 
 - **Current staging**: [https://sdg-ai-lab.github.io/sdgailab.github.io/](https://sdg-ai-lab.github.io/sdgailab.github.io/) (base path configured and currently active)
 - **Future production**: [https://sdgailab.org](https://sdgailab.org) (documented cutover target when custom domain goes live)
+- Runtime notes (Pages vs optional Docker preview): [docs/deployment-runtime.md](docs/deployment-runtime.md)
 
 ## Uptime monitoring
 

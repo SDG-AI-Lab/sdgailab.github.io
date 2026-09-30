@@ -33,7 +33,8 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
       expect(source).toContain('marina-about');
       expect(source).toContain('Seven years of building');
       expect(source).toContain('marina-about-timeline');
-      expect(source).toContain('The practice,');
+      expect(source).toContain('marina-about-team');
+      expect(source).toContain('Have a development challenge?');
     },
   },
   {
@@ -49,7 +50,7 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
       expect(source).toContain('marina-team-page');
       expect(source).toContain('Six working groups');
       expect(source).toContain('person-avatar');
-      expect(source).toContain('Coordination · Research &amp; Advisory');
+      expect(source).toContain('Coordination · Research & Advisory');
     },
   },
   {
@@ -119,6 +120,49 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
       expect(source).toContain('PublicationsList');
       expect(source).toContain('client:load');
       expect(source).not.toContain('Knowledge hub');
+    },
+  },
+  {
+    path: 'src/pages/services.astro',
+    checks: (source) => {
+      expect(source).toContain('marina-services');
+      expect(source).toContain('What a partner can commission from the Lab.');
+      expect(source).toContain('offer-grid');
+    },
+  },
+  {
+    path: 'src/pages/research.astro',
+    checks: (source) => {
+      expect(source).toContain('marina-research');
+      expect(source).toContain('ResearchOutputs');
+      expect(source).toContain('client:load');
+    },
+  },
+  {
+    path: 'src/pages/programmes.astro',
+    checks: (source) => {
+      expect(source).toContain('BaseLayout');
+      expect(source).toContain('prog-ftl.jpg');
+    },
+  },
+  {
+    path: 'src/pages/capacity-building.astro',
+    checks: (source) => {
+      expect(source).toContain('Capacity building');
+      expect(source).toContain("withBase('/volunteer')");
+    },
+  },
+  {
+    path: 'src/pages/focus-areas.astro',
+    checks: (source) => {
+      expect(source).toContain('marina-focus-page');
+      expect(source).toContain('Our areas of expertise');
+    },
+  },
+  {
+    path: 'src/pages/how-we-work.astro',
+    checks: (source) => {
+      expect(source).toContain('BaseLayout');
     },
   },
 ];

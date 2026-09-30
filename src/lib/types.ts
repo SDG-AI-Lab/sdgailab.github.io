@@ -128,21 +128,6 @@ export interface Partner {
   updated_at: string;
 }
 
-
-export interface GeographicReachItem {
-  id: string;
-  country_name: string;
-  iso_alpha3: string | null;
-  latitude: number | null;
-  longitude: number | null;
-  region: string | null;
-  display_order: number;
-  status: PublishStatus;
-  published_at: string | null;
-  created_at: string;
-  updated_at: string;
-}
-
 export interface EvolutionTimelineItem {
   id: string;
   period: string;
@@ -173,6 +158,5 @@ export type NewsListItem = Pick<NewsArticle, "id" | "title" | "slug" | "summary"
 export type PublicationListItem = Pick<Publication, "id" | "title" | "slug" | "publication_type" | "authors" | "publication_date" | "date_label" | "publisher" | "summary" | "source_url" | "cover_image_url" | "display_order">;
 export type PersonCard = Pick<Person, "id" | "name" | "role_title" | "photo_url" | "biography" | "display_order">;
 export type PartnerLogo = Pick<Partner, "id" | "name" | "logo_url" | "website_url" | "display_order">;
-export type GeographicReachCard = Pick<GeographicReachItem, "id" | "country_name" | "iso_alpha3" | "latitude" | "longitude" | "region" | "display_order">;
 export type EvolutionTimelineCard = Pick<EvolutionTimelineItem, "id" | "period" | "title" | "body" | "display_order">;
 

@@ -32,9 +32,8 @@ describe('Header.astro (unit)', () => {
 
   it('links to Marina primary public sections', () => {
     expect(source).toContain("label: 'About'");
-    expect(source).toContain("label: 'How we work'");
-    expect(source).toContain("label: 'Focus areas'");
-    expect(source).toContain("label: 'Team'");
+    expect(source).toContain("label: 'Expertise'");
+    expect(source).toContain("label: 'Services'");
     expect(source).toContain("label: 'Solutions'");
     expect(source).toContain("label: 'Research'");
     expect(source).toContain("label: 'Contact'");
@@ -49,12 +48,12 @@ describe('Footer.astro (unit)', () => {
     expect(source).toContain('<h4>Lab</h4>');
     expect(source).toContain('<h4>Work</h4>');
     expect(source).toContain('Research &amp; Advisory');
-    expect(source).toContain('mailto:sdgailab@undp.org');
+    expect(source).toContain("withBase('/programmes')");
   });
 
   it('renders the current-year copyright notice', () => {
     expect(source).toContain('currentYear');
-    expect(source).toContain('UNDP SDG AI LAB');
+    expect(source).toContain('SDG AI Lab');
   });
 });
 

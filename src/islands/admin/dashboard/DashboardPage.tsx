@@ -8,7 +8,6 @@ type ContentKey =
   | "publications"
   | "people"
   | "partners"
-  | "geographic_reach"
   | "evolution_timeline"
   | "page_content";
 
@@ -23,7 +22,6 @@ const CARD_CONFIG: {
   { key: "publications", label: "Publications", slug: "publications" },
   { key: "people", label: "People", slug: "people" },
   { key: "partners", label: "Partners", slug: "partners" },
-  { key: "geographic_reach", label: "Geographic Reach", slug: "geographic-reach" },
   { key: "evolution_timeline", label: "Evolution Timeline", slug: "evolution-timeline" },
   { key: "page_content", label: "Page Content", slug: "page-content" },
 ];
@@ -102,8 +100,8 @@ export default function DashboardPage() {
       <div>
         <h1 className="text-2xl font-semibold text-lab-text mb-6">Dashboard</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-            <SkeletonCard key={i} />
+          {CARD_CONFIG.map(({ key }) => (
+            <SkeletonCard key={key} />
           ))}
         </div>
       </div>
