@@ -50,7 +50,7 @@ const groups = [
     <section class="band" id="team">
       <div class="wrap">
         <div class="band-head reveal">
-          <h1>Six working groups, <span class="grad">one</span> lab.</h1>
+          <h1>Six working groups, one lab.</h1>
         </div>
 
         {
@@ -131,11 +131,24 @@ const groups = [
       margin: 0;
     }
 
-    .marina-team-page .grad {
-      background: linear-gradient(120deg, var(--teal), var(--blue));
+    .marina-team-page .band-head h1 {
+      display: inline-block;
+      width: max-content;
+      max-width: 100%;
+      background-image: linear-gradient(
+        90deg,
+        #ffffff 0%,
+        #ffffff 35%,
+        #a8e6f5 70%,
+        #26bde2 100%
+      );
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      -webkit-text-fill-color: transparent;
+      font-size: clamp(2.15rem, 4vw, 3.3rem);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
     }
 
     .marina-team-page .band {
@@ -148,12 +161,6 @@ const groups = [
 
     .marina-team-page .band-head {
       margin-bottom: 72px;
-    }
-    .marina-team-page .band-head h1 {
-      font-size: clamp(2.15rem, 4vw, 3.3rem);
-      line-height: 1.06;
-      letter-spacing: -0.03em;
-      max-width: 16ch;
     }
 
     .marina-team-page .team-group {

@@ -121,8 +121,8 @@ describe('Public Astro pages', () => {
     expect(source).toContain('ResearchOutputs');
   });
 
-  it('focus-areas page exposes Marina expertise domains', () => {
-    const source = readSource('src/pages/focus-areas.astro');
+  it('expertise page exposes Marina expertise domains', () => {
+    const source = readSource('src/pages/expertise.astro');
     expect(source).toContain('marina-focus-page');
     expect(source).toContain('Our areas of expertise');
     expect(source).toContain('Natural Language Processing');

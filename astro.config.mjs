@@ -6,6 +6,9 @@ export default defineConfig({
   output: 'static',
   site: 'https://sdgailab.org',
   base: process.env.GITHUB_PAGES_BASE || '/',
+  redirects: {
+    '/focus-areas': '/expertise',
+  },
   integrations: [react(), tailwind()],
   vite: {
     optimizeDeps: {

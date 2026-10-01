@@ -38,7 +38,7 @@ test.describe('Marina primary navigation journeys', () => {
   test('expertise page is reachable from primary nav', async ({ page }) => {
     await page.goto('/');
     await page.getByRole('link', { name: 'Expertise', exact: true }).first().click();
-    await expect(page).toHaveURL(/\/focus-areas\/?/);
+    await expect(page).toHaveURL(/\/expertise\/?/);
     await expect(
       page.getByRole('heading', {
         name: /Our areas of expertise — delivering solutions across six domains/i,

@@ -134,11 +134,12 @@ const team = [
         <div class="marina-about-head reveal">
           <h1>
             Seven years of building<br />AI and data tools inside<br
-            />government.
+            />government
           </h1><p>
             A joint initiative of the UNDP BPPS Data, AI &amp; Innovation Hub
             and the Sustainable Finance Hub, hosted under ICPSD and based in
-            Istanbul. Since 2019 the Lab has shipped GIS, NLP and digital-skills
+            Istanbul. Since 2019 the Lab has shipped Geographic Information
+            Systems (GIS), Natural Language Processing (NLP) and digital-skills
             products that country offices and national institutions run
             themselves — not one-off pilots left behind after the mission ends.
           </p>
@@ -151,12 +152,14 @@ const team = [
           <h2>
             A small <span>senior team</span><br />with UNDP’s <span
               >network</span
-            ><br />behind it.
-          </h2><p>
+            ><br />behind it
+          </h2>
+          <p>
             We work the way a product team does — fast, focused, accountable —
             inside the world’s largest development network.
           </p>
-        </div><div class="marina-about-pillars">
+        </div>
+        <div class="marina-about-pillars">
           {
             pillars.map(([title, copy]) => (
               <article class="marina-about-pillar reveal">
@@ -316,7 +319,7 @@ const team = [
     display: grid;
     grid-template-columns: 0.9fr 1.1fr;
     gap: 60px;
-    align-items: end;
+    align-items: start;
     margin-bottom: 72px;
   }
   .marina-about-intro .marina-about-head {
@@ -324,7 +327,7 @@ const team = [
   }
   .marina-about-head h1,
   .marina-about-head h2 {
-    margin: 22px 0 0;
+    margin: 0;
     background: linear-gradient(115deg, #fff 20%, #a8e6f5 55%, #26bde2 100%);
     -webkit-background-clip: text;
     background-clip: text;
@@ -340,7 +343,6 @@ const team = [
     margin-top: 0;
   }
   .marina-about-head p {
-    align-self: end;
     max-width: 460px;
     margin: 0;
     color: #b7bfc7;

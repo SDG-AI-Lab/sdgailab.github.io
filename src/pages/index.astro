@@ -46,6 +46,7 @@ const impactStats = [
   { value: 3000, suffix: '+', label: 'Learners' },
   { value: 15, label: 'Knowledge Products' },
   { value: 3500, suffix: '+', label: 'Online UN Volunteers' },
+  { value: 25, label: 'Countries' },
 ];
 ---
 
@@ -87,12 +88,9 @@ const impactStats = [
         <div class="marina-live-hero-top">
           <h1 id="home-hero-heading">
             <span class="marina-live-title-line">Digital technologies</span
-            ><span class="marina-live-title-line weak">for the</span><span
-              class="marina-live-title-line grad marina-live-title-sustainable"
-              >Sustainable</span
-            ><span class="marina-live-title-line grad marina-live-title-goals"
-              >Development Goals.</span
-            >
+            ><span class="marina-live-title-line">for the</span
+            ><span class="marina-live-title-line">Sustainable</span
+            ><span class="marina-live-title-line">Development Goals.</span>
           </h1>
         </div>
         <div class="marina-live-hero-sub">
@@ -126,7 +124,7 @@ const impactStats = [
                       </div>
                       <div class="marina-live-work-caption">
                         <span>{tile.name}</span>
-                        <small>{tile.location}</small>
+                        {/* <small>{tile.location}</small> */}
                       </div>
                     </article>
                   ))}
@@ -172,9 +170,6 @@ const impactStats = [
               </article>
             ))
           }
-          <p class="marina-live-impact-reach">
-            Across <strong>25</strong> countries
-          </p>
         </div>
       </div>
     </section>
@@ -184,7 +179,7 @@ const impactStats = [
     >
       <div class="marina-live-wrap">
         <h2 id="partners-heading" class="reveal">
-          Who we <span>build with.</span>
+          Who we build with.
         </h2>
         <div class="reveal">
           <PartnerLogos client:load variant="home" />

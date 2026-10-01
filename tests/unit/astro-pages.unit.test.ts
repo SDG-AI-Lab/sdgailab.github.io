@@ -153,7 +153,7 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
     },
   },
   {
-    path: 'src/pages/focus-areas.astro',
+    path: 'src/pages/expertise.astro',
     checks: (source) => {
       expect(source).toContain('marina-focus-page');
       expect(source).toContain('Our areas of expertise');

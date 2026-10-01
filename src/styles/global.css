@@ -237,7 +237,9 @@
   animation: marina-case-spin 0.8s linear infinite;
 }
 @keyframes marina-case-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 .marina-case-error p {
   max-width: 45rem;
@@ -271,7 +273,9 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .marina-case-spinner { animation: none; }
+  .marina-case-spinner {
+    animation: none;
+  }
 }
 
 @layer components {
@@ -350,7 +354,7 @@
     gap: 14px;
   }
   .marina-footer-social span {
-    font-size: 0.92rem;
+    font-size: 0.86rem;
   }
   .marina-footer-social a {
     display: grid;
@@ -432,8 +436,17 @@
     inset: 0;
     pointer-events: none;
     background:
-      linear-gradient(90deg, rgba(21, 24, 28, 0.52) 0%, rgba(21, 24, 28, 0.24) 42%, rgba(21, 24, 28, 0.08) 100%),
-      linear-gradient(180deg, rgba(21, 24, 28, 0.04), rgba(21, 24, 28, 0.22) 94%);
+      linear-gradient(
+        90deg,
+        rgba(21, 24, 28, 0.52) 0%,
+        rgba(21, 24, 28, 0.24) 42%,
+        rgba(21, 24, 28, 0.08) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(21, 24, 28, 0.04),
+        rgba(21, 24, 28, 0.22) 94%
+      );
   }
   /*
     Original CSS-art background. It is retained, commented out, while the
@@ -564,8 +577,14 @@
     max-width: 900px;
   }
   .marina-live-hero h1 {
+    width: fit-content;
+    max-width: 100%;
     margin: 0 0 22px;
-    color: var(--lab-text);
+    background: linear-gradient(115deg, #fff 20%, #a8e6f5 55%, #26bde2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
     font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
     font-size: clamp(2.6rem, 5.6vw, 5.1rem);
     font-weight: 700;
@@ -574,14 +593,8 @@
   }
   .marina-live-hero h1 .weak {
     color: #a0a8b2;
+    -webkit-text-fill-color: #a0a8b2;
     font-weight: 400;
-  }
-  .marina-live-hero h1 .grad {
-    background: linear-gradient(120deg, var(--lab-teal), var(--lab-accent));
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 0 36px rgba(3, 131, 174, 0.28));
   }
   .marina-live-hero-sub {
     display: flex;
@@ -721,7 +734,7 @@
   .marina-live-hero-note {
     max-width: 760px;
     padding: 20px 0 44px;
-    border-bottom: 1px solid #24292f;
+    /* border-bottom: 1px solid #24292f; */
     color: #b7bfc7;
     font-size: 1.02rem;
     line-height: 1.5;
@@ -766,15 +779,15 @@
   }
   .marina-live-impact {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     border-block: 1px solid #24292f;
   }
   .marina-live-impact-item {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 28px 32px 36px 0;
-    margin-right: 32px;
+    padding: 28px 24px 36px 0;
+    margin-right: 24px;
     border-right: 1px solid #24292f;
   }
   .marina-live-impact-item:last-child {
@@ -798,6 +811,9 @@
   .marina-live-impact-item:nth-child(4)::before {
     background: #fd6925;
   }
+  .marina-live-impact-item:nth-child(5)::before {
+    background: #dd1367;
+  }
   .marina-live-impact-item .number {
     color: var(--lab-text);
     font-size: clamp(2rem, 2.9vw, 2.5rem);
@@ -816,37 +832,32 @@
   .marina-live-impact-item:nth-child(4) .number {
     color: #fd6925;
   }
+  .marina-live-impact-item:nth-child(5) .number {
+    color: #dd1367;
+  }
   .marina-live-impact-item .label {
     max-width: 160px;
     color: #a0a8b2;
     font-size: 0.84rem;
     line-height: 1.4;
   }
-  .marina-live-impact-reach {
-    grid-column: 1 / -1;
-    margin: 0;
-    padding: 20px 0 4px;
-    border-top: 1px solid #24292f;
-    color: #a0a8b2;
-    font-size: 0.92rem;
-  }
-  .marina-live-impact-reach strong {
-    color: #d9dde2;
-    font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
-    font-size: 1.35rem;
-  }
   .marina-live-partners {
     padding-block: 72px 90px;
   }
   .marina-live-partners h2 {
-    margin-bottom: 44px;
-    color: var(--lab-text);
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 0 44px;
+    background: linear-gradient(115deg, #fff 20%, #a8e6f5 55%, #26bde2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
     font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
-    font-size: clamp(2rem, 3.4vw, 2.7rem);
-    line-height: 1.18;
-  }
-  .marina-live-partners h2 span {
-    color: #6ec6e8;
+    font-size: clamp(2.15rem, 4vw, 3.3rem);
+    font-weight: 700;
+    line-height: 1.06;
+    letter-spacing: -0.03em;
   }
   .marina-live-partner-marks {
     display: flex;
@@ -874,14 +885,28 @@
     object-fit: contain;
   }
 
-  @media (max-width: 860px) {
+  @media (max-width: 960px) {
+    .marina-live-impact {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .marina-live-impact-item:nth-child(3) {
+      border-right: 0;
+    }
+    .marina-live-impact-item:nth-child(-n + 3) {
+      border-bottom: 1px solid #24292f;
+    }
+  }
+  @media (max-width: 700px) {
     .marina-live-impact {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    .marina-live-impact-item:nth-child(2) {
+    .marina-live-impact-item:nth-child(3) {
+      border-right: 1px solid #24292f;
+    }
+    .marina-live-impact-item:nth-child(2n) {
       border-right: 0;
     }
-    .marina-live-impact-item:nth-child(-n + 2) {
+    .marina-live-impact-item:nth-child(-n + 4) {
       border-bottom: 1px solid #24292f;
     }
   }
@@ -944,27 +969,12 @@
     transform: rotate(2.5deg);
     text-shadow: 0 0 24px rgba(252, 195, 11, 0.18);
   }
-  .marina-live-hero h1 .grad {
-    background-image: linear-gradient(
-      108deg,
-      #26bde2 0%,
-      #0a97d9 42%,
-      #0383ae 70%,
-      #56c02b 112%
-    );
-  }
   .marina-live-hero .marina-live-title-line {
     display: block;
   }
   .marina-live-hero h1 {
     font-size: clamp(2.6rem, 5.6vw, 5.1rem);
     line-height: 0.98;
-  }
-  .marina-live-hero .marina-live-title-sustainable {
-    background-image: linear-gradient(105deg, #26bde2, #0383ae);
-  }
-  .marina-live-hero .marina-live-title-goals {
-    background-image: linear-gradient(105deg, #0383ae, #1c61ac 55%, #56c02b);
   }
   @media (min-width: 900px) {
     .marina-live-hero .marina-live-title-line {
@@ -2320,7 +2330,7 @@
   }
 
   .marina-spec-hero h1 .weak {
-    color: var(--text-dim);
+    /* color: var(--text-dim); */
     font-weight: 500;
   }
 
@@ -2891,9 +2901,9 @@
 
   .marina-footer-bottom p,
   .marina-footer-offices {
-    color: #666f79;
-    font-size: 0.72rem;
-    font-weight: 800;
+    /* color: #666f79; */
+    font-size: 0.86rem;
+    /* font-weight: 800; */
     letter-spacing: 0.02em;
   }
 
