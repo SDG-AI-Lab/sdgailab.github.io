@@ -3156,12 +3156,17 @@
     text-decoration: none;
   }
 
-  .marina-nav-logo img {
-    height: 3.75rem;
+  .marina-nav-logo img,
+  .marina-nav-partner-logo {
+    display: block;
     width: auto;
+    height: var(--nav-logo-height, 2.75rem);
+    max-width: none;
+    object-fit: contain;
   }
 
   .marina-nav-brand-group {
+    --nav-logo-height: 2.75rem;
     display: flex;
     align-items: center;
     gap: 0.875rem;
@@ -3169,14 +3174,7 @@
   }
 
   .marina-nav-partner-logo {
-    width: auto;
-    height: 3.25rem;
-    object-fit: contain;
     opacity: 0.92;
-  }
-
-  .marina-nav-partner-logo.marina-nav-undp {
-    height: 3.875rem;
   }
 
   .marina-nav-links {

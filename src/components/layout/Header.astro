@@ -37,7 +37,17 @@ function isActive(link: { href: string; activePath?: string }): boolean {
       <img
         src={withBase('/header-logos/undp-logo.png')}
         alt="UNDP"
-        class="marina-nav-partner-logo marina-nav-undp"
+        class="marina-nav-partner-logo"
+        width="592"
+        height="900"
+        decoding="async"
+      />
+      <img
+        src={withBase('/header-logos/icpsd.png')}
+        alt="ICPSD"
+        class="marina-nav-partner-logo"
+        width="320"
+        height="158"
         decoding="async"
       />
       <a
@@ -47,17 +57,12 @@ function isActive(link: { href: string; activePath?: string }): boolean {
         ><img
           src={withBase('/header-logos/sdg-ai-lab.png')}
           alt="SDG AI Lab"
+          width="192"
+          height="193"
           decoding="async"
         /></a
       >
-      <img
-        src={withBase('/header-logos/icpsd.png')}
-        alt="ICPSD"
-        class="marina-nav-partner-logo"
-        decoding="async"
-      />
     </div>
-
     <ul class="marina-nav-links" role="list">
       {
         navLinks.map((link) => (
