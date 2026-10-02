@@ -3156,25 +3156,39 @@
     text-decoration: none;
   }
 
+  /* Intrinsic aspect ratios stay intact; heights set the lockup hierarchy. */
   .marina-nav-logo img,
   .marina-nav-partner-logo {
     display: block;
     width: auto;
-    height: var(--nav-logo-height, 2.75rem);
     max-width: none;
     object-fit: contain;
   }
 
   .marina-nav-brand-group {
-    --nav-logo-height: 2.75rem;
     display: flex;
     align-items: center;
     gap: 0.875rem;
     flex-shrink: 0;
   }
 
-  .marina-nav-partner-logo {
+  /* UNDP should read a bit larger than the other two marks. */
+  .marina-nav-partner-logo.marina-nav-undp {
+    height: 3.5rem;
     opacity: 0.92;
+  }
+
+  /*
+    ICPSD wordmark (~61% of asset height) must stay ≤ SDG AI Lab frame.
+    At 2.15rem, the "d" is ~1.3rem vs SDG frame ~2.4rem.
+  */
+  .marina-nav-partner-logo.marina-nav-icpsd {
+    height: 2.15rem;
+    opacity: 0.92;
+  }
+
+  .marina-nav-logo img {
+    height: 3rem;
   }
 
   .marina-nav-links {
