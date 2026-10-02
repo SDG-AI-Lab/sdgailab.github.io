@@ -1,17 +1,21 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { FOCUS_LABELS, toFocus, type FocusCategory } from '../lib/projectFocus';
 import { getPublishedProjects } from '../lib/queries';
 import { withBase } from '../lib/url';
 import type { ProjectListItem } from '../lib/types';
 
-type Workstream = 'all' | 'gis' | 'nlp' | 'training' | 'other';
+type FocusFilter = 'all' | FocusCategory;
 type ProjectStatusLabel = 'ongoing' | 'completed';
+type OpenFilter = 'country' | 'year' | null;
 
 type PortfolioCard = ProjectListItem & {
-  workstream: Exclude<Workstream, 'all'>;
+  focus: FocusCategory;
   label: string;
   statusLabel: ProjectStatusLabel;
-  yearLabel: string;
+  yearLabel: string | null;
   summaryLabel: string;
+  locationLabel: string;
+  places: string[];
   code: string;
 };
 
@@ -19,40 +23,113 @@ function toStatus(project: ProjectListItem): ProjectStatusLabel {
   return project.project_status === 'completed' ? 'completed' : 'ongoing';
 }
 
-function toWorkstream(project: ProjectListItem): Exclude<Workstream, 'all'> {
-  const text = [
-    project.work_stream,
-    project.impact_area,
-    project.project_category,
-    ...(project.capabilities_involved ?? []),
-    ...(project.tech_stack ?? []),
-  ]
-    .filter(Boolean)
-    .join(' ')
-    .toLowerCase();
-
-  if (/(gis|geo|remote|satellite|map|mapping|spatial)/.test(text)) return 'gis';
-  if (/(nlp|gen ai|language|llm|machine learning|chatbot|document|text|ai)/.test(text)) return 'nlp';
-  if (/(training|course|fellowship|capacity|bootcamp|learning)/.test(text)) return 'training';
-  return 'other';
+function toCode(focus: FocusCategory): string {
+  if (focus === 'gis') return 'GIS';
+  if (focus === 'nlp') return 'NLP';
+  return 'TR';
 }
 
-function toWorkstreamLabel(workstream: Exclude<Workstream, 'all'>): string {
-  if (workstream === 'gis') return 'GIS & GeoAI';
-  if (workstream === 'nlp') return 'NLP & Gen AI';
-  if (workstream === 'training') return 'Training';
-  return 'Other';
+function toYear(project: ProjectListItem): string | null {
+  if (project.project_year) return String(project.project_year);
+  const timeline = project.timeline?.trim();
+  if (!timeline) return null;
+  const match = timeline.match(/\b(20\d{2})\b/);
+  return match?.[1] ?? null;
 }
 
-function toCode(workstream: Exclude<Workstream, 'all'>): string {
-  if (workstream === 'gis') return 'GIS';
-  if (workstream === 'nlp') return 'NLP';
-  if (workstream === 'training') return 'TR';
-  return 'R&D';
+function isPlaceholderCountry(value: string): boolean {
+  return /missing|needs input/i.test(value);
 }
 
-function toYear(project: ProjectListItem): string {
-  return project.project_year ? String(project.project_year) : 'Year TBC';
+function cleanCountries(countries?: string[] | null): string[] {
+  return (countries ?? [])
+    .map((country) => country.trim())
+    .filter((country) => country.length > 0 && !isPlaceholderCountry(country));
+}
+
+/** Expand messy location entries into concrete place names for filters. */
+function expandPlaces(countries?: string[] | null): string[] {
+  const places: string[] = [];
+
+  for (const entry of cleanCountries(countries)) {
+    if (/^global\b/i.test(entry)) continue;
+
+    const regionList = entry.match(/^([^:]+):\s*(.+)$/);
+    if (regionList && regionList[2].includes(',')) {
+      places.push(
+        ...regionList[2]
+          .split(',')
+          .map((part) => part.trim())
+          .filter(Boolean)
+      );
+      continue;
+    }
+
+    const piloted = entry.match(/^piloted in\s+([^(]+)/i);
+    if (piloted) {
+      places.push(piloted[1].trim());
+      continue;
+    }
+
+    const alsoRunFor = entry.match(/run for\s+(.+)$/i);
+    if (alsoRunFor) {
+      places.push(
+        ...alsoRunFor[1]
+          .split(',')
+          .map((part) => part.replace(/^and\s+/i, '').trim())
+          .filter(Boolean)
+      );
+      continue;
+    }
+
+    if (/^(the database|basic |developed )/i.test(entry) || entry.length > 48) {
+      continue;
+    }
+
+    if (entry.includes(',') && !entry.includes('(')) {
+      places.push(
+        ...entry
+          .split(',')
+          .map((part) => part.replace(/^and\s+/i, '').trim())
+          .filter(Boolean)
+      );
+      continue;
+    }
+
+    places.push(entry);
+  }
+
+  return Array.from(new Set(places));
+}
+
+/** One short location phrase for the card meta line. */
+function toLocationLabel(countries?: string[] | null): string {
+  const cleaned = cleanCountries(countries);
+  if (cleaned.length === 0) return 'Global';
+
+  const globalEntry = cleaned.find((entry) => /^global\b/i.test(entry));
+  if (globalEntry) {
+    const paren = globalEntry.match(/^Global\s*\(([^)]+)\)/i);
+    if (paren && paren[1].trim().length <= 28) {
+      return `Global (${paren[1].trim()})`;
+    }
+    return 'Global';
+  }
+
+  const regionList = cleaned.find((entry) => /^[^:]+:\s*.+,/.test(entry));
+  if (regionList) {
+    const [region, rest] = regionList.split(':');
+    const count = rest
+      .split(',')
+      .map((part) => part.trim())
+      .filter(Boolean).length;
+    return `${region.trim()} (${count})`;
+  }
+
+  const places = expandPlaces(cleaned);
+  if (places.length === 0) return 'Global';
+  if (places.length === 1) return places[0];
+  return `${places[0]} +${places.length - 1}`;
 }
 
 function toSummary(project: ProjectListItem): string {
@@ -60,15 +137,17 @@ function toSummary(project: ProjectListItem): string {
 }
 
 function toCard(project: ProjectListItem): PortfolioCard {
-  const workstream = toWorkstream(project);
+  const focus = toFocus(project);
   return {
     ...project,
-    workstream,
-    label: toWorkstreamLabel(workstream),
+    focus,
+    label: FOCUS_LABELS[focus],
     statusLabel: toStatus(project),
     yearLabel: toYear(project),
     summaryLabel: toSummary(project),
-    code: toCode(workstream),
+    locationLabel: toLocationLabel(project.implementation_countries),
+    places: expandPlaces(project.implementation_countries),
+    code: toCode(focus),
   };
 }
 
@@ -76,9 +155,11 @@ export default function PortfolioGrid() {
   const [projects, setProjects] = useState<ProjectListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [workstreamFilter, setWorkstreamFilter] = useState<Workstream>('all');
+  const [focusFilter, setFocusFilter] = useState<FocusFilter>('all');
   const [countryFilter, setCountryFilter] = useState('all');
   const [yearFilter, setYearFilter] = useState('all');
+  const [openFilter, setOpenFilter] = useState<OpenFilter>(null);
+  const toolbarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -102,23 +183,60 @@ export default function PortfolioGrid() {
     };
   }, []);
 
+  useEffect(() => {
+    function onPointerDown(event: PointerEvent) {
+      if (!toolbarRef.current?.contains(event.target as Node)) {
+        setOpenFilter(null);
+      }
+    }
+
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => document.removeEventListener('pointerdown', onPointerDown);
+  }, []);
+
   const cards = useMemo(() => projects.map(toCard), [projects]);
-  const countries = useMemo(() => Array.from(new Set(cards.flatMap((project) => project.implementation_countries ?? []).filter(Boolean))).sort(), [cards]);
-  const years = useMemo(() => Array.from(new Set(cards.map((project) => project.project_year).filter((year): year is number => Boolean(year)))).sort((a, b) => b - a), [cards]);
+  const countries = useMemo(
+    () => Array.from(new Set(cards.flatMap((project) => project.places))).sort((a, b) => a.localeCompare(b)),
+    [cards]
+  );
+  const years = useMemo(
+    () =>
+      Array.from(
+        new Set(cards.map((project) => project.project_year).filter((year): year is number => Boolean(year)))
+      ).sort((a, b) => b - a),
+    [cards]
+  );
   const filteredCards = useMemo(
     () =>
       cards.filter((project) => {
-        const workstreamMatch = workstreamFilter === 'all' || project.workstream === workstreamFilter;
-        const countryMatch = countryFilter === 'all' || (project.implementation_countries ?? []).includes(countryFilter);
+        const focusMatch = focusFilter === 'all' || project.focus === focusFilter;
+        const countryMatch = countryFilter === 'all' || project.places.includes(countryFilter);
         const yearMatch = yearFilter === 'all' || project.project_year === Number(yearFilter);
-        return workstreamMatch && countryMatch && yearMatch;
+        return focusMatch && countryMatch && yearMatch;
       }),
-    [cards, countryFilter, workstreamFilter, yearFilter]
+    [cards, countryFilter, focusFilter, yearFilter]
   );
 
   function openProject(project: PortfolioCard) {
     window.location.href = withBase(`/projects/detail/?slug=${project.slug}`);
   }
+
+  function selectCountry(value: string) {
+    setCountryFilter(value);
+    setOpenFilter(null);
+  }
+
+  function selectYear(value: string) {
+    setYearFilter(value);
+    setOpenFilter(null);
+  }
+
+  const focusFilters: { id: FocusFilter; label: string }[] = [
+    { id: 'all', label: 'All focus areas' },
+    { id: 'gis', label: FOCUS_LABELS.gis },
+    { id: 'nlp', label: FOCUS_LABELS.nlp },
+    { id: 'training', label: FOCUS_LABELS.training },
+  ];
 
   return (
     <>
@@ -131,20 +249,75 @@ export default function PortfolioGrid() {
         <p className="desc">
           Explore a range of projects addressing real-world challenges across different focus areas.
           Each case highlights the problem, the solution delivered, and where it runs. Filter by focus
-          area or status, then open a card to explore the full story.
+          area, country or year, then open a card to explore the full story.
         </p>
       </div>
 
-      <div className="portfolio-toolbar reveal">
+      <div className="portfolio-toolbar reveal" ref={toolbarRef}>
         <div className="proj-filters" role="group" aria-label="Filter by focus area">
-          <button type="button" className={`proj-filter ${workstreamFilter === 'all' ? 'active' : ''}`} onClick={() => setWorkstreamFilter('all')}>All focus areas</button>
-          <button type="button" className={`proj-filter ${workstreamFilter === 'gis' ? 'active' : ''}`} onClick={() => setWorkstreamFilter('gis')}>GIS &amp; GeoAI</button>
-          <button type="button" className={`proj-filter ${workstreamFilter === 'nlp' ? 'active' : ''}`} onClick={() => setWorkstreamFilter('nlp')}>NLP &amp; Gen AI</button>
-          <button type="button" className={`proj-filter ${workstreamFilter === 'training' ? 'active' : ''}`} onClick={() => setWorkstreamFilter('training')}>Training</button>
-          <button type="button" className={`proj-filter ${workstreamFilter === 'other' ? 'active' : ''}`} onClick={() => setWorkstreamFilter('other')}>Other</button>
+          {focusFilters.map((filter) => (
+            <button
+              key={filter.id}
+              type="button"
+              className={`proj-filter ${focusFilter === filter.id ? 'active' : ''}`}
+              onClick={() => setFocusFilter(filter.id)}
+            >
+              {filter.label}
+            </button>
+          ))}
         </div>
-        <details className="filter-dropdown"><summary>Country <span className="filter-current">{countryFilter === 'all' ? 'All' : countryFilter}</span></summary><div className="filter-panel" role="group" aria-label="Filter by country"><button type="button" className={`status-btn ${countryFilter === 'all' ? 'active' : ''}`} onClick={() => setCountryFilter('all')}>All countries</button>{countries.map((country) => <button key={country} type="button" className={`status-btn ${countryFilter === country ? 'active' : ''}`} onClick={() => setCountryFilter(country)}>{country}</button>)}</div></details>
-        <details className="filter-dropdown"><summary>Year <span className="filter-current">{yearFilter === 'all' ? 'All' : yearFilter}</span></summary><div className="filter-panel" role="group" aria-label="Filter by year"><button type="button" className={`status-btn ${yearFilter === 'all' ? 'active' : ''}`} onClick={() => setYearFilter('all')}>All years</button>{years.map((year) => <button key={year} type="button" className={`status-btn ${yearFilter === String(year) ? 'active' : ''}`} onClick={() => setYearFilter(String(year))}>{year}</button>)}</div></details>
+        <div className="filter-dropdowns">
+          <details
+            className="filter-dropdown"
+            open={openFilter === 'country'}
+            onToggle={(event) => {
+              const isOpen = (event.currentTarget as HTMLDetailsElement).open;
+              setOpenFilter(isOpen ? 'country' : (current) => (current === 'country' ? null : current));
+            }}
+          >
+            <summary>
+              Country <span className="filter-current">{countryFilter === 'all' ? 'All' : countryFilter}</span>
+            </summary>
+            <div className="filter-panel" role="group" aria-label="Filter by country">
+              <button type="button" className={`status-btn ${countryFilter === 'all' ? 'active' : ''}`} onClick={() => selectCountry('all')}>All countries</button>
+              {countries.map((country) => (
+                <button
+                  key={country}
+                  type="button"
+                  className={`status-btn ${countryFilter === country ? 'active' : ''}`}
+                  onClick={() => selectCountry(country)}
+                >
+                  {country}
+                </button>
+              ))}
+            </div>
+          </details>
+          <details
+            className="filter-dropdown filter-dropdown--year"
+            open={openFilter === 'year'}
+            onToggle={(event) => {
+              const isOpen = (event.currentTarget as HTMLDetailsElement).open;
+              setOpenFilter(isOpen ? 'year' : (current) => (current === 'year' ? null : current));
+            }}
+          >
+            <summary>
+              Year <span className="filter-current">{yearFilter === 'all' ? 'All' : yearFilter}</span>
+            </summary>
+            <div className="filter-panel filter-panel--column" role="group" aria-label="Filter by year">
+              <button type="button" className={`status-btn ${yearFilter === 'all' ? 'active' : ''}`} onClick={() => selectYear('all')}>All years</button>
+              {years.map((year) => (
+                <button
+                  key={year}
+                  type="button"
+                  className={`status-btn ${yearFilter === String(year) ? 'active' : ''}`}
+                  onClick={() => selectYear(String(year))}
+                >
+                  {year}
+                </button>
+              ))}
+            </div>
+          </details>
+        </div>
       </div>
 
       {loading ? <p className="portfolio-count">Loading published products…</p> : null}
@@ -167,8 +340,8 @@ export default function PortfolioGrid() {
               <div className="card-tile is-generated"><span className="card-tile-code">{project.code}</span></div>
             )}
             <div className="card-body">
-              <div className="card-meta">
-                {project.label} &middot; {project.yearLabel} &middot; {(project.implementation_countries ?? []).join(', ') || 'Global'}
+              <div className="card-meta" title={[project.label, project.yearLabel, project.locationLabel].filter(Boolean).join(' · ')}>
+                {[project.label, project.yearLabel, project.locationLabel].filter(Boolean).join(' · ')}
               </div>
               <h2>{project.title}</h2>
               <p>{project.summaryLabel}</p>

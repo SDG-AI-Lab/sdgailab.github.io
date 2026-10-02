@@ -88,11 +88,70 @@ describe('Marina public islands (unit)', () => {
     await render(<PortfolioGrid />);
     expect(container.textContent).toContain('Flood Mapping');
     expect(container.textContent).toContain('1 product');
+    expect(container.textContent).toContain('Filter by focus area, country or year');
+    expect(container.textContent).not.toContain('Filter by focus area or status');
 
     remountEmpty();
     await render(<PortfolioGrid />);
     expect(container.textContent).toContain('0 products');
     expect(container.textContent).toContain('0 of 0 products shown');
+  });
+
+  it('PortfolioGrid hides year and country placeholders', async () => {
+    getPublishedProjectsMock.mockResolvedValue({
+      data: [
+        {
+          id: 'p1',
+          title: 'Reef2Resilience',
+          slug: 'reef2resilience',
+          project_status: 'completed',
+          is_deployed: false,
+          image_url: null,
+          display_order: 1,
+          summary: 'Coral reef monitoring',
+          work_stream: 'GIS',
+          project_year: null,
+          implementation_countries: ["MISSING – needs input"],
+        },
+      ],
+      error: null,
+    });
+
+    await render(<PortfolioGrid />);
+    expect(container.textContent).toContain('Reef2Resilience');
+    expect(container.textContent).toContain('Global');
+    expect(container.textContent).not.toContain('Year TBC');
+    expect(container.textContent).not.toContain('MISSING');
+    expect(container.textContent).not.toContain('needs input');
+  });
+
+  it('PortfolioGrid formats location meta as a short phrase', async () => {
+    getPublishedProjectsMock.mockResolvedValue({
+      data: [
+        {
+          id: 'p1',
+          title: 'Land Use Analysis Tool',
+          slug: 'land-use-analysis-tool',
+          project_status: 'active',
+          is_deployed: true,
+          image_url: null,
+          display_order: 1,
+          summary: 'Land use mapping',
+          impact_area: 'GIS / Remote Sensing',
+          project_year: 2025,
+          implementation_countries: [
+            'Piloted in Kazakhstan (North Kazakhstan Region)',
+            'Basic implementations also run for Guinea, Kyrgyzstan, Ecuador',
+          ],
+        },
+      ],
+      error: null,
+    });
+
+    await render(<PortfolioGrid />);
+    expect(container.textContent).toContain('GIS & GeoAI · 2025 · Kazakhstan +3');
+    expect(container.textContent).not.toContain('basic implementations');
+    expect(container.textContent).not.toContain('and Ecuador');
   });
 
   it('ResearchOutputs maps publication type labels in the empty and populated states', async () => {

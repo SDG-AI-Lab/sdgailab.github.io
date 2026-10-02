@@ -7,7 +7,11 @@ const navLinks = [
   { href: withBase('/about'), label: 'About' },
   { href: withBase('/expertise'), label: 'Expertise' },
   { href: withBase('/services'), label: 'Services' },
-  { href: withBase('/projects'), label: 'Solutions', activePath: withBase('/projects') },
+  {
+    href: withBase('/projects'),
+    label: 'Solutions',
+    activePath: withBase('/projects'),
+  },
   { href: withBase('/research'), label: 'Research' },
 ];
 
@@ -30,9 +34,28 @@ function isActive(link: { href: string; activePath?: string }): boolean {
 <header class="marina-header">
   <nav aria-label="Main navigation" class="marina-wrap marina-nav">
     <div class="marina-nav-brand-group">
-      <img src="https://sdg-dark.netlify.app/assets/undp-logo.png" alt="UNDP" class="marina-nav-partner-logo marina-nav-undp" decoding="async" />
-      <a href={withBase('/')} class="marina-nav-logo" aria-label="SDG AI Lab homepage"><img src="https://sdg-dark.netlify.app/logo-white.png" alt="SDG AI Lab" decoding="async" /></a>
-      <img src="https://sdg-dark.netlify.app/assets/icpsd-logo.png" alt="ICPSD" class="marina-nav-partner-logo" decoding="async" />
+      <img
+        src={withBase('/header-logos/undp-logo.png')}
+        alt="UNDP"
+        class="marina-nav-partner-logo marina-nav-undp"
+        decoding="async"
+      />
+      <a
+        href={withBase('/')}
+        class="marina-nav-logo"
+        aria-label="SDG AI Lab homepage"
+        ><img
+          src={withBase('/header-logos/sdg-ai-lab.png')}
+          alt="SDG AI Lab"
+          decoding="async"
+        /></a
+      >
+      <img
+        src={withBase('/header-logos/icpsd.png')}
+        alt="ICPSD"
+        class="marina-nav-partner-logo"
+        decoding="async"
+      />
     </div>
 
     <ul class="marina-nav-links" role="list">
@@ -41,7 +64,14 @@ function isActive(link: { href: string; activePath?: string }): boolean {
           <li>
             <a
               href={link.href}
-              class:list={['marina-nav-link', { 'is-section-active': link.label === 'Solutions' && pathname.startsWith(withBase('/programmes')) }]}
+              class:list={[
+                'marina-nav-link',
+                {
+                  'is-section-active':
+                    link.label === 'Solutions' &&
+                    pathname.startsWith(withBase('/programmes')),
+                },
+              ]}
               aria-current={isActive(link) ? 'page' : undefined}
             >
               {link.label}
@@ -52,7 +82,10 @@ function isActive(link: { href: string; activePath?: string }): boolean {
     </ul>
 
     <div class="marina-nav-cta">
-      <a href={withBase('/contact')} class="marina-button marina-button--primary marina-button--small">
+      <a
+        href={withBase('/contact')}
+        class="marina-button marina-button--primary marina-button--small"
+      >
         Contact
       </a>
     </div>
@@ -65,9 +98,24 @@ function isActive(link: { href: string; activePath?: string }): boolean {
       aria-controls="mobile-menu"
       aria-label="Toggle navigation menu"
     >
-      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-        <path class="menu-icon" stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16"></path>
-        <path class="close-icon hidden" stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+      <svg
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          class="menu-icon"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M4 7h16M4 12h16M4 17h16"></path>
+        <path
+          class="close-icon hidden"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"></path>
       </svg>
     </button>
   </nav>
@@ -130,11 +178,12 @@ function isActive(link: { href: string; activePath?: string }): boolean {
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && toggleButton.getAttribute('aria-expanded') === 'true') {
+      if (
+        e.key === 'Escape' &&
+        toggleButton.getAttribute('aria-expanded') === 'true'
+      ) {
         closeMenu();
       }
     });
   }
 </script>
-
-

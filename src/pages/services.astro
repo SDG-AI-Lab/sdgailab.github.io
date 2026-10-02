@@ -6,9 +6,9 @@ const offers = [
     title: 'Artificial Intelligence',
     icon: 'brain',
     items: [
-      'Machine Learning solutions',
-      'LLM finetuning, prompt engineering, RAG, adapters',
-      'Agentic AI systems & multi-agent architectures',
+      'Machine learning solutions',
+      'LLM fine-tuning, prompt engineering, RAG, adapters',
+      'Agentic AI systems and multi-agent architectures',
       'Sentiment analysis',
     ],
   },
@@ -32,7 +32,7 @@ const offers = [
     items: [
       'Web platform development',
       'Power Platform solutions',
-      'Chatbots & agents',
+      'Chatbots and agents',
       'Mobile apps',
     ],
   },
@@ -42,7 +42,7 @@ const offers = [
     items: [
       'Digital Solutions for SDGs (DS4SDGs) MOOC',
       'AI job-matching solutions',
-      'Mentorship & career coaching',
+      'Mentorship and career coaching',
       'Gamification of skills development',
     ],
   },
@@ -50,9 +50,9 @@ const offers = [
     title: 'Research & Advisory',
     icon: 'search',
     items: [
-      'Academic research & insights',
-      'Methodology & framework development',
-      'Technical ToRs & scoping documents',
+      'Academic research and insights',
+      'Methodology and framework development',
+      'Technical ToRs and scoping documents',
       'Review of digital technologies',
       'AI audit',
     ],
@@ -81,11 +81,11 @@ const offers = [
 ];
 const approaches = [
   [
-    'Agile software development',
+    'Agile Software Development',
     'Short, iterative builds tested against the conditions a government system actually runs in — patchy connectivity, incomplete records, non-technical end users.',
   ],
   [
-    'Aligned with UNDP best practices',
+    'Aligned with UNDP Best Practices',
     "Every deployment fits inside UNDP's standards for data, procurement, and partner handover, so the counterpart team can actually run it once we're gone.",
   ],
   [
@@ -207,9 +207,19 @@ const approaches = [
             ))
           }
         </div>
-        <p class="work-crosslink reveal">
-          Have a challenge in mind? <a href={withBase('/contact')}>Contact →</a>
-        </p>
+        <div class="services-cta reveal">
+          <div>
+            <h2>Have a challenge in mind?</h2>
+            <p>
+              Tell us what you’re trying to solve — we’ll tell you honestly
+              whether we can help.
+            </p>
+          </div>
+          <a
+            class="marina-button marina-button--primary"
+            href={withBase('/contact')}>Contact</a
+          >
+        </div>
       </div>
     </section>
   </main>
@@ -309,7 +319,7 @@ const approaches = [
       justify-content: center;
       width: 32px;
       height: 32px;
-      margin-bottom: 14px;
+      margin: 0 0 14px;
       color: var(--teal);
     }
     .offer-icon svg {
@@ -324,9 +334,10 @@ const approaches = [
     .offer-card h2 {
       margin: 0 0 14px;
       color: var(--text);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
+      font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
+      font-size: 0.95rem;
       font-weight: 700;
+      letter-spacing: -0.01em;
     }
     .offer-card ul {
       display: flex;
@@ -342,6 +353,7 @@ const approaches = [
       color: var(--dim);
       font-size: 0.82rem;
       line-height: 1.45;
+      text-align: left;
     }
     .offer-card li::before {
       content: '';
@@ -363,20 +375,25 @@ const approaches = [
       border-top: 1px solid var(--soft);
       transition: border-color 0.25s ease;
     }
+    .approach-cell:nth-child(1) {
+      --approach-accent: #00689d;
+    }
+    .approach-cell:nth-child(2) {
+      --approach-accent: #3f7e44;
+    }
+    .approach-cell:nth-child(3) {
+      --approach-accent: #ff3a21;
+    }
     .approach-cell:hover {
-      border-top-color: var(--teal);
+      border-top-color: var(--approach-accent, var(--teal));
     }
     .approach-cell > span {
       display: block;
       margin-bottom: 22px;
-      color: var(--faint);
+      color: var(--approach-accent, var(--teal));
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.04em;
-      transition: color 0.25s ease;
-    }
-    .approach-cell:hover > span {
-      color: var(--teal);
     }
     .approach-cell h3 {
       margin: 0 0 14px;
@@ -392,18 +409,34 @@ const approaches = [
       font-size: 0.94rem;
       line-height: 1.6;
     }
-    .work-crosslink {
-      margin: 56px 0 0;
-      color: var(--mid);
-      font-size: 1rem;
+    .services-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      flex-wrap: wrap;
+      margin-top: 56px;
+      padding: 44px 48px;
+      border: 1px solid var(--soft);
+      border-radius: 18px;
+      background:
+        radial-gradient(
+          900px 300px at 85% -40%,
+          rgba(3, 131, 174, 0.22),
+          transparent 60%
+        ),
+        var(--raised);
     }
-    .work-crosslink a {
+    .services-cta h2 {
+      margin: 0 0 8px;
       color: var(--text);
-      text-decoration: none;
-      transition: color 0.15s ease;
+      font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
+      font-size: clamp(1.5rem, 2.6vw, 2rem);
     }
-    .work-crosslink a:hover {
-      color: var(--teal);
+    .services-cta p {
+      margin: 0;
+      color: var(--dim);
+      font-size: 0.95rem;
     }
     @media (max-width: 980px) {
       .offer-grid {
@@ -423,6 +456,9 @@ const approaches = [
     @media (max-width: 560px) {
       .offer-grid {
         grid-template-columns: 1fr;
+      }
+      .services-cta {
+        padding: 30px 24px;
       }
     }
     @media (prefers-reduced-motion: reduce) {

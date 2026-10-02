@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
+import { getSampleProject } from '../data/sampleContent';
 import { renderMarkdown } from '../lib/markdown';
 import { logAppError } from '../lib/observability';
+import { toFocusLabel } from '../lib/projectFocus';
 import { getProjectBySlug } from '../lib/queries';
 import type { Project } from '../lib/types';
 import { withBase } from '../lib/url';
 import ObservabilityBoundary from './components/ObservabilityBoundary';
-import { getSampleProject } from '../data/sampleContent';
 
 function getYouTubeEmbedUrl(url?: string | null) {
   if (!url) return null;
@@ -128,8 +129,9 @@ function ProjectDetailContent() {
     return <section className="marina-case-error" role="alert"><h1>Project Not Found</h1><p>{error || 'The requested project could not be found.'}</p><a href={withBase('/projects')}>← Back to Our Work</a></section>;
   }
 
+  const categoryLabel = toFocusLabel(project);
   const metadata = [
-    project.impact_area || project.capabilities_involved?.[0],
+    categoryLabel,
     project.project_year?.toString() || project.timeline,
     project.implementation_countries?.join(', '),
   ].filter(Boolean) as string[];
@@ -160,8 +162,8 @@ function ProjectDetailContent() {
         </div>
       </header>
 
-      {project.problem && <CaseSection title="What wasn’t working."><p>{project.problem}</p></CaseSection>}
-      {(solutionText || project.how_it_works?.length) && <CaseSection title="What the Lab built.">{solutionText && <p>{solutionText}</p>}{project.how_it_works?.length ? <CheckList items={project.how_it_works} /> : null}</CaseSection>}
+      {project.problem && <CaseSection title="Problem."><p>{project.problem}</p></CaseSection>}
+      {(solutionText || project.how_it_works?.length) && <CaseSection title="Solution.">{solutionText && <p>{solutionText}</p>}{project.how_it_works?.length ? <CheckList items={project.how_it_works} /> : null}</CaseSection>}
       {project.core_capabilities?.length ? <CaseSection title="Core capabilities."><CheckList items={project.core_capabilities} /></CaseSection> : project.features?.length ? <CaseSection title="Core capabilities."><CheckList items={project.features} /></CaseSection> : null}
       {project.tech_stack?.length ? <CaseSection title="Tech stack."><div className="marina-case-tags">{project.tech_stack.map((item) => <span key={item}>{item}</span>)}</div></CaseSection> : null}
       {audience?.length ? <CaseSection title="Who this is built for."><CheckList items={audience} /></CaseSection> : null}

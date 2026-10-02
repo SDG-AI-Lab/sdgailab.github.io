@@ -11,7 +11,7 @@ values
   ('China', 'CHN', 35.8617, 104.1954, 5, 'published', now()),
   ('Chuuk', 'FSM', 7.4256, 151.7835, 6, 'published', now()),
   ('Cook Islands', 'COK', -21.2367, -159.7777, 7, 'published', now()),
-  ('C?te d''Ivoire', 'CIV', 7.54, -5.5471, 8, 'published', now()),
+  ('Côte d''Ivoire', 'CIV', 7.54, -5.5471, 8, 'published', now()),
   ('DRC', 'COD', -4.0383, 21.7587, 9, 'published', now()),
   ('Ecuador', 'ECU', -1.8312, -78.1834, 10, 'published', now()),
   ('Ethiopia', 'ETH', 9.145, 40.4897, 11, 'published', now()),
@@ -57,7 +57,7 @@ update public.geographic_reach set iso_alpha3 = 'BFA', latitude = 12.2383, longi
 update public.geographic_reach set iso_alpha3 = 'CHN', latitude = 35.8617, longitude = 104.1954, display_order = 5 where lower(country_name) = lower('China');
 update public.geographic_reach set iso_alpha3 = 'FSM', latitude = 7.4256, longitude = 151.7835, display_order = 6 where lower(country_name) = lower('Chuuk');
 update public.geographic_reach set iso_alpha3 = 'COK', latitude = -21.2367, longitude = -159.7777, display_order = 7 where lower(country_name) = lower('Cook Islands');
-update public.geographic_reach set iso_alpha3 = 'CIV', latitude = 7.54, longitude = -5.5471, display_order = 8 where lower(country_name) = lower('C?te d''Ivoire');
+update public.geographic_reach set iso_alpha3 = 'CIV', latitude = 7.54, longitude = -5.5471, display_order = 8 where lower(country_name) = lower('Côte d''Ivoire');
 update public.geographic_reach set iso_alpha3 = 'COD', latitude = -4.0383, longitude = 21.7587, display_order = 9 where lower(country_name) = lower('DRC');
 update public.geographic_reach set iso_alpha3 = 'ECU', latitude = -1.8312, longitude = -78.1834, display_order = 10 where lower(country_name) = lower('Ecuador');
 update public.geographic_reach set iso_alpha3 = 'ETH', latitude = 9.145, longitude = 40.4897, display_order = 11 where lower(country_name) = lower('Ethiopia');
