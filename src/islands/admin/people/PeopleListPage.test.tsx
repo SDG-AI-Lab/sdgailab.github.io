@@ -68,8 +68,8 @@ describe('PeopleListPage', () => {
     latestTableProps = null;
     listPeopleMock.mockResolvedValue({
       data: [
-        { id: 'person-1', name: 'Ada', role_title: 'Advisor', group_type: 'advisory_board', status: 'draft', display_order: 1 },
-        { id: 'person-2', name: 'Grace', role_title: 'Engineer', group_type: 'team', status: 'published', display_order: 2 },
+        { id: 'person-1', name: 'Ada', role_title: 'Advisor', group_type: 'advisory_board', team_group: null, status: 'draft', display_order: 1 },
+        { id: 'person-2', name: 'Grace', role_title: 'Engineer', group_type: 'team', team_group: 'GIS & GeoAI · Software Development', status: 'published', display_order: 2 },
       ],
       error: null,
       page: 1,

@@ -3149,46 +3149,35 @@
     gap: 1.25rem;
   }
 
-  .marina-nav-logo {
-    display: inline-flex;
-    align-items: center;
-    color: var(--lab-text);
-    text-decoration: none;
-  }
-
-  /* Intrinsic aspect ratios stay intact; heights set the lockup hierarchy. */
-  .marina-nav-logo img,
-  .marina-nav-partner-logo {
-    display: block;
-    width: auto;
-    max-width: none;
-    object-fit: contain;
-  }
-
   .marina-nav-brand-group {
     display: flex;
     align-items: center;
     gap: 0.875rem;
     flex-shrink: 0;
+    /* Shared height so every mark shares the same top and bottom edge. */
+    --nav-logo-height: 3rem;
   }
 
-  /* UNDP should read a bit larger than the other two marks. */
-  .marina-nav-partner-logo.marina-nav-undp {
-    height: 3.5rem;
+  .marina-nav-logo {
+    display: inline-flex;
+    align-items: center;
+    height: var(--nav-logo-height);
+    color: var(--lab-text);
+    text-decoration: none;
+  }
+
+  .marina-nav-logo img,
+  .marina-nav-partner-logo {
+    display: block;
+    width: auto;
+    height: var(--nav-logo-height);
+    max-width: none;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .marina-nav-partner-logo {
     opacity: 0.92;
-  }
-
-  /*
-    ICPSD wordmark (~61% of asset height) must stay ≤ SDG AI Lab frame.
-    At 2.15rem, the "d" is ~1.3rem vs SDG frame ~2.4rem.
-  */
-  .marina-nav-partner-logo.marina-nav-icpsd {
-    height: 2.15rem;
-    opacity: 0.92;
-  }
-
-  .marina-nav-logo img {
-    height: 3rem;
   }
 
   .marina-nav-links {
@@ -3239,12 +3228,17 @@
     display: none;
     align-items: center;
     justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 3rem;
     border: 1px solid var(--lab-border-soft);
     border-radius: 0.9rem;
     background: transparent;
     color: var(--lab-text);
+  }
+
+  .marina-mobile-toggle svg {
+    width: 1.75rem;
+    height: 1.75rem;
   }
 
   .marina-mobile-menu {
@@ -3291,15 +3285,17 @@
     .marina-mobile-toggle {
       display: inline-flex;
     }
-
-    .marina-nav-partner-logo {
-      display: none;
-    }
   }
 
   @media (max-width: 640px) {
     .marina-wrap {
       padding-inline: 20px;
+    }
+
+    .marina-nav-brand-group {
+      --nav-logo-height: 2.35rem;
+      gap: 0.55rem;
+      min-width: 0;
     }
   }
 }

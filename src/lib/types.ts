@@ -108,6 +108,8 @@ export interface Person {
   role_title: string;
   photo_url: string | null;
   group_type: PeopleGroup;
+  /** Marina team page section title when group_type is team. */
+  team_group: string | null;
   biography: string | null;
   display_order: number;
   status: PublishStatus;
@@ -156,7 +158,7 @@ export type FeaturedProjectCard = Pick<Project, "id" | "title" | "slug" | "proje
 export type ProjectListItem = FeaturedProjectCard;
 export type NewsListItem = Pick<NewsArticle, "id" | "title" | "slug" | "summary" | "featured_image_url" | "author_name" | "publish_date">;
 export type PublicationListItem = Pick<Publication, "id" | "title" | "slug" | "publication_type" | "authors" | "publication_date" | "date_label" | "publisher" | "summary" | "source_url" | "cover_image_url" | "display_order">;
-export type PersonCard = Pick<Person, "id" | "name" | "role_title" | "photo_url" | "biography" | "display_order">;
+export type PersonCard = Pick<Person, "id" | "name" | "role_title" | "photo_url" | "team_group" | "biography" | "display_order">;
 export type PartnerLogo = Pick<Partner, "id" | "name" | "logo_url" | "website_url" | "display_order">;
 export type EvolutionTimelineCard = Pick<EvolutionTimelineItem, "id" | "period" | "title" | "body" | "display_order">;
 

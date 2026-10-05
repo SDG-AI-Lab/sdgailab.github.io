@@ -181,7 +181,8 @@ describe('Marina public islands (unit)', () => {
     });
     await render(<ResearchOutputs />);
     expect(container.textContent).toContain('Climate Brief');
-    expect(container.textContent).toMatch(/Brief/i);
+    expect(container.textContent).toMatch(/Report/i);
+    expect(container.textContent).not.toContain('Briefs & white papers');
   });
 
   it('EvolutionTimeline keeps fallback milestones when live data is empty', async () => {

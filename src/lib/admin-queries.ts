@@ -6,6 +6,7 @@ import {
   type ListPageOptions,
 } from './pagination';
 import { getSupabaseAuth } from './supabase-auth';
+import { isTeamGroupTitle } from './teamGroups';
 import type {
   PublishStatus,
   ProjectStatus,
@@ -121,6 +122,7 @@ export interface PersonInput {
   role_title: string;
   photo_url?: string | null;
   group_type: PeopleGroup;
+  team_group?: string | null;
   biography?: string | null;
   display_order: number;
   status: PublishStatus;
@@ -293,6 +295,19 @@ function assertPeopleGroup(value: unknown): PeopleGroup {
   return value as PeopleGroup;
 }
 
+function assertOptionalTeamGroup(value: unknown, groupType: PeopleGroup): string | null {
+  if (value == null || value === '') {
+    if (groupType === 'team') {
+      throw new Error('Team group is required for team members.');
+    }
+    return null;
+  }
+  if (typeof value !== 'string' || !isTeamGroupTitle(value)) {
+    throw new Error('Team group is invalid.');
+  }
+  return groupType === 'team' ? value : null;
+}
+
 function assertPublicationType(value: unknown): PublicationType {
   if (typeof value !== 'string' || !VALID_PUBLICATION_TYPES.includes(value as PublicationType)) {
     throw new Error('Publication type is invalid.');
@@ -442,11 +457,13 @@ function validatePublicationInput(input: PublicationInput): PublicationInput {
 }
 
 function validatePersonInput(input: PersonInput): PersonInput {
+  const group_type = assertPeopleGroup(input.group_type);
   return {
     name: assertNonEmptyString(input.name, 'Name'),
     role_title: assertNonEmptyString(input.role_title, 'Role title'),
     photo_url: assertOptionalHttpUrl(input.photo_url, 'Photo URL'),
-    group_type: assertPeopleGroup(input.group_type),
+    group_type,
+    team_group: assertOptionalTeamGroup(input.team_group, group_type),
     biography: normalizeOptionalString(input.biography, 'Biography'),
     display_order: assertNonNegativeInteger(input.display_order, 'Display order'),
     status: assertStatus(input.status),

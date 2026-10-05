@@ -4,6 +4,7 @@ import { StatusSelect } from '../shared/StatusSelect';
 import { ImageUpload } from '../shared/ImageUpload';
 import { FormFeedback } from '../shared/FormFeedback';
 import { getPerson, createPerson, updatePerson } from '../../../lib/admin-queries';
+import { TEAM_GROUP_TITLES, type TeamGroupTitle } from '../../../lib/teamGroups';
 import { useToast } from '../layout/Toast';
 import type { PublishStatus, PeopleGroup } from '../../../lib/types';
 
@@ -16,6 +17,7 @@ const defaultValues = {
   role_title: '',
   photo_url: null as string | null,
   group_type: 'team' as PeopleGroup,
+  team_group: TEAM_GROUP_TITLES[0] as TeamGroupTitle | '',
   biography: '',
   display_order: 0,
   status: 'draft' as PublishStatus,
@@ -57,6 +59,7 @@ export default function PersonFormPage({ id }: PersonFormPageProps) {
           role_title: data.role_title,
           photo_url: data.photo_url,
           group_type: data.group_type as PeopleGroup,
+          team_group: (data.team_group ?? '') as TeamGroupTitle | '',
           biography: data.biography ?? '',
           display_order: data.display_order,
           status: data.status as PublishStatus,
@@ -82,11 +85,16 @@ export default function PersonFormPage({ id }: PersonFormPageProps) {
       return;
     }
     setLoading(true);
+    if (values.group_type === 'team' && !values.team_group) {
+      setFeedback({ message: 'Team group is required', type: 'error' });
+      return;
+    }
     const input = {
       name: values.name,
       role_title: values.role_title,
       photo_url: values.photo_url,
       group_type: values.group_type,
+      team_group: values.group_type === 'team' ? values.team_group || null : null,
       biography: values.biography || null,
       display_order: values.display_order,
       status: values.status,
@@ -167,9 +175,15 @@ export default function PersonFormPage({ id }: PersonFormPageProps) {
             <label className="block text-sm font-medium text-lab-text mb-1">Group Type</label>
             <select
               value={values.group_type}
-              onChange={(e) =>
-                setValues((v) => ({ ...v, group_type: e.target.value as PeopleGroup }))
-              }
+              onChange={(e) => {
+                const group_type = e.target.value as PeopleGroup;
+                setValues((v) => ({
+                  ...v,
+                  group_type,
+                  team_group:
+                    group_type === 'team' ? v.team_group || TEAM_GROUP_TITLES[0] : '',
+                }));
+              }}
               className="border rounded px-3 py-2 text-sm border-lab-border focus:outline-none focus:ring-2 focus:ring-lab-accent focus:border-lab-accent w-full"
             >
               {GROUP_OPTIONS.map((opt) => (
@@ -179,6 +193,28 @@ export default function PersonFormPage({ id }: PersonFormPageProps) {
               ))}
             </select>
           </div>
+          {values.group_type === 'team' && (
+            <div>
+              <label className="block text-sm font-medium text-lab-text mb-1">Team Group *</label>
+              <select
+                value={values.team_group}
+                onChange={(e) =>
+                  setValues((v) => ({
+                    ...v,
+                    team_group: e.target.value as TeamGroupTitle,
+                  }))
+                }
+                required
+                className="border rounded px-3 py-2 text-sm border-lab-border focus:outline-none focus:ring-2 focus:ring-lab-accent focus:border-lab-accent w-full"
+              >
+                {TEAM_GROUP_TITLES.map((title) => (
+                  <option key={title} value={title}>
+                    {title}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
           <ImageUpload
             value={values.photo_url}
             folder="people"

@@ -242,7 +242,7 @@ export async function getPublishedPeople(
     if (!isSupabaseConfigured) return { data: [], error: null };
     const { data, error } = await getSupabase()
       .from('people')
-      .select('id, name, role_title, photo_url, biography, display_order')
+      .select('id, name, role_title, photo_url, team_group, biography, display_order')
       .eq('status', 'published')
       .eq('group_type', groupType)
       .order('display_order', { ascending: true })

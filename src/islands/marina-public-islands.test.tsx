@@ -126,7 +126,7 @@ describe('Marina public islands', () => {
     expect(container.textContent).toContain('Published products are temporarily unavailable.');
   });
 
-  it('ResearchOutputs filters publications by type', async () => {
+  it('ResearchOutputs filters publications by type and year', async () => {
     getPublishedPublicationsMock.mockResolvedValue({
       data: [
         {
@@ -165,13 +165,32 @@ describe('Marina public islands', () => {
 
     expect(container.textContent).toContain('Climate Brief');
     expect(container.textContent).toContain('Skills Dataset');
+    expect(container.textContent).toContain('All years');
+    expect(container.textContent).toContain('2024');
+    expect(container.textContent).toContain('2025');
+    expect(container.textContent).not.toContain('Briefs & white papers');
 
-    const datasetFilter = Array.from(container.querySelectorAll('button')).find((button) =>
-      button.textContent?.includes('Datasets')
+    const reportsFilter = Array.from(container.querySelectorAll('button')).find((button) =>
+      button.textContent?.includes('Reports')
     ) as HTMLButtonElement;
 
     await act(async () => {
-      datasetFilter.click();
+      reportsFilter.click();
+    });
+
+    expect(container.textContent).toContain('Climate Brief');
+    expect(container.textContent).not.toContain('Skills Dataset');
+
+    const allOutputs = Array.from(container.querySelectorAll('button')).find((button) =>
+      button.textContent?.includes('All outputs')
+    ) as HTMLButtonElement;
+    const year2025 = Array.from(container.querySelectorAll('button')).find(
+      (button) => button.textContent?.trim() === '2025'
+    ) as HTMLButtonElement;
+
+    await act(async () => {
+      allOutputs.click();
+      year2025.click();
     });
 
     expect(container.textContent).toContain('Skills Dataset');

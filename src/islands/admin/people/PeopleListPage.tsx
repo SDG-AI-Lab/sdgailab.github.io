@@ -15,6 +15,7 @@ function matchesSearch(person: Person, query: string): boolean {
   const haystack = [
     person.name,
     person.role_title,
+    person.team_group,
     person.biography,
     person.status,
     person.group_type,
@@ -46,8 +47,12 @@ export default function PeopleListPage() {
     { label: 'Name', accessor: 'name' },
     { label: 'Role', accessor: 'role_title' },
     {
-      label: 'Group',
+      label: 'Type',
       accessor: (item) => (item.group_type === 'team' ? 'Team' : 'Advisory Board'),
+    },
+    {
+      label: 'Team Group',
+      accessor: (item) => item.team_group || '—',
     },
     { label: 'Status', accessor: 'status' },
     { label: 'Order', accessor: 'display_order' },

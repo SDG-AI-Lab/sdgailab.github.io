@@ -59,6 +59,7 @@ describe('types', () => {
       name: 'Alex Example',
       role_title: 'Researcher',
       photo_url: null,
+      team_group: 'Coordination · Research & Advisory',
       biography: null,
       display_order: 1,
     };

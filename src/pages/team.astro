@@ -1,45 +1,6 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
-
-const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
-
-const groups = [
-  {
-    title: 'Coordination · Research & Advisory',
-    members: [
-      ['gokhan-dikmener.jpg', 'Gokhan Dikmener', 'Chief Technology Advisor'],
-      ['dina-akyibekova.jpg', 'Dina Akyibekova', 'Programme Specialist'],
-      ['cansu-ozgur.jpg', 'Cansu Ozgur', 'Programme Analyst'],
-      ['luka-ozay.jpg', 'Luka Ozay', 'Research Intern'],
-      ['ihsan-bilgin.jpg', 'Ihsan Bilgin', 'Research Intern'],
-    ],
-  },
-  {
-    title: 'GIS & GeoAI · Software Development',
-    members: [
-      ['alper-dincer.jpg', 'Alper Dincer', 'GIS Analyst'],
-      ['salsabila-prasetya.jpg', 'Salsabila Prasetya', 'GIS Analyst'],
-      ['aykut-sevim.jpg', 'Aykut Sevim', 'Software Dev Specialist'],
-      ['jackson-onyango.jpg', 'Jackson Onyango', 'Full Stack Developer'],
-      ['josue-ushindi.jpg', 'Josue Ushindi', 'Full Stack Developer'],
-    ],
-  },
-  {
-    title: 'NLP / LLM · Training & Data Science',
-    members: [
-      ['muhammed-suleman.jpg', 'Muhammed Suleman', 'Data Scientist Fellow'],
-      ['mert-atay.jpg', 'Mert Atay', 'Data Science Analyst'],
-      ['ipek-beril-benli.jpg', 'Ipek Beril Benli', 'Programme Analyst'],
-      ['cristovao-cacombe.jpg', 'Cristovao Cacombe', 'Data Science Analyst'],
-      [
-        'alamou-shola-mouhsine-daouda.jpg',
-        'Alamou Shola Mouhsine Daouda',
-        'Data Science Analyst',
-      ],
-      ['eda-nur-saruhan.jpg', 'Eda Nur Saruhan', 'Data Science Analyst'],
-    ],
-  },
-];
+import TeamRoster from '../islands/TeamRoster';
 ---
 
 <BaseLayout
@@ -52,35 +13,12 @@ const groups = [
         <div class="band-head reveal">
           <h1>Six working groups, one lab.</h1>
         </div>
-
-        {
-          groups.map((group) => (
-            <div class="team-group reveal">
-              <h2>{group.title}</h2>
-              <div class="team-row">
-                {group.members.map(([file, name, role]) => (
-                  <article class="person-card">
-                    <div class="person-avatar">
-                      <img
-                        src={marinaAsset(`assets/team/${file}`)}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </div>
-                    <div class="name">{name}</div>
-                    <div class="role">{role}</div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          ))
-        }
+        <TeamRoster client:load />
       </div>
     </section>
   </div>
 
-  <style>
+  <style is:global>
     .marina-team-page {
       --bg: #15181c;
       --bg-raised: #1b1f24;
@@ -224,6 +162,42 @@ const groups = [
       line-height: 1.4;
     }
 
+    .marina-team-page .team-status {
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      padding: 2rem;
+      background: var(--bg-raised);
+      color: var(--text-dim);
+      text-align: center;
+    }
+    .marina-team-page .team-status p {
+      margin: 0;
+    }
+    .marina-team-page .team-spinner {
+      display: inline-block;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 999px;
+      border: 3px solid rgba(3, 131, 174, 0.25);
+      border-top-color: var(--teal);
+      animation: marina-team-spin 0.8s linear infinite;
+    }
+    .marina-team-page .team-refresh-note {
+      margin: 0 0 1.25rem;
+      border: 1px solid rgba(217, 164, 65, 0.35);
+      border-radius: 0.75rem;
+      padding: 0.85rem 1rem;
+      background: rgba(217, 164, 65, 0.08);
+      color: #e6c07b;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    @keyframes marina-team-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
     .marina-team-page .reveal {
       opacity: 0;
       transform: translateY(24px);
@@ -261,11 +235,14 @@ const groups = [
         transform: none;
         transition: none;
       }
+      .marina-team-page .team-spinner {
+        animation: none;
+      }
     }
   </style>
 
   <script>
-    const items = document.querySelectorAll('.marina-team-page .reveal');
+    const items = document.querySelectorAll('.marina-team-page .band-head.reveal');
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver(
         (entries) =>

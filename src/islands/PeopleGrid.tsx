@@ -1,18 +1,11 @@
 import { useEffect, useState } from 'react';
 import { logAppError } from '../lib/observability';
 import { getPublishedPeople } from '../lib/queries';
+import { resolveTeamGroupTitle } from '../lib/teamGroups';
 import type { PersonCard, PeopleGroup } from '../lib/types';
 import ObservabilityBoundary from './components/ObservabilityBoundary';
 
 const LOAD_TIMEOUT_MS = 12_000;
-const TEAM_SECTIONS = [
-  'Coordination Team',
-  'Research & Advisory Team',
-  'GIS & GeoAI Team',
-  'Software Development Team',
-  'NLP/LLM Team',
-  'Training Team',
-] as const;
 
 interface PeopleGridProps {
   groupType: PeopleGroup;
@@ -33,12 +26,8 @@ async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   });
 }
 
-function getTeamSection(person: PersonCard) {
-  return TEAM_SECTIONS.find((section) => person.biography?.includes(section)) ?? 'Team';
-}
-
 function PersonCardView({ person }: { person: PersonCard }) {
-  const section = getTeamSection(person);
+  const section = resolveTeamGroupTitle(person) ?? 'Team';
 
   return (
     <article className="group text-center transition hover:-translate-y-0.5">

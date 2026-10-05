@@ -246,6 +246,7 @@ describe('public islands', () => {
           name: 'Ada Lovelace',
           role_title: 'Research Lead',
           photo_url: null,
+          team_group: 'Coordination · Research & Advisory',
           biography: 'Works on AI for development.',
           display_order: 1,
         },
@@ -257,7 +258,7 @@ describe('public islands', () => {
 
     expect(container.textContent).toContain('Ada Lovelace');
     expect(container.textContent).toContain('Research Lead');
-    expect(container.textContent).toContain('Team');
+    expect(container.textContent).toContain('Coordination · Research & Advisory');
 
     remount();
     getPublishedPeopleMock.mockResolvedValueOnce({ data: [], error: null });
