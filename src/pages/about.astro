@@ -1,6 +1,7 @@
 ---
 import { withBase } from '../lib/url';
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import TeamRoster from '../islands/TeamRoster';
 const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
 const pillars = [
   [
@@ -99,28 +100,6 @@ const timeline = [
       ['resilience', 'Resilience', 'EWS'],
     ],
   },
-];
-const team = [
-  ['gokhan-dikmener.jpg', 'Gokhan Dikmener', 'Chief Technology Advisor'],
-  ['dina-akyibekova.jpg', 'Dina Akyibekova', 'Programme Specialist'],
-  ['cansu-ozgur.jpg', 'Cansu Ozgur', 'Programme Analyst'],
-  ['luka-ozay.jpg', 'Luka Ozay', 'Research Intern'],
-  ['ihsan-bilgin.jpg', 'Ihsan Bilgin', 'Research Intern'],
-  ['alper-dincer.jpg', 'Alper Dincer', 'GIS Analyst'],
-  ['salsabila-prasetya.jpg', 'Salsabila Prasetya', 'GIS Analyst'],
-  ['aykut-sevim.jpg', 'Aykut Sevim', 'Software Dev Specialist'],
-  ['jackson-onyango.jpg', 'Jackson Onyango', 'Full Stack Developer'],
-  ['josue-ushindi.jpg', 'Josue Ushindi', 'Full Stack Developer'],
-  ['muhammed-suleman.jpg', 'Muhammed Suleman', 'Data Scientist Fellow'],
-  ['mert-atay.jpg', 'Mert Atay', 'Data Science Analyst'],
-  ['ipek-beril-benli.jpg', 'Ipek Beril Benli', 'Programme Analyst'],
-  ['cristovao-cacombe.jpg', 'Cristovao Cacombe', 'Data Science Analyst'],
-  [
-    'alamou-shola-mouhsine-daouda.jpg',
-    'Alamou Shola Mouhsine Daouda',
-    'Data Science Analyst',
-  ],
-  ['eda-nur-saruhan.jpg', 'Eda Nur Saruhan', 'Data Science Analyst'],
 ];
 ---
 
@@ -233,24 +212,7 @@ const team = [
             </p>
             <a href={withBase('/team')}>Meet the full team →</a>
           </div>
-          <div class="roster">
-            {
-              team.map(([file, name, role]) => (
-                <article>
-                  <img
-                    src={marinaAsset(`assets/team/${file}`)}
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div>
-                    <strong>{name}</strong>
-                    <small>{role}</small>
-                  </div>
-                </article>
-              ))
-            }
-          </div>
+          <TeamRoster client:load layout="compact" />
         </div>
       </div>
     </section>
@@ -551,37 +513,59 @@ const team = [
   .marina-about-team-blurb a:hover {
     color: #6ec6e8;
   }
-  .marina-about-team .roster {
+  .marina-about-team :global(.roster) {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 14px 18px;
   }
-  .marina-about-team .roster article {
+  .marina-about-team :global(.roster article) {
     display: flex;
     align-items: center;
     gap: 10px;
     min-width: 0;
   }
-  .marina-about-team .roster img {
+  .marina-about-team :global(.roster img),
+  .marina-about-team :global(.roster-avatar-fallback) {
     width: 36px;
     height: 36px;
     flex-shrink: 0;
-    border: 1px solid #24292f;
     border-radius: 50%;
     object-fit: cover;
   }
-  .marina-about-team .roster strong,
-  .marina-about-team .roster small {
+  .marina-about-team :global(.roster-avatar-fallback) {
+    display: block;
+    background: #24292f;
+  }
+  .marina-about-team :global(.roster strong),
+  .marina-about-team :global(.roster small) {
     display: block;
   }
-  .marina-about-team .roster strong {
+  .marina-about-team :global(.roster strong) {
     font-size: 0.82rem;
     line-height: 1.25;
   }
-  .marina-about-team .roster small {
+  .marina-about-team :global(.roster small) {
     color: #a0a8b2;
     font-size: 0.72rem;
     line-height: 1.3;
+  }
+  .marina-about-team :global(.team-status) {
+    color: #a0a8b2;
+    font-size: 0.9rem;
+  }
+  .marina-about-team :global(.team-spinner) {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 999px;
+    border: 2px solid rgba(3, 131, 174, 0.25);
+    border-top-color: #0383ae;
+    animation: marina-about-spin 0.8s linear infinite;
+  }
+  @keyframes marina-about-spin {
+    to {
+      transform: rotate(360deg);
+    }
   }
   .marina-about-cta {
     display: flex;
@@ -624,7 +608,7 @@ const team = [
     }
   }
   @media (max-width: 900px) {
-    .marina-about-team .roster {
+    .marina-about-team :global(.roster) {
       grid-template-columns: repeat(2, 1fr);
     }
   }
@@ -665,7 +649,7 @@ const team = [
   }
   @media (max-width: 560px) {
     .marina-about-pillars,
-    .marina-about-team .roster {
+    .marina-about-team :global(.roster) {
       grid-template-columns: 1fr;
     }
     .marina-about-cta {

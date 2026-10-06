@@ -3180,6 +3180,14 @@
     opacity: 0.92;
   }
 
+  .marina-nav-logo img {
+    height: calc(var(--nav-logo-height) * 0.9);
+  }
+
+  .marina-nav-partner-logo.marina-nav-icpsd {
+    height: calc(var(--nav-logo-height) * 0.62);
+  }
+
   .marina-nav-links {
     display: flex;
     align-items: center;

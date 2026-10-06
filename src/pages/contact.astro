@@ -14,12 +14,11 @@ const contactEmail = 'dina.akylbekova@undp.org';
         <div class="band-head reveal">
           <h1>Leave a request, or just email us directly.</h1>
           <div class="band-head-copy">
-            <p>
-              Tell us what you’re trying to solve and we’ll follow up — or skip
-              the form and write to Dina directly, whichever is faster for you.
-            </p>
+            <p>Tell us what you’re trying to solve and we’ll follow up.</p>
             <div class="contact-email">
-              <a class="contact-email-link" href={`mailto:${contactEmail}`}>{contactEmail}</a>
+              <a class="contact-email-link" href={`mailto:${contactEmail}`}
+                >{contactEmail}</a
+              >
               <button
                 type="button"
                 class="contact-email-copy"
@@ -52,23 +51,12 @@ const contactEmail = 'dina.akylbekova@undp.org';
                   />
                 </div>
               </div>
-              <div class="form-row">
-                <div class="form-field">
-                  <label for="cf-org">Organization</label><input
-                    type="text"
-                    id="cf-org"
-                    name="organization"
-                  />
-                </div>
-                <div class="form-field">
-                  <label for="cf-type">Where did you hear from us?</label
-                  ><select id="cf-type" name="type"
-                    ><option>Co-develop an AI solution</option><option
-                      >Research &amp; policy advisory</option
-                    ><option>Training / capacity building</option><option
-                      >Access to tech talent</option
-                    ><option>Something else</option></select>
-                </div>
+              <div class="form-field">
+                <label for="cf-org">Organization</label><input
+                  type="text"
+                  id="cf-org"
+                  name="organization"
+                />
               </div>
               <div class="form-field">
                 <label for="cf-message">What are you trying to solve?</label
@@ -107,15 +95,12 @@ const contactEmail = 'dina.akylbekova@undp.org';
       const name = String(data.get('name') ?? '').trim();
       const email = String(data.get('email') ?? '').trim();
       const organization = String(data.get('organization') ?? '').trim();
-      const type = String(data.get('type') ?? '');
       const message = String(data.get('message') ?? '').trim();
-      const subject =
-        'SDG AI Lab inquiry: ' + type + (name ? ' — ' + name : '');
+      const subject = 'SDG AI Lab inquiry' + (name ? ' — ' + name : '');
       const body = [
         'Name: ' + name,
         'Email: ' + email,
         'Organization: ' + (organization || '—'),
-        'Interested in: ' + type,
         '',
         message,
       ].join('\n');
@@ -126,7 +111,9 @@ const contactEmail = 'dina.akylbekova@undp.org';
         encodeURIComponent(body);
     });
 
-    const copyButton = document.querySelector<HTMLButtonElement>('.contact-email-copy');
+    const copyButton = document.querySelector<HTMLButtonElement>(
+      '.contact-email-copy',
+    );
     copyButton?.addEventListener('click', async () => {
       const email = copyButton.dataset.email ?? '';
       if (!email) return;
@@ -229,7 +216,9 @@ const contactEmail = 'dina.akylbekova@undp.org';
       font-weight: 600;
       text-decoration: none;
       border-bottom: 1px solid rgba(3, 131, 174, 0.55);
-      transition: color 0.15s ease, border-color 0.15s ease;
+      transition:
+        color 0.15s ease,
+        border-color 0.15s ease;
     }
     .marina-contact .contact-email-link:hover {
       color: #26bde2;
@@ -242,9 +231,14 @@ const contactEmail = 'dina.akylbekova@undp.org';
       background: var(--raised);
       color: var(--dim);
       cursor: pointer;
-      font: 600 0.78rem 'Inter', sans-serif;
+      font:
+        600 0.78rem 'Inter',
+        sans-serif;
       padding: 7px 14px;
-      transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      transition:
+        color 0.15s ease,
+        border-color 0.15s ease,
+        background 0.15s ease;
     }
     .marina-contact .contact-email-copy:hover {
       border-color: var(--faint);
