@@ -50,14 +50,16 @@ function createPublicProjectsBuilder(data: Record<string, unknown>[]) {
   return {
     select: vi.fn().mockReturnThis(),
     eq: vi.fn().mockReturnThis(),
-    order: vi.fn().mockResolvedValue({ data, error: null }),
+    order: vi.fn().mockReturnThis(),
+    range: vi.fn().mockResolvedValue({ data, error: null }),
   };
 }
 
 function createAdminProjectsBuilder(data: Record<string, unknown>[]) {
   return {
     select: vi.fn().mockReturnThis(),
-    order: vi.fn().mockResolvedValue({ data, error: null }),
+    order: vi.fn().mockReturnThis(),
+    range: vi.fn().mockResolvedValue({ data, error: null }),
   };
 }
 

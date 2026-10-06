@@ -6,7 +6,7 @@ quality_attribute: "maintainability"
 quality_attribute_name: "Maintainability"
 iso_characteristic: "Maintainability"
 project: "SDG AI Lab Website"
-audited_at: "2026-10-06T14:38:00Z"
+audited_at: "2026-10-06T13:18:00Z"
 config_version: 3
 
 score:
@@ -48,7 +48,7 @@ project_context:
 
 ## Summary
 
-**76.5% Solid**. CI runs lint + check + tests (**412** Vitest). `npm run check` — **0 errors** (2026-10-06). Sole FAIL: **MNT-011** pre-commit hooks.
+**76.5% Solid**. CI runs lint + check + tests (**412** Vitest, 79 files). Sole FAIL: **MNT-011** pre-commit hooks. **Regression risk:** `npm run check` reports **4** TS errors in `ProjectDetail.tsx` (`slug` nullability) — tighten before production cutover.
 
 ---
 

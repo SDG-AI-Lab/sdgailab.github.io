@@ -6,7 +6,7 @@ quality_attribute: "reliability"
 quality_attribute_name: "Reliability"
 iso_characteristic: "Reliability"
 project: "SDG AI Lab Website"
-audited_at: "2026-10-06T14:38:00Z"
+audited_at: "2026-10-06T13:18:00Z"
 config_version: 3
 
 score:
@@ -48,7 +48,7 @@ project_context:
 
 ## Summary
 
-**68.2% Adequate**, zero FAILs. **C1 signed off** (`docs/supabase-c1-staging-signoff.md`, 2026-10-06): backups documented for **free tier** (manual export cadence). **REL-013** stays **PARTIAL** per audit rubric (no automated schedule / restore drill); acceptable for staging with documented risk acceptance.
+**68.2% Adequate**, zero FAILs. C1 ops added `verify_c1_hardening.sql`, migration `005`, and `docs/supabase-c1-staging-signoff.md` — **REL-013** remains PARTIAL until operator completes backup section F / sign-off (free tier = manual exports documented in `supabase-backup-restore.md`).
 
 ---
 
@@ -83,7 +83,7 @@ project_context:
 | REL-004 | Retry Logic with Backoff | Uptime workflow `curl --retry` | No bounded backoff on Supabase client fetches | medium |
 | REL-006 | Timeout Configuration | Uptime curl timeouts | No explicit fetch timeout on Supabase/browser calls | medium |
 | REL-009 | Transaction Management | Single-row CRUD via Supabase | Multi-step media+row updates not transactional | medium |
-| REL-013 | Data Backup Configuration | `supabase-backup-restore.md` + C1 sign-off §F; `verify_c1_hardening.sql` PASS | Free tier: manual exports only; no tested restore drill | critical |
+| REL-013 | Data Backup Configuration | Schema in `supabase/migrations/`; `docs/supabase-backup-restore.md` | PITR/backup enablement not signed off in project evidence | critical |
 | REL-014 | Disaster Recovery Plan | Cutover checklist + backup doc | No explicit RTO/RPO targets | high |
 | REL-016 | Database Migration Safety | Forward SQL migrations `001`–`012` | No automated down migrations / CI apply gate | medium |
 
@@ -119,9 +119,9 @@ None.
 
 #### REL-013: Data Backup Configuration
 
-**Current state:** C1 operator sign-off records manual backup model (free tier). No PITR.
-**Fix:** Before C2, run manual export; upgrade plan or accept risk; optional restore drill on staging clone.
-**Effort:** Short (export) / plan decision
+**Current state:** Docs exist; live PITR/backup not evidenced with operator sign-off.
+**Fix:** Confirm Supabase PITR/backups on prod project; record schedule/RPO in `docs/supabase-backup-restore.md`.
+**Effort:** Short
 
 ### P2 — Important
 

@@ -6,7 +6,7 @@ quality_attribute: "interaction-capability"
 quality_attribute_name: "Interaction Capability"
 iso_characteristic: "Usability"
 project: "SDG AI Lab Website"
-audited_at: "2026-10-06T14:38:00Z"
+audited_at: "2026-10-06T13:18:00Z"
 config_version: 3
 
 score:

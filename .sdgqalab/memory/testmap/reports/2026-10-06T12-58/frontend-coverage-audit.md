@@ -25,11 +25,11 @@ coverage:
     gaps: 0
   accessibility:
     components_identified: 23
-    components_covered: 23
-    gaps: 0
+    components_covered: 22
+    gaps: 1
   line_coverage_pct: 89.09
   line_coverage_rating: "Solid"
-  test_count: 412
+  test_count: 407
 
 by_scope:
   "components":
@@ -64,7 +64,7 @@ delta:
   line_coverage_change: -2.34
   e2e_gaps_change: 0
   security_gaps_change: 0
-  accessibility_gaps_change: 0
+  accessibility_gaps_change: 1
 ---
 
 # Frontend Test Audit
@@ -72,14 +72,14 @@ delta:
 > **Unit File Coverage**: 81.3% (78/96 files) · Solid
 > **Integration File Coverage**: 92.7% (89/96 files) · Exemplary
 > **Line Coverage**: 89.09% · Solid
-> **Tests**: 412 Vitest + 25 Playwright E2E journeys
+> **Tests**: 407 Vitest + 25 Playwright E2E journeys
 > **Audited**: 2026-10-06T12:58 UTC
 
 ---
 
 ## Audit Status
 
-Refresh after `TeamRoster` island coverage (`TeamRoster.test.tsx`: grouped/compact, empty/error, axe). Critical E2E, security, and curated a11y gap counts are **0**. Line coverage may rise on next `test:coverage` run.
+Refresh after `TeamRoster` island and Marina page contract updates. Coverage tooling runs clean (`npm run test:coverage`). Line coverage dipped slightly below **Exemplary** (89.09%) because `TeamRoster.tsx` is untested (0% lines). Critical E2E and security gap counts remain **0**; one curated a11y gap for TeamRoster.
 
 ---
 
@@ -99,6 +99,7 @@ Refresh after `TeamRoster` island coverage (`TeamRoster.test.tsx`: grouped/compa
 
 | File | Scope | What to Test |
 |------|-------|--------------|
+| `src/islands/TeamRoster.tsx` | islands | Grouping, loading/error states, avatar fallbacks |
 | `src/components/ui/StatusBadge.astro` | components | Source-contract assertion (optional) |
 
 ---
@@ -119,6 +120,7 @@ Refresh after `TeamRoster` island coverage (`TeamRoster.test.tsx`: grouped/compa
 
 | File | Scope | What to Test |
 |------|-------|--------------|
+| `src/islands/TeamRoster.tsx` | islands | Mocked `people` query; renders groups from CMS data |
 | `src/lib/storage.ts` / `supabase.ts` / `supabase-auth.ts` | lib | Optional real-import boundaries (UI still mocks) |
 
 ---
@@ -139,7 +141,13 @@ Team page smoke remains in `e2e/cms-pages.spec.ts` (hydration/structure); does n
 
 ## Accessibility Tests
 
-> **23** of **23** interactive components covered · **0** gaps
+> **22** of **23** interactive components covered · **1** gap
+
+### Accessibility Tests Needed
+
+| Component / Page | Scope | What to Test |
+|-----------------|-------|--------------|
+| `TeamRoster.tsx` | islands | jest-axe after mocked people load |
 
 ---
 
@@ -149,16 +157,18 @@ Team page smoke remains in `e2e/cms-pages.spec.ts` (hydration/structure); does n
 |-----------|-------------|--------|
 | `lib-integration.test.ts` | Supabase mocks needed `.range()` after paginated queries | Fixed in this audit cycle |
 | Page source contracts | Footer/team/home copy updated for Marina layout | Tests aligned to current markup |
-| `TeamRoster.test.tsx` | Covers grouped/compact, empty/error, axe | Closes prior `/team` island gap |
+| `TeamRoster.tsx` | New island, 0% line coverage | Primary regression risk for `/team` |
 
 ---
 
 ## Recommendations
 
-1. **[P3]** Optional lib real-import integration tests for storage/supabase clients.
+1. **[P2]** Add `TeamRoster.test.tsx` (integration + axe) and optional unit for `teamGroups` edge cases.
+2. **[P3]** Optional: restore line coverage ≥90% by exercising roster loading paths.
+3. **[P3]** Optional lib real-import integration tests for storage/supabase clients.
 
 ## Acceptance Criteria
 
 - [x] Coverage tooling runs from `.sdgqalab/config.yml`
 - [x] `npm run test:coverage` completes successfully
-- [x] `TeamRoster` has automated tests
+- [ ] `TeamRoster` has automated tests (new gap)

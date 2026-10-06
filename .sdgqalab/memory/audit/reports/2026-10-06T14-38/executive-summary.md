@@ -118,4 +118,3 @@ No P0 blockers found.
 | Latest domain reports | `.sdgqalab/memory/audit/*-audit.md` |
 | Historical snapshot | `.sdgqalab/memory/audit/reports/2026-10-06T14-38/` |
 | Metrics | `.sdgqalab/memory/audit/metrics.yml` |
-| Risk acceptance (team) | `docs/production-risk-acceptance.md` |

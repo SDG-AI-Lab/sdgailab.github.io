@@ -50,7 +50,7 @@ const pageSources: { path: string; checks: (source: string) => void }[] = [
       expect(source).toContain('marina-team-page');
       expect(source).toContain('Six working groups');
       expect(source).toContain('person-avatar');
-      expect(source).toContain('Coordination · Research & Advisory');
+      expect(source).toContain('TeamRoster');
     },
   },
   {

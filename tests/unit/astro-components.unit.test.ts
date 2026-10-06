@@ -47,7 +47,7 @@ describe('Footer.astro (unit)', () => {
     expect(source).toContain('<footer');
     expect(source).toContain('<h4>Lab</h4>');
     expect(source).toContain('<h4>Work</h4>');
-    expect(source).toContain('Research &amp; Advisory');
+    expect(source).toContain("withBase('/research')");
     expect(source).toContain("withBase('/programmes')");
   });
 

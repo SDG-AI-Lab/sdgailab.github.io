@@ -9,8 +9,8 @@ describe('index page source', () => {
     expect(source).toContain('BaseLayout');
     expect(source).toContain('marina-live-hero');
     expect(source).toContain('Digital technologies');
-    expect(source).toContain('marina-live-title-sustainable');
-    expect(source).toContain('marina-live-title-goals');
+    expect(source).toContain('marina-live-title-line');
+    expect(source).toContain('Sustainable');
     expect(source).toContain('Sustainable');
     expect(source).toContain('Development Goals.');
   });

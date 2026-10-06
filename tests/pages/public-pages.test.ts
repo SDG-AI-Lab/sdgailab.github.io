@@ -37,7 +37,7 @@ describe('Public Astro pages', () => {
     expect(source).toContain('marina-team-page');
     expect(source).toContain('Six working groups');
     expect(source).toContain('person-avatar');
-    expect(source).toContain('Coordination · Research & Advisory');
+    expect(source).toContain('TeamRoster');
   });
 
   it('contact page uses Marina mailto request form', () => {

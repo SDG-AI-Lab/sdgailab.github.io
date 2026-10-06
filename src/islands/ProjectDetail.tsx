@@ -76,14 +76,14 @@ function ProjectDetailContent() {
 
   useEffect(() => {
     let active = true;
-    const slug = new URLSearchParams(window.location.search).get('slug');
-    if (!slug) {
+    const slugParam = new URLSearchParams(window.location.search).get('slug');
+    if (!slugParam) {
       setError('No project specified.');
       setLoading(false);
       return;
     }
 
-    async function loadProject() {
+    async function loadProject(slug: string) {
       try {
         // A stalled network request must not leave the public page in a permanent
         // loading state. The normal Supabase response remains the first result.
@@ -118,7 +118,7 @@ function ProjectDetailContent() {
       }
     }
 
-    void loadProject();
+    void loadProject(slugParam);
     return () => { active = false; };
   }, []);
 

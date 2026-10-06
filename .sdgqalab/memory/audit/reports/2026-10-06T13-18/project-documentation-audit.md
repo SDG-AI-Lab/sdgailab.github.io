@@ -6,7 +6,7 @@ quality_attribute: "documentation"
 quality_attribute_name: "Documentation"
 iso_characteristic: "Maintainability"
 project: "SDG AI Lab Website"
-audited_at: "2026-10-06T14:38:00Z"
+audited_at: "2026-10-06T13:18:00Z"
 config_version: 3
 
 score:
@@ -48,7 +48,7 @@ project_context:
 
 ## Summary
 
-**71.4% Solid**, zero FAILs. **C1 complete:** `docs/supabase-c1-staging-signoff.md` (signed 2026-10-06) strengthens **DOC-008/013** (backup procedures + operator record). **DOC-013** remains PARTIAL (no recovery test evidence). **DOC-011** IR runbook still missing.
+**71.4% Solid**, zero FAILs. New since last audit: `docs/supabase-c1-staging-signoff.md`, `supabase/README.md`, migration **005** documented — strengthens **DOC-002/DOC-008** but they remain PARTIAL. **DOC-013** still PARTIAL until backup sign-off recorded; **DOC-011** IR runbook still missing.
 
 ---
 
@@ -85,7 +85,7 @@ project_context:
 | DOC-008 | Authentication Documentation | Editor guide + magic-link flows | End-to-end auth troubleshooting incomplete | medium |
 | DOC-011 | Incident Response Runbook | Hardening/cutover docs | No single IR playbook with severity ladder | high |
 | DOC-012 | Monitoring & Alerting Guide | Uptime workflow; Sentry env | No Sentry alert runbook | medium |
-| DOC-013 | Backup & Recovery Procedures | `supabase-backup-restore.md` + C1 sign-off §F | No documented restore drill / PITR on free tier | high |
+| DOC-013 | Backup & Recovery Procedures | `docs/supabase-backup-restore.md` | PITR verification sign-off steps incomplete | high |
 | DOC-014 | Code Comments Quality | Useful module headers in lib/ | Uneven on large admin forms | low |
 | DOC-015 | Configuration Documentation | Env + Astro config | Feature flag / base path nuances thin | medium |
 | DOC-016 | Database Schema Documentation | Migrations + types | No ER diagram / human schema overview | medium |
