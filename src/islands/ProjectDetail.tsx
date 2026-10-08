@@ -50,8 +50,12 @@ function ProjectMedia({ project }: { project: Project }) {
   const directVideo = isDirectVideoUrl(project.video_url);
   if (!project.image_url && !project.video_url) return null;
 
+  const isStillImage = Boolean(
+    project.image_url && !(project.video_url && (embedUrl || directVideo))
+  );
+
   return (
-    <div className="marina-case-banner">
+    <div className={`marina-case-banner${isStillImage ? ' marina-case-banner--image' : ''}`}>
       {project.video_url && embedUrl ? (
         <iframe className="marina-case-banner-media" src={embedUrl} title={`${project.title} video`} loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
       ) : project.video_url && directVideo ? (
@@ -163,7 +167,12 @@ function ProjectDetailContent() {
       </header>
 
       {project.problem && <CaseSection title="Problem."><p>{project.problem}</p></CaseSection>}
-      {(solutionText || project.how_it_works?.length) && <CaseSection title="Solution.">{solutionText && <p>{solutionText}</p>}{project.how_it_works?.length ? <CheckList items={project.how_it_works} /> : null}</CaseSection>}
+      {(solutionText || (project.how_it_works?.length ?? 0) > 0) ? (
+        <CaseSection title="Solution.">
+          {solutionText ? <p>{solutionText}</p> : null}
+          {project.how_it_works?.length ? <CheckList items={project.how_it_works} /> : null}
+        </CaseSection>
+      ) : null}
       {project.core_capabilities?.length ? <CaseSection title="Core capabilities."><CheckList items={project.core_capabilities} /></CaseSection> : project.features?.length ? <CaseSection title="Core capabilities."><CheckList items={project.features} /></CaseSection> : null}
       {project.tech_stack?.length ? <CaseSection title="Tech stack."><div className="marina-case-tags">{project.tech_stack.map((item) => <span key={item}>{item}</span>)}</div></CaseSection> : null}
       {audience?.length ? <CaseSection title="Who this is built for."><CheckList items={audience} /></CaseSection> : null}

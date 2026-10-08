@@ -112,6 +112,15 @@
   border: 0;
   object-fit: cover;
 }
+.marina-case-banner--image {
+  aspect-ratio: auto;
+  height: auto;
+}
+.marina-case-banner--image .marina-case-banner-media {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
 .marina-case-media-link {
   color: var(--lab-light-blue);
   font-weight: 700;
@@ -265,7 +274,7 @@
   .marina-case-hero {
     padding-top: 116px;
   }
-  .marina-case-banner {
+  .marina-case-banner:not(.marina-case-banner--image) {
     aspect-ratio: 16 / 10;
   }
   .marina-case-section {
