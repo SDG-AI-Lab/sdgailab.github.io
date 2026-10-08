@@ -1,26 +1,10 @@
 ---
 import { withBase } from '../lib/url';
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import CmsText from '../islands/CmsText';
 import TeamRoster from '../islands/TeamRoster';
 const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
-const pillars = [
-  [
-    'Built inside UNDP',
-    'Part of the BPPS Data, AI & Innovation Hub and the Sustainable Finance Hub, hosted under ICPSD in Istanbul.',
-  ],
-  [
-    'Shipped, not piloted',
-    'Tools that country offices and national institutions run themselves — maintained, documented and handed over, not left behind.',
-  ],
-  [
-    'For governments, by practitioners',
-    'A compact senior team of data scientists, engineers and GIS specialists working directly with country offices.',
-  ],
-  [
-    'From pilot to mainstream',
-    'One product line at a time, then several running in parallel — a repeatable path from first use case to country-wide practice.',
-  ],
-];
+const pillars = ['pillar-1', 'pillar-2', 'pillar-3', 'pillar-4'];
 const timeline = [
   {
     year: '2019–2020',
@@ -112,15 +96,10 @@ const timeline = [
       <div class="marina-live-wrap">
         <div class="marina-about-head reveal">
           <h1>
-            Seven years of building<br />AI and data tools inside<br
-            />government
-          </h1><p>
-            A joint initiative of the UNDP BPPS Data, AI &amp; Innovation Hub
-            and the Sustainable Finance Hub, hosted under ICPSD and based in
-            Istanbul. Since 2019 the Lab has shipped Geographic Information
-            Systems (GIS), Natural Language Processing (NLP) and digital-skills
-            products that country offices and national institutions run
-            themselves — not one-off pilots left behind after the mission ends.
+            <CmsText client:load page="about" section="intro-heading" breaks />
+          </h1>
+          <p>
+            <CmsText client:load page="about" section="intro-body" />
           </p>
         </div>
       </div>
@@ -129,22 +108,19 @@ const timeline = [
       <div class="marina-live-wrap">
         <div class="marina-about-head reveal">
           <h2>
-            A small <span>senior team</span><br />with UNDP’s <span
-              >network</span
-            ><br />behind it
+            <CmsText client:load page="about" section="pillars-heading" breaks />
           </h2>
           <p>
-            We work the way a product team does — fast, focused, accountable —
-            inside the world’s largest development network.
+            <CmsText client:load page="about" section="pillars-intro" />
           </p>
         </div>
         <div class="marina-about-pillars">
           {
-            pillars.map(([title, copy]) => (
+            pillars.map((section) => (
               <article class="marina-about-pillar reveal">
                 <>
-                  <h3>{title}</h3>
-                  <p>{copy}</p>
+                  <h3><CmsText client:load page="about" section={`${section}-title`} /></h3>
+                  <p><CmsText client:load page="about" section={`${section}-body`} /></p>
                 </>
               </article>
             ))
@@ -205,12 +181,9 @@ const timeline = [
         </div> -->
         <div class="marina-about-team reveal">
           <div class="marina-about-team-blurb">
-            <h2>Built by the SDG AI Lab team</h2>
-            <p>
-              A compact team of data scientists, engineers and GIS specialists
-              working directly with UNDP country offices and national partners.
-            </p>
-            <a href={withBase('/team')}>Meet the full team →</a>
+            <h2><CmsText client:load page="about" section="team-heading" /></h2>
+            <p><CmsText client:load page="about" section="team-body" /></p>
+            <a href={withBase('/team')}><CmsText client:load page="about" section="team-link" /></a>
           </div>
           <TeamRoster client:load layout="compact" />
         </div>
@@ -220,10 +193,8 @@ const timeline = [
       <div class="marina-live-wrap">
         <div class="marina-about-cta reveal">
           <div>
-            <h2>Have a development challenge?</h2><p>
-              Tell us what you’re trying to solve — we’ll tell you honestly
-              whether we can help.
-            </p>
+            <h2><CmsText client:load page="about" section="cta-heading" /></h2>
+            <p><CmsText client:load page="about" section="cta-body" /></p>
           </div><a
             class="marina-button marina-button--primary"
             href={withBase('/contact')}>Contact</a

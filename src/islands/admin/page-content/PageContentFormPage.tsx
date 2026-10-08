@@ -4,6 +4,7 @@ import { StatusSelect } from '../shared/StatusSelect';
 import { MarkdownField } from '../shared/MarkdownField';
 import { FormFeedback } from '../shared/FormFeedback';
 import { getPageContentById, createPageContent, updatePageContent } from '../../../lib/admin-queries';
+import { findPageSection, pageOptions, sectionsForPage } from '../../../lib/pageSections';
 import { useToast } from '../layout/Toast';
 import type { PublishStatus } from '../../../lib/types';
 
@@ -11,11 +12,14 @@ interface PageContentFormPageProps {
   id?: string | null;
 }
 
+const firstPage = pageOptions()[0]?.slug ?? 'home';
+const firstSection = sectionsForPage(firstPage)[0];
+
 const defaultValues = {
-  page_slug: '',
-  section_slug: '',
-  body: '',
-  status: 'draft' as PublishStatus,
+  page_slug: firstPage,
+  section_slug: firstSection?.sectionSlug ?? '',
+  body: firstSection?.fallback ?? '',
+  status: 'published' as PublishStatus,
 };
 
 export default function PageContentFormPage({ id }: PageContentFormPageProps) {
@@ -118,35 +122,65 @@ export default function PageContentFormPage({ id }: PageContentFormPageProps) {
         <div className="space-y-4">
           <div>
             <label htmlFor="page-slug" className="block text-sm font-medium text-lab-text mb-1">
-              Page Slug *
+              Page *
             </label>
-            <input
+            <select
               id="page-slug"
-              type="text"
-              list="page-slugs"
               required
               value={values.page_slug}
-              onChange={(e) => setValues((v) => ({ ...v, page_slug: e.target.value }))}
+              disabled={!!id}
+              onChange={(e) => {
+                const page_slug = e.target.value;
+                const section = sectionsForPage(page_slug)[0];
+                setValues((current) => ({
+                  ...current,
+                  page_slug,
+                  section_slug: section?.sectionSlug ?? '',
+                  body: section?.fallback ?? '',
+                }));
+              }}
               className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
-            />
-            <datalist id="page-slugs">
-              <option value="about" />
-              <option value="volunteer" />
-              <option value="contact" />
-            </datalist>
+            >
+              {pageOptions().map((page) => (
+                <option key={page.slug} value={page.slug}>
+                  {page.label}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label htmlFor="section-slug" className="block text-sm font-medium text-lab-text mb-1">
-              Section Slug *
+              Section *
             </label>
-            <input
+            <select
               id="section-slug"
-              type="text"
               required
               value={values.section_slug}
-              onChange={(e) => setValues((v) => ({ ...v, section_slug: e.target.value }))}
+              disabled={!!id}
+              onChange={(e) => {
+                const section_slug = e.target.value;
+                const section = findPageSection(values.page_slug, section_slug);
+                setValues((current) => ({
+                  ...current,
+                  section_slug,
+                  body: section?.fallback ?? current.body,
+                }));
+              }}
               className="w-full border border-lab-border rounded-md px-3 py-2 text-sm"
-            />
+            >
+              {sectionsForPage(values.page_slug).map((section) => (
+                <option key={section.sectionSlug} value={section.sectionSlug}>
+                  {section.label}
+                </option>
+              ))}
+            </select>
+            <p className="mt-1 text-xs text-lab-muted">
+              {findPageSection(values.page_slug, values.section_slug)?.kind === 'lines'
+                ? 'One item per line.'
+                : findPageSection(values.page_slug, values.section_slug)?.kind === 'rich'
+                  ? 'Use **double asterisks** for bold. The Solutions heading may include {count}.'
+                  : 'Plain text. Use a new line where the layout breaks the heading.'}
+            </p>
           </div>
           <MarkdownField
             value={values.body}

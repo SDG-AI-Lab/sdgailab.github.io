@@ -850,6 +850,39 @@ export async function createPageContent(
   return createRecord<PageContent, PageContentInput>('page_content', input, validatePageContentInput);
 }
 
+export async function ensureCatalogPageSections(
+  sections: Array<{ pageSlug: string; sectionSlug: string; fallback: string }>
+): Promise<AdminResult<{ created: number }>> {
+  return protectedMutation('page-content:ensure', async () => {
+    const { data, error } = await getSupabaseAuth()
+      .from('page_content')
+      .select('page_slug, section_slug')
+      .limit(1000);
+    if (error) return { data: null, error: error.message };
+
+    const existing = new Set(
+      (data ?? []).map((row) => `${row.page_slug}:${row.section_slug}`)
+    );
+    const missing = sections.filter(
+      (section) => !existing.has(`${section.pageSlug}:${section.sectionSlug}`)
+    );
+    if (missing.length === 0) return { data: { created: 0 }, error: null };
+
+    const publishedAt = new Date().toISOString();
+    const { error: insertError } = await getSupabaseAuth().from('page_content').insert(
+      missing.map((section) => ({
+        page_slug: section.pageSlug,
+        section_slug: section.sectionSlug,
+        body: section.fallback,
+        status: 'published',
+        published_at: publishedAt,
+      }))
+    );
+    if (insertError) return { data: null, error: insertError.message };
+    return { data: { created: missing.length }, error: null };
+  });
+}
+
 export async function updatePageContent(
   id: string,
   input: PageContentInput

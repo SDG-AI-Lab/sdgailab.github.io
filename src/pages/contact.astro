@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import CmsText, { CmsList } from '../islands/CmsText';
 
 const contactEmail = 'dina.akylbekova@undp.org';
 ---
@@ -12,9 +13,9 @@ const contactEmail = 'dina.akylbekova@undp.org';
     <section class="band" id="contact-hero">
       <div class="wrap">
         <div class="band-head reveal">
-          <h1>Leave a request, or just email us directly.</h1>
+          <h1><CmsText client:load page="contact" section="heading" /></h1>
           <div class="band-head-copy">
-            <p>Tell us what you’re trying to solve and we’ll follow up.</p>
+            <p><CmsText client:load page="contact" section="intro" /></p>
             <div class="contact-email">
               <a class="contact-email-link" href={`mailto:${contactEmail}`}
                 >{contactEmail}</a
@@ -72,16 +73,10 @@ const contactEmail = 'dina.akylbekova@undp.org';
             </form>
           </div>
           <aside class="reveal" aria-label="Ways to work with us">
-            <span class="contact-side-label">Ways to work with us</span><ul
-              class="engage-list"
+            <span class="contact-side-label"
+              ><CmsText client:load page="contact" section="ways-label" /></span
             >
-              <li>
-                Co-develop AI, GIS and data tools with our development team
-              </li>
-              <li>Commission research, white papers or technical advisory</li>
-              <li>Train your staff through bootcamps and fellowships</li>
-              <li>Recruit vetted AI, data science and GIS talent</li>
-            </ul>
+            <CmsList client:load page="contact" section="ways-items" className="engage-list" />
           </aside>
         </div>
       </div>
@@ -310,7 +305,7 @@ const contactEmail = 'dina.akylbekova@undp.org';
       margin-bottom: 10px;
       display: block;
     }
-    .marina-contact .engage-list {
+    .marina-contact :global(.engage-list) {
       display: flex;
       flex-direction: column;
       gap: 0;
@@ -318,7 +313,7 @@ const contactEmail = 'dina.akylbekova@undp.org';
       padding: 0;
       list-style: none;
     }
-    .marina-contact .engage-list li {
+    .marina-contact :global(.engage-list) li {
       display: flex;
       align-items: flex-start;
       gap: 13px;
@@ -327,10 +322,10 @@ const contactEmail = 'dina.akylbekova@undp.org';
       padding: 10px 0;
       border-bottom: 1px solid var(--soft);
     }
-    .marina-contact .engage-list li:last-child {
+    .marina-contact :global(.engage-list) li:last-child {
       border-bottom: none;
     }
-    .marina-contact .engage-list li::before {
+    .marina-contact :global(.engage-list) li::before {
       content: '✓';
       display: grid;
       place-items: center;

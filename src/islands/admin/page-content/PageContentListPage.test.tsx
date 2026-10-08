@@ -8,11 +8,13 @@ const {
   listPageContentMock,
   archivePageContentMock,
   deletePageContentMock,
+  ensureCatalogPageSectionsMock,
   showToastMock,
 } = vi.hoisted(() => ({
   listPageContentMock: vi.fn(),
   archivePageContentMock: vi.fn(),
   deletePageContentMock: vi.fn(),
+  ensureCatalogPageSectionsMock: vi.fn(),
   showToastMock: vi.fn(),
 }));
 
@@ -22,6 +24,7 @@ vi.mock('../../../lib/admin-queries', () => ({
   listPageContent: listPageContentMock,
   archivePageContent: archivePageContentMock,
   deletePageContent: deletePageContentMock,
+  ensureCatalogPageSections: ensureCatalogPageSectionsMock,
 }));
 
 vi.mock('../layout/Toast', () => ({
@@ -66,6 +69,7 @@ describe('PageContentListPage', () => {
     });
     archivePageContentMock.mockResolvedValue({ error: null });
     deletePageContentMock.mockResolvedValue({ error: null });
+    ensureCatalogPageSectionsMock.mockResolvedValue({ data: { created: 0 }, error: null });
 
     container = document.createElement('div');
     document.body.appendChild(container);
@@ -110,7 +114,9 @@ describe('PageContentListPage', () => {
 
     act(() => latestTableProps.onDelete('content-1'));
 
-    const confirmButton = container.querySelector('button') as HTMLButtonElement;
+    const confirmButton = Array.from(container.querySelectorAll('button')).find((button) =>
+      button.textContent?.includes('Confirm Delete')
+    ) as HTMLButtonElement;
 
     await act(async () => {
       confirmButton.click();

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import CmsText from '../islands/CmsText';
 import TeamRoster from '../islands/TeamRoster';
 ---
 
@@ -11,7 +12,7 @@ import TeamRoster from '../islands/TeamRoster';
     <section class="band" id="team">
       <div class="wrap">
         <div class="band-head reveal">
-          <h1>Six working groups, one lab.</h1>
+          <h1><CmsText client:load page="team" section="heading" /></h1>
         </div>
         <TeamRoster client:load />
       </div>

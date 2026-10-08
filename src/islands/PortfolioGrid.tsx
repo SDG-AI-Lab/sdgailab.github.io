@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { loadPageCopy } from '../lib/pageCopy';
+import { sectionFallback } from '../lib/pageSections';
 import { FOCUS_LABELS, toFocus, type FocusCategory } from '../lib/projectFocus';
 import { getPublishedProjects } from '../lib/queries';
 import { withBase } from '../lib/url';
@@ -159,6 +161,8 @@ export default function PortfolioGrid() {
   const [countryFilter, setCountryFilter] = useState('all');
   const [yearFilter, setYearFilter] = useState('all');
   const [openFilter, setOpenFilter] = useState<OpenFilter>(null);
+  const [headingTemplate, setHeadingTemplate] = useState(() => sectionFallback('projects', 'heading'));
+  const [intro, setIntro] = useState(() => sectionFallback('projects', 'intro'));
   const toolbarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -178,6 +182,22 @@ export default function PortfolioGrid() {
         if (!cancelled) setLoading(false);
       });
 
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    loadPageCopy('projects')
+      .then((copy) => {
+        if (cancelled) return;
+        if (copy.heading?.trim()) setHeadingTemplate(copy.heading.trim());
+        if (copy.intro?.trim()) setIntro(copy.intro.trim());
+      })
+      .catch(() => {
+        /* Keep the built-in fallback copy. */
+      });
     return () => {
       cancelled = true;
     };
@@ -242,15 +262,15 @@ export default function PortfolioGrid() {
     <>
       <div className="band-head reveal">
         <h1>
-          {loading
-            ? 'Products, seven years of delivery.'
-            : `${cards.length} ${cards.length === 1 ? 'product' : 'products'}, seven years of delivery.`}
+          {(loading
+            ? headingTemplate.replace('{count}', 'Products')
+            : headingTemplate.replace(
+                '{count}',
+                `${cards.length} ${cards.length === 1 ? 'product' : 'products'}`
+              )
+          ).replace(/\s+/g, ' ').trim()}
         </h1>
-        <p className="desc">
-          Explore a range of projects addressing real-world challenges across different focus areas.
-          Each case highlights the problem, the solution delivered, and where it runs. Filter by focus
-          area, country or year, then open a card to explore the full story.
-        </p>
+        <p className="desc">{intro}</p>
       </div>
 
       <div className="portfolio-toolbar reveal" ref={toolbarRef}>

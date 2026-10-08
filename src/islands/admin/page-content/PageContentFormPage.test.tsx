@@ -158,14 +158,14 @@ describe('PageContentFormPage', () => {
       root.render(<PageContentFormPage />);
     });
 
-    const pageSlug = container.querySelector('#page-slug') as HTMLInputElement;
-    const sectionSlug = container.querySelector('#section-slug') as HTMLInputElement;
+    const pageSlug = container.querySelector('#page-slug') as HTMLSelectElement;
+    const sectionSlug = container.querySelector('#section-slug') as HTMLSelectElement;
     const body = container.querySelector('textarea[aria-label="Content *"]') as HTMLTextAreaElement;
     const form = container.querySelector('form') as HTMLFormElement;
 
     await act(async () => {
       setInputValue(pageSlug, 'about');
-      setInputValue(sectionSlug, 'mission');
+      setInputValue(sectionSlug, 'intro-body');
       setInputValue(body, '   ');
     });
 
@@ -183,15 +183,15 @@ describe('PageContentFormPage', () => {
       root.render(<PageContentFormPage />);
     });
 
-    const pageSlug = container.querySelector('#page-slug') as HTMLInputElement;
-    const sectionSlug = container.querySelector('#section-slug') as HTMLInputElement;
+    const pageSlug = container.querySelector('#page-slug') as HTMLSelectElement;
+    const sectionSlug = container.querySelector('#section-slug') as HTMLSelectElement;
     const body = container.querySelector('textarea[aria-label="Content *"]') as HTMLTextAreaElement;
     const status = container.querySelector('select[aria-label="Status"]') as HTMLSelectElement;
     const form = container.querySelector('form') as HTMLFormElement;
 
     await act(async () => {
       setInputValue(pageSlug, 'about');
-      setInputValue(sectionSlug, 'mission');
+      setInputValue(sectionSlug, 'intro-body');
       setInputValue(body, 'Mission content');
       setInputValue(status, 'published');
     });
@@ -203,7 +203,7 @@ describe('PageContentFormPage', () => {
 
     expect(createPageContentMock).toHaveBeenCalledWith({
       page_slug: 'about',
-      section_slug: 'mission',
+      section_slug: 'intro-body',
       body: 'Mission content',
       status: 'published',
     });
@@ -215,7 +215,7 @@ describe('PageContentFormPage', () => {
     getPageContentByIdMock.mockResolvedValue({
       data: {
         page_slug: 'contact',
-        section_slug: 'hero',
+        section_slug: 'intro',
         body: 'Old content',
         status: 'draft',
       },
@@ -245,7 +245,7 @@ describe('PageContentFormPage', () => {
 
     expect(updatePageContentMock).toHaveBeenCalledWith('content-42', {
       page_slug: 'contact',
-      section_slug: 'hero',
+      section_slug: 'intro',
       body: 'Updated content',
       status: 'published',
     });

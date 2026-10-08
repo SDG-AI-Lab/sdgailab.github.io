@@ -1,6 +1,7 @@
 ---
 import { withBase } from '../lib/url';
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import CmsText, { CmsList } from '../islands/CmsText';
 const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
 ---
 
@@ -13,45 +14,23 @@ const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
       <div class="wrap">
         <div class="band-head reveal">
           <h2>
-            Our areas of expertise — delivering solutions across six domains.
+            <CmsText client:load page="expertise" section="heading" />
           </h2>
         </div>
 
         <div class="focus-grid">
           <div class="focus-card reveal tilt" id="nlp" style="--sdg:#00689D;">
             <span class="focus-idx">01</span>
-            <h3>Natural Language Processing</h3>
-            <p>
-              Agentic AI and machine learning that turn complex public data into
-              actionable insight — supporting transparency and decision-making
-              across government sectors.
-            </p>
-            <ul class="proj-list">
-              <li>AI for Tourism Platform</li>
-              <li>Public Finance Simplification App</li>
-              <li>Audit Recommendation Tracking Tool</li>
-              <li>SupTech for Fair Digital Finance</li>
-              <li>AI-Powered Knowledge Base</li>
-              <li>UNDP CPD Analyzer</li>
-              <li>UN Social Listening</li>
-            </ul>
+            <h3><CmsText client:load page="expertise" section="nlp-title" /></h3>
+            <p><CmsText client:load page="expertise" section="nlp-body" /></p>
+            <CmsList client:load page="expertise" section="nlp-items" className="proj-list" />
           </div>
 
           <div class="focus-card reveal tilt" id="gis" style="--sdg:#3F7E44;">
             <span class="focus-idx">02</span>
-            <h3>GIS / Remote Sensing</h3>
-            <p>
-              Satellite imagery and geospatial intelligence for climate
-              resilience and sustainable development, from vulnerability mapping
-              to land-use forecasting.
-            </p>
-            <ul class="proj-list">
-              <li>Illegal Dumpsites Detection</li>
-              <li>Deforestation Monitoring &amp; Prediction</li>
-              <li>Digital Social Vulnerability Index</li>
-              <li>Advanced Land Use Analysis</li>
-              <li>Coral Reef Health Monitoring &amp; Insurance</li>
-            </ul>
+            <h3><CmsText client:load page="expertise" section="gis-title" /></h3>
+            <p><CmsText client:load page="expertise" section="gis-body" /></p>
+            <CmsList client:load page="expertise" section="gis-items" className="proj-list" />
           </div>
 
           <div
@@ -60,20 +39,9 @@ const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
             style="--sdg:#FF3A21;"
           >
             <span class="focus-idx">03</span>
-            <h3>Digital Skills Development</h3>
-            <p>
-              Capacity-building programmes equipping youth and professionals
-              with AI, data science and entrepreneurship skills through hands-on
-              fellowships.
-            </p>
-            <ul class="proj-list">
-              <li>Frontier &amp; Future Tech Leaders Programme</li>
-              <li>Innovation Campus</li>
-              <li>Game Development Bootcamps</li>
-              <li>Data Science Fellowship</li>
-              <li>Volunteer Data Scientists Initiative</li>
-              <li>Digital Solutions for SDGs (DS4SDGs)</li>
-            </ul>
+            <h3><CmsText client:load page="expertise" section="skills-title" /></h3>
+            <p><CmsText client:load page="expertise" section="skills-body" /></p>
+            <CmsList client:load page="expertise" section="skills-items" className="proj-list" />
           </div>
 
           <div
@@ -82,18 +50,9 @@ const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
             style="--sdg:#FD9D24;"
           >
             <span class="focus-idx">04</span>
-            <h3>Resilience</h3>
-            <p>
-              Disaster management and response tech — early warnings, real-time
-              data, and coordinated volunteer support to save lives and reduce
-              impact.
-            </p>
-            <ul class="proj-list">
-              <li>Frontier Technologies Radar for DRR (FTR4DRR)</li>
-              <li>Tech Volunteers for Resilience (Tech4R)</li>
-              <li>Madagascar Multi-Hazard Early Warning System</li>
-              <li>Earthquake Safety Routing</li>
-            </ul>
+            <h3><CmsText client:load page="expertise" section="resilience-title" /></h3>
+            <p><CmsText client:load page="expertise" section="resilience-body" /></p>
+            <CmsList client:load page="expertise" section="resilience-items" className="proj-list" />
           </div>
 
           <div
@@ -102,17 +61,9 @@ const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
             style="--sdg:#DD1367;"
           >
             <span class="focus-idx">05</span>
-            <h3>FinTech &amp; Digital Finance</h3>
-            <p>
-              AI and supervisory technology that make financial services more
-              accessible, supporting regulators on consumer protection and
-              inclusion.
-            </p>
-            <ul class="proj-list">
-              <li>SupTech for Fair Digital Finance</li>
-              <li>Public Finance Simplification App</li>
-              <li>Audit Recommendation Tracking Tool</li>
-            </ul>
+            <h3><CmsText client:load page="expertise" section="fintech-title" /></h3>
+            <p><CmsText client:load page="expertise" section="fintech-body" /></p>
+            <CmsList client:load page="expertise" section="fintech-items" className="proj-list" />
           </div>
 
           <div
@@ -121,17 +72,9 @@ const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
             style="--sdg:#7E57C2;"
           >
             <span class="focus-idx">06</span>
-            <h3>Research &amp; Advisory</h3>
-            <p>
-              Technical assessments, white papers, digital solution development,
-              and private-sector partnership facilitation.
-            </p>
-            <ul class="proj-list">
-              <li>Academic Papers &amp; White Papers</li>
-              <li>Project Briefs &amp; Terms of Reference</li>
-              <li>Open Datasets</li>
-              <li>Partnership Agreements</li>
-            </ul>
+            <h3><CmsText client:load page="expertise" section="advisory-title" /></h3>
+            <p><CmsText client:load page="expertise" section="advisory-body" /></p>
+            <CmsList client:load page="expertise" section="advisory-items" className="proj-list" />
           </div>
         </div>
       </div>
@@ -140,7 +83,7 @@ const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
     <section class="band">
       <div class="wrap">
         <div class="band-head reveal" style="margin-bottom:44px;">
-          <h2>What some of this looks like once it's running.</h2>
+          <h2><CmsText client:load page="expertise" section="examples-heading" /></h2>
         </div>
         <div class="screen-grid reveal">
           <a class="screen-card" href={withBase('/expertise#nlp')}>
@@ -444,7 +387,7 @@ const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
       --rd: 60ms;
     }
 
-    .marina-focus-page .proj-list {
+    .marina-focus-page :global(.proj-list) {
       list-style: none;
       margin-top: 16px;
       padding-top: 16px;
@@ -453,7 +396,7 @@ const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
       flex-wrap: wrap;
       gap: 8px 10px;
     }
-    .marina-focus-page .proj-list li {
+    .marina-focus-page :global(.proj-list) :global(li) {
       font-size: 0.76rem;
       color: var(--text-dim);
       background: var(--bg-raised);
@@ -461,7 +404,7 @@ const marinaAsset = (path: string) => `https://sdg-dark.netlify.app/${path}`;
       border-radius: 100px;
       padding: 5px 12px;
     }
-    .marina-focus-page .proj-list li:has(.proj-tag-link) {
+    .marina-focus-page :global(.proj-list) :global(li):has(.proj-tag-link) {
       padding: 0;
       background: transparent;
       border-color: var(--sdg, var(--teal));

@@ -286,6 +286,27 @@ export async function getPublishedEvolutionTimeline(): Promise<
   });
 }
 
+export async function getPublishedPageCopy(
+  pageSlug: string
+): Promise<QueryResult<Record<string, string>>> {
+  return withPublicCache(`page-copy:${pageSlug}`, async () => {
+    if (!isSupabaseConfigured) return { data: {}, error: null };
+    const { data, error } = await getSupabase()
+      .from('page_content')
+      .select('section_slug, body')
+      .eq('page_slug', pageSlug)
+      .eq('status', 'published')
+      .limit(PUBLIC_LIST_MAX);
+
+    if (error) return { data: {}, error: error.message };
+    const copy: Record<string, string> = {};
+    for (const row of data ?? []) {
+      if (row.section_slug && row.body) copy[row.section_slug] = row.body;
+    }
+    return { data: copy, error: null };
+  });
+}
+
 export async function getPageContent(
   pageSlug: string,
   sectionSlug: string

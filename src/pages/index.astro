@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import CmsText, { CmsLines } from '../islands/CmsText';
 import PartnerLogos from '../islands/PartnerLogos';
 import { withBase } from '../lib/url';
 
@@ -87,18 +88,16 @@ const impactStats = [
         </p> -->
         <div class="marina-live-hero-top">
           <h1 id="home-hero-heading">
-            <span class="marina-live-title-line">Digital technologies</span
-            ><span class="marina-live-title-line">for the</span
-            ><span class="marina-live-title-line">Sustainable</span
-            ><span class="marina-live-title-line">Development Goals.</span>
+            <CmsLines
+              client:load
+              page="home"
+              section="hero-title"
+              lineClass="marina-live-title-line"
+            />
           </h1>
         </div>
         <div class="marina-live-hero-sub">
-          <p class="lede">
-            The SDG AI Lab helps UNDP units and development partners turn
-            emerging technologies into practical solutions for real-world
-            development challenges.
-          </p>
+          <CmsText client:load page="home" section="hero-intro" as="p" className="lede" />
         </div>
         <div
           class="marina-live-gallery reveal"
@@ -133,21 +132,19 @@ const impactStats = [
             }
           </div>
         </div>
-        <p class="marina-live-hero-note">
-          A joint initiative of the <strong
-            >UNDP BPPS Data, AI &amp; Innovation Hub</strong
-          > and the <strong>Sustainable Finance Hub</strong>, hosted under
-          ICPSD.
-        </p>
+        <CmsText
+          client:load
+          page="home"
+          section="hero-note"
+          as="p"
+          className="marina-live-hero-note"
+          rich
+        />
       </div>
     </section>
     <section class="marina-live-mission">
       <div class="marina-live-wrap reveal">
-        <p>
-          We believe technology only counts once it's <strong
-            >running inside the institution that owns the problem.</strong
-          >
-        </p>
+        <CmsText client:load page="home" section="mission" as="p" rich />
       </div>
     </section>
     <section class="marina-live-band" aria-label="Impact indicators">
@@ -179,7 +176,7 @@ const impactStats = [
     >
       <div class="marina-live-wrap">
         <h2 id="partners-heading" class="reveal">
-          Who we build with.
+          <CmsText client:load page="home" section="partners-heading" />
         </h2>
         <div class="reveal">
           <PartnerLogos client:load variant="home" />

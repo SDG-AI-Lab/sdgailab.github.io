@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import CmsText from '../islands/CmsText';
 import ResearchOutputs from '../islands/ResearchOutputs';
 ---
 
@@ -8,8 +9,8 @@ import ResearchOutputs from '../islands/ResearchOutputs';
     <section class="research-band" aria-labelledby="research-heading">
       <div class="marina-live-wrap">
         <div class="research-heading reveal">
-          <h1 id="research-heading">Key outputs from technical assessments, advisory work, and partnership facilitation.</h1>
-          <p class="research-intro">Explore the Lab&rsquo;s outputs across technical assessments, advisory work, and partnership facilitation. Filter by format or year to focus on the materials most relevant to your work.</p>
+          <h1 id="research-heading"><CmsText client:load page="research" section="heading" /></h1>
+          <CmsText client:load page="research" section="intro" as="p" className="research-intro" />
         </div>
 
         <ResearchOutputs client:load />
