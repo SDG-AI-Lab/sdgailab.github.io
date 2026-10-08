@@ -160,20 +160,24 @@ export default function ResearchOutputs() {
                 rel="noreferrer"
                 aria-label={`Open ${publication.title}`}
               >
-                <div className={`output-cover output-cover--${shownType}`}>
-                  {publication.cover_image_url ? (
-                    <img src={publication.cover_image_url} alt="" loading="lazy" />
-                  ) : (
+                {publication.cover_image_url ? (
+                  <div className="output-cover-tile">
+                    <img src={publication.cover_image_url} alt="" loading="lazy" decoding="async" />
+                  </div>
+                ) : (
+                  <div className={`output-cover output-cover--${shownType}`}>
                     <span>{typeCoverLabels[shownType]}</span>
-                  )}
+                  </div>
+                )}
+                <div className="output-link-body">
+                  <div className="output-meta">
+                    <span>{typeLabels[shownType]}</span>
+                    {date ? <span>{date}</span> : null}
+                  </div>
+                  <h2>{publication.title}</h2>
+                  <p>{publication.summary}</p>
+                  <span className="output-more">Open output <span aria-hidden="true">→</span></span>
                 </div>
-                <div className="output-meta">
-                  <span>{typeLabels[shownType]}</span>
-                  {date ? <span>{date}</span> : null}
-                </div>
-                <h2>{publication.title}</h2>
-                <p>{publication.summary}</p>
-                <span className="output-more">Open output <span aria-hidden="true">→</span></span>
               </a>
             </article>
           );
